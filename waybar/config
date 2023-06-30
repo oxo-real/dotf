@@ -1,0 +1,190 @@
+{
+	"layer": "top"
+
+	,"position": "top"
+
+	//,"min-height": 20 // remove for auto height
+	,"height": 20 // remove for auto height
+
+	,"width": ""
+
+	,"spacing": -25
+
+        ,"modules-left": ["sway/workspaces"] //, "sway/window"]
+
+	,"modules-center": []
+
+	,"modules-right": ["custom/wifi", "custom/ip_ex", "custom/mac_ex", "custom/interface", "custom/mac_in", "custom/ip_in", "custom/v_rx", "custom/v_tx", "custom/rng_pool", "temperature", "custom/cpu", "custom/mem", "custom/bt", "pulseaudio", "custom/brightness", "battery", "custom/time"]
+
+	,"sway/workspaces":
+	{
+		"all-outputs": true
+		,"format": {}
+		,"max-length": 100
+		,"numeric-first": true
+	}
+
+	,"sway/window":
+	{
+		"format": "{}"
+		,"max-length": 100
+	}
+
+	,"custom/brightness":
+	{
+		"format": "{}%"
+		,"exec": "$XDG_CONFIG_HOME/code/waybar/brightness"
+		,"exec-if": "exit 0"
+		,"interval": 1
+	}
+
+	,"custom/bt":
+	{
+		"format": "{}"
+		,"exec": "$XDG_CONFIG_HOME/code/waybar/bt"
+		,"exec-if": "exit 0"
+		,"interval": 2
+	}
+
+	,"custom/time":
+	{
+		"exec": "$XDG_CONFIG_HOME/code/waybar/time"
+		,"exec-if": "exit 0"
+		,"interval": 2
+	}
+
+	,"custom/wifi":
+	{
+		"exec": "$XDG_CONFIG_HOME/code/waybar/wifi"
+		,"exec-if": "exit 0"
+		,"interval": 2
+	}
+
+	,"custom/interface":
+	{
+		"exec": "$XDG_CONFIG_HOME/code/waybar/interface"
+		,"exec-if": "exit 0"
+		,"interval": 2
+	}
+
+	,"custom/rng_pool":
+	{
+		"exec": "$XDG_CONFIG_HOME/code/waybar/rng_pool"
+		,"exec-if": "exit 0"
+		,"interval": 2
+	}
+
+	,"custom/knl_release":
+	{
+		"exec": "$XDG_CONFIG_HOME/code/waybar/knl_release"
+		,"exec-if": "exit 0"
+		,"interval": 2
+	}
+
+	,"custom/cpu":
+	{
+		"exec": "$XDG_CONFIG_HOME/code/waybar/cpu"
+		,"exec-if": "exit 0"
+		,"interval": 2
+    	}
+
+	,"custom/mem":
+	{
+		"exec": "$XDG_CONFIG_HOME/code/waybar/mem"
+		,"exec-if": "exit 0"
+		,"interval": 2
+    	}
+
+	,"custom/batt_perc":
+	{
+		"format": "{}"
+		,"exec": "$XDG_CONFIG_HOME/code/waybar/batt_perc"
+		,"exec-if": "exit 0"
+		,"interval": 2
+	}
+
+	,"battery":
+	{
+	    "interval": 5
+	    ,"states":
+	    {
+		"warning01": 79 // E-F
+	        ,"warning02": 69 // A-D
+		,"warning03": 49 // 5-9
+		,"critical": 19 // 0-4
+	    }
+	    ,"format": "{capacity}"
+	}
+
+	,"temperature":
+	{
+		"thermal-zone": 0
+		,"critical-threshold": 60
+        	,"format": "{temperatureC}`"
+		,"interval": 2
+	}
+
+	,"pulseaudio":
+	{
+		// "scroll-step": 1, // %, can be a float
+	        "format": "{volume}>"
+        	,"format-muted": "{volume}x"
+       		,"format-bluetooth": "{volume}B"
+        	,"format-bluetooth-muted": "{volume}xB"
+	}
+
+	,"custom/ip_ex":
+	{
+		"exec": "$XDG_CONFIG_HOME/code/waybar/ipex"
+		,"exec-if": "exit 0"
+		,"interval": 2
+    	}
+
+	,"custom/ip_in":
+	{
+		"exec": "$XDG_CONFIG_HOME/code/waybar/ipin"
+		,"exec-if": "exit 0"
+		,"interval": 2
+	}
+
+	,"custom/mac_ex":
+	{
+		"exec": "$XDG_CONFIG_HOME/code/waybar/macex"
+		,"exec-if": "exit 0"
+		,"interval": 2
+    	}
+
+	,"custom/mac_in":
+	{
+		"exec": "$XDG_CONFIG_HOME/code/waybar/macin"
+		,"exec-if": "exit 0"
+		,"interval": 2
+    	}
+
+	,"custom/v_rx":
+	{
+		"exec": "$XDG_CONFIG_HOME/code/waybar/vrx"
+		,"exec-if": "exit 0"
+		,"interval": 2
+        	,"states":
+		{
+			"rx_flow_0": 0
+            		,"rx_flow_low": 50
+            		,"rx_flow_high": 10000
+            	}
+    	}
+
+	,"custom/v_tx":
+	{
+		"exec": "$XDG_CONFIG_HOME/code/waybar/vtx"
+		,"exec-if": "exit 0"
+		,"interval": 2
+        	,"states":
+		{
+			"tx_flow_0": 0
+            		,"tx_flow_low": 50
+            		,"tx_flow_high": 10000
+		}
+    	}
+
+}

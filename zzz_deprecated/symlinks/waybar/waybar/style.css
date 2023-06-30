@@ -1,0 +1,394 @@
+* {
+
+	/*general block (! seems to have no specific override)*/
+    font-family:		monospace;
+    font-size:			13px;
+    border:				none;
+    border-radius:		0;
+    min-height:			0;
+
+}
+
+
+window {
+
+	/* waybar window */
+	background:			#000000;
+	opacity:			0.7;
+
+}
+
+
+#workspaces button {
+
+	/* padding: vertical horizontalpx*/
+	padding:			0 2px;
+	background-color:	#000000;
+	color:				#999999;
+
+}
+
+
+#workspaces button.visible {
+
+	background-color:	#000000;
+	color:				#cccccc;
+
+}
+
+
+#workspaces button.focused {
+
+	background-color:	#005577;
+	color:				#ffffff;
+
+}
+
+
+#workspaces button.urgent {
+
+	background-color:	#ff0000;
+	color:				#000000;
+
+}
+
+
+#window {
+
+	/* application name window */
+	/* margin: left right px */
+	margin:				0 20px;
+	color:				#cccccc;
+
+}
+
+
+/*### clock ###*/
+
+
+#clock {
+
+	color:				#ffffb6;
+	padding:			0 0px;
+
+}
+
+
+/*### battery ###*/
+
+
+#battery {
+
+	margin-right:		0px;
+	color:				#cccccc;
+
+}
+
+#battery.warning01 {
+
+    background-color:	#f87431;
+	color:				#000000;
+
+}
+
+#battery.warning02 {
+
+	padding:			0 3px;
+	color:				#000000;
+    background-color:	#ff0000;
+
+}
+
+#battery.critical {
+
+    color:				#ff0000;
+
+}
+
+#battery.critical:not(.charging) {
+
+	padding:					0 3px;
+    background-color:			#ff0000;
+    color:						#000000;
+    animation-name:				blink;
+    animation-duration:			2s;
+    animation-timing-function:	ease-in-out;
+    animation-iteration-count:	infinite;
+    animation-direction:		alternate;
+
+}
+
+@keyframes blink {
+    to {
+        background-color:		#000000;
+		color:					#ffffb6
+    }
+}
+
+#battery.charging {
+
+	color:						#7a5dc7;
+    animation-name:				pulse;
+    animation-duration:			4s;
+    animation-timing-function:	ease-in-out;
+    animation-iteration-count:	infinite;
+    animation-direction:		alternate;
+
+}
+
+@keyframes pulse {
+    to {
+        color:					#cccccc;
+    }
+}
+
+
+#custom-batt_flow {
+
+	color:				#cccccc;
+	margin-right:		8px;
+
+}
+
+
+/*### bluetooth ###*/
+
+
+#custom-bt {
+
+    color:				#96cbfe;
+	margin-right:		8px;
+
+}
+
+
+/*### backlight ###*/
+
+
+#custom-brightness {
+
+    color:				#cccccc;
+
+}
+
+
+/*### pulseaudio ###*/
+
+
+#pulseaudio {
+
+    color:				#cccccc;
+	margin-left:		8px;
+
+}
+
+
+/*### memory ###*/
+
+
+#custom-mem {
+
+	color:				#999999;
+
+}
+
+
+#custom-mem.mem_high {
+
+	color:				#999999;
+
+}
+
+
+#custom-mem.mem_half {
+
+	color:				#996300;
+
+}
+
+
+#custom-mem.mem_low {
+
+	color:				#ff0000;
+
+}
+
+
+/*### cpu ###*/
+
+
+#custom-cpu {
+
+    color:				#999999;
+	margin-right:		8px;
+
+}
+
+
+#temperature {
+
+    color: #999999;
+
+}
+
+
+#temperature.critical {
+
+	background-color: #eb4d4b;
+
+}
+
+
+#custom-knl_release {
+
+    color:				#999999;
+	margin-right:		8px;
+
+}
+
+
+#custom-rnd_pool_alert {
+
+	color:						#999999;
+	margin-right:				8px;
+	padding:					0 3px;
+    background-color:			#ff0000;
+    color:						#000000;
+    animation-name:				blink;
+    animation-duration:			4s;
+    animation-timing-function:	ease-in-out;
+    animation-iteration-count:	infinite;
+    animation-direction:		alternate;
+
+}
+
+
+/*### network ###*/
+
+
+#custom-v_rx {
+
+	color:				#cccccc;
+	margin-right:		4px;
+
+}
+
+/* [TODO]
+#custom-v_rx.rx_flow_0 {
+
+	color:				#000000;
+	margin-right:		4px;
+
+}
+
+
+#custom-v_rx.rx.flow_low {
+
+	color:				#999999;
+	margin-right:		4px;
+
+}
+
+
+#custom-v_rx.rx_flow_high {
+
+	color:				#ff0000;
+	margin-right:		4px;
+
+}
+*/
+
+
+#custom-v_tx {
+
+	color:				#cccccc;
+	margin-right:		8px;
+
+}
+
+
+/* [TODO] flow rates stylize
+ * bash must printf clean, to interpret the number with css3
+ * json or css3 must do the number format (instead of bash now with printf)
+#custom-v_tx.tx_flow_0 {
+
+	color:				#000000;
+	margin-right:		4px;
+
+}
+
+
+#custom-v_tx.tx.flow_low {
+
+	color:				#999999;
+	margin-right:		4px;
+
+}
+
+
+#custom-v_tx.tx_flow_high {
+
+	color:				#ff0000;
+	margin-right:		4px;
+
+}
+*/
+
+
+
+#custom-mac_in {
+
+	color:				#999999;
+	margin-right:		8px;
+
+}
+
+
+#custom-interface {
+
+	color:				#999999;
+	margin-right:		8px;
+
+}
+
+
+#custom-mac_ex {
+
+	color:				#999999;
+	margin-right:		8px;
+
+}
+
+
+#custom-wifi {
+
+	color:				#999999;
+	margin-right:		8px;
+
+}
+
+
+#custom-ip_ex {
+
+	color:				#0079aa;
+	margin-right:		8px;
+
+}
+
+
+#custom-ip_in {
+
+	color:				#999999;
+	margin-right:		8px;
+
+}
+
+
+/*### ? ###*/
+label:focus {
+
+    background-color:	#000000;
+	color:				#cccccc;
+
+}
+

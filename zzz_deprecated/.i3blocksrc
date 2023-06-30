@@ -1,0 +1,126 @@
+#
+##
+###    _ _____ _     _            _
+###   (_)___ /| |__ | | ___   ___| | _____ _ __ ___
+###   | | |_ \| '_ \| |/ _ \ / __| |/ / __| '__/ __|
+###  _| |___) | |_) | | (_) | (__|   <\__ \ | | (__
+### (_)_|____/|_.__/|_|\___/ \___|_|\_\___/_|  \___|
+###  _ _|_ _ ._    _  _
+### (_\/|_(_)|_)\/(_|(/_
+###   /      |  /  _|
+###
+### .i3blocksrc
+### i3blocks config file
+### (c) 2019 - 2020 cytopyge
+###
+##
+#
+
+
+command=/usr/lib/i3blocks/$BLOCK_NAME
+color=#777777
+
+[title]
+interval=persist
+separator=false
+separator_block_width=20
+align=left
+
+[wifi]
+interval=2
+separator=false
+separator_block_width=10
+
+[ipex]
+interval=15
+separator=false
+separator_block_width=8
+color=#005577
+
+[macex]
+interval=2
+separator=false
+separator_block_width=10
+
+[interface]
+interval=2
+separator=false
+separator_block_width=10
+
+[ipin]
+interval=2
+separator=false
+separator_block_width=8
+
+[macin]
+interval=2
+separator=false
+separator_block_width=10
+
+[vrx]
+interval=2
+separator=false
+separator_block_width=10
+color=#BBBBBB
+
+[vtx]
+interval=2
+separator=false
+separator_block_width=10
+color=#BBBBBB
+
+[rnd_pool_alert]
+interval=2
+separator=false
+separator_block_width=10
+
+[knl_release]
+interval=once
+separator=false
+separator_block_width=10
+
+[temp]
+interval=2
+separator=false
+separator_block_width=0
+
+[cpu]
+interval=2
+separator=false
+separator_block_width=10
+
+[mem]
+interval=2
+separator=false
+separator_block_width=10
+
+[vol]
+interval=once
+signal=1
+separator=false
+separator_block_width=0
+color=#BBBBBB
+
+[brightness]
+interval=once
+signal=1
+separator=false
+separator_block_width=0
+color=#BBBBBB
+
+[batt]
+interval=60
+separator=false
+separator_block_width=10
+color=#BBBBBB
+
+[bt]
+interval=2
+separator=false
+separator_block_width=10
+color=#96cbfe
+
+[time]
+interval=persist
+separator=false
+color=#ffffb6

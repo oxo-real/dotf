@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# for every symlink in $HOME/.dot cp -Lr the symlink to $HOME/.dot/files
+# as backup for customized dotfiles and for public presentation
+
+cp -r $HOME/.dot/files/.alacrittyrc		$(readlink $HOME/.dot/.alacrittyrc)
+cp -r $HOME/.dot/files/.emacsrc			$(readlink $HOME/.dot/.emacsrc)
+cp -r $HOME/.dot/files/.makorc			$(readlink $HOME/.dot/.makorc)
+## -r $HOME/.dot/files/.mbsyncrc		$(readlink $HOME/.dot/.mbsyncrc)
+## -r $HOME/.dot/files/.msmtprc			$(readlink $HOME/.dot/.msmtprc)
+cp -r $HOME/.dot/files/.neomuttrc		$(readlink $HOME/.dot/.neomuttrc)
+cp -r $HOME/.dot/files/.newsboatrc		$(readlink $HOME/.dot/.newsboatrc)
+cp -r $HOME/.dot/files/.nvimrc			$(readlink $HOME/.dot/.nvimrc)
+cp -r $HOME/.dot/files/.qutebrowserrc	$(readlink $HOME/.dot/.qutebrowserrc)
+cp -r $HOME/.dot/files/.swayrc			$(readlink $HOME/.dot/.swayrc)
+cp -r $HOME/.dot/files/.tmuxrc			$(readlink $HOME/.dot/.tmuxrc)
+cp -r $HOME/.dot/files/.vimrc			$(readlink $HOME/.dot/.vimrc)
+cp -r $HOME/.dot/files/.waybarrc		$(readlink $HOME/.dot/.waybarrc)
+cp -r $HOME/.dot/files/.zshrc			$(readlink $HOME/.dot/.zshrc)
+
+: '
+symlinks=$(find . -maxdepth 1 -type l)
+while IFS= read -r symlink; do
+	cp -Lr $symlink $HOME/_temp/symlinks
+done <<< "$symlinks"
+# '

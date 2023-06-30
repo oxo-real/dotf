@@ -1,0 +1,3 @@
+#!/bin/sh
+brightness=$(brightnessctl i | grep Current |  cut -d "(" -f2 | cut -d ")" -f1)
+echo $brightness

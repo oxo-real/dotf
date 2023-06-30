@@ -1,0 +1,28 @@
+#!/bin/sh
+
+if [ -d /sys/class/power_supply/BAT0 ]; then
+
+    capacity="$(cat /sys/class/power_supply/BAT0/capacity)"
+    cap="${capacity}"
+
+    bat_status="$(cat /sys/class/power_supply/BAT0/status)"
+
+    if  [ "$bat_status" = "Discharging" ]; then
+	flow="-"
+    elif [ "$bat_status" = "Charging" ]; then
+	flow="+"
+    elif [ "$bat_status" = "Full" ]; then
+	flow="="
+    else
+	flow="?"
+    fi
+
+else
+
+	# no battery present
+	# wall outlet
+    flow="-[="
+
+fi
+
+echo $cap$flow

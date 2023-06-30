@@ -1,0 +1,86 @@
+#! /usr/bin/env perl
+use 5.010;
+use warnings;
+use Time::HiRes 'time';
+
+if (-e '.perltests') {
+    my $checks = do{ local (@ARGV,$/) = '.perltests'; readline };
+    if (!defined eval $checks . ';1;') {
+        my $error = $@;
+        $error =~ s{\A(.*) at .*}{$1}ms;
+        require Test::More;
+        Test::More::diag("Result: SKIP");
+        Test::More::diag("Reason: $error");
+        Test::More::diag('Tested under Perl '
+                        . sprintf("%d.%d.%d in %0.2f sec\n", $]=~/(\d+)[.](\d\d\d)(\d*)/, 0)
+        );
+        exit;
+    }
+}
+
+my %opt;
+@ARGV =
+    grep { /^-s\S*$/ ? do{ $opt{verbosity} = -2; () } : $_ }
+    grep { /^-v\S*$/ ? do{ $opt{verbosity} =  1; () } : $_ }
+        @ARGV;
+
+{
+    package TAP::Formatter::Console::NoTimeStamp;
+    use base 'TAP::Formatter::Console';
+    sub _format_name {
+        my $self = shift;
+
+        no warnings 'once';
+        local *timer = sub { 0 };
+
+        $self->SUPER::_format_name(@_);
+    }
+}
+
+# Locate Perl 5 tests, unless explicitly specified...
+@ARGV = glob("t/*.t devt/*.t dt/*.t") unless @ARGV;
+@ARGV = glob("*.t")                   unless @ARGV;
+@ARGV = "test.pl"                     unless @ARGV || !-r "test.pl";
+
+@ARGV = map { -d $_ ? glob("$_/*.t") : $_ } @ARGV;
+
+use TAP::Harness;
+my $harness = TAP::Harness->new({
+    timer           => 1,
+    show_count      => 1,
+    color           => 1,
+    formatter_class => 'TAP::Formatter::Console::NoTimeStamp',
+    %opt,
+});
+
+require Test::More;
+Test::More::diag('Testing under Perl ' . sprintf "%d.%d.%d\n", $]=~/(\d+)[.](\d\d\d)(\d*)/);
+my @fixed_tests = fix_6tests(@ARGV);
+my $start = time;
+$harness->runtests( @fixed_tests )  if  @ARGV;
+my $duration = time - $start;
+say "Couldn't find any tests to run"     if !@ARGV;
+
+
+sub fix_6tests {
+    my @tests = @_;
+
+    for my $test (@tests) {
+        if (`grep '#\!.*rakudo' $test`) {
+            use File::Temp 'tempfile';
+
+            my ($fh, $filename) = tempfile("${test}    tmp=XXXX", UNLINK => 1);
+            say {$fh} "close(*STDIN); system('polyperl $test')";
+            close $fh;
+            $test = $filename;
+            $SIG{INT} = sub { system 'rm -rf *tmp=*'; exit };
+        }
+    }
+
+
+    return @tests;
+}
+
+Test::More::diag('Tested under Perl '
+                . sprintf("%d.%d.%d in %0.2f sec\n", $]=~/(\d+)[.](\d\d\d)(\d*)/, $duration)
+);

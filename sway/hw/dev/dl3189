@@ -1,0 +1,12 @@
+# sway specific hardware configuration
+
+## internal input devices	(identifiers)
+set $keyboard			1:1:AT_Translated_Set_2_keyboard
+set $touchpad			1267:12346:MSFT0001:00_04F3:303A_Touchpad
+
+## internal output devices
+### maximum performance		mode 1366x768 scale 1.0 pos 0 0
+output eDP-1			mode 1366x768 scale 1.0 pos 0 0
+
+## external devices
+include $XDG_CONFIG_HOME/sway/dev/ext

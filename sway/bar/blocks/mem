@@ -1,0 +1,11 @@
+#!/bin/sh
+
+mem_total=$(($(grep -i -m 1 'memtotal' /proc/meminfo | awk '{print $2}' ) / 1000))
+mem_avail=$(($(grep -i -m 1 'memavail' /proc/meminfo | awk '{print $2}') / 1000))
+#mem_free=$(($(grep -i -m 1 'memfree' /proc/meminfo | awk '{print $2}') / 1000))
+mem_avail_perc=$(( 100 * $mem_avail / $mem_total))
+#mem_free_perc=$(( 100 * $mem_free / $mem_total))
+
+#printf "$mem_avail"
+echo "$mem_avail"
+#[ ${memfreeperc} -lt 40 ] && exit 33 || exit 0

@@ -1,0 +1,6 @@
+keymap is in $XDG_CONFIG_HOME/w3m/.w3m/keymap
+custom entries:
+
+keymap	xs	COMMAND		"SHELL $XDG_CONFIG_HOME/w3m/.w3m/cgi-bin/fzf_surfraw.cgi ; GOTO /usr/lib/w3m/cgi-bin/goto_clipboard.cgi"
+keymap	XS	COMMAND		"SHELL $XDG_CONFIG_HOME/w3m/.w3m/cgi-bin/fzf_surfraw.cgi ; TAB_GOTO /usr/lib/w3m/cgi-bin/goto_clipboard.cgi"
+

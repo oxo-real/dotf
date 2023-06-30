@@ -1,0 +1,97 @@
+#
+##
+###   _ _____ _     _            _
+###  (_)___ /| |__ | | ___   ___| | _____
+###  | | |_ \| '_ \| |/ _ \ / __| |/ / __|
+###  | |___) | |_) | | (_) | (__|   <\__ \
+###  |_|____/|_.__/|_|\___/ \___|_|\_\___/
+###  _    _
+### (_)><(_)
+###
+### i3blocks ini
+### i3blocks config file
+### (c) 2019 - 2023  |  oxo
+###
+##
+#
+
+# [GitHub - vivien/i3blocks: A feed generator for text based status bars](https://github.com/vivien/i3blocks)
+
+command="$XDG_CONFIG_HOME/sway/bar/blocks/$BLOCK_NAME"
+color=#777777
+separator=false
+
+[window]
+interval=2
+separator_block_width=8
+align=left
+
+[wifi]
+interval=10
+separator_block_width=8
+
+[ipex]
+interval=10
+separator_block_width=8
+
+[macex]
+interval=10
+separator_block_width=8
+
+[interface]
+interval=10
+separator_block_width=8
+
+[macin]
+interval=10
+separator_block_width=8
+
+[ipin]
+interval=10
+separator_block_width=8
+
+[vrx]
+interval=2
+separator_block_width=8
+
+[vtx]
+interval=2
+separator_block_width=16
+
+[temp]
+interval=2
+separator_block_width=0
+
+[cpu]
+interval=2
+separator_block_width=8
+
+[mem]
+interval=2
+separator_block_width=8
+
+[bt]
+interval=2
+color=#96cbfe
+separator_block_width=0
+
+[vol]
+# TODO  signal
+interval=2
+signal=1
+separator_block_width=0
+
+[brightness]
+# TODO  signal
+interval=2
+signal=1
+separator_block_width=0
+#color=#BBBBBB
+
+[batt]
+interval=2
+separator_block_width=8
+
+[time]
+interval=2
+#color=#ffffd3

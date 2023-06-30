@@ -1,0 +1,33 @@
+#!/bin/sh
+
+# define colors
+RED='\033[0;31m' # red
+GREEN='\033[0;32m' # green
+NOC='\033[0m' # no color
+
+ip="9.9.9.9"
+
+# name active interface
+#old (did not work well with vpn tunnels)
+#i=$(ip -o -4 route show to default | awk '{print $5}')
+
+if [[ -n $(ip route show) ]]; then
+
+	i=$(ip route get $ip | awk '{print $5}')
+
+	case "$i" in
+
+		proton0)
+
+			vpn_server=$(protonvpn s | grep Server: | awk '{print $2}')
+			printf '%s\n' "$vpn_server"
+			;;
+
+		*)
+
+			printf '%s\n' "$i"
+			;;
+
+	esac
+
+fi

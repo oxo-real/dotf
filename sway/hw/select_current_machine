@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+machine_data=$XDG_CONFIG_HOME/sway/hw/machine_list
+
+
+get_current_machine_details()
+{
+    # product info
+    pi_dir='/sys/devices/virtual/dmi/id'
+    vendor=$(sudo \cat $pi_dir/chassis_vendor)
+    p_name=$(sudo \cat $pi_dir/product_name)
+    p_serial=$(sudo \cat $pi_dir/product_serial)
+    #printf "$vendor $p_name $p_serial\n"
+}
+
+
+define_machine_dictionary()
+{
+    # dictionary machine contains product_serial and machine_name
+    declare -A -g machine_name
+
+    while read line; do
+
+	serial=$(echo $line | awk '{print $1}')
+	name=$(echo $line | awk '{print $2}')
+
+	machine_name[$serial]=$name
+
+    done < $machine_data
+}
+
+
+retrieve_current_machine_name()
+{
+    current_machine_name=$(echo ${machine_name[$p_serial]})
+    printf "$current_machine_name "
+}
+
+
+update_sway_symlink()
+{
+    rm $XDG_CONFIG_HOME/sway/current
+    ln -s $XDG_CONFIG_HOME/sway/hw/dev/$current_machine_name $XDG_CONFIG_HOME/sway/current
+}
+
+
+reload_sway_de()
+{
+    sway reload
+}
+
+
+main()
+{
+    get_current_machine_details
+    define_machine_dictionary
+    retrieve_current_machine_name
+    update_sway_symlink
+    reload_sway_de
+}
+
+main

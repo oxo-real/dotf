@@ -1,0 +1,89 @@
+#!/bin/sh
+
+source $XDG_DATA_HOME/c/git/code/source/function/text_appearance
+
+if [ -d /sys/class/power_supply/BAT0 ]; then
+
+    bat_status="$(cat /sys/class/power_supply/BAT0/status | tr '[:upper:]' '[:lower:]')"
+
+    batt_perc="$(cat /sys/class/power_supply/BAT0/capacity)"
+
+    ## translate from decimal to single hexadecimal digit
+    bt_pc_015=$(echo $(( batt_perc*15/100 )))
+    batt_hex=$(echo "obase=16; ibase=10; $bt_pc_015" | bc)
+
+    # discharging - color background
+    # charging - color foregrtound
+    # E-F no color added
+    # A-D blue
+    # 8-9 yellow
+    # 5-7 magenta
+    # 0-4 red
+    hex_is_number=$(printf "$batt_hex" | grep -Eo '[0-9]')
+
+    case $bat_status in
+
+        discharging)
+	    # colored background on discharge
+	    batt_color_bg=($RED_BG $RED_BG $RED_BG $RED_BG $RED_BG $MAGENTA_BG $MAGENTA_BG $MAGENTA_BG $YELLOW_BG $YELLOW_BG)
+	    color_bg=${batt_color_bg[$batt_hex]}
+
+	    if [[ "$bt_pc_015" -le 9 ]]; then
+
+		format="${color_bg}%s${NOC}"
+
+	    elif [[ "$bt_pc_015" -ge 10 ]] && \
+		     [[ "$bt_pc_015" -le 13 ]]; then
+
+		format="${BLUE_BG}%s${NOC}"
+
+	    else
+
+		format="%s"
+
+	    fi
+
+            flow="—"
+            ;;
+
+        charging)
+	    # colored foreground on charge
+	    batt_color=($RED $RED $RED $RED $RED $MAGENTA $MAGENTA $MAGENTA $YELLOW $YELLOW)
+	    color=${batt_color[$batt_hex]}
+
+	    if [[ "$bt_pc_015" -le 9 ]]; then
+
+		format="${color}%s${NOC}"
+
+	    elif [[ "$bt_pc_015" -ge 10 ]] && \
+		     [[ "$bt_pc_015" -le 13 ]]; then
+
+		format="${BLUE}%s${NOC}"
+
+	    else
+
+		format="%s"
+
+	    fi
+
+            flow="+"
+            ;;
+
+        full)
+	    format="%s"
+
+            flow="="
+            ;;
+
+        *)
+	    format="?%s"
+
+            flow="?"
+            ;;
+
+    esac
+
+fi
+
+printf "$format" "$batt_hex"
+#printf "$format" "$batt_hex$flow"

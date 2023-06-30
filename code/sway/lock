@@ -1,0 +1,31 @@
+#!/bin/bash
+
+swaylock \
+   --daemonize		   \
+   --show-failed-attempts  \
+   --indicator-caps-lock   \
+   --scaling		   solid_color \
+   --color		   000000 \
+   --bs-hl-color	   222222 \
+   --font		   monospace \
+   --indicator-radius	   100 \
+   --indicator-thickness   10 \
+   --inside-color	   000000 \
+   --inside-clear-color    000000 \
+   --inside-ver-color	   000000 \
+   --inside-wrong-color    000000 \
+   --key-hl-color	   96cbfe \
+   --layout-text-color	   \
+   --line-uses-inside	   \
+   --line-uses-ring	   \
+   --ring-color	           080808 \
+   --ring-clear-color	   000000 \
+   --ring-ver-color	   000000 \
+   --line-ver-color	   000000 \
+   --ring-wrong-color	   000000 \
+   --separator-color	   00000000 \
+   --text-color	           ff6c60 \
+   --text-clear-color	   ffffb6 \
+   --text-ver-color	   ff73fd \
+   --text-wrong-color	   ff6c60
+   #--indicator-idle-visible

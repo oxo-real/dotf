@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+if [[ -n $(ip route show) ]]; then
+
+	## get default interface
+	i=$(ip route show to default | awk '{print $5}')
+
+	## get ipv4
+	ipv4=$(ip a show dev $i | grep -w 'inet' | grep $i | awk '{print $2}')
+
+	## get ipv6
+	ipv6=$(ip a show dev $i | grep -w 'inet6' | grep $i | awk '{print $2}')
+
+	ipin=${ipv6:="$ipv4"}
+
+	printf '%s\n' "$ipin"
+fi

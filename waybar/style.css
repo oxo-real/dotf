@@ -1,0 +1,383 @@
+*
+{
+/* general block (! seems to have no specific override) */
+    font-family:	'Source Code Pro';
+    font-style:		normal;
+    font-size:		15px;
+    border:		none;
+    border-radius:	0;
+}
+
+
+window#waybar
+{
+    /* waybar window */
+    background:		#000000;
+    opacity:		0.7;
+}
+
+
+#workspaces button
+{
+    /* padding: vertical horizontalpx */
+    /* 4 values: top bottom left right */
+    padding:		0 1px;
+    color:		#555555;
+}
+
+#workspaces button.visible
+{
+    background-color:	#000000;
+    color:		#999999;
+}
+
+#workspaces button.focused
+{
+    background-color:	#222222;
+    color:		#aaaaaa;
+    font-weight:	bold;
+}
+
+#workspaces button.urgent
+{
+    background-color:	#ff0000;
+    color:		#000000;
+}
+
+#workspaces button.hover
+{
+    background-color:	#000000;
+    /*
+    color:		#0000ff;
+    font-weight:	bold;
+    */
+}
+
+
+#window
+{
+    /* application name window */
+    /* margin: left right px */
+    margin:		0 20px;
+    color:		#cccccc;
+}
+
+
+/* ### time ### */
+
+
+#custom-time
+{
+    /*font-weight: bold;*/
+    color:		#ffffb6;
+    padding:		0 0px;
+    margin-left: 8px;
+    margin-right: 0px;
+}
+
+
+/* ### battery ### */
+
+/*
+#custom-batt_perc
+{
+    margin-right:	8px;
+    color:		#cccccc;
+}
+*/
+
+
+#battery
+{
+    margin-right:	0px;
+    color:		#cccccc;
+}
+
+#battery.warning01.charging
+{
+    color:		#98cbfe;
+}
+
+#battery.warning01:not(.charging)
+{
+    background-color:	#96cbfe;
+    color:		#000000;
+}
+
+#battery.warning02.charging
+{
+    color:		#ffffb6;
+}
+
+#battery.warning02:not(.charging)
+{
+    background-color:	#ffffb6;
+    color:		#000000;
+}
+
+#battery.warning03.charging
+{
+    color:		#ff73fd;
+}
+
+#battery.warning03:not(.charging)
+{
+    background-color:	#ff73fd;
+    color:		#000000;
+}
+
+#battery.critical.charging
+{
+    background-color:	#ff6c60;
+    color:		#ffffb6;
+}
+
+#battery.critical:not(.charging)
+{
+    padding:			0 3px;
+    background-color:		#000000;
+    color:			#ffffb6;
+    animation-name:		blink;
+    animation-duration:		2s;
+    animation-timing-function:	ease-in-out;
+    animation-iteration-count:	infinite;
+    animation-direction:	alternate;
+}
+
+@keyframes blink
+{
+    to
+	{
+        background-color:	#ff6c60;
+	color:			#000000
+	}
+}
+
+#battery.charging
+{
+    color:			#cccccc;
+    animation-name:		pulse;
+    animation-duration:		3s;
+    animation-timing-function:	ease-in;
+    animation-iteration-count:	infinite;
+    animation-direction:	normal;
+}
+
+@keyframes pulse
+{
+    to
+	{
+        color:		#ffffff;
+	}
+}
+
+
+#custom-batt_flow
+{
+    color:		#cccccc;
+    margin-right:	8px;
+}
+
+
+/*### bluetooth ###*/
+
+
+#custom-bt
+{
+    color:		#96cbfe;
+    margin-left:	8px;
+}
+
+
+/*### backlight ###*/
+
+
+#custom-brightness
+{
+    color:		#cccccc;
+}
+
+
+/*### pulseaudio ###*/
+
+
+#pulseaudio
+{
+    color:		#cccccc;
+    margin-left:	8px;
+}
+
+
+/*### memory ###*/
+
+
+#custom-mem
+{
+    color:		#999999;
+}
+
+
+/*### cpu ###*/
+
+
+#custom-cpu
+{
+    color:		#999999;
+    margin-right:	8px;
+}
+
+
+#temperature
+{
+    color:		#999999;
+}
+
+
+#temperature.critical
+{
+    padding:			0 1px;
+    background-color:		#ff0000;
+    color:			#000000;
+    animation-name:		blink;
+    animation-duration:		2s;
+    animation-timing-function:	ease-in-out;
+    animation-iteration-count:	infinite;
+    animation-direction:	alternate;
+}
+
+
+#custom-knl_release
+{
+    color:		#999999;
+    margin-right:	8px;
+}
+
+
+#custom-rnd_pool_alert
+{
+    color:			#999999;
+    margin-right:		8px;
+    padding:			0 3px;
+    background-color:		#ff0000;
+    color:			#000000;
+    animation-name:		blink;
+    animation-duration:		4s;
+    animation-timing-function:	ease-in-out;
+    animation-iteration-count:	infinite;
+    animation-direction:	alternate;
+}
+
+
+/*### network ###*/
+
+
+#custom-v_rx
+{
+    color:		#999999;
+    margin-right:	4px;
+}
+
+/* [TODO]
+#custom-v_rx.rx_flow_0
+{
+    color:		#000000;
+    margin-right:	4px;
+}
+
+
+#custom-v_rx.rx.flow_low
+{
+    color:		#999999;
+    margin-right:	4px;
+}
+
+
+#custom-v_rx.rx_flow_high
+{
+    color:		#ff0000;
+    margin-right:	4px;
+}
+*/
+
+
+#custom-v_tx
+{
+    color:		#999999;
+    margin-right:	8px;
+}
+
+
+/* [TODO] flow rates stylize
+ * bash must printf clean, to interpret the number with css3
+ * json or css3 must do the number format (instead of bash now with printf)
+#custom-v_tx.tx_flow_0
+{
+    color:		#000000;
+    margin-right:	4px;
+}
+
+
+#custom-v_tx.tx.flow_low
+{
+    color:		#999999;
+    margin-right:	4px;
+}
+
+
+#custom-v_tx.tx_flow_high
+{
+    color:		#ff0000;
+    margin-right:	4px;
+}
+*/
+
+
+
+#custom-mac_in
+{
+    color:		#999999;
+    margin-right:	8px;
+}
+
+
+#custom-interface
+{
+    color:		#999999;
+    margin-right:	8px;
+}
+
+
+#custom-mac_ex
+{
+    color:		#999999;
+    margin-right:	8px;
+}
+
+
+#custom-wifi
+{
+    color:		#999999;
+    margin-right:	8px;
+}
+
+
+#custom-ip_ex
+{
+    color:		#cccccc;
+    margin-right:	8px;
+}
+
+
+#custom-ip_in
+{
+    color:		#cccccc;
+    margin-right:	8px;
+}
+
+
+/*### ? ###*/
+label:focus
+{
+    background-color:	#000000;
+    color:		#cccccc;
+}

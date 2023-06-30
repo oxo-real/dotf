@@ -1,0 +1,270 @@
+#
+##
+##    _ _____          
+##   (_)___ / _ __ ___ 
+##   | | |_ \| '__/ __|
+##  _| |___) | | | (__ 
+## (_)_|____/|_|  \___|
+##
+##  _ _|_ _ ._    _  _
+## (_\/|_(_)|_)\/(_|(/_
+##   /      |  /  _|   
+##
+## .i3rc
+## i3 configuration file
+## Sway Wayland version
+## (c) 2018 by cytopyge
+##
+#
+
+
+## general settings ##
+
+# hardware configuration
+# https://wiki.archlinux.org/index.php/Sway#Input_devices
+# device info via:
+# swaymsg -t get_inputs
+# https://jlk.fjfi.cvut.cz/arch/manpages/man/sway-input.5
+# https://wiki.archlinux.org/index.php/Sway#Custom_keybindings
+
+## touchpad
+input "1739:30383:DLL075B:01_06CB:76AF_Touchpad" {
+	accel_profile	adaptive
+	dwt		enabled
+	natural_scroll	enabled
+	pointer_accel	1
+	tap		enabled
+}
+
+## keyboard
+input "1:1:AT_Translated_Set_2_keyboard" {
+	xkb_options	caps:escape
+}
+
+# load ~/.dot/.Xresources
+exec xrdb ~/.dot/.Xresources
+
+# fonts
+# font for window titles and bar
+font pango:xos4 Terminus 20
+
+# set terminal
+set $term termite
+
+# Mod1 = Alt key
+# Mod4 = logo key
+set $mod Mod1
+
+
+## workspace settings ##
+
+## assign workspaces
+# ws0 is named 'O', but has to be read '0'
+# with 'O' it sorts after 9, like the keyboard
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws0 "O"
+
+##switch to workspace
+bindsym $mod+1		workspace $ws1
+bindsym $mod+2		workspace $ws2
+bindsym $mod+3		workspace $ws3
+bindsym $mod+4		workspace $ws4
+bindsym $mod+5		workspace $ws5
+bindsym $mod+6		workspace $ws6
+bindsym $mod+7		workspace $ws7
+bindsym $mod+8		workspace $ws8
+bindsym $mod+9		workspace $ws9
+bindsym $mod+0		workspace $ws0
+
+## move focused container to workspace
+bindsym $mod+Shift+1	move container to workspace $ws1
+bindsym $mod+Shift+2	move container to workspace $ws2
+bindsym $mod+Shift+3	move container to workspace $ws3
+bindsym $mod+Shift+4	move container to workspace $ws4
+bindsym $mod+Shift+5	move container to workspace $ws5
+bindsym $mod+Shift+6	move container to workspace $ws6
+bindsym $mod+Shift+7	move container to workspace $ws7
+bindsym $mod+Shift+8	move container to workspace $ws8
+bindsym $mod+Shift+9	move container to workspace $ws9
+bindsym $mod+Shift+0	move container to workspace $ws0
+
+
+# workspace specific keybindings
+
+## workspace switching
+bindsym $mod+Tab 	workspace back_and_forth
+
+## workspace next previous 
+bindsym $mod+bracketright	workspace next 
+bindsym $mod+bracketleft	workspace prev 
+
+
+## 'da bar' ##
+
+# Start i3bar to display workspace bar
+bar {
+        status_command i3blocks -c ~/.dot/.i3blocksrc
+	position top
+	mode dock
+}
+
+
+## window settings ##
+
+# Disable window title bar
+default_border pixel
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# toggle touchpad device (keyboard only)
+bindsym Mod4+space	exec ~/git/code/tptoggle/tptoggle
+
+# focus doesn't follow mouse
+focus_follows_mouse	no
+
+# no mouse warping (when switching focus to a window)
+mouse_warping		none
+
+## window specific keybindings
+
+# change window focus
+# $mod (Alt)+hjkl
+bindsym $mod+h		focus left
+bindsym $mod+j		focus down
+bindsym $mod+k		focus up
+bindsym $mod+l		focus right
+
+# move focused window
+# $mod+Shift+hjkl
+bindsym $mod+Shift+h	move left
+bindsym $mod+Shift+j	move down
+bindsym $mod+Shift+k	move up
+bindsym $mod+Shift+l	move right
+
+# resize focused window
+# $mod+Control+hjkl
+bindsym $mod+Control+h	resize shrink width 5 px or 5 ppt
+bindsym $mod+Control+j	resize grow height 5 px or 5 ppt
+bindsym $mod+Control+k	resize shrink height 5 px or 5 ppt
+bindsym $mod+Control+l	resize grow width 5 px or 5 ppt
+
+# kill (quit) focused window
+bindsym $mod+Shift+q	kill
+
+# split horizontal / vertical toggle
+# new window below / aside
+bindsym $mod+t		split toggle
+
+# enter fullscreen mode for the focused window
+bindsym $mod+f		fullscreen toggle
+
+# change window layout (stacked, tabbed, toggle split)
+bindsym $mod+s		layout stacking
+bindsym $mod+w		layout tabbed
+bindsym $mod+e		layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space	floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space	focus mode_toggle
+
+
+## other keybindings ##
+
+# start terminal
+bindsym $mod+Return	exec $term
+
+
+# start rofi (dmenu) with Terminus font
+bindsym $mod+d \
+	exec rofi \
+	-modi run#window#ssh \
+	-show run\
+	-display-run "run" \
+	-display-window "wdw" \
+	-display-ssh "ssh" \
+	-location 1 \
+	-width 100 \
+	-lines 1 \
+	-columns 7 \
+	-line-margin 0 \
+	-line-padding 1 \
+	-separator-style none \
+	-font "xos4 Terminus 20" \
+	-bw 0 \
+	-matching fuzzy \
+	-disable-history \
+	-hide-scrollbar \
+	-fake-transparency \
+	-color-normal "#000000, #999999, #000000, #005577, #ffffff" \
+	-color-active "#222222, #b1b4b3, #222222, #007763, #b1b4b3" \
+	-color-urgent "#222222, #b1b4b3, #222222, #77003d, #b1b4b3" \
+	-color-window "#000000, #999999, #b1b4b3" \
+	-kb-row-select "Tab" \
+	-kb-row-tab ""
+	# no comments inside settings
+	# state: 'bg', 'fg', 'bgalt', 'hlbg', 'hlfg' \
+	# 'background', 'border', 'separator' \
+
+bindsym $mod+z		exec ~/git/code/rofi/spicules
+
+# focus the parent container
+bindsym $mod+a 		focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# reload the configuration file
+bindsym $mod+Shift+c	reload
+
+# exit window manager
+bindsym Mod4+q 		exec sh -c '[ $(echo -e "N\ny" | rofi -dmenu -show drun -i -p " E X I T ?  ") = "y" ] && sway exit' 
+
+## XF86 specific keys
+bindsym XF86MonBrightnessDown	exec brightnessctl set 5%- && pkill -RTMIN+1 i3blocks
+bindsym XF86MonBrightnessUp	exec brightnessctl set 5%+ && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioMute		exec amixer sset Master toggle && amixer sset Speaker toggle && amixer sset Headphone toggle && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioLowerVolume	exec amixer sset Master 2%- && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioRaiseVolume	exec amixer sset Master 2%+ && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioNext		exec lmc next
+bindsym XF86AudioPlay		exec lmc toggle
+bindsym XF86AudioPrev		exec lmc prev
+bindsym XF86AudioStop		exec lmc toggle
+
+
+## lock workspace ##
+bindsym Mod4+l			exec swaylock -F --color 000000
+
+## visual effects ##
+
+# wallpaper
+## solid color
+output "*" background #000000 solid_color
+## background image
+#output "*" background ~/media/images/wallpaper/<imagefile> fill
+
+
+## screenshots ##
+## https://github.com/emersion/grim
+# general sway infos:
+# https://github.com/swaywm/sway/wiki
+# https://wiki.archlinux.org/index.php/Sway
+
+## screenshot current monitor
+bindsym Print			exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') ~/media/images/scrsht/%Y%m%d_%H%M%S_scrsht.png
+## screenshot interactive selection
+bindsym --release Shift+Print	exec grim -g "$(slurp)" ~/media/images/scrsht/%Y%m%d_%H%M%S_scrsht.png
+
+## screenshot focused window, with delay
+# https://github.com/emersion/grim/issues/19
+#bindsym Mod4+Print		exec scrot -u -d 4 ~/media/scrot/%Y%m%d_%H%M%S_scrot.png

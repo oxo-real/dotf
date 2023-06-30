@@ -1,0 +1,402 @@
+#
+##
+###   _
+###  | |_ _ __ ___  _   ___  ___ __ ___
+###  | __| '_ ` _ \| | | \ \/ / '__/ __|
+###  | |_| | | | | | |_| |>  <| | | (__
+### (_)__|_| |_| |_|\__,_/_/\_\_|  \___|
+###  _ _|_ _ ._    _  _
+### (_\/|_(_)|_)\/(_|(/_
+###   /      |  /  _|
+###
+### .tmux.conf
+### tmux configuration file
+### 2019 - 2022  |  cytopyge
+###
+##
+#
+
+
+#~~~~~~~~~~~~~~~~~~~~#
+#   INITIAL SETUP    #
+#~~~~~~~~~~~~~~~~~~~~#
+
+# manual page
+# https://man.openbsd.org/OpenBSD-current/man1/tmux.1
+# hierarchical order: tmux server session window pane command
+# matches with tmux-plugin sensible
+## https://github.com/tmux-plugins/tmux-sensible
+## see also section 'plugins'
+
+
+# upgrade $TERM
+set-option -g default-terminal "tmux-256color"
+# set shell
+set-option -g default-shell ${SHELL}
+
+
+# key handling
+
+## some delay for escape key press
+## so vim is responsive inside tmux
+set-option -g -s escape-time 1
+
+## xterm keys
+## tmux will generate xterm-style function keys sequences
+set-option -g -w xterm-keys on
+
+
+# scrollback buffer
+set-option -g history-limit 100000
+
+
+# focus events enabled for terminals that support them
+set-option -g focus-events on
+
+
+# when using "grouped sessions" and multi-monitor setup
+set-option -g -w aggressive-resize on
+
+
+# base-index
+set-option -g base-index 1
+set-option -g -w pane-base-index 1
+
+
+# don't allow programs change windows names
+set-option -g allow-rename off
+
+
+# set window title
+set-option -g -w automatic-rename off
+set-option -g renumber-windows on
+set-option -g set-titles on
+
+
+# window activity monitor
+set-option -g -w monitor-activity on
+set-option -g visual-activity on
+
+
+# mouse mode
+set-option -g mouse on
+
+
+# status line (bar)
+
+## position
+set-option -g status-position top
+set-option -g status-justify left
+
+## visibility
+set-option -g status on
+
+## status messages display time
+set-option -g display-time 3000
+set-option -g display-panes-time 3000
+
+## statusline update interval
+set-option -g status-interval 2
+
+
+#~~~~~~~~~~~~~~~~~~~~#
+#   KEY BINDINGS     #
+#~~~~~~~~~~~~~~~~~~~~#
+# S Shift
+# M Alt (Meta)
+# C Ctrl
+
+# some keybinding section heads are marked:	#likesway#
+# these sections use M (instead of sway: Super_L)
+# but have further a similar keybinding
+
+# prefix-? show binded keys
+
+# => prefix or leader key: backtick (`)
+# <prefix> config
+# instead of default C-b,
+# use backtick (`) as the prefix
+unbind-key C-b
+set-option -g prefix `
+bind-key ` send-prefix
+
+
+# => tmux config reload (`r)
+bind-key r source ~/.config/tmux/.tmuxrc \; display "tmux configuration reloaded %Y%m%d_%H%M%S%z%Z"
+
+
+# vi key binding
+set-option -g status-keys vi
+set-option -g -w mode-keys vi
+
+
+# toggle status line visibility
+# [TODO] sway Super+shift+b
+#set-option M-B toggle-bar-visibility
+bind-key M-B set-option -g status off
+
+
+##### copying selection vim style
+##### http://jasonwryan.com/blog/2011/06/07/copy-and-paste-in-tmux/
+##### https://github.com/myfreeweb/dotfiles/blob/master/tmux.conf
+####bind-key Escape copy-mode		# enter copy mode; (default '[')
+####bind-key p paste-buffer			# paste; (default ']')
+####bind-key P choose-buffer 		# tmux clipboard history
+####bind-key + delete-buffer \; display-message "deleted tmux clipboard"
+##########
+##### copy to tmux / system clipboard
+####bind-key < run-shell "tmux set-buffer -- \"$(xsel -o -b)\"" \; \
+#### display-message "copy to tmux clipboard"
+####bind-key > run-shell 'tmux show-buffer | xsel -i -b' \; \
+#### display-message "copy to system clipboard"
+##########
+##### https://shapeshed.com/custom-vim-bindings-in-tmux-2-4/
+##### https://github.com/tmux/tmux/issues/754#issuecomment-303156000
+##### https://stackoverflow.com/a/40902312
+##### rectangle-toggle (visual block mode) hit v then C-v
+##########
+
+# select
+## visual mode
+bind-key -T copy-mode-vi v send-keys -X begin-selection; \
+## visual line mode
+bind-key -T copy-mode-vi V send-keys -X select-line; \
+## visual block mode
+bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle; \
+### change block size
+bind-key -T choice-mode-vi h send-keys -X tree-collapse ; \
+bind-key -T choice-mode-vi l send-keys -X tree-expand ; \
+bind-key -T choice-mode-vi H send-keys -X tree-collapse-all ; \
+bind-key -T choice-mode-vi L send-keys -X tree-expand-all ; \
+
+####bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe "xclip -in -selection clipboard"; \
+####bind-key -T copy-mode-vi y send-keys -X copy-pipe "xclip -in -selection clipboard"
+#####[TODO] issue base64 text showup
+bind -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "xclip -i -f -selection primary | xclip -i -selection clipboard"
+
+#bind-key -T copy-mode-vi 'y' send-keys -X copy-pipe-and-cancel "pbcopy"
+
+# => Search (`/)
+bind-key / copy-mode \; send-key ?
+
+
+# windows
+#	|_	panes
+# tmux has windows (workspaces) with one or more panes inside them
+# top left corner of the tmux screen shows available windows (numbers)
+
+
+# pane split keys in pwd
+## undesired default bindings ''' & '%'
+unbind-key "'"
+unbind-key "%"
+## => create pane aside (`\)
+bind-key '\' split-window -h -c "#{pane_current_path}"
+## => create pane below (`-)
+bind-key '-' split-window -v -c "#{pane_current_path}"
+
+
+# new window in pwd				#likesway#
+bind-key '=' new-window -c "#{pane_current_path}"
+
+
+# allow the arrow key to be used immediately after changing windows
+set-option -g repeat-time 0
+
+
+# window navigation
+
+## M-Tab last window				#likesway#
+bind-key -n M-Tab last-window
+## undesired default binding L
+unbind-key L
+
+## M-'['/']' next / previous window(tabs)	#likesway#
+## undesired default binding M-- previous window
+unbind-key -n M-'-'
+bind-key -n M-[ prev
+bind-key -n M-] next
+
+## switch windows alt+number			#likesway#
+bind-key -n M-1 select-window -t 1
+bind-key -n M-2 select-window -t 2
+bind-key -n M-3 select-window -t 3
+bind-key -n M-4 select-window -t 4
+bind-key -n M-5 select-window -t 5
+bind-key -n M-6 select-window -t 6
+bind-key -n M-7 select-window -t 7
+bind-key -n M-8 select-window -t 8
+bind-key -n M-9 select-window -t 9
+bind-key -n M-0 select-window -t 0
+
+
+# M-hjkl move pane focus			#likesway#
+# christoomey/vim-tmux-navigator config
+# Smart pane switching with awareness of Vim splits.
+# See: https://github.com/christoomey/vim-tmux-navigator
+is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
+    | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
+bind-key -n 'M-h' if-shell "$is_vim" 'send-keys M-h'  'select-pane -L'
+bind-key -n 'M-j' if-shell "$is_vim" 'send-keys M-j'  'select-pane -D'
+bind-key -n 'M-k' if-shell "$is_vim" 'send-keys M-k'  'select-pane -U'
+bind-key -n 'M-l' if-shell "$is_vim" 'send-keys M-l'  'select-pane -R'
+tmux_version='$(tmux -V | sed -En "s/^tmux ([0-9]+(.[0-9]+)?).*/\1/p")'
+if-shell -b '[ "$(echo "$tmux_version < 3.0" | bc)" = 1 ]' \
+    "bind-key -n 'M-\\' if-shell \"$is_vim\" 'send-keys M-\\'  'select-pane -l'"
+if-shell -b '[ "$(echo "$tmux_version >= 3.0" | bc)" = 1 ]' \
+    "bind-key -n 'M-\\' if-shell \"$is_vim\" 'send-keys M-\\\\'  'select-pane -l'"
+bind-key -T copy-mode-vi 'M-h' select-pane -L
+bind-key -T copy-mode-vi 'M-j' select-pane -D
+bind-key -T copy-mode-vi 'M-k' select-pane -U
+bind-key -T copy-mode-vi 'M-l' select-pane -R
+bind-key -T copy-mode-vi 'M-\' select-pane -l
+
+
+# C-M-hjkl resize panes				#likesway#
+bind-key -n C-M-h resize-pane -L 5
+bind-key -n C-M-j resize-pane -D 5
+bind-key -n C-M-k resize-pane -U 5
+bind-key -n C-M-l resize-pane -R 5
+
+
+# M-f pane full screen				#likesway#
+bind-key -n M-f resize-pane -Z
+
+
+# kill
+
+## S-M-q kill pane				#likesway#
+bind-key -n M-Q kill-pane
+## for tty
+bind-key x kill-pane
+
+## S-M-x kill session				#likesway#
+bind-key -n M-X confirm-before -p "kill-session #S? (y/N)" kill-session
+## for tty
+# ?
+
+
+# move
+
+## pane to other window
+bind-key @ choose-window 'join-pane -h -t "%%"'
+
+
+## reorder panes
+bind-key \# choose-window 'break-pane -t :'
+
+
+# mouse
+
+## M-S-Space toggle mouse mode
+## M-S-Space just sends M-Space, but its	#likesway#
+bind-key -n M-Space set-option -g -w mouse
+
+
+# locking
+#[TODO]
+set-option -g lock-command vlock
+#set-option -g lock-after-time 0 # Seconds; 0 = never
+#bind-key l lock-client
+bind-key -n M-Z lock-session
+
+
+#~~~~~~~~~~~~~~~~~~~~#
+#   DESIGN CHANGES   #
+#~~~~~~~~~~~~~~~~~~~~#
+
+
+# status line (bar) design
+
+## global
+### style
+### default color
+set-option -g status-style fg=colour21,bg=colour232
+set-option -g status-left-length 30
+set-option -g status-right-length 150
+
+## left status line
+### active window tab
+set-option -g -w window-status-current-format '#[fg=colour15,bg=colour24] #I '
+#set-option -g -w window-status-current-format '#[fg=colour15,bg=blue] #I '
+### non active window tab
+set-option -g -w window-status-format '#[fg=colour248,bg=colour236] #I '
+### tab separator
+set-option -g -w window-status-separator '#[bg=colour232]'
+
+set-option -g status-left "\
+#[fg=colour7,bg=colour241]#{?client_prefix,#[bg=colour167],} #S \
+#[fg=colour15,bg=colour24]#{?window_zoomed_flag, Z ,}"
+
+# the #[fg=colour... lines look like they are commented out, but they aren't!
+
+## right status line
+set-option -g status-right "\
+#[fg=colour244, bg=colour232]#(~/.config/code/waybar/wifi) \
+#[fg=colour24, bg=colour232]#(~/.config/code/waybar/ipex) \
+#[fg=colour244, bg=colour232]#(~/.config/code/waybar/macex) \
+#[fg=colour244, bg=colour232]#(~/.config/code/waybar/interface) \
+#[fg=colour244, bg=colour232]#(~/.config/code/waybar/ipin) \
+#[fg=colour244, bg=colour232]#(~/.config/code/waybar/macin) \
+#[fg=colour244, bg=colour232]#(~/.config/code/waybar/vrx) \
+#[fg=colour244, bg=colour232]#(~/.config/code/waybar/vtx) \
+#[fg=colour244, bg=colour232]#(~/.config/code/waybar/rnd_pool_alert) \
+#[fg=colour244, bg=colour232]#(~/.config/code/waybar/knl_release) \
+#[fg=colour244, bg=colour232]#(~/.config/code/waybar/4tmux/temp)\
+#[fg=colour244, bg=colour232]#(~/.config/code/waybar/cpu) \
+#[fg=colour244, bg=colour232]#(~/.config/code/waybar/mem) \
+#[fg=colour248, bg=colour232]#(~/.config/code/waybar/brightness)%\
+#[fg=colour248, bg=colour232]#(~/.config/code/waybar/4tmux/batt)\
+#[fg=colour12, bg=colour232]#(~/.config/code/waybar/bt) \
+#[fg=colour15, bg=colour232]#(~/.config/code/waybar/time)"
+
+
+# panes
+set-option -g pane-active-border-style fg=colour24
+set-option -g pane-border-style fg=colour235
+
+
+# loud or quiet?
+set-option -g visual-activity off
+set-option -g visual-bell off
+set-option -g visual-silence off
+set-option -g bell-action none
+set-option -g -w monitor-activity off
+
+
+# messages
+set-option -g message-style fg=colour15
+set-option -g message-style bg=colour232
+
+
+#~~~~~~~~~~~~~~~~~~~~#
+#      PLUGINS	     #
+#~~~~~~~~~~~~~~~~~~~~#
+
+
+# tmux plugin manager
+## https://github.com/tmux-plugins/tpm
+#set -g @plugin 'tmux-plugins/tpm'
+
+# tmux prefix highlighter
+## https://github.com/tmux-plugins/tmux-prefix-highlight
+#set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
+
+# tmux sensible
+## https://github.com/tmux-plugins/tmux-sensible
+#set -g @plugin 'tmux-plugins/tmux-sensible'
+
+# tmux resurrect
+## https://github.com/tmux-plugins/tmux-resurrect
+## resurrect key bindings: prefix + Ctrl-s - save / r - restore
+#set -g @plugin 'tmux-plugins/tmux-resurrect'
+## resurrect processes
+#set -g @resurrect-processes 'wavemon iftop tshark iotop glances journalctl \
+#vmstat top htop'
+## resurrect vim sessions
+#set -g @resurrect-strategy-vim 'session'
+
+# Initialize TMUX plugin manager
+## (keep this line at the very bottom of tmux.conf)
+## \/\/\/\/\/\/\//\/\/\//\/\/\/\//\/\/\/\/\/\//\/\/
+#run -b '~/.config/tmux/plugins/tpm/tpm'

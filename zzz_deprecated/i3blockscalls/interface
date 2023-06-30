@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# define colors
+RED='\033[0;31m' # red
+GREEN='\033[0;32m' # green
+NOC='\033[0m' # no color
+
+
+# name active interface
+i=$(ip route get 9.9.9.9 | awk '{print $5}')
+#old (did not work well with vpn tunnels)
+#i=$(ip -o -4 route show to default | awk '{print $5}')
+
+
+if [ ! -z "$i" ]; then
+    echo $i
+fi

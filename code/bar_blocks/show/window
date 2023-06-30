@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+#source $XDG_DATA_HOME/c/git/code/source/function/text_appearance
+
+## active node (window)
+name=$(swaymsg -t get_tree | jq '.. | (.nodes? // empty)[] | select(.focused == true).name? // empty' | sed 's/"//g' | sed 's/null//')
+workspace=$(swaymsg -t get_tree | jq '.nodes[].current_workspace' | sed 's/"//g' | sed 's/null//')
+pid=$(swaymsg -t get_tree | jq '.. | (.nodes? // empty)[] | select(.focused == true).pid? // empty')
+
+# NOTICE: the eol is important for i3blocks
+if [[ -n $pid ]]; then
+
+    printf "%s  %s  %s  \n" "$name" $workspace $pid
+
+fi
+#printf "${BOLD}%s${NOC}  %s  %s  \n" "$name" $workspace $pid
+
+#swaymsg -t subscribe -m '["window"]' | \
+#    jq --unbuffered -M -r -c '"\(.container.name) \(.container.id) \(.container.pid)"'
+##\ | awk '{printf "%s %03i %07i\n", $1, $2, $3}'

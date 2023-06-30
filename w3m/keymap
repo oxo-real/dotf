@@ -1,0 +1,671 @@
+#
+##
+### __        _______ __  __   _  __
+### \ \      / /___ /|  \/  | | |/ /___ _   _ _ __ ___   __ _ _ __
+###  \ \ /\ / /  |_ \| |\/| | | ' // _ \ | | | '_ ` _ \ / _` | '_ \
+###   \ V  V /  ___) | |  | | | . \  __/ |_| | | | | | | (_| | |_) |
+###    \_/\_/  |____/|_|  |_| |_|\_\___|\__, |_| |_| |_|\__,_| .__/
+###                                     |___/                |_|
+###  _    _
+### (_)><(_)
+### after gotbletu; many thanks
+### https://raw.githubusercontent.com/gotbletu/dotfiles_v2/master/normal_user/w3m/.w3m/keymap
+##
+#
+
+#	references:	{{{
+
+###	http://w3m.sourceforge.net/MANUAL#Key:orig
+###	http://w3m.sourceforge.net/MANUAL#Key:lynx
+
+#	}}}
+
+# key definitions:	{{{
+# see also: https://github.com/tats/w3m/blob/master/keybind.c
+
+# Ctrl		C-,	^
+# Escape	ESC-,	M-,	^[
+# Enter		C-j
+# Space		SPC,	' '
+# Tab		TAB,	^i,	^I,	C-i
+# Delete	DEL,	^?
+# Up		UP,	^[[A
+# Down		DOWN,	^[[B
+# Right		RIGHT,	^[[C
+# Left		LEFT,	^[[D
+
+#	}}}
+
+# default w3m keymap (commented out)	{{{
+
+#keymap	C-@	MARK
+#keymap	C-a	LINE_BEGIN
+#keymap	C-b	MOVE_LEFT
+#keymap	C-e	LINE_END
+#keymap	C-f	MOVE_RIGHT
+#keymap	C-g	LINE_INFO
+#keymap	C-h	HISTORY
+#keymap	TAB	NEXT_LINK
+#keymap	C-j	GOTO_LINK
+#keymap	C-k	COOKIE
+#keymap	C-l	REDRAW
+#keymap	C-m	GOTO_LINK
+#keymap	C-n	MOVE_DOWN
+#keymap	C-p	MOVE_UP
+#keymap	C-q	CLOSE_TAB
+#keymap	C-r	ISEARCH_BACK
+#keymap	C-s	ISEARCH
+#keymap	C-t	TAB_LINK
+#keymap	C-u	PREV_LINK
+#keymap	C-v	NEXT_PAGE
+#keymap	C-w	WRAP_TOGGLE
+#keymap	C-z	SUSPEND
+
+#keymap	SPC	NEXT_PAGE
+#keymap	!	SHELL
+#keymap	\"	REG_MARK
+#keymap	#	PIPE_SHELL
+#keymap	$	LINE_END
+#keymap	(	UNDO
+#keymap	)	REDO
+#keymap	+	NEXT_PAGE
+#keymap	,	LEFT
+#keymap	-	PREV_PAGE
+#keymap	.	RIGHT
+#keymap	/	SEARCH
+#keymap	:	MARK_URL
+#keymap	";"	MARK_WORD
+#keymap	<	SHIFT_LEFT
+#keymap	=	INFO
+#keymap	>	SHIFT_RIGHT
+#keymap	?	SEARCH_BACK
+#keymap	@	READ_SHELL
+#keymap	B	BACK
+#keymap	D	DOWNLOAD_LIST
+#keymap	E	EDIT
+#keymap	F	FRAME
+#keymap	G	END
+#keymap	H	HELP
+#keymap	I	VIEW_IMAGE
+#keymap	J	UP
+#keymap	K	DOWN
+#keymap	L	LIST
+#keymap	M	EXTERN
+#keymap	N	SEARCH_PREV
+#keymap	Q	EXIT
+#keymap	R	RELOAD
+#keymap	S	SAVE_SCREEN
+#keymap	T	NEW_TAB
+#keymap	U	GOTO
+#keymap	V	LOAD
+#keymap	W	PREV_WORD
+#keymap	Z	CENTER_H
+#keymap	[	LINK_BEGIN
+#keymap	]	LINK_END
+#keymap	\^	LINE_BEGIN
+#keymap	a	SAVE_LINK
+#keymap	b	PREV_PAGE
+#keymap	c	PEEK
+#keymap	g	BEGIN
+#keymap	h	MOVE_LEFT
+#keymap	i	PEEK_IMG
+#keymap	j	MOVE_DOWN
+#keymap	k	MOVE_UP
+#keymap	l	MOVE_RIGHT
+#keymap	m	MOUSE_TOGGLE
+#keymap	n	SEARCH_NEXT
+#keymap	o	OPTIONS
+#keymap	q	QUIT
+#keymap	r	VERSION
+#keymap	s	SELECT_MENU
+#keymap	u	PEEK_LINK
+#keymap	v	VIEW
+#keymap	w	NEXT_WORD
+#keymap	z	CENTER_V
+#keymap	{	PREV_TAB
+#keymap	|	PIPE_BUF
+#keymap	}	NEXT_TAB
+#
+#keymap	M-TAB	PREV_LINK
+#keymap	M-C-j	SAVE_LINK
+#keymap	M-C-m	SAVE_LINK
+#
+#keymap	M-:	MARK_MID
+#keymap	M-<	BEGIN
+#keymap	M->	END
+#keymap	M-I	SAVE_IMAGE
+#keymap	M-M	EXTERN_LINK
+#keymap	M-W	DICT_WORD_AT
+#keymap	M-a	ADD_BOOKMARK
+#keymap	M-b	BOOKMARK
+#keymap	M-c	COMMAND
+#keymap	M-e	EDIT_SCREEN
+#keymap	xe	EDIT_SCREEN
+#keymap	M-g	GOTO_LINE
+#keymap	M-k	DEFINE_KEY
+#keymap	M-l	LIST_MENU
+#keymap	M-m	MOVE_LIST_MENU
+#keymap	M-n	NEXT_MARK
+#keymap	M-o	SET_OPTION
+#keymap	M-p	PREV_MARK
+#keymap	M-s	SAVE
+#keymap	M-t	TAB_MENU
+#keymap	M-u	GOTO_RELATIVE
+#keymap	M-v	PREV_PAGE
+#keymap	M-w	DICT_WORD
+#
+#keymap	UP	MOVE_UP
+#keymap	DOWN	MOVE_DOWN
+#keymap	RIGHT	MOVE_RIGHT
+#keymap	LEFT	MOVE_LEFT
+#
+#keymap	M-[E	MENU
+#keymap	M-[L	MENU
+#keymap	M-[Z	PREV_LINK
+#
+#keymap	M-[1~	BEGIN
+#keymap	M-[2~	MENU
+#keymap	M-[4~	END
+#keymap	M-[5~	PREV_PAGE
+#keymap	M-[6~	NEXT_PAGE
+#keymap	M-[28~	MENU
+
+#	}}}
+
+# NULLify default keymap 	{{{
+
+keymap		!		NULL
+keymap		"#"		NULL
+keymap		";"		NULL
+keymap		$		NULL
+keymap		(		NULL
+keymap		)		NULL
+keymap		+		NULL
+keymap		,		NULL
+keymap		-		NULL
+keymap		.		NULL
+keymap		/		NULL
+keymap		0		NULL
+keymap		:		NULL
+keymap		<		NULL
+keymap		=		NULL
+keymap		>		NULL
+keymap		?		NULL
+keymap		@		NULL
+keymap		B		NULL
+keymap		C-@		NULL
+keymap		C-]		NULL
+keymap		C-a		NULL
+keymap		C-b		NULL
+keymap		C-d		NULL
+keymap		C-e		NULL
+keymap		C-f		NULL
+keymap		C-g		NULL
+keymap		C-h		NULL
+keymap		C-j		NULL
+keymap		C-k		NULL
+keymap		C-l		NULL
+keymap		C-m		NULL
+keymap		C-n		NULL
+keymap		C-o		NULL
+keymap		C-p		NULL
+keymap		C-q		NULL
+keymap		C-r		NULL
+keymap		C-s		NULL
+keymap		C-t		NULL
+keymap		C-u		NULL
+keymap		C-v		NULL
+keymap		C-w		NULL
+keymap		C-wH		NULL
+keymap		C-wL		NULL
+keymap		C-y		NULL
+keymap		C-z		NULL
+keymap		D		NULL
+keymap		DOWN		NULL
+keymap		E		NULL
+keymap		ESC-:		NULL
+keymap		ESC-<		NULL
+keymap		ESC->		NULL
+keymap		ESC-C-j		NULL
+keymap		ESC-C-m		NULL
+keymap		ESC-I		NULL
+keymap		ESC-M		NULL
+keymap		ESC-TAB		NULL
+keymap		ESC-W		NULL
+keymap		ESC-a		NULL
+keymap		ESC-b		NULL
+keymap		ESC-c		NULL
+keymap		ESC-e		NULL
+keymap		ESC-g		NULL
+keymap		ESC-k		NULL
+keymap		ESC-l		NULL
+keymap		ESC-m		NULL
+keymap		ESC-n		NULL
+keymap		ESC-o		NULL
+keymap		ESC-p		NULL
+keymap		ESC-s		NULL
+keymap		ESC-t		NULL
+keymap		ESC-u		NULL
+keymap		ESC-v		NULL
+keymap		ESC-w		NULL
+keymap		F		NULL
+keymap		G		NULL
+keymap		H		NULL
+keymap		I		NULL
+keymap		J		NULL
+keymap		K		NULL
+keymap		L		NULL
+keymap		LEFT		NULL
+keymap		M		NULL
+keymap		M-C-j		NULL
+keymap		N		NULL
+keymap		Q		NULL
+keymap		R		NULL
+keymap		RIGHT		NULL
+keymap		S		NULL
+keymap		SPC		NULL
+keymap		T		NULL
+keymap		TAB		NULL
+keymap		U		NULL
+keymap		UP		NULL
+keymap		V		NULL
+keymap		W		NULL
+keymap		Z		NULL
+keymap		ZQ		NULL
+keymap		ZZ		NULL
+keymap		[		NULL
+keymap		\"		NULL
+keymap		\\		NULL
+keymap		]		NULL
+keymap		^		NULL
+keymap		^[[1~		NULL
+keymap		^[[28~		NULL
+keymap		^[[2~		NULL
+keymap		^[[4~		NULL
+keymap		^[[5~		NULL
+keymap		^[[6~		NULL
+keymap		^[[E		NULL
+keymap		^[[L		NULL
+keymap		^[[Z		NULL
+keymap		a		NULL
+keymap		b		NULL
+keymap		c		NULL
+keymap		d		NULL
+keymap		f		NULL
+keymap		g		NULL
+keymap		gC-g		NULL
+keymap		gT		NULL
+keymap		gf		NULL
+keymap		gg		NULL
+keymap		gt		NULL
+keymap		h		NULL
+keymap		i		NULL
+keymap		j		NULL
+keymap		k		NULL
+keymap		l		NULL
+keymap		m		NULL
+keymap		n		NULL
+keymap		o		NULL
+keymap		q		NULL
+keymap		r		NULL
+keymap		s		NULL
+keymap		t		NULL
+keymap		u		NULL
+keymap		v		NULL
+keymap		w		NULL
+keymap		y		NULL
+keymap		z		NULL
+keymap		{		NULL
+keymap		|		NULL
+keymap		}		NULL
+
+## cytopyge added
+keymap		C-\[		NULL
+keymap		C-]		NULL
+
+#	}}}
+
+# keybinding definitions	{{{
+
+#	references:	{{{
+
+##  https://github.com/davidhalter/dotfiles/blob/master/.w3m/keymap
+##	https://github.com/tats/w3m/blob/master/doc/README.func
+
+#	}}}
+
+# in_page_navigation	{{{
+
+## page down / up
+### half
+keymap		C-d		NEXT_HALF_PAGE
+keymap		C-u     	PREV_HALF_PAGE
+### full
+keymap		C-f		NEXT_PAGE
+keymap		SPC     	NEXT_PAGE
+#keymap		pgFore  	NEXT_PAGE
+keymap		PgDn		NEXT_PAGE
+keymap		C-b     	PREV_PAGE
+#keymap		pgBack  	PREV_PAGE
+keymap		PgUp		PREV_PAGE
+
+## move cursor to
+### right
+#keymap		C-l		MOVE_RIGHT
+keymap		RIGHT   	MOVE_RIGHT
+#keymap		l       	MOVE_RIGHT	--> next page
+### left
+keymap		C-h		MOVE_LEFT
+keymap		LEFT    	MOVE_LEFT
+#keymap		h       	MOVE_LEFT	--> previous page
+### down
+keymap		j		MOVE_DOWN1
+keymap		DOWN    	MOVE_DOWN1
+### up
+keymap		k		MOVE_UP1
+keymap		UP      	MOVE_UP1
+### scroll
+keymap		C-e		DOWN
+keymap		C-y     	UP
+### beginning of the line
+keymap		0		LINE_BEGIN
+### end of the line
+keymap		$		LINE_END
+### first line
+keymap		gg		BEGIN
+### specified line number <#>
+keymap		<#>gg		GOTO_LINE
+### last line
+keymap		G		END
+### next word
+keymap		w		NEXT_WORD
+### previous word
+keymap		b		PREV_WORD
+### first hyperlink
+keymap		f		LINK_BEGIN
+### next hyperlink
+keymap		TAB		NEXT_LINK
+keymap		C-n		NEXT_LINK
+### previous hyperlink
+keymap		M-[Z		PREV_LINK
+keymap		C-p		PREV_LINK
+
+## center on
+### cursor column
+keymap		zh		CENTER_H
+### cursor line
+keymap		zz		CENTER_V
+
+#	}}}
+
+# hyperlinks and urls	{{{
+
+## list all
+keymap		gl		LIST
+## list menu
+keymap		gF		LIST_MENU
+## menu
+keymap		gf		MOVE_LIST_MENU
+## element menu
+keymap		ge		LINK_MENU
+## accesskey menu
+keymap		ga		ACCESSKEY
+## follow (new buffer)
+## keymap	ENTER		GOTO_LINK
+keymap		C-j     	GOTO_LINK
+## follow (new tab)
+keymap		F		TAB_LINK
+## xdg-open
+#keymap		]		EXTERN
+#keymap		e       	EXTERN_LINK <urlportal.sh> --> work out urlportal idea
+## show url
+### current page
+keymap		pk		PEEK
+### link
+keymap		pl		PEEK_LINK
+### image
+keymap		pi		PEEK_IMG
+
+#	}}}
+
+# images	{{{
+
+## inline image
+## view
+keymap		i		VIEW_IMAGE
+## save							-->	location?
+keymap		M-I		SAVE_IMAGE
+
+#	}}}
+
+# information	{{{
+
+## current document
+keymap		gi		INFO
+## cookies
+keymap		gc		COOKIE
+## history
+keymap		gH		HISTORY
+keymap		:h      	HISTORY
+## downloads
+keymap		gd		DOWNLOAD_LIST
+## current line
+keymap		C-g		LINE_INFO
+## url to hyperlink
+keymap		";"		MARK_URL
+## word to hyperlink
+keymap		,		MARK_WORD
+
+#	}}}
+
+# file / stream operations	{{{
+
+## open
+keymap		o		GOTO
+## open in new tab
+keymap		O		TAB_GOTO
+#keymap		gc		TAB_GOTO https://encrypted.google.com
+## open relative address
+keymap		^o		GOTO_RELATIVE
+## open relative address in new tab
+keymap		^O		TAB_GOTO_RELATIVE
+## open local file
+keymap		:e		LOAD
+## execute shell command
+keymap		@		READ_SHELL
+keymap		#		PIPE_SHELL
+## pipe current buffer through a shell command
+keymap		|		PIPE_BUF
+
+#	}}}
+
+# buffer operations	{{{
+
+## next page
+keymap		L		NEXT
+## previous page
+keymap		H		PREV
+## select buffer menu
+keymap		gh		SELECT_MENU
+## toggle source code
+keymap		gv		VIEW
+## save source (!to $PWD)
+keymap		:w		SAVE
+## save rendered document to
+keymap		w		SAVE_SCREEN
+## reload buffer
+keymap		r		RELOAD
+
+#	}}}
+
+# tab operations	{{{
+
+## tab
+### close
+#keymap		td		CLOSE_TAB	--> conflict with text entry
+keymap		ddd		CLOSE_TAB	--> conflict with text entry
+### next
+#keymap		K		NEXT_TAB
+#fix C-] (qutebrowser analogue)
+keymap		C-]		NEXT_TAB
+keymap		gt		NEXT_TAB
+### previous
+#keymap		J		PREV_TAB
+#fix C-[ (qutebrowser analogue)
+keymap		C-\[		PREV_TAB
+keymap		gT		PREV_TAB
+### menu
+keymap		gj		TAB_MENU
+### left/right
+keymap		C-wL		TAB_RIGHT
+keymap		C-wH		TAB_LEFT
+
+#	}}}
+
+# bookmarks			{{{
+
+## view
+#keymap				BOOKMARK
+## add
+#keymap				ADD_BOOKMARK
+
+#	}}}
+
+# search			{{{
+
+## next
+keymap		n		SEARCH_NEXT
+keymap		/		ISEARCH
+## previous
+keymap		N		SEARCH_PREV
+keymap		?		ISEARCH_BACK
+
+# }}}
+
+# other				{{{
+
+## general menu
+keymap		gM		MAIN_MENU
+keymap		:H		HELP
+keymap		:O		OPTIONS
+keymap		:V		VERSION
+## mouse on/off
+keymap		m		MOUSE_TOGGLE
+## reload config file
+keymap		cc		REINIT
+## commands
+keymap		::		COMMAND
+keymap		!		EXEC_SHELL
+
+# }}}
+
+# exiting w3m		{{{
+
+keymap		:q		QUIT
+keymap		ZZ		QUIT
+keymap		ZQ		EXIT
+keymap		Q		EXIT
+
+# }}}
+
+# user defined key bindings {{{
+
+## general structure
+#keymap		<key>		SHELL			<shell_script_location>
+## yank url of current page to clipboard
+keymap		yy		EXTERN			'printf %s | wl-copy'
+## yank url of active link to clipboard
+#keymap		yy		EXTERN_LINK		'printf %s | wl-copy'
+## open external image viewer
+#keymap		xi		EXTERN_LINK		'w3m -o display_image=1 -o imgdisplay=w3mimgdisplay'
+keymap		xf		EXTERN_LINK		'feh -. -x -B black -g 900x600-15+60 %s &'
+## open external video player
+keymap		xF		EXTERN_LINK		'mpv --loop --quiet --ontop --no-border --force-window --autofit=900x600 --geometry=-15+60'
+## add torrent or magnetlink
+keymap		xt		EXTERN_LINK		'transmission-remote --add'
+
+# }}}
+
+# scripts & cgi-bin	{{{
+
+# source:
+# https://github.com/felipesaa/A-vim-like-firefox-like-configuration-for-w3m
+
+## paste and go
+keymap		px		GOTO			/usr/lib/w3m/cgi-bin/goto_clipboard.cgi
+keymap		PX		TAB_GOTO		/usr/lib/w3m/cgi-bin/goto_clipboard.cgi
+keymap		pp		GOTO			/usr/lib/w3m/cgi-bin/goto_tmux_clipboard.cgi
+keymap		PP		TAB_GOTO		/usr/lib/w3m/cgi-bin/goto_tmux_clipboard.cgi
+## retore closed tabs
+keymap		u		TAB_GOTO		/usr/lib/w3m/cgi-bin/restore_tab.cgi
+keymap		C-T		TAB_GOTO		/usr/lib/w3m/cgi-bin/restore_tab.cgi
+## close tabs and save url link to file
+#keymap		d		COMMAND			"EXTERN 'echo %s >> ~/.config/w3m/restore_tab' ; CLOSE_TAB"
+#keymap		C-w		COMMAND			"EXTERN 'echo %s >> ~/.config/w3m/restore_tab' ; CLOSE_TAB"
+#open new tab
+#keymap		C-t		TAB_GOTO		https://duckduckgo.com/lite/
+#keymap		t		TAB_GOTO		https://duckduckgo.com/lite/
+#keymap		C-t		COMMAND			"TAB_GOTO https://duckduckgo.com/lite/; NEXT_LINK; GOTO_LINK"
+#keymap		t		COMMAND			"TAB_GOTO https://duckduckgo.com/lite/; NEXT_LINK; GOTO_LINK"
+
+# }}}
+
+# other {{{
+#
+# open bookmarks (surfraw) using fzf
+keymap		xb		COMMAND			"SHELL ~/.w3m/cgi-bin/fzf_bookmarks.cgi ; GOTO /usr/lib/w3m/cgi-bin/goto_clipboard_primary.cgi"
+keymap		XB      	COMMAND			"SHELL ~/.w3m/cgi-bin/fzf_bookmarks.cgi ; TAB_GOTO /usr/lib/w3m/cgi-bin/goto_clipboard_primary.cgi"
+#keymap		xb      	COMMAND			"SHELL ~/.w3m/cgi-bin/fzf_bookmarks.cgi ; GOTO /usr/lib/w3m/cgi-bin/goto_clipboard.cgi"
+#keymap		XB      	COMMAND			"SHELL ~/.w3m/cgi-bin/fzf_bookmarks.cgi ; TAB_GOTO /usr/lib/w3m/cgi-bin/goto_clipboard.cgi"
+#keymap		xb      	COMMAND			"SHELL ~/.w3m/cgi-bin/fzf_bookmarks.cgi ; GOTO /usr/lib/w3m/cgi-bin/goto_tmux_clipboard.cgi"
+#keymap		XB      	COMMAND			"SHELL ~/.w3m/cgi-bin/fzf_bookmarks.cgi ; TAB_GOTO /usr/lib/w3m/cgi-bin/goto_tmux_clipboard.cgi"
+
+# save bookmarks (surfraw)
+#keymap		xa		COMMAND			"EXTERN_LINK '(echo -n %s | xsel -b)' ; SHELL ~/.w3m/cgi-bin/save_bookmark.cgi"
+#keymap  	XA      	COMMAND       		"EXTERN '(echo -n %s | xsel -b)' ; SHELL ~/.w3m/cgi-bin/save_bookmark.cgi"
+keymap  	xa      	COMMAND       		"SHELL ~/.w3m/cgi-bin/save_bookmark_surfraw.cgi"
+#keymap  	xa      	COMMAND       		"EXTERN_LINK '(echo -n %s | xsel -b)' ; SHELL ~/.w3m/cgi-bin/save_bookmark.cgi"
+#keymap  	XA      	COMMAND       		"EXTERN '(echo -n %s | xsel -b)' ; SHELL ~/.w3m/cgi-bin/save_bookmark.cgi"
+
+keymap		xs		COMMAND	      		"SHELL $XDG_CONFIG_HOME/w3m/cgi-bin/fzf_surfraw.cgi ; GOTO /usr/lib/w3m/config_cgi-bin/goto_clipboard.cgi"
+keymap		XS		COMMAND	      		"SHELL $XDG_CONFIG_HOME/w3m/cgi-bin/fzf_surfraw.cgi ; TAB_GOTO /usr/lib/w3m/cgi-bin/goto_clipboard.cgi"
+#keymap  	xs     		COMMAND       		"SHELL ~/.w3m/cgi-bin/fzf_surfraw.cgi ; GOTO /usr/lib/w3m/cgi-bin/goto_clipboard_primary.cgi"
+#keymap  	XS     		COMMAND       		"SHELL ~/.w3m/cgi-bin/fzf_surfraw.cgi ; TAB_GOTO /usr/lib/w3m/cgi-bin/goto_clipboard_primary.cgi"
+#keymap  	xs     		COMMAND       		"SHELL ~/.w3m/cgi-bin/fzf_surfraw.cgi ; GOTO /usr/lib/w3m/cgi-bin/goto_clipboard.cgi"
+#keymap  	XS     		COMMAND       		"SHELL ~/.w3m/cgi-bin/fzf_surfraw.cgi ; TAB_GOTO /usr/lib/w3m/cgi-bin/goto_clipboard.cgi"
+#keymap  	xs     		COMMAND       		"SHELL ~/.w3m/cgi-bin/fzf_surfraw_tmux.cgi ; GOTO /usr/lib/w3m/cgi-bin/goto_tmux_clipboard.cgi"
+#keymap  	XS     		COMMAND       		"SHELL ~/.w3m/cgi-bin/fzf_surfraw_tmux.cgi ; TAB_GOTO /usr/lib/w3m/cgi-bin/goto_tmux_clipboard.cgi"
+keymap   	xx      	COMMAND       		"TAB_GOTO /usr/lib/w3m/cgi-bin/goto_tmux_clipboard.cgi"
+
+keymap  	xu      	COMMAND       		"SHELL ~/.w3m/cgi-bin/user_agent_switcher_tmux.cgi"
+keymap  	XU      	COMMAND       		"SHELL ~/.w3m/cgi-bin/user_agent_switcher.cgi"
+keymap  	xo      	COMMAND       		"SHELL ~/.w3m/cgi-bin/fzf_settings_toggle_tmux.cgi"
+keymap  	XO      	COMMAND       		"SHELL ~/.w3m/cgi-bin/fzf_settings_toggle.cgi"
+keymap  	XX      	COMMAND       		"SHELL ~/.w3m/cgi-bin/queue2ariadaemon.cgi"
+
+
+
+# https://raw.githubusercontent.com/felipesaa/A-vim-like-firefox-like-configuration-for-w3m/master/documentation/functions.txt
+# https://ntmlabs.com/w3m-tricks/
+# https://web.archive.org/web/20200226144949/https://ntmlabs.com/w3m-tricks/
+# https://vitalyparnas.com/guides/w3m/
+# https://developers.whatismybrowser.com/useragents/explore/
+# leader key = \
+keymap		\\\c		COMMAND			"SET_OPTION color=toggle ; RESHAPE"
+keymap  	\\\t    	COMMAND       		"SET_OPTION display_borders=toggle ; RESHAPE"
+keymap  	\\\i    	COMMAND       		"SET_OPTION display_image=toggle ; RELOAD"
+keymap  	\\\e    	COMMAND       		"SET_OPTION user_agent='' ; RELOAD"
+keymap  	\\\a    	COMMAND       		"SET_OPTION user_agent='Opera/9.80 (S60; SymbOS; Opera Mobi/SYB-1107071606; U; en) Presto/2.8.149 Version/11.10' ; RELOAD"
+keymap  	C-t     	COMMAND       		"TAB_GOTO https://duckduckgo.com/lite/; NEXT_LINK; GOTO_LINK"
+keymap  	t       	COMMAND       		"TAB_GOTO https://duckduckgo.com/lite/; NEXT_LINK; GOTO_LINK"
+keymap  	sg      	COMMAND       		"TAB_GOTO https://google.com; GOTO_LINE 6; NEXT_LINK; GOTO_LINK"
+keymap  	s1      	COMMAND       		"TAB_GOTO https://1337x.to; GOTO_LINE 6; NEXT_LINK; GOTO_LINK"
+keymap  	sx      	COMMAND       		"TAB_GOTO https://stackexchange.com; GOTO_LINE 7; NEXT_LINK; GOTO_LINK"
+keymap  	\\\?    	COMMAND       		"HELP; SEARCH User-Defined; CENTER_V"
+# keymap	\\\m    	COMMAND       		"SHELL 'man w3m'"
+keymap  	\\\x    	COMMAND       		"LIST; SEARCH \.torrent$; EXTERN_LINK ~/.scripts/privatescripts/addtorrent-thinkcentre"
+keymap  	\\\m    	COMMAND       		"LIST; SEARCH magnet:\?; EXTERN_LINK ~/.scripts/privatescripts/addtorrent-thinkcentre"
+
+# }}}
+
+#	}}}

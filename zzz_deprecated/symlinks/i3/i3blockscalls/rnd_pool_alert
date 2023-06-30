@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+##                 _                        _ 
+##  _ __ _ __   __| |     _ __   ___   ___ | |
+## | '__| '_ \ / _` |    | '_ \ / _ \ / _ \| |
+## | |  | | | | (_| |    | |_) | (_) | (_) | |
+## |_|  |_| |_|\__,_|____| .__/ \___/ \___/|_|
+##                 |_____|_|                  
+##  _ _|_ _ ._    _  _  
+## (_\/|_(_)|_)\/(_|(/_ 
+##   /      |  /  _|    
+##
+## rnd_pool
+## random pool entropy availability indicator
+## available entropy as a percentage of poolsize
+## (c) by cytopyge
+##
+
+#pool=$(cat /proc/sys/kernel/random/poolsize) 
+avail=$(cat /proc/sys/kernel/random/entropy_avail)
+
+#perc=$(($avail*100/$pool))
+
+if [ $avail -lt 1024 ]; then
+	printf "%.0fb\n" $avail
+fi
+
+[ ${avail} -lt 1024 ] && exit 33 || exit 0

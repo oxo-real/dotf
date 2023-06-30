@@ -1,0 +1,33 @@
+#!/bin/bash
+	
+i=$(ip -o -4 route show to default | awk '{print $5}')
+
+if [ -n $i ]; then
+	exip=$(curl -4 https://ident.me)
+	if [ "$?" -gt 0  ]; then
+		exip=$(curl -4 http://ident.me)
+	fi
+	mac_neigh_full=$(ip neigh | awk '{print $5}')
+	mac_neigh=${mac_neigh_full:(-8)}
+
+	ssid=$(iwgetid -r)	
+	chan=$(iwgetid -c | cut -d ':' -f 2)
+
+	mac_full=$(cat /sys/class/net/$i/address)
+	mac=${mac_full:(-8)}
+	ip=$(ip a show dev $i | grep 'inet ' | awk '{print $2}')
+
+	rx0=$(cat /proc/net/dev | grep $i | awk '{print $2}')
+	tx0=$(cat /proc/net/dev | grep $i | awk '{print $10}')
+
+	sleep 1
+
+	rx1=$(cat /proc/net/dev | grep $i | awk '{print $2}')
+	tx1=$(cat /proc/net/dev | grep $i | awk '{print $10}')
+
+	vrx=$(printf "%4s\n" $(( (rx1-rx0) / 1000 )) ) #kbyte/s
+	vtx=$(printf "%4s\n" $(( (tx1-tx0) / 1000 )) ) #kbyte/s
+
+echo "$ssid $chan $exip $mac_neigh $i $mac $ip $vrx $vtx" #| xargs
+
+fi

@@ -1,0 +1,15 @@
+# sway specific hardware configuration
+
+# lenovo_thinkpad_x1_carbon
+
+## internal input devices	(identifiers)
+set	$keyboard		1:1:AT_Translated_Set_2_keyboard
+set	$touchpad		1267:12793:ELAN067C:00_04F3:31F9_Touchpad
+
+## internal output devices
+### Chimei Innolux Corporation 0x1417 0x00000000
+### Available modes:		mode 1920x1200 @ 60.003 Hz
+output eDP-1			mode 1920x1200 scale 1.0 pos 0 0
+
+## external devices
+include $XDG_CONFIG_HOME/sway/hw/dev/ext

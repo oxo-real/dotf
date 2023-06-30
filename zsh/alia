@@ -1,0 +1,94 @@
+#!/bin/zsh
+
+# mitigate alias usage for command: \[command]
+
+# application behaviour
+
+## sudo with trailing space;
+## on expansion check next word for alias substitution
+## therefore also 'sudo $cmd' lets $cmd expand to alias
+alias sudo='sudo '
+
+function sudo() {
+
+    ## sudo -k cannot be aliased
+    ## therefore solution below
+    case "$1" in
+
+	-k)
+	    doas -L
+	    ;;
+
+	*)
+	    doas "$@"
+	    ;;
+
+    esac
+}
+
+alias vi='nvim'
+alias vim='nvim'
+alias view='nvim -R'
+alias vimdiff='nvim -d'
+alias e='emacs $@ &'
+alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/.tmuxrc"
+alias lsblk='lsblk -i --tree -o name,uuid,fstype,path,size,fsuse%,fsused,label,mountpoint'
+alias cal='env TERM=xterm cal'
+alias tree='tree -n --charset=unicode'
+#alias tree='env TERM=xterm-256color tree'
+alias zsh="env ZDOTDIR="$XDG_CONFIG_HOME/zsh" zsh"
+alias mpv='mpv --audio-display=no'
+
+## protect against shell command injection
+### https://security.stackexchange.com/questions/56307/can-cat-ing-a-file-be-a-potential-security-risk/56323#56323
+alias cat='cat -vE'
+
+# lessr is defined in zshrc
+alias less='lessr'
+alias man='env TERM=xterm man --pager='less''
+
+alias sr="sr -browser=$BROWSERCLI"
+alias surfraw="surfraw -browser=$BROWSER"
+
+
+# file operations
+
+alias cp='cp -avi'
+#alias cp='cp -prv'
+#alias cp='rsync -aAXv --info=ALL --human-readable'
+alias mv='mv -v'
+#alias mv='rsync -aAXv --info=ALL --human-readable && rm -rf $1'
+alias rm='trash'
+alias mkdir='mkdir -pv'
+
+
+# colors
+
+alias ls='ls -A --group-directories-first --color=auto'
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
+
+# audio
+
+# pipewire
+alias beep="pw-play $BEEP"
+# pulseaudio
+#alias beep="paplay $BEEP"
+
+# time
+alias now='date +%s'
+
+# application configuration
+
+## w3m -config is right, not --config as expected
+alias w3m="w3m -config $XDG_CONFIG_HOME/w3m/config"
+alias fim='fim --no-history'
+
+
+# network
+#alias myip='dig myip.opendns.com @resolver1.opendns.com +dnssec +short'
+alias myip='curl icanhazip.com'
+alias exip='myip'
+alias pubip='myip'

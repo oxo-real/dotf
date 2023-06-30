@@ -1,0 +1,439 @@
+#
+##
+###    _____      ____ _ _   _ _ __ ___
+###   / __\ \ /\ / / _` | | | | '__/ __|
+###  _\__ \\ V  V / (_| | |_| | | | (__
+### (_)___/ \_/\_/ \__,_|\__, |_|  \___|
+###                      |___/
+###
+###  _ _|_ _ ._    _  _
+### (_\/|_(_)|_)\/(_|(/_
+###   /      |  /  _|
+###
+### .swayrc
+### sway configuration file
+### ~/.config/sway/config
+### (c) 2018 - 2020 cytopyge
+###
+##
+#
+
+
+## general settings ##
+
+# hardware configuration
+# https://wiki.archlinux.org/index.php/Sway#Input_devices
+# device info via:
+# swaymsg -t get_inputs
+# https://jlk.fjfi.cvut.cz/arch/manpages/man/sway-input.5
+# https://wiki.archlinux.org/index.php/Sway#Custom_keybindings
+
+
+# define input device identifiers
+## swaymsg -t get_inputs
+## sudo libinput list-devices
+
+## keyboards
+### tuxedo_pulse_15
+set $keyboard		1:1:AT_Translated_Set_2_keyboard
+### xps13_9360
+#set $keyboard		1:1:AT_Translated_Set_2_keyboard
+### dell_separate_kb
+#set $keyboard		1121:16:NOVATEK_USB_KEYBOARD
+
+## touchpads
+### tuxedo_pulse_15
+set $touchpad		2362:597:UNIW0001:00_093A:0255_Touchpad
+###xps13_9360
+#set $touchpad		1739:30383:DLL075B:01_06CB:76AF_Touchpad
+### x220
+#set $touchpad		2:7:SynPS/2_Synaptics_TouchPad
+
+## touchpad
+input $touchpad {
+	accel_profile	adaptive
+	dwt				enabled
+	natural_scroll	enabled
+	pointer_accel	1
+	tap				enabled
+}
+
+## keyboard
+## caps = esc
+input $keyboard {
+	xkb_options		caps:escape,compose:ralt
+	repeat_delay	500
+	repeat_rate		20
+}
+
+#input $keyboard {
+#	xkb_options		compose:ralt
+#}
+# Right Alt as compose key
+# man xkeyboard-config
+
+
+## modkey settings (xmodmap)
+#shift       Shift_L (0x32),  Shift_R (0x3e)
+#lock        Caps_Lock (0x42)
+#control     Control_L (0x25),  Control_R (0x69)
+#mod1        Alt_L (0x40),  Meta_L (0xcd)
+#mod2        Num_Lock (0x94)
+#mod3
+#mod4        Super_R (0x86),  Super_L (0xce),  Hyper_L (0xcf)
+#mod5        ISO_Level3_Shift (0x5c),  ISO_Level3_Shift (0x6c),  Mode_switch (0x85),  Mode_switch (0xcb)
+## Mod1 = alt key
+## Mod4 = logo key
+## $mod = Mod4 when using emacs
+set $mod		Mod4
+
+
+# output devices
+# https://wiki.archlinux.org/index.php/Sway#Input_devices
+# device info via:
+# swaymsg -t get_outputs
+# output manpage via:
+# man sway-output
+
+## xps13 9360 monitor
+## output eDP-1		mode 3200x1800 scale 2.0 pos 0 1440
+
+
+## tuxedo pulse 15 laptop display:
+# Sharp Corporation LQ156M1JW01
+# maximum performance mode: 1920x1080 @ 60.042000 Hz
+output eDP-1		mode 1920x1080 scale 1.0 pos 0 0
+
+## hp z27n monitor on display port
+#output DP-1		mode 2560x1440 scale 1.0 pos 0,0
+#output DP-1		mode 1920x1200 scale 1.0 pos 0,0
+
+## hp z27n monitor on dvi
+#output DVI-I-1		mode 1920x1200 scale 1.0 pos 0,0
+
+## dell u2715h on hdmi
+#output HDMI-A-1	mode 2560x1440 scale 1.0 pos 0,0
+
+
+# wallpaper
+## background image
+#output * background 		~/_media/images/wallpaper/active fit
+## solid color
+output * background		#000000 solid_color
+
+
+# fonts
+# font for window titles and bar
+set $font 		"monospace 10"
+#set $font 		"Source Code Pro 10"
+#set $font 		"Inconsolata 11"
+#set $font 		"xos4 Terminus 10"
+font			$font
+
+
+# gaps
+gaps inner			0
+gaps outer			0
+smart_gaps			on
+bindsym $mod+Ctrl+bracketleft	gaps inner current plus 5
+bindsym $mod+Ctrl+bracketright	gaps inner current minus 5
+bindsym $mod+Ctrl+p		gaps inner current set 0; gaps outer current set 0
+
+
+# set terminal
+set $term 		alacritty
+
+
+## workspace settings ##
+
+
+# assign workspaces
+## ws0 named 'O' sorts after 9, like the keyboard
+## ws0 named '0' sorts before 1, always in the upper left corner of the screen
+
+set $ws1		"1"
+set $ws2		"2"
+set $ws3		"3"
+set $ws4		"4"
+set $ws5		"5"
+set $ws6		"6"
+set $ws7		"7"
+set $ws8		"8"
+set $ws9		"9"
+set $ws0		"O"
+set $ws-		"-"
+set $ws=		"="
+#set $wsa		"A"
+#set $wsb		"B"
+#set $wsc		"C"
+#set $wsd		"D"
+#set $wse		"E"
+#set $wsf		"F"
+
+## switch to workspace
+bindsym $mod+1		workspace $ws1
+bindsym $mod+2		workspace $ws2
+bindsym $mod+3		workspace $ws3
+bindsym $mod+4		workspace $ws4
+bindsym $mod+5		workspace $ws5
+bindsym $mod+6		workspace $ws6
+bindsym $mod+7		workspace $ws7
+bindsym $mod+8		workspace $ws8
+bindsym $mod+9		workspace $ws9
+bindsym $mod+0		workspace $ws0
+bindsym $mod+minus	workspace $ws-
+bindsym $mod+equal	workspace $ws=
+#bindsym $mod+a		workspace $wsa
+#bindsym $mod+b		workspace $wsb
+#bindsym $mod+c		workspace $wsc
+#bindsym $mod+d		workspace $wsd
+#bindsym $mod+e		workspace $wse
+#bindsym $mod+f		workspace $wsf
+
+## move focused container to workspace
+bindsym $mod+Shift+1	move container to workspace $ws1
+bindsym $mod+Shift+2	move container to workspace $ws2
+bindsym $mod+Shift+3	move container to workspace $ws3
+bindsym $mod+Shift+4	move container to workspace $ws4
+bindsym $mod+Shift+5	move container to workspace $ws5
+bindsym $mod+Shift+6	move container to workspace $ws6
+bindsym $mod+Shift+7	move container to workspace $ws7
+bindsym $mod+Shift+8	move container to workspace $ws8
+bindsym $mod+Shift+9	move container to workspace $ws9
+bindsym $mod+Shift+0	move container to workspace $ws0
+bindsym $mod+Shift+minus	move container to workspace $ws-
+bindsym $mod+Shift+equal	move container to workspace $ws=
+#bindsym $mod+Shift+a	move container to workspace $wsa
+#bindsym $mod+Shift+b	move container to workspace $wsb
+#bindsym $mod+Shift+c	move container to workspace $wsc
+#bindsym $mod+Shift+d	move container to workspace $wsd
+#bindsym $mod+Shift+e	move container to workspace $wse
+#bindsym $mod+Shift+f	move container to workspace $wsf
+
+
+# workspace specific keybindings
+
+## workspace switching
+bindsym $mod+Tab 	workspace back_and_forth
+
+## workspace next previous
+bindsym $mod+bracketright	workspace next
+bindsym $mod+bracketleft	workspace prev
+
+
+## 'da bar' ##
+
+
+# display workspace bar
+
+## swaybar
+#bar {
+#    status_command i3blocks -c ~/.dot/.i3blocksrc
+#	position top
+#	mode dock
+#	colors {
+#	background #00000088
+#	}
+#}
+#
+## hide swaybar
+#bindsym Shift+$mod+space	bar mode toggle
+
+## waybar
+bar {
+	swaybar_command	waybar
+}
+
+## hide waybar
+bindsym Shift+$mod+b	exec killall -SIGUSR1 waybar
+
+## when bar mode off the floating modifier peeks to the bar
+## bar peek	        $mod
+
+
+## window settings ##
+
+
+# Disable window title bar
+default_border pixel	1
+
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+## not needed under wayland (sway wm)
+floating_modifier	$mod
+
+
+# toggle touchpad device (keyboard only)
+bindsym $mod+Shift+space	input $touchpad \
+			events toggle enabled disabled
+
+
+# focus doesn't follow mouse
+focus_follows_mouse	no
+
+
+# no mouse warping (when switching focus to a window)
+mouse_warping		none
+
+
+## window specific keybindings
+
+
+# change window focus
+# $mod+hjkl
+bindsym $mod+h		focus left
+bindsym $mod+j		focus down
+bindsym $mod+k		focus up
+bindsym $mod+l		focus right
+
+
+# move focused window
+# $mod+Shift+hjk
+bindsym $mod+Shift+h	move left
+bindsym $mod+Shift+j	move down
+bindsym $mod+Shift+k	move up
+bindsym $mod+Shift+l	move right
+
+
+# resize focused window
+
+## $mod+Control+hjkl (minor adjustment)
+bindsym $mod+Control+h	resize shrink width 5 px or 5 ppt
+bindsym $mod+Control+j	resize grow height 5 px or 5 ppt
+bindsym $mod+Control+k	resize shrink height 5 px or 5 ppt
+bindsym $mod+Control+l	resize grow width 5 px or 5 ppt
+
+## $mod+Shift+Control+hjkl (major adjustment)
+bindsym $mod+Shift+Control+h	resize shrink width 125 px or 125 ppt
+bindsym $mod+Shift+Control+j	resize grow height 125 px or 125 ppt
+bindsym $mod+Shift+Control+k	resize shrink height 125 px or 125 ppt
+bindsym $mod+Shift+Control+l	resize grow width 125 px or 125 ppt
+
+
+# kill (quit) focused window
+bindsym $mod+Shift+q	kill
+
+
+# split horizontal / vertical toggle
+## new window below / aside
+bindsym $mod+t		split toggle
+
+
+# enter fullscreen mode for the focused window
+bindsym $mod+f		fullscreen toggle
+
+
+# change window layout (stacked, tabbed, toggle split)
+bindsym $mod+s		layout stacking
+bindsym $mod+w		layout tabbed
+bindsym $mod+e		layout toggle split
+
+
+# toggle tiling / floating window
+bindsym $mod+Alt+space	floating toggle
+
+
+# toggle sticky floating window
+bindsym $mod+Shift+s	sticky toggle
+
+
+# toggle focus tiling / floating window
+bindsym $mod+space	focus mode_toggle
+
+
+## other keybindings ##
+
+
+# starting terminal emulator with command line interface
+
+## in $HOME
+bindsym $mod+Return			exec $term
+
+## in $PWD
+### alacritty
+bindsym $mod+Shift+Return	exec $term --working-directory $PWD &
+#bindsym $mod+Shift+Return	exec $HOME/.dot/code/terminal/samedir
+
+### termite
+#bindsym $mod+Shift+Return	exec ~/.dot/code/terminal/samedir
+#bindsym $mod+Shift+Return	exec termite -d $PWD &
+#bindsym $mod+Shift+Return	exec termite --directory=$PWD &
+
+
+# bemenu configuration
+
+## sway exit
+bindsym $mod+Shift+x	exec ~/.dot/code/bemenu/sway_exit
+
+## run
+bindsym $mod+d			exec ~/.dot/code/bemenu/bemenu_run
+
+## spicules (search hfcmd)
+bindsym $mod+z			exec ~/.dot/code/bemenu/spicules
+
+
+# focus the parent container
+bindsym $mod+a 		focus parent
+
+
+# focus the child container
+bindsym $mod+i		focus child
+
+
+# reload the configuration file
+bindsym $mod+Shift+c	reload
+
+
+# XF86 specific keys
+## screen brightness
+bindsym XF86MonBrightnessDown	exec brightnessctl set 5%- && pkill -RTMIN+1 i3blocks
+bindsym XF86MonBrightnessUp		exec brightnessctl set 5%+ && pkill -RTMIN+1 i3blocks
+### for OLED (they have no backlight) screens; try icc-backlight (see notes)
+
+## audio volume
+### pulse15
+bindsym XF86AudioLowerVolume	exec amixer sset Master 2%- && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioRaiseVolume	exec amixer sset Master 2%+ && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioMute			exec amixer sset Master toggle && pkill -RTMIN+1 i3blocks
+### xps 9360
+#bindsym XF86AudioMute		exec amixer sset Master toggle && \
+#									amixer sset Speaker toggle && \
+#									amixer sset Headphone toggle && pkill -RTMIN+1 i3blocks
+
+
+bindsym XF86AudioNext			exec lmc next
+bindsym XF86AudioPlay			exec lmc toggle
+bindsym XF86AudioPrev			exec lmc prev
+bindsym XF86AudioStop			exec lmc toggle
+
+
+# lock workspace (Zzz)
+bindsym $mod+Shift+z		exec swaylock -F -c 000000
+
+
+# screencapture
+# https://wiki.archlinux.org/index.php/Sway#Screen_capture
+
+## current monitor
+bindsym Control+Print		exec grim -o $(swaymsg -t get_outputs \
+	| jq -r '.[] | select (.focused) | .name') \
+	~/_media/images/screens/`date "+%Y%m%d_%H%M%S"`.png
+
+## all outputs
+bindsym Mod1+Print		exec grim \
+~/_media/images/screens/`date "+%Y%m%d_%H%M%S"`.png
+
+## selective rectangle
+### to file
+bindsym --release Shift+Print	exec grim -g "$(slurp)" \
+~/_media/images/screens/`date "+%Y%m%d_%H%M%S"`.png
+### to clipboard
+bindsym Shift+Control+Print	exec grim -g "$(slurp)" | wl-clipboard
+
+## pick a color
+bindsym $mod+F9			exec grim -g "$(slurp -p)" -t ppm - | \
+convert - -format '%[pixel:p{0,0}]' txt:-
+
+
+# mako
+exec mako

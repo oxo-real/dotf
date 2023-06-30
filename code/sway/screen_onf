@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# screen_onf
+# switching screen on and off
+
+# after: [Sway - ArchWiki](https://wiki.archlinux.org/title/Sway#Backlight_toggle)
+
+scr_onf_stat_file="$XDG_CACHE_HOME/temp/screen_onf_status"
+
+[ ! -f $scr_onf_stat_file ] && echo 0 > $scr_onf_stat_file
+
+read screen_status < $scr_onf_stat_file
+
+case "$screen_status" in
+
+    1)
+	# 1: screen is on
+	swaymsg "output * power off"
+	echo 0 > $scr_onf_stat_file
+	;;
+
+    *)
+	# 0: screen is off
+	swaymsg "output * power on"
+	echo 1 > $scr_onf_stat_file
+	;;
+
+esac

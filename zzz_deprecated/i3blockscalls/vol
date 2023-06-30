@@ -1,0 +1,41 @@
+#!/bin/sh
+
+master_volume="$(amixer get Master | tail -n 1 | sed -r 's/.*\[(.*)%\].*/\1/')"
+master_mute=$(amixer get Master | grep 'off')
+
+# xps9360
+#speaker_volume="$(amixer get Speaker | tail -n 1 | sed -r 's/.*\[(.*)%\].*/\1/')"
+#speaker_mute=$(amixer get Speaker | grep 'off')
+#headphone_volume="$(amixer get Headphone | tail -n 1 | sed -r 's/.*\[(.*)%\].*/\1/')"
+#headphone_mute=$(amixer get Headphone | grep 'off')
+#jack_status=$(grep -A 4 'Node 0x02' /proc/asound/card0/codec\#0 | grep vals | cut -c 26-27)
+#jack_status=$(grep -A 11 'Node 0x14' /proc/asound/card0/codec\#0 | grep ctls | awk '{print $2}')
+
+# pulse15
+## card1: id = Generic, Codec: ATI R6xx HDMI
+## card2 id = Generic_1, Codec: Realtek ALC269VC
+jack_status=$(grep -A 11 'Node 0x14' /proc/asound/card2/codec\#0 | grep ctls | awk '{print $2}')
+
+
+output="<"
+if [ "$jack_status" == "0x00:" ]; then
+
+	# Node 0x14 Speaker Playback Switch Pin-ctls: 0x00
+	# headphones connected
+	output='H'
+
+fi
+
+
+mute=""
+if [ -n "$master_mute" ]; then
+
+	# Master Front Left Playback: [off]
+	# master muted
+	mute='x'
+
+fi
+
+vol=$master_volume$mute$output
+
+echo $vol

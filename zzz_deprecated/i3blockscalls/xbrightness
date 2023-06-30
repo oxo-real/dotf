@@ -1,0 +1,3 @@
+#!/bin/sh
+brightness="$(printf "%1.f\n" $(xbacklight))"
+echo $brightness%

@@ -1,0 +1,15 @@
+# sway specific hardware configuration
+
+# tuxedo_pulse_15
+
+## internal input devices	(identifiers)
+set	$keyboard		1:1:AT_Translated_Set_2_keyboard
+set	$touchpad		2362:597:UNIW0001:00_093A:0255_Touchpad
+
+## internal output devices
+### Sharp Corporation LQ156M1JW01
+### maximum performance:	mode 1920x1080 @ 60.042000 Hz
+output eDP-1			mode 1920x1080 scale 1.0 pos 0 0
+
+## external devices
+include $XDG_CONFIG_HOME/sway/dev/ext

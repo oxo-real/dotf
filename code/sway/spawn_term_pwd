@@ -1,0 +1,54 @@
+#!/bin/sh
+
+# dependencies:	jq
+
+# let sway spawn a new terminal window in $PWD
+
+terminal_cmd="alacritty"
+
+
+# get focused process ID
+
+focused_pid=""
+focused_pid="$(swaymsg -t get_tree | \
+    jq '.. |
+    select(.type?) |
+    select(.type=="con") |
+    select(.focused==true).pid')"
+
+
+# readlink from pid cwd
+
+## check if $focused_pid is an integer
+if [ "$focused_pid" -eq "$focused_pid" 2>/dev/null ]; then
+
+    ## get focused parent process ID
+    focused_ppid="$(ps -o pid= --ppid "$focused_pid" | awk '{print $1}')"
+
+    ## get focused present working directory
+    focused_pwd=""
+    if [ "$focused_ppid" -eq "$focused_ppid" 2>/dev/null ]; then
+
+	focused_pwd="$(readlink "/proc/$focused_ppid/cwd")"
+
+    fi
+
+fi
+
+
+# spawn terminal
+
+## check if directory exists
+if [ -d "$focused_pwd" ]; then
+
+    $terminal_cmd --working-directory="$focused_pwd" $@ &
+
+else
+
+    $terminal_cmd $@ &
+
+fi
+
+
+# [TODO] take over priviledge escalation status
+sudo -n printf "" > /dev/null 2>&1

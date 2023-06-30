@@ -1,0 +1,79 @@
+#!/bin/bash
+
+# !! no pointers to personal data here !!
+
+# copy followed symlink in $HOME/.dot to $HOME/.dot/files
+# as backup for customized dotfiles to public location
+
+: '
+
+[[ -d $HOME/.dot/files/ ]] || mkdir -p $HOME/.dot/files
+
+cp -Lr $HOME/.dot/.alacrittyrc		$HOME/.dot/files/.alacrittyrc
+cp -Lr $HOME/.dot/.emacsrc			$HOME/.dot/files/.emacsrc
+cp -Lr $HOME/.dot/.makorc			$HOME/.dot/files/.makorc
+## -Lr $HOME/.dot/.mbsyncrc			$HOME/.dot/files/.mbsyncrc
+## -Lr $HOME/.dot/.msmtprc			$HOME/.dot/files/.msmtprc
+cp -Lr $HOME/.dot/.neomuttrc		$HOME/.dot/files/.neomuttrc
+cp -Lr $HOME/.dot/.newsboatrc		$HOME/.dot/files/.newsboatrc
+cp -Lr $HOME/.dot/.nvimrc			$HOME/.dot/files/.nvimrc
+cp -Lr $HOME/.dot/.qutebrowserrc	$HOME/.dot/files/.qutebrowserrc
+cp -Lr $HOME/.dot/.swayrc			$HOME/.dot/files/.swayrc
+cp -Lr $HOME/.dot/.tmuxrc			$HOME/.dot/files/.tmuxrc
+cp -Lr $HOME/.dot/.vimrc			$HOME/.dot/files/.vimrc
+cp -Lr $HOME/.dot/.waybarrc			$HOME/.dot/files/.waybarrc
+cp -Lr $HOME/.dot/.zshrc			$HOME/.dot/files/.zshrc
+
+# '
+
+
+#: '
+
+# !! personal data can be compromised !!
+
+## add symlinks that contain personal data in the array below
+## if $1 has no value, then
+## these are removed after the while loop has ran
+
+personal_files=('.mbsyncrc' '.msmtprc' '.zshrc')
+
+# personal files are NOT removed from backup destination
+# if $1 contains a value
+# i.e. sh restore private
+
+# copy ALL followed symlinks in source to dest (backup)
+
+source="$HOME/.dot"
+dest="$HOME/.dot/files"
+
+symlinks=$(find $source -maxdepth 1 -type l | sort)
+
+while IFS= read -r symlink; do
+
+	rc_file_name=$(basename $symlink)
+
+	#: ' ## OR dry run
+	case "${personal_files[@]}" in *"$rc_file_name"*) continue ;; esac
+
+	if [[ ! -z $1 ]]; then
+		printf "empty!!"
+	fi
+
+	dest="$HOME/_temp/files"
+	printf "cp -Lr $symlink --- $dest/$rc_file_name\n"
+	# '
+
+	: ' ## OR do the real thing
+	cp -Lr $symlink $dest
+	# '
+
+done <<< "$symlinks"
+
+
+
+	## remove personal files
+	#for personal_file in "${personal_files[@]}"; do
+	#done
+
+#fi
+# '

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+
+swaymsg -t subscribe -m '[ "window" ]'| jq --unbuffered -Mrc '. | select(.container.focused == true).container.name' |
+
+
+while IFS= read -r title; do
+
+	printf "$title\n"
+
+done

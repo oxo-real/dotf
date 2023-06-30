@@ -1,0 +1,4 @@
+#!/bin/bash
+
+metar=$(sh $HOME/_git/code/metar/metar -nc -s eham)
+echo $metar

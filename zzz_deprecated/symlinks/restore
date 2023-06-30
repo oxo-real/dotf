@@ -1,0 +1,126 @@
+#!/bin/sh
+#
+##
+###                _
+###  _ __ ___  ___| |_ ___  _ __ ___
+### | '__/ _ \/ __| __/ _ \| '__/ _ \
+### | | |  __/\__ \ || (_) | | |  __/
+### |_|  \___||___/\__\___/|_|  \___|
+###
+###  _ _|_ _ ._    _  _
+### (_\/|_(_)|_)\/(_|(/_
+###   /      |  /  _|
+###
+### restore
+### restore config files
+### from $(prv_)sym_loc to org loc
+### (c) 2019 - 2020 cytopyge
+###
+##
+#
+
+
+# directory locations
+cfg_loc="$HOME/.config"
+sym_loc="$HOME/.dot/symlinks"
+prv_sym_loc="$HOME/_settings/private/.dot/symlinks"
+
+
+# 1. create target directories if not exist
+
+## public symlinks
+[ -d $cfg_loc/i3 ] ||			mkdir -p $cfg_loc/i3
+[ -d $cfg_loc/i3blocks ] ||		mkdir -p $cfg_loc/i3blocks
+[ -d $cfg_loc/sway ] ||			mkdir -p $cfg_loc/sway
+[ -d $HOME/.emacs.d ] ||		mkdir -p $HOME/.emacs.d
+[ -d $cfg_loc/termite ] ||		mkdir -p $cfg_loc/termite
+[ -d $cfg_loc/rofi ] ||			mkdir -p $cfg_loc/rofi
+[ -d $cfg_loc/nvim ] ||			mkdir -p $cfg_loc/nvim
+[ -d $cfg_loc/qutebrowser ] ||	mkdir -p $cfg_loc/qutebrowser
+[ -d $cfg_loc/mako ] ||			mkdir -p $cfg_loc/mako
+
+## private symlinks (config files not in git repo)
+[ -d $cfg_loc/isync ] ||		mkdir -p $cfg_loc/isync
+[ -d $cfg_loc/msmtp ] ||		mkdir -p $cfg_loc/msmtp
+[ -d $cfg_loc/neomutt ] ||		mkdir -p $cfg_loc/neomutt
+[ -d $cfg_loc/newsboat ] || 	mkdir -p $cfg_loc/newsboat
+
+
+# 2. copy config files
+
+## these application configurations have only one config file
+
+## copy the configuration files to their original locations
+cp $sym_loc/emacs/.emacsrcFILE					$HOME/.emacs.d/init.el
+cp $sym_loc/i3/.i3blocksrcFILE					$cfg_loc/i3blocks/i3blocks.conf
+cp $sym_loc/mako/.makorcFILE					$cfg_loc/mako/config
+cp $sym_loc/newsboat/.newsboatrcFILE			$cfg_loc/newsboat/config
+cp $sym_loc/nvim/.nvimrcFILE					$cfg_loc/nvim/init.vim
+cp $sym_loc/qutebrowser/.qutebrowserrcFILE		$cfg_loc/qutebrowser/config.py
+cp $sym_loc/rofi/.rofircFILE					$cfg_loc/rofi/config
+cp $sym_loc/sway/.swayrcFILE					$cfg_loc/sway/config
+cp $sym_loc/termite/.termitercFILE				$cfg_loc/termite/config
+cp $sym_loc/waybar/.waybarrcFILE				$cfg_loc/waybar/config
+
+## private config files (config files not in git repo)
+cp $prv_sym_loc/isync/.mbsyncrc_configFILE		$cfg_loc/isync/mbsyncrc_config
+cp $prv_sym_loc/neomutt/.neomuttrcFILE			$cfg_loc/neomutt/neomutrc
+#cp $prv_sym_loc/newsboat/urlsFILE			$cfg_loc/newsboat/urls
+##? these are not needed if cfg_loc for private conf files is prv_sym_loc
+##? then a symlink in cfg_loc to prv_sym_loc is sufficient
+
+# 3. copy config directories
+
+## these application configurations have more config files / config directories
+
+## i3blocks
+### make /usr read-write
+sudo mount -o remount,rw  /usr
+### remove existing config directory
+sudo rm -rf /usr/lib/i3blocks
+### make new config directory
+[ -d /usr/lib/i3blocks ] || sudo mkdir -p /usr/lib/i3blocks
+### copy files to new directory
+sudo cp -r $sym_loc/i3/i3blockscalls/* /usr/lib/i3blocks
+### make /usr read-only
+sudo mount -o remount,ro  /usr
+
+## private directories (not in git repo)
+### from private backup to config location
+
+# 4. remove old symlinks if they exist
+
+## remove existing old symlinks
+[ -L ~/.dot/.emacsrc ] &&		rm ~/.dot/.emacsrc
+[ -L ~/.dot/.i3blocksrc ] &&	rm ~/.dot/.i3blocksrc
+[ -L ~/.dot/.makorc ] &&		rm ~/.dot/.makorc
+[ -L ~/.dot/.mbsyncrc ] &&		rm ~/.dot/.mbsyncrc
+[ -L ~/.dot/.neomuttrc ] &&		rm ~/.dot/.neomuttrc
+[ -L ~/.dot/.newsboatrc ] &&	rm ~/.dot/.newsboatrc
+[ -L ~/.dot/.nvimrc ] &&		rm ~/.dot/.nvimrc
+[ -L ~/.dot/.qutebrowserrc ] &&	rm ~/.dot/.qutebrowserrc
+[ -L ~/.dot/.rofirc ] &&		rm ~/.dot/.rofirc
+[ -L ~/.dot/.swayrc ] &&		rm ~/.dot/.swayrc
+[ -L ~/.dot/.termiterc ] &&		rm ~/.dot/.termiterc
+[ -L ~/.dot/.waybarrc ] &&		rm ~/.dot/.waybarrc
+
+# restore the symlinks in ~/.dot
+[ -d ~/.dot ] || mkdir -p ~/.dot
+
+# 5. write new symlinks
+
+## public (in git repo)
+ln -s ~/.emacs.d/init.el				~/.dot/.emacsrc
+ln -s $cfg_loc/i3blocks/i3blocks.conf	~/.dot/.i3blocksrc
+ln -s $cfg_loc/newsboat/config			~/.dot/.newsboatrc
+ln -s $cfg_loc/nvim/init.vim			~/.dot/.nvimrc
+ln -s $cfg_loc/qutebrowser/config.py	~/.dot/.qutebrowserrc
+ln -s $cfg_loc/rofi/config				~/.dot/.rofirc
+ln -s $cfg_loc/sway/config				~/.dot/.swayrc
+ln -s $cfg_loc/termite/config			~/.dot/.termiterc
+
+## private (not in git repo)
+#[ -f ~/_settings/newsboat/urls ] && ln -s ~/_settings/newsboat/urls 	~/.newsboat/urls
+ln -s $prv_sym_loc/isync/mbsyncrc_config	~/.dot/.mbsyncrc
+ln -s $prv_sym_loc/neomutt/neomuttrc		~/.dot/.neomuttrc
+ln -s $prv_sym_loc/newsboat/urls			~/.config/newsboat/urls

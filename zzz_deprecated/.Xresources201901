@@ -1,0 +1,92 @@
+!!#  
+!!##  
+!!###    __  __                                            
+!!###    \ \/ /_ __ ___  ___  ___  _   _ _ __ ___ ___  ___ 
+!!###     \  /| '__/ _ \/ __|/ _ \| | | | '__/ __/ _ \/ __|
+!!###   _ /  \| | |  __/\__ \ (_) | |_| | | | (_|  __/\__ \
+!!###  (_)_/\_\_|  \___||___/\___/ \__,_|_|  \___\___||___/
+!!###   _ _|_ _ ._    _  _  
+!!###  (_\/|_(_)|_)\/(_|(/_ 
+!!###    /      |  /  _|    
+!!###                                                      
+!!###  .Xresources
+!!###  initial settings for X
+!!###  (c) 2019 by cytopyge
+!!### 
+!!##
+!!#
+!!
+!! Apply with: xrdb ~/.dot/.Xresources
+!!
+!![TODO] set Xft.dpi automatically based on hostname
+!!! for archvm
+!!Xft.dpi:	96 
+!! for parvus
+Xft.dpi:	200 
+Xft.autohint:	0
+Xft.lcdfilter:	lcddefault
+Xft.hintstyle:	hintfull
+Xft.hinting:	1
+Xft.antialias:	1
+!! color palette
+!!#
+URxvt.termName:		rxvt-256color
+URxvt.foreground:	#f2f2f2
+URxvt.foreground_bold:	#a8a19f
+URxvt.background:	#101010
+URxvt.intensityStyles:	false
+URxvt.letterSpace:	-1
+
+!! Terminus font
+URxvt.font:		xft:Inconsolata:size=20:style=Regular
+URxvt.boldFont:		xft:Inconsolata:size=20:style=Bold
+URxvt.italicFont:	xft:Inconsolata:size=20:style=Italic
+URxvt.boldItalicfont:	xft:Inconsolata:size=20:style=Bold Italic
+
+!! other
+URxvt.scrollBar:	false
+URxvt.cursorColor:	magenta
+
+!! terminal transparency
+!! true transparency
+URxvt*depth:		32
+URxvt*background: 	[95]000000
+!!URxvt.background:	rgba:0000/0000/0200/c800
+!! native transparency
+!!URxvt*inheritPixmap:	true
+!!URxvt.transparent:	true
+! URxvt*shading: 0 to 99 darkens, 101 to 200 lightens
+!!URxvt*shading: 		200
+!
+!! https://ctkarch.org/documentation/tutorials/tuto.php?page=urxvt-transpa.xml
+
+
+!! Disable default bindings
+URxvt.iso14755:		false
+URxvt.iso14755_52:	false
+!!
+!! Extensions
+!! located in: ~/.urxvt/ext
+!! C is Ctrl key
+!! M is Mod key
+URxvt.perl-ext-common:	default,matcher,resize-font,url-select,keyboard-select
+URxvt.colorUL:		magenta
+!!
+!! matcher
+URxvt.url-launcher:	/usr/bin/xdg-open
+URxvt.matcher.button:	1
+!!
+!! resize-font
+URxvt.keysym.C-minus:		resize-font:smaller
+URxvt.keysym.C-plus:		resize-font:bigger
+URxvt.keysym.C-equal:		resize-font:reset
+URxvt.keysym.C-question:	resize-font:show
+URxvt.resize-font.step: 	1
+!!
+!!! url-select
+URxvt.keysym.M-u:		perl:url-select:select_next
+URxvt.url-select.launcher: 	linkhandler
+URxvt.url-select.underline: 	true
+!!
+!!! keyboard-select:
+URxvt.keysym.M-Escape:		perl:keyboard-select:activate

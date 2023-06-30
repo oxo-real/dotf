@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+## usage: get_devices
+
+## get all input and output devices for sway hardware config
+
+
+# internal devices
+
+all_inputs="$(swaymsg -t get_inputs | jq -r '.[].identifier')"
+#all_outputs="$(swaymsg -t get_outputs)"
+#all_outputs="$(swaymsg -t get_outputs | jq -r '.[].name + " " + .[].make + " " + .[].model')"
+all_outputs="$(swaymsg -p -t get_outputs | grep -i 'output')"
+
+
+input_identifiers()
+{
+	keyboard="$(printf "$all_inputs" | grep -i keyboard)"
+	touchpad="$(printf "$all_inputs" | grep -i touchpad)"
+	mouse="$(printf "$all_inputs" | grep -i mouse)"
+}
+
+
+output_identifiers()
+{
+	display="$(printf "$all_outputs")"
+	#display="$(printf "$all_outputs" | grep -i focused)"
+}
+
+input_identifiers
+output_identifiers
+
+printf "keyboard\n"
+printf "$keyboard\n"
+printf "touchpad\n"
+printf "$touchpad\n"
+printf "mouse\n"
+printf "$mouse\n"
+printf "display\n"
+printf "$display\n"
+
+
+# external devices
+
+# when external devices are connected they will be shown
+# under the input- or output_identifiers

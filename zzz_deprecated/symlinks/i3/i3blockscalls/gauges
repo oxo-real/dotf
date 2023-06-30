@@ -1,0 +1,57 @@
+#!/bin/sh
+
+brightness=$(brightnessctl i | grep Current |  cut -d "(" -f2 | cut -d ")" -f1)
+
+volume_master="$(amixer get Master | tail -n 1 | sed -r 's/.*\[(.*)%\].*/\1/')"
+volume_speaker="$(amixer get Speaker | tail -n 1 | sed -r 's/.*\[(.*)%\].*/\1/')"
+volume_headphone="$(amixer get Headphone | tail -n 1 | sed -r 's/.*\[(.*)%\].*/\1/')"
+
+#jack_status=$(grep -A 4 'Node 0x02' /proc/asound/card0/codec\#0 | grep vals | cut -c 26-27) 
+jack_status=$(grep -A 11 'Node 0x14' /proc/asound/card0/codec\#0 | grep ctls | awk '{print $2}')
+
+
+if [ "$jack_status" = '0x00:' ]
+then
+	# Node 0x14 Speaker Playback Switch Pin-ctls: 0x00
+	# headphones connected
+	icon='H'
+	if [ "$(amixer get Headphone | tail -n 1 | awk '{print $7}')" = '[off]' ]
+	then
+		# Headphone Front Right: [off]
+		icon='x'
+	
+	elif [ "$(amixer get Master | tail -n 1 | awk '{print $6}')" = '[off]' ]
+	then
+		# Master Playback: [off]
+		icon='X'
+	
+	fi
+
+elif [ "$(amixer get Speaker | tail -n 1 | awk '{print $7}')" = '[off]' ]
+then
+	# headphones not connected
+	# Speaker Playback [off]
+	icon='x'
+
+elif [ "$(amixer get Master | tail -n 1 | awk '{print $6}')" = '[on]' ]
+then
+	# Headphone not connected
+	# Master Playback [on]
+	icon='<'
+
+elif [ "$(amixer get Master | tail -n 1 | awk '{print $6}')" = '[off]' ]
+then
+	# Headphone not connected
+	# Master Playback [off]
+	icon='X'
+
+else
+	# no Headphone status defined
+	# no Speaker status defined
+	# no Master status defined
+	icon='?'
+fi
+
+vol=$volume_master$icon
+
+echo $vol$brightness$cap$flow

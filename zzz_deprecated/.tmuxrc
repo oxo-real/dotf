@@ -1,0 +1,323 @@
+#
+##
+###
+###   _
+###  | |_ _ __ ___  _   ___  ___ __ ___
+###  | __| '_ ` _ \| | | \ \/ / '__/ __|
+###  | |_| | | | | | |_| |>  <| | | (__
+### (_)__|_| |_| |_|\__,_/_/\_\_|  \___|
+###
+###  _ _|_ _ ._    _  _
+### (_\/|_(_)|_)\/(_|(/_
+###   /      |  /  _|
+###
+### tmux configuration file
+### .tmux.conf
+### (c) 2019 cytopyge
+##
+#
+
+
+#~~~~~~~~~~~~~~~~~~~~#
+#   INITIAL SETUP    #
+#~~~~~~~~~~~~~~~~~~~~#
+
+
+# matches with tmux-plugin sensible
+# https://github.com/tmux-plugins/tmux-sensible
+
+
+# upgrade $TERM
+#set -g default-terminal xterm-256color
+set -g default-terminal 'screen-256color'
+
+
+# don't rename windows automatically
+set-option -g allow-rename off
+
+
+# status bar
+# enable utf-8 on status bar (<tmux2.2)
+set -g status on
+#set -g utf8 on
+#set -g status-utf8 on
+
+
+# some delay for escape key press
+# so vim is responsive inside tmux
+#set -sg escape-time 0
+set -sg escape-time 1
+
+
+# scrollback buffer
+set -g history-limit 100000
+
+
+# status messages display time
+set -g display-time 3000
+set -g display-panes-time 3000
+
+
+# update statusline
+set -g status-interval 2
+
+
+# focus events enabled for terminals that support them
+set -g focus-events on
+
+
+# when using "grouped sessions" and multi-monitor setup
+setw -g aggressive-resize on
+
+
+# base-index
+set -g base-index 1
+setw -g pane-base-index 1
+
+
+# set window title
+setw -g automatic-rename off
+set -g set-titles on
+set -g renumber-windows on
+
+
+# window activity monitor
+setw -g monitor-activity on
+set -g visual-activity on
+
+
+# mouse mode
+set -g mouse on
+
+
+#~~~~~~~~~~~~~~~~~~~~#
+#   KEY BINDINGS     #
+#~~~~~~~~~~~~~~~~~~~~#
+
+
+# <prefix> config
+# use backtick as the prefix
+# to type backtick hit the key twice
+unbind C-b
+set -g prefix `
+bind ` send-prefix
+bind L last
+
+
+# vi key binding
+# https://raw.githubusercontent.com/gotbletu/shownotes/master/tmux_2.4_copy_mode_vim.md
+set -g status-keys vi
+set-window-option -g mode-keys vi
+
+
+# copying selection vim style
+# http://jasonwryan.com/blog/2011/06/07/copy-and-paste-in-tmux/
+# https://github.com/myfreeweb/dotfiles/blob/master/tmux.conf
+bind-key Escape copy-mode		# enter copy mode; (default '[')
+bind-key p paste-buffer			# paste; (default ']')
+bind-key P choose-buffer 		# tmux clipboard history
+bind-key + delete-buffer \; display-message "deleted tmux clipboard"
+
+
+# copy to tmux / system clipboard
+bind-key < run-shell "tmux set-buffer -- \"$(xsel -o -b)\"" \; \
+ display-message "copy to tmux clipboard"
+bind-key > run-shell 'tmux show-buffer | xsel -i -b' \; \
+ display-message "copy to system clipboard"
+
+
+# vim copy mode rebinds (tmux 2.4+)
+# https://shapeshed.com/custom-vim-bindings-in-tmux-2-4/
+# https://github.com/tmux/tmux/issues/754#issuecomment-303156000
+# https://stackoverflow.com/a/40902312
+# rectangle-toggle (visual block mode) hit v then C-v
+
+bind-key -T copy-mode-vi v send-keys -X begin-selection; \
+bind-key -T copy-mode-vi V send-keys -X select-line; \
+bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle; \
+bind-key -T choice-mode-vi h send-keys -X tree-collapse ; \
+bind-key -T choice-mode-vi l send-keys -X tree-expand ; \
+bind-key -T choice-mode-vi H send-keys -X tree-collapse-all ; \
+bind-key -T choice-mode-vi L send-keys -X tree-expand-all ; \
+bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe "xclip -in -selection clipboard"; \
+bind-key -T copy-mode-vi y send-keys -X copy-pipe "xclip -in -selection clipboard"
+#[TODO] issue base64 text showup
+
+
+# tmux config reload
+bind r source ~/.tmux.conf \; display "tmux.conf reloaded"
+
+
+# pane split keys in pwd
+unbind "'"
+unbind "%"
+bind \ splitw -h -c "#{pane_current_path}" # vertical split '\'
+bind - splitw -v -c "#{pane_current_path}" # horizontal split '-'
+
+
+# new window in pwd
+bind c new-window -c "#{pane_current_path}"
+
+
+# allow the arrow key to be used immediately after changing windows
+set -g repeat-time 0
+
+
+# ctrl alt h / l to switch window(tabs)
+# congruent with smart pane switching (below)
+#[TODO] why is C-M-l not working?! It does with C-M-L!
+bind -n C-M-h prev
+bind -n C-M-l next
+bind -n C-M-; selectw -l
+
+
+# christoomey/vim-tmux-navigator config
+# Smart pane switching with awareness of Vim splits.
+# See: https://github.com/christoomey/vim-tmux-navigator
+is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
+    | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
+bind -n C-h if "$is_vim" "send C-h"  "selectp -L"
+bind -n C-j if "$is_vim" "send C-j"  "selectp -D"
+bind -n C-k if "$is_vim" "send C-k"  "selectp -U"
+bind -n C-l if "$is_vim" "send C-l"  "selectp -R"
+bind -n C-; if "$is_vim" "send C-\\" "selectp -l"
+bind -T copy-mode-vi C-h selectp -L
+bind -T copy-mode-vi C-j selectp -D
+bind -T copy-mode-vi C-k selectp -U
+bind -T copy-mode-vi C-l selectp -R
+bind -T copy-mode-vi C-; selectp -l
+
+
+# resizing panes
+# prefix HJKL (shift hjkl)
+bind -r H resizep -L 5
+bind -r J resizep -D 5
+bind -r K resizep -U 5
+bind -r L resizep -R 5
+
+
+#~~~~~~~~~~~~~~~~~~~~#
+#   DESIGN CHANGES   #
+#~~~~~~~~~~~~~~~~~~~~#
+
+
+# panes
+set -g pane-border-fg default
+set -g pane-active-border-fg brightred
+## status bar design
+
+
+# status line
+set -g status-justify left
+set -g status-bg colour2
+set -g status-fg colour5
+
+
+# messaging
+set -g message-fg black
+set -g message-bg yellow
+set -g message-command-fg blue
+set -g message-command-bg black
+
+
+#window mode
+setw -g mode-bg colour6
+setw -g mode-fg colour0
+
+
+# window status
+setw -g window-status-bg green
+setw -g window-status-fg black
+setw -g window-status-attr reverse
+setw -g window-status-format " #F#I #W#F "
+setw -g window-status-format "#[fg=magenta]#[bg=black] #I #[bg=cyan]#[fg=colour8] #W "
+setw -g window-status-current-format " #F#I #W#F "
+setw -g window-status-current-format "#[bg=brightmagenta]#[fg=colour8] #I #[fg=colour8]#[bg=colour14] #W "
+setw -g window-status-current-bg colour0
+setw -g window-status-current-fg colour11
+setw -g window-status-current-attr dim
+
+
+# loud or quiet?
+set -g visual-activity off
+set -g visual-bell off
+set -g visual-silence off
+set -g bell-action none
+setw -g monitor-activity off
+
+
+# modes
+setw -g clock-mode-colour colour7
+setw -g mode-attr bold
+setw -g mode-fg colour196
+setw -g mode-bg colour238
+
+
+# panes
+#set -g pane-border-bg colour235
+set -g pane-border-fg colour238
+#set -g pane-active-border-bg colour0
+set -g pane-active-border-fg colour21
+
+
+# statusbar
+set -g status-position top
+set -g status-bg default
+set -g status-fg colour137
+set -g status-attr dim
+set -g status-left ' '
+# [TODO] prefix highlght
+set -g status-right '#{prefix_highlight} #[fg=colour255,bg=colour236] %a%d %H:%M '
+set -g status-right-length 50
+set -g status-left-length 20
+
+
+# active tab
+setw -g window-status-current-fg colour255
+setw -g window-status-current-bg colour236
+setw -g window-status-current-attr bold
+setw -g window-status-current-format '#[fg=colour75] #I #[fg=colour255]#W #[fg=colour75]#F '
+
+
+# non active tabs
+setw -g window-status-fg colour250
+setw -g window-status-bg colour235
+setw -g window-status-attr none
+setw -g window-status-format '#[fg=colour68] #I #[fg=colour250]#W #[fg=colour68]#F '
+setw -g window-status-bell-attr bold
+setw -g window-status-bell-fg colour255
+setw -g window-status-bell-bg colour1
+
+
+# messages
+set -g message-attr bold
+set -g message-fg colour232
+set -g message-bg colour166
+
+
+#~~~~~~~~~~~~~~~~~~~~#
+#      PLUGINS	     #
+#~~~~~~~~~~~~~~~~~~~~#
+
+
+# tmux plugin manager
+set -g @plugin 'tmux-plugins/tpm'
+# tmux prefix highlighter
+set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
+# tmux sensible
+set -g @plugin 'tmux-plugins/tmux-sensible'
+# tmux resurrect
+# https://github.com/tmux-plugins/tmux-resurrect
+# resurrect key bindings: prefix + Ctrl-s - save / r - restore
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+# resurrect processes
+set -g @resurrect-processes 'wavemon iftop tshark iotop glances journalctl \
+vmstat top htop'
+# resurrect vim sessions
+#set -g @resurrect-strategy-vim 'session'
+
+
+# Initialize TMUX plugin manager
+# (keep this line at the very bottom of tmux.conf)
+# \/\/\/\/\/\/\//\/\/\//\/\/\/\//\/\/\/\/\/\//\/\/
+run '~/.tmux/plugins/tpm/tpm'

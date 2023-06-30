@@ -1,0 +1,742 @@
+#
+##
+###    _____      ____ _ _   _ _ __ ___
+###   / __\ \ /\ / / _` | | | | '__/ __|
+###  _\__ \\ V  V / (_| | |_| | | | (__
+### (_)___/ \_/\_/ \__,_|\__, |_|  \___|
+###                      |___/
+###  _    _
+### (_)><(_)
+###
+### .swayrc
+### sway configuration file
+### (c) 2018 - 2023  |  oxo
+###
+##
+#
+
+
+# system identity
+## change symlink for specific system config
+include $XDG_CONFIG_HOME/sway/current
+
+
+## general settings ##
+
+
+# input profiles
+
+## touchpad
+seat * hide_cursor when-typing enable
+### general
+#input type:touchpad
+### specific
+input $touchpad
+{
+    dwt			enabled
+    tap			enabled
+    natural_scroll	enabled
+    accel_profile	adaptive
+    pointer_accel	1
+}
+
+## external touchpad
+### general
+#input type:touchpad
+### specific
+input $touchpad_ext
+{
+    dwt			enabled
+    tap			enabled
+    natural_scroll	enabled
+    accel_profile	adaptive
+    pointer_accel	1
+}
+
+## keyboard
+### set caps = esc
+#   xkb_options		caps:escape,compose:ralt
+### swap caps and left ctrl
+#   xkb_options		ctrl:swapcaps
+### set caps = ctrl
+#   xkb_options		ctrl:nocaps
+### set ralt as compose key
+#   xkb_options		compose:ralt
+### multiple options
+#   xkb_options		ctrl:nocaps,compose:ralt
+### general
+#input type:keyboard
+### specific
+input $keyboard
+{
+    xkb_options		ctrl:nocaps,compose:ralt
+    repeat_delay	500
+    repeat_rate		20
+}
+
+## external keyboard
+### general
+#input type:keyboard
+### specific
+input $keyboard_ext
+{
+    xkb_options		ctrl:nocaps,compose:ralt
+    repeat_delay	500
+    repeat_rate		20
+    xkb_numlock		enabled
+}
+
+
+## modkey settings (xmodmap)
+# use wev to designate events
+# Shift	    Shift_L (0x32),  Shift_R (0x3e)
+# Lock      Caps_Lock (0x42)
+# Control   Control_L (0x10),  Control_R (0x69)
+# Mod1      Alt_L (0x40),  Meta_L (0xcd)
+# Mod2      Num_Lock (0x94)
+# Mod3
+# Mod4      Super_R (0x86),  Super_L (0xce),  Hyper_L (0xcf)
+# Mod5      ISO_Level3_Shift (0x5c),  ISO_Level3_Shift (0x6c),  Mode_switch (0x85),  Mode_switch (0xcb)
+#
+# Mod1	    alt key
+# Mod4	    logo key
+
+set $mod		Mod4
+
+
+# output devices
+# https://wiki.archlinux.org/index.php/Sway#Input_devices
+# output device info via:
+# swaymsg -t get_outputs
+# output manpage via:
+# man sway-output
+
+
+# generic background (wallpaper)
+## on all output names
+## override in specific output name
+## background image with fallback color
+#output * background	$XDG_DATA_HOME/media/images/wallpaper/active fit #000000
+## solid color
+output * background	#000000 solid_color
+
+
+# laptop internal displays
+## top left is pos 0 0
+## y axis is inverted
+## scaling has to be considered
+
+## dell_latitude_3189
+### maximum performance		mode 1366x768 scale 1.0 pos 0 0
+#output eDP-1			mode 1366x768 scale 1.0 pos 0 0
+
+## dell_xps13_9360
+### maximum performance:	mode 3200x1800 scale 2.0 pos 0 1440
+## output eDP-1			mode 3200x1800 scale 2.0 pos 0 1440
+
+## lenovo_thinkpad_x220
+### Seiko Epson Corporation 0x3047 0x00000000
+### maximum performance:	mode 1366x768 @ 60.002 Hz
+# output LVDS-1			mode 1366x768 scale 1.0 pos 0 0
+
+## tuxedo_pulse_15
+### Sharp Corporation LQ156M1JW01
+### maximum performance:	mode 1920x1080 @ 60.042000 Hz
+#output eDP-1
+#{
+#    mode		1920x1080
+#    pos		2560 0
+#    scale		1.0
+#    transform		0
+#}
+
+## lenovo thinkpad x1c
+### Chimei Innolux Corporation 0x1417 0x00000000
+### 1440 is $y_res_ext > read notive below
+output eDP-1		mode 1920x1200 scale 1.0 pos 0 1440
+
+
+# external monitors
+
+## hp_z27n (dp)
+#output DP-1		mode 1060x1440 scale 1.0 pos 0 0
+#output DP-1		mode 1920x1200 scale 1.0 pos 0 0
+
+## hp_z27n (dvi)
+#output DVI-I-1		mode 1920x1200 scale 1.0 pos 0 0
+
+## dell_u2715h (hdmi)
+## left of main		(-1*$x_res_ext ; 0)
+## under main		(0 ; $y_res_ext)
+## above main		(0 ; -1*$y_res_ext)
+## right of main	($x_res_main ; 0)
+
+# IMPORTANT NOTICE
+## negative coordinates cause problems with mouse scroll and -clicks on xwayland windows
+## [Sections of Xwayland windows within negative output coordinates receive incorrectly positioned cursor events
+## · Issue #958 · swaywm/wlroots · GitHub](https://github.com/swaywm/wlroots/issues/958)
+
+# WORKAROUND
+## current workaround when ext is above or left of main (negative x resp y coordinates)
+## set ext display coordinates to pos 0 0 instead of the main laptop display
+## then adjust the main display pos to ext display with positive coordinates
+
+## only pos is set here; mode and scale are defined in: sway/hw/dev/ext
+output HDMI-A-1		pos 0 0
+
+## focus on sway launch
+#focus			output eDP-1
+
+## bind workspace to monitor
+workspace 0		output HDMI-A-1
+
+## clamshell mode
+set $laptop eDP-1
+bindswitch --reload --locked lid:on output $laptop disable
+bindswitch --reload --locked lid:off output $laptop enable
+
+## swaynag keyboard control
+set $nag		exec swaynagmode
+
+mode "nag"
+{
+    bindsym
+    {
+    	Ctrl+d		mode "default"
+
+    	Return		$nag --confirm
+
+        Ctrl+c		$nag --exit
+        q		$nag --exit
+        Escape		$nag --exit
+
+        Up		$nag --select next
+        Left		$nag --select next
+        Shift+Tab	$nag --select next
+
+        Down		$nag --select prev
+        Right		$nag --select prev
+        Tab		$nag --select prev
+    }
+}
+
+swaynag_command		swaynagmode
+#DEV generate error 	remove comment
+
+# cursor
+# [https://wiki.archlinux.org/title/Sway#Statusbar](https://wiki.archlinux.org/title/Sway#Change_cursor_theme_and_size)
+# seat seat0 xcursor_theme my_cursor_theme my_cursor_size
+
+# fonts
+# font for window titles and bar
+set $font		"Source Code Pro 10"
+font			$font
+
+
+# gaps
+gaps inner			0
+gaps outer			0
+smart_gaps			on
+bindsym $mod+Ctrl+bracketleft	gaps inner current plus 5
+bindsym $mod+Ctrl+bracketright	gaps inner current minus 5
+bindsym $mod+Ctrl+p		gaps inner current set 0; gaps outer current set 0
+
+
+# set terminal
+set $term		alacritty
+
+
+## workspace settings ##
+
+
+# assign workspaces
+## ws0 named '0' (number) sorts before 1
+## ws0 named 'O' (letter) sorts after 9, like the keyboard
+
+## workspace names
+#set $ws0		    "O"
+set $ws1		    "1"
+set $ws2		    "2"
+set $ws3		    "3"
+set $ws4		    "4"
+set $ws5		    "5"
+set $ws6		    "6"
+set $ws7		    "7"
+set $ws8		    "8"
+set $ws9		    "9"
+set $ws0		    "0"
+set $ws-		    "-"
+set $ws=		    "="
+
+## switch to workspace
+bindsym $mod+1		    workspace $ws1
+bindsym $mod+2		    workspace $ws2
+bindsym $mod+3		    workspace $ws3
+bindsym $mod+4		    workspace $ws4
+bindsym $mod+5		    workspace $ws5
+bindsym $mod+6		    workspace $ws6
+bindsym $mod+7		    workspace $ws7
+bindsym $mod+8		    workspace $ws8
+bindsym $mod+9		    workspace $ws9
+bindsym $mod+0		    workspace $ws0
+bindsym $mod+Minus	    workspace $ws-
+bindsym $mod+Equal	    workspace $ws=
+
+## move focused container to workspace
+bindsym $mod+Shift+1	    move container to workspace $ws1
+bindsym $mod+Shift+2	    move container to workspace $ws2
+bindsym $mod+Shift+3	    move container to workspace $ws3
+bindsym $mod+Shift+4	    move container to workspace $ws4
+bindsym $mod+Shift+5	    move container to workspace $ws5
+bindsym $mod+Shift+6	    move container to workspace $ws6
+bindsym $mod+Shift+7	    move container to workspace $ws7
+bindsym $mod+Shift+8	    move container to workspace $ws8
+bindsym $mod+Shift+9	    move container to workspace $ws9
+bindsym $mod+Shift+0	    move container to workspace $ws0
+bindsym $mod+Shift+Minus    move container to workspace $ws-
+bindsym $mod+Shift+Equal    move container to workspace $ws=
+
+
+# workspace specific keybindings
+
+## workspace switching
+### keyboard
+bindsym $mod+tab		workspace back_and_forth
+### mouse
+workspace_auto_back_and_forth	yes
+
+## workspace next previous
+#bindsym $mod+bracketright	workspace next
+#bindsym $mod+bracketleft	workspace prev
+
+## workspace next previous
+bindsym $mod+y			workspace prev
+bindsym $mod+o			workspace next
+
+
+## display workspace bar ##
+
+### swaybar
+#### custom bar location
+#set $bar_custom			$XDG_CONFIG_HOME/code/waybar/bar_custom
+#
+bar {
+    position		    	top
+    height			18
+    font			Source Code Pro 11
+    swaybar_command		swaybar
+    status_command		i3blocks
+    wrap_scroll			yes
+
+    colors {
+    	   ## color		border	backgr	text
+    	   background		#000000
+	   statusline		#777777
+	   separator		#777777
+	   focused_background	#000000
+	   focused_statusline	#777777
+	   focused_separator	#ffffff
+	   focused_workspace	#000000 #000000 #cccccc
+	   #focused_workspace	#005577 #005577 #ffffd3
+	   active_workspace	#000000 #777777 #000000
+	   inactive_workspace	#1f1f1f #000000 #777777
+	   urgent_workspace	#000000 #770055 #ffffd3
+	   }
+}
+
+### bar toggle
+bindsym $mod+b			bar mode toggle
+
+### bar blocks toggle
+#bindsym Control+b		exec $XDG_CONFIG_HOME/code/bar_blocks/cycle
+# see at end of file
+
+
+# # # waybar
+# # # $XDG_CONFIG_HOME/waybar
+# # ## https://github.com/Alexays/Waybar/issues/308
+# # ## bar block causes second waybar on refresh
+# # ## it also is prone to decoration errors
+# # bar
+# # {
+# #    swaybar_command		waybar
+# # }
+# #  as recommended here:
+# #  https://github.com/Alexays/Waybar/wiki/FAQ#how-to-use-with-sway
+# #  exec waybar
+# #  is moved to the end of the config file
+
+# # # hide waybar
+# # bindsym $mod+b		    exec killall -SIGUSR1 waybar
+
+
+# window configuration
+## no title bar
+default_border		none
+#default_border 	pixel	1
+## color		border	backgr	text	indictr	child_border
+client.focused		#000000 #000000 #999999 #000000
+client.focused_inactive	#000000 #000000 #333333 #000000
+client.unfocused	#000000 #000000 #333333 #000000
+client.urgent		#000000 #000000 #ff0000 #000000
+
+
+# start with touchpad disabled
+input $touchpad		events disabled
+
+# $mod+MouseLeft move container
+# $mod+MouseRight resize container
+## not needed under wayland (sway wm)
+
+# peek at the bar
+floating_modifier	$mod
+
+
+# toggle touchpad device (keyboard only)
+bindsym $mod+Shift+space    input $touchpad \
+			    events toggle enabled disabled
+
+
+# focus doesn't follow mouse
+focus_follows_mouse	no
+
+
+# no mouse warping (when switching focus to a window)
+mouse_warping		none
+
+
+## navigation keybindings
+# container (window)
+# output (monitor)
+
+# focus_container	$mod
+# move			$mod+Shift
+# resize		$mod+Control
+
+
+# navigation direction
+## default
+set $left		h
+set $down		j
+set $up			k
+set $right		l
+## major
+set $la			y
+set $da			u
+set $ua			i
+set $ra			o
+## minor
+set $li			n
+set $di			m
+set $ui			Comma
+set $ri			Period
+
+
+# change window focus
+# $mod+hjkl
+bindsym $mod+$left		focus left
+bindsym $mod+$down	        focus down
+bindsym $mod+$up		focus up
+bindsym $mod+$right		focus right
+
+
+# move focused window
+# $mod+Shift+hjkl		(regular movement)
+bindsym $mod+Shift+$left	move left
+bindsym $mod+Shift+$down	move down
+bindsym $mod+Shift+$up		move up
+bindsym $mod+Shift+$right	move right
+
+# $mod+Shift+yuio		(major movement)
+bindsym $mod+Shift+$la		move left 30 px or 30 ppt
+bindsym $mod+Shift+$da		move down 30 px or 30 ppt
+bindsym $mod+Shift+$ua		move up 30 px or 30 ppt
+bindsym $mod+Shift+$ra		move right 30 px or 30 ppt
+
+# $mod+Shift+nm,.		(minor movement)
+bindsym $mod+Shift+$li		move left 1 px or 1 ppt
+bindsym $mod+Shift+$di		move down 1 px or 1 ppt
+bindsym $mod+Shift+$ui		move up 1 px or 1 ppt
+bindsym $mod+Shift+$ri		move right 1 px or 1 ppt
+
+
+# resize focused window
+## SE adjust
+
+## $mod+Control+hjkl		(regular adjustment)
+bindsym $mod+Control+$left	resize shrink width 5 px or 5 ppt
+bindsym $mod+Control+$down	resize grow height 5 px or 5 ppt
+bindsym $mod+Control+$up	resize shrink height 5 px or 5 ppt
+bindsym $mod+Control+$right	resize grow width 5 px or 5 ppt
+
+## $mod+Control+yuio		(major adjustment)
+bindsym $mod+Control+$la	resize shrink width 10 px or 10 ppt
+bindsym $mod+Control+$da	resize grow height 10 px or 10 ppt
+bindsym $mod+Control+$ua	resize shrink height 10 px or 10 ppt
+bindsym $mod+Control+$ra	resize grow width 10 px or 10 ppt
+
+## $mod+Control+nm,.		(minor adjustment)
+bindsym $mod+Control+$li	resize shrink width 1 px or 1 ppt
+bindsym $mod+Control+$di	resize grow height 1 px or 1 ppt
+bindsym $mod+Control+$ui	resize shrink height 1 px or 1 ppt
+bindsym $mod+Control+$ri	resize grow width 1 px or 1 ppt
+
+
+# kill (quit) focused window
+bindsym $mod+Shift+q		kill
+
+
+# split horizontal / vertical toggle
+## new window below / aside
+#bindsym $mod+t		split toggle
+bindsym $mod+backslash	split toggle
+
+
+# enter fullscreen mode for the focused window
+bindsym $mod+f		fullscreen toggle
+
+
+# focus parent container
+#bindsym $mod+a		focus parent
+bindsym $mod+p		focus parent
+
+
+# focus child container
+#bindsym $mod+i		focus child
+bindsym $mod+c		focus child
+
+
+# change window layout (stacked, tabbed, toggle split)
+#bindsym $mod+s		layout stacking
+bindsym $mod+t		layout toggle stacking tabbed
+bindsym $mod+s		layout toggle split
+bindsym $mod+a		layout toggle splith splitv stacking tabbed
+
+
+# toggle focused window tiling / floating
+bindsym $mod+Control+space	floating toggle
+
+
+# toggle floating window sticky (always on top)
+bindsym $mod+Control+s	sticky toggle
+
+
+# toggle focus mode tiling / floating
+bindsym $mod+space	focus mode_toggle
+
+
+## other keybindings ##
+
+
+# spawn another terminal emulator
+
+## in $HOME
+bindsym $mod+Return	exec $term
+
+## in $PWD
+bindsym $mod+Shift+Return	exec $XDG_CONFIG_HOME/code/sway/spawn_term_pwd
+
+## floating invisible
+for_window [app_id="term_float_inv"]
+{
+	floating enable
+	resize set width 10
+	resize set height 10
+	move position 0 0
+	opacity set 1.0
+}
+
+#bindsym Control+b 	exec $term --class="term_float_inv" -e \
+#			$XDG_CONFIG_HOME/code/bar_blocks/toggle :
+#			exec $XDG_CONFIG_HOME/code/sway/kill_float_inv
+bindsym $mod+Control+b 	exec $XDG_CONFIG_HOME/i3blocks/cycle
+
+## floating in $HOME
+for_window [app_id="term_float"]
+{
+	floating enable
+	opacity set 0.8
+}
+
+bindsym $mod+Control+Return	exec $term --class="term_float"
+
+
+# fzf configuration
+
+## fzf_run
+for_window [app_id="float_fzf_run"]
+{
+    floating enable
+    resize set width 500
+    resize set height 500
+    move position 0 0
+    opacity set 0.8
+}
+
+bindsym $mod+d			exec $term --class="float_fzf_run" -e \
+				$XDG_CONFIG_HOME/code/sway/fzf_run
+
+## define spicules window
+for_window [app_id="float_spicules"]
+{
+    floating enable
+    resize set width 1000
+    resize set height 500
+    move position 0 0
+    opacity set 0.8
+}
+
+## fzf_spicules			(search cmd_cat)
+bindsym $mod+z			exec $term --class="float_spicules" -e \
+				$XDG_CONFIG_HOME/code/sway/fzf_spicules && wl-copy -n < $XDG_CACHE_HOME/cb
+
+## fzf_sway_shutdown		(shutdown menu)
+bindsym $mod+Shift+x		exec $term --class="float_spicules" -e \
+				$XDG_CONFIG_HOME/code/sway/fzf_sway_shutdown
+
+## fzf_sway_switch 		(window switcher)
+bindsym $mod+grave		exec $term --class="float_spicules" -e \
+				$XDG_CONFIG_HOME/code/sway/fzf_sway_switch
+
+# fzf clipboard manager
+## cache/cb is the active clipboard
+## cache/cpbd is the clipboard list
+#
+# NO automatic migration (security feature!)
+# of active clipboard items to the clipboard list
+# this must be done explicitly (copy then fzf_cpbd add)
+
+## fzf_cpbd add
+bindsym Control+Shift+y		exec $XDG_CONFIG_HOME/code/sway/fzf_cpbd add
+# TODO DEV bindsym Control+Shift+o	secure copy (wl-copy -o)
+
+
+## fzf_cpbd put
+bindsym Control+Shift+p		exec $term --class="float_spicules" -e \
+				$XDG_CONFIG_HOME/code/sway/fzf_cpbd put && wl-copy -n < $XDG_CACHE_HOME/cb
+
+## fzf_cpbd remove_item
+bindsym Control+Shift+r		exec $term --class="float_spicules" -e \
+				$XDG_CONFIG_HOME/code/sway/fzf_cpbd remove_item
+
+## fzf_cpbd remove_all
+bindsym $mod+Control+Shift+r	exec $term --class="float_spicules" -e \
+				$XDG_CONFIG_HOME/code/sway/fzf_cpbd remove_all
+
+
+# exit workspace (Zzz)
+
+## swaylock
+## colors set in code/sway/lock
+
+## screen backlight on/off
+bindsym $mod+Shift+s		exec $XDG_CONFIG_HOME/code/sway/screen_onf
+
+### lock instantly
+bindsym $mod+Shift+z		exec $XDG_CONFIG_HOME/code/sway/dimr swaylock
+
+### screen off
+bindsym $mod+Shift+Slash	exec $XDG_CONFIG_HOME/code/sway/dimr screen_off
+
+### enable (lock after 2 * idle_time)
+bindsym $mod+Control+Shift+e	exec $XDG_CONFIG_HOME/code/sway/dimr swaylock_enable
+
+### disable (no lock after idle_time)
+bindsym $mod+Control+Shift+d	exec $XDG_CONFIG_HOME/code/sway/dimr swaylock_disable
+
+# reload sway configuration
+bindsym $mod+Shift+c		reload
+
+
+# XF86 specific keys
+
+### i3blocks (old): && pkill -RTMIN+1 i3blocks
+### for OLED (they have no backlight) screens; try icc-backlight (see notes)
+
+## screen brightness
+bindsym XF86MonBrightnessDown	exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp	exec brightnessctl set 5%+
+
+## audio volume
+### tpx1c using wireplumber
+bindsym XF86AudioRaiseVolume	exec wpctl set-volume	@DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume 	exec wpctl set-volume	@DEFAULT_AUDIO_SINK@ 5%-
+bindsym XF86AudioMute 		exec wpctl set-mute	@DEFAULT_AUDIO_SINK@ toggle
+bindsym XF86AudioMicMute 	exec wpctl set-mute	@DEFAULT_AUDIO_SOURCE@ toggle
+bindsym F9			exec wpctl set-mute	@DEFAULT_AUDIO_SOURCE@ toggle
+### pulse15 using alsamixer
+#bindsym XF86AudioLowerVolume	exec amixer sset Master 2%-
+#bindsym XF86AudioRaiseVolume	exec amixer sset Master 2%+
+#bindsym XF86AudioMute		exec amixer sset Master toggle
+### xps 9360
+#bindsym XF86AudioMute		exec amixer sset Master toggle && \
+#				amixer sset Speaker toggle && \
+#				amixer sset Headphone toggle
+# pactl set-sink-volume -5%
+# pactl set-sink-mute
+
+## audio control
+bindsym XF86AudioPlay 		exec playerctl play-pause
+bindsym XF86AudioNext 		exec playerctl next
+bindsym XF86AudioPrev 		exec playerctl previous
+#bindsym XF86AudioNext		exec lmc next
+#bindsym XF86AudioPlay		exec lmc toggle
+#bindsym XF86AudioPrev		exec lmc prev
+#bindsym XF86AudioStop		exec lmc toggle
+
+bindsym XF86Search 		exec $menu
+bindsym $mod+m			exec $term --class="float_spicules" -e \
+				$XDG_CONFIG_HOME/code/sway/music_play
+
+# screencapture
+# https://wiki.archlinux.org/index.php/Sway#Screen_capture
+
+## current output
+bindsym Print			exec grim -o $(swaymsg -t get_outputs \
+				| jq -r '.[] | select (.focused) | .name') \
+				$XDG_DATA_HOME/a/media/images/scr_cap/`date "+%Y%m%d_%H%M%S"`.png && \
+				notify-send 'scr_cap curr output'
+
+## all outputs
+bindsym Mod1+Print		exec grim \
+				$XDG_DATA_HOME/a/media/images/scr_cap/`date "+%Y%m%d_%H%M%S"`.png  && \
+				exec notify-send 'scr_cap all outputs'
+
+## selective rectangle
+### to file
+bindsym --release Shift+Print	exec grim -g "$(slurp)" \
+				$XDG_DATA_HOME/a/media/images/scr_cap/`date "+%Y%m%d_%H%M%S"`.png && \
+				exec notify-send 'scr_cap selective'
+### to clipboard
+bindsym Shift+Control+Print	exec grim -g "$(slurp)" | wl-copy && \
+				notify-send 'scr_cap sel copy'
+
+## pick a color
+bindsym $mod+F9			exec grim -g "$(slurp -p)" -t ppm - | \
+				convert - -format '%[pixel:p{0,0}]' txt:- | \
+				wl-copy -n && \
+				notify-send 'color data copy'
+
+# secure copy
+#bindsym Shift+Control+y	wl-copy -o -n && exec notify-send 'secure copy is in DEV'
+bindsym Shift+Control+0		exec echo -n '' | wl-copy && notify-send 'clipboard cleared'
+
+# speech-to-text
+bindsym Shift+Control+Mod1+e	exec $(vtxt begin en)
+bindsym Shift+Control+Mod1+r	exec $(vtxt end)
+bindsym Shift+Control+Mod1+n	exec $(vtxt begin nl)
+bindsym Shift+Control+Mod1+m	exec $(vtxt end)
+bindsym Shift+Control+Mod1+s	exec $(vtxt begin sv)
+bindsym Shift+Control+Mod1+d	exec $(vtxt end)
+
+# waybar
+#exec waybar
+
+# mako
+exec mako
+
+# [Home · swaywm/sway Wiki · GitHub]
+# (https://github.com/swaywm/sway/wiki#gtk-applications-take-20-seconds-to-start)
+# Alternatively, set GTK_USE_PORTAL=0 in your environment.
+# More details: https://github.com/swaywm/sway/issues/5732
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK

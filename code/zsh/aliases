@@ -1,0 +1,74 @@
+#!/bin/zsh
+
+# mitigate alias usage for command: \[command]
+
+# application behaviour
+
+alias sudo='sudo '
+alias vi='nvim'
+alias vim='nvim'
+alias view='nvim -R'
+alias vimdiff='nvim -d'
+alias e='emacs $@ &'
+alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/.tmuxrc"
+alias lsblk="lsblk -i --tree -o name,uuid,fstype,path,size,fsuse%,fsused,label,mountpoint"
+alias cal='env TERM=xterm cal'
+alias tree='tree -n --charset=unicode'
+#alias tree='env TERM=xterm-256color tree'
+alias zsh="env ZDOTDIR="$XDG_CONFIG_HOME/zsh" zsh"
+
+## protect against shell command injection
+### https://security.stackexchange.com/questions/56307/can-cat-ing-a-file-be-a-potential-security-risk/56323#56323
+alias cat='cat -vE'
+
+## prevent less writing lesshst to $HOME
+## use long prompt (-M)
+## quit if file fits on screen (-F)
+## prevent clearing screen on exit (-X)
+## define colors for error (Emk), search (Swk) & prompt (Pwk)
+alias less="less -MFJRX -P '%f %l %L %PX' --use-color --color='Emk' --color='SWk' --color='Pkw'"
+alias man="man --pager='less -MFJRX --use-color --color='Emk' --color='SWk' --color='Pkw''"
+#alias man="man --pager='less -MFJRX --prompt='%f %l %L %PX' --use-color --color='Emk' --color='SWk' --color='Pkw''"  # prompt does not work in man
+
+alias sr="sr -browser=$BROWSERCLI"
+alias surfraw="surfraw -browser=$BROWSER"
+
+
+# file operations
+
+alias cp='cp -avi'
+#alias cp='cp -prv'
+#alias cp='rsync -aAXv --info=ALL --human-readable'
+alias mv='mv -v'
+#alias mv='rsync -aAXv --info=ALL --human-readable && rm -rf $1'
+alias rm='trash'
+alias mkdir='mkdir -pv'
+
+
+# colors
+
+alias ls='ls -aA --group-directories-first --color=auto'
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
+
+# audio
+
+alias beep="paplay $BEEP"
+
+# time
+alias now='date +%s'
+
+# application configuration
+
+## w3m -config is right, not --config as expected
+alias w3m="w3m -config $XDG_CONFIG_HOME/w3m/config"
+alias fim='fim --no-history'
+
+
+# network
+#alias myip='dig myip.opendns.com @resolver1.opendns.com +dnssec +short'
+alias myip='curl icanhazip.com'
+alias exip='myip'
+alias pubip='myip'

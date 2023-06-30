@@ -1,0 +1,26 @@
+#!/bin/sh
+
+## external mac
+#mac_neigh=$(ip neigh show nud reachable | awk '{print $5}' | cut -c 13-)
+#mac_neigh=$($mac_neigh_full | cut -c 13-)
+
+## interface
+#old (did not work well with vpn tunnels)
+#i=$(ip -o -4 route show to default | awk '{print $5}')
+i=$(ip route get 9.9.9.9 | awk '{print $5}')
+
+## internal mac
+if [ "$i" = "tun0" ]; then
+	#interface when tunnel active
+	i_low=$(ip a | grep 'state UP' | awk {'print $2'} | sed 's/.$//')
+else
+	i_low=$i
+fi
+
+mac=$(cat /sys/class/net/$i_low/address | cut -c 13-)
+#mac=$($(mac_full) | cut -c 13-)
+
+if [ ! -z "$i" ]; then
+	#echo $mac_neigh $i $mac
+	echo $mac
+fi

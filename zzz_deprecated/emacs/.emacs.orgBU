@@ -1,0 +1,220 @@
+#+TITLE: emacs configuration file
+#+AUTHOR: cytopyge
+
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+
+#+OPTION: num:nil
+
+#+PROPERTY: header-args :results silent
+
+* setup
+
+  Create init file, define repositories, install use-package and bootstrap it.
+** init file
+
+The init file extracts all code from the configuration file when emacs starts. 
+#+BEGIN_SRC bash :tangle no
+  #!/bin/bash
+
+  init_file="$HOME/.emacs.d/init.el"
+  conf_file="$HOME/.dot/.emacs.org"
+
+  echo -n "(package-initialize)" > $init_file
+  echo "(org-babel-load-file "$conf_file")" >> $int_file
+
+  exit
+#+END_SRC
+
+** repositories
+   
+   Using repositories of ELPA and MELPA.
+   #+BEGIN_SRC emacs-lisp
+      (setq package-eable-at-startup nil
+	    package-archives '(("elpa" . "https://elpa.gnu.org/packages/")
+			       ("melpa" . "https://melpa.org/packages/")))
+   #+END_SRC
+
+** use-package
+
+   #+NAME: use-package
+   #+BEGIN_SRC emacs-lisp
+     (unless (package-installed-p 'use-package)
+       (package-refresh-contents)
+       (package-install 'use-package))
+     (require 'use-package)
+     (require 'use-package-ensure)
+     (setq use-package-always-ensure t)
+   #+END_SRC
+   
+   
+* configuration
+  
+Configure display, dialogues and backup settings
+** display
+*** no_bars
+
+    The value 'nil' is the same as '-1'.
+    The value 't' is the same as '1'.
+    No bars in 'Da Editor'! Get rid of the bars.
+    #+NAME: disable-bars
+    #+BEGIN_SRC emacs-lisp
+      (menu-bar-mode -1)
+      (tool-bar-mode -1)
+      (scroll-bar-mode -1)
+    #+END_SRC
+
+*** line_numbers
+    
+    #+NAME: line-numbers
+    #+BEGIN_SRC emacs-lisp
+      (add-hook 'prog-mode-hook #'display-line-numbers-mode)
+    #+END_SRC
+
+*** global_theme
+
+    With use-package the package will automatically be installed,
+    because of '-ensure' in bootstrap use-package.
+    Package options can be loaded directly via :config
+    #+NAME: theme
+    #+BEGIN_SRC emacs-lisp
+      (use-package doom-themes
+	:config (load-theme 'doom-dracula t)
+	)
+    #+END_SRC
+
+*** splash_screen
+
+    Remove splash screen and startup messages 
+    #+NAME: disable_splash_startup
+    #+BEGIN_SRC emacs-lisp
+      (custom-set-variables
+        '(inhibit-startup-screen t)
+        '(initial-scratch-message nil)
+	)
+    #+END_SRC
+
+*** status_bar
+
+    Configure status bar and more
+    #+NAME: staus_bar_config
+    #+BEGIN_SRC emacs-lisp
+      (custom-set-variables
+         '(column-number-mode t)
+	 '(tooltip-mode nil)
+	 ;;'(display-line-numbers t)
+	 '(global-hl-line-mode t)
+	 '(show-paren-mode t)
+	 '(windmove-default-keybindings nil)
+	 ;;'(ivy-mode t)
+	 ;;'(winner-mode t)
+	 )
+    #+END_SRC
+    
+** dialogues
+*** no_symlink_prompt
+
+    Disable follow symlink prompt
+    #+NAME: symlink
+    #+BEGIN_SRC emacs-lisp
+      (setq vc-follow-symlinks t)
+    #+END_SRC
+
+*** better_yes_no_prompt
+
+    Replace yes-or-no prompt with direct y-or-n
+    #+NAME: yes-or-no
+    #+BEGIN_SRC emacs-lisp
+      (defalias 'yes-or-no-p 'y-or-n-p)
+    #+END_SRC
+
+** backup
+*** backup_settings
+
+    Replace backup directory
+    #+NAME: backup_directory
+    #+BEGIN_SRC emacs-lisp
+      (setq backup-directory-alist '(("." . "~/.saves"))
+	    backup-by-copying t
+	    delete-old-versions t
+	    kept-new-versions 10
+	    kept-old-versions 10
+	    version-control t)
+    #+END_SRC
+ 
+    
+* packages
+** which-key
+
+  Shows the keybindings on-the-fly.
+  #+NAME: which-key
+  #+BEGIN_SRC emacs-lisp
+    (use-package which-key
+      :config (which-key-mode))
+  #+END_SRC
+
+** evil-mode
+
+   Vim keybindings in Emacs
+   #+BEGIN_SRC emacs-lisp
+     (use-package evil
+       :config
+       (evil-mode 1))
+   #+END_SRC
+   
+** magit
+
+   Magit is the git plugin for Emacs.
+   - [] There is also an evil version!
+   #+NAME: magit
+   #+BEGIN_SRC emacs-lisp
+     (use-package evil-magit)
+   #+END_SRC
+   
+** helm
+
+   Helm for getting on course with Emacs.
+   #+NAME: helm
+   #+BEGIN_SRC emacs-lisp
+     (use-package helm
+       :init
+       (setq helm-follow-mode-persistent t
+	     helm-auto-resize-max 40
+	     helm-display-header-line nil
+	     ;;helm-display-line-numbers nil
+	     )
+       :config
+       (require 'helm-config)
+       (helm-autoresize-mode t)
+       (add-hook
+	'helm-minibuffer-set-up-hook
+	'helm-hide-minibuffer-maybe
+	)
+       (helm-mode t)
+       )
+   #+END_SRC
+
+** projectile
+** company
+** lsp-mode
+** treemacs
+
+Note: A popular alternative to treemacs is neotree
+
+
+* keybindings
+
+;;(define-key global-map
+;;  (kbd "M-x") 'helm-M-x')
+;;(evil-define-key 'normal' 'global-map
+** TODO number windows to kill or switch over to
+- like C-x 4 0 to kill window 4
+- ? C-x 4 1 to switch over to window 4?
+#+NAME: keybindings
+#+BEGIN_SRC emacs-lisp
+  (use-package general
+    :config
+    (general-define-key
+     "M-x" 'helm-M-x
+     "C-x g" 'magit status
+     "C-x C-f" 'helm-find-files))
+#+END_SRC

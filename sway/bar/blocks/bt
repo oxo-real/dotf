@@ -1,0 +1,11 @@
+#!/bin/sh
+
+bt_status=$(systemctl status bluetooth | grep active | awk '{print $2}')
+
+if [ "$bt_status" = 'active' ]; then
+
+    bt_block=$(printf '%s\n' 'B')
+
+fi
+
+echo $bt_block

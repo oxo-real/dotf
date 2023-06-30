@@ -1,0 +1,6 @@
+#!/bin/sh
+
+bt_status=$(systemctl status bluetooth | grep active | awk '{print $2}')
+if [ "$bt_status" = 'active' ]; then
+	echo 'B'
+fi

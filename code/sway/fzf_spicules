@@ -1,0 +1,13 @@
+#!/bin/bash
+
+spicules=$(\
+	cat $XDG_DATA_HOME/c/git/note/linux/shell/command/catalog | \
+	#sort | \
+	fzf | \
+	sed 's/  ## .*$//' \
+	    > $XDG_CACHE_HOME/cb\
+)
+
+swaymsg -t command exec $spicules
+
+# sed is used to remove '  ## '-marked comments from the lines

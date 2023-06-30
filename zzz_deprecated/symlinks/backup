@@ -1,0 +1,86 @@
+#!/bin/sh
+#
+##
+###  _                _
+### | |__   __ _  ___| | ___   _ _ __
+### | '_ \ / _` |/ __| |/ / | | | '_ \
+### | |_) | (_| | (__|   <| |_| | |_) |
+### |_.__/ \__,_|\___|_|\_\\__,_| .__/
+###                             |_|
+###
+###  _ _|_ _ ._    _  _
+### (_\/|_(_)|_)\/(_|(/_
+###   /      |  /  _|
+###
+### backup
+### backup configuration files
+### from org loc to $(prv_)sym_loc
+### (c) 2019 - 2020 cytopyge
+###
+##
+#
+
+
+# directory locations
+cfg_loc="$HOME/.config"
+sym_loc="$HOME/.dot/symlinks"
+prv_sym_loc="$HOME/_settings/private/.dot/symlinks"
+
+
+# 1. create directories if non-existing
+
+## public symlinks
+[ -d $sym_loc/alacritty ] ||		mkdir -p $sym_loc/alacritty
+[ -d $sym_loc/emacs ] ||			mkdir -p $sym_loc/emacs
+[ -d $sym_loc/i3 ] ||				mkdir -p $sym_loc/i3
+[ -d $sym_loc/mako ] ||				mkdir -p $sym_loc/mako
+[ -d $sym_loc/nvim ] ||				mkdir -p $sym_loc/nvim
+[ -d $sym_loc/qutebrowser ] ||	    mkdir -p $sym_loc/qutebrowser
+[ -d $sym_loc/rofi ] ||				mkdir -p $sym_loc/rofi
+[ -d $sym_loc/sway ] ||				mkdir -p $sym_loc/sway
+[ -d $sym_loc/termite ] ||			mkdir -p $sym_loc/termite
+[ -d $sym_loc/waybar ] ||			mkdir -p $sym_loc/waybar
+
+## private symlinks (config files not in public git repo)
+[ -d $prv_sym_loc/isync ] ||		mkdir -p $prv_sym_loc/isync
+[ -d $prv_sym_loc/msmtp ] ||		mkdir -p $prv_sym_loc/msmtp
+[ -d $prv_sym_loc/neomutt ] ||		mkdir -p $prv_sym_loc/neomutt
+[ -d $prv_sym_loc/newsboat ] ||		mkdir -p $prv_sym_loc/newsboat
+
+
+# 2. copy config files (via symlinks)
+
+## these application configurations have only one config file
+
+## backup the configuration files from their original locations
+## sources are symlinks!
+cp ~/.dot/.alacrittyrc		$sym_loc/alacritty/.alacrittyrcFILE
+cp ~/.dot/.emacsrc			$sym_loc/emacs/.emacsrcFILE
+cp ~/.dot/.i3blocksrc		$sym_loc/i3/.i3blocksrcFILE
+cp ~/.dot/.makorc			$sym_loc/mako/.makorcFILE
+cp ~/.dot/.newsboatrc		$sym_loc/newsboat/.newsboatrcFILE
+cp ~/.dot/.nvimrc			$sym_loc/nvim/.nvimrcFILE
+cp ~/.dot/.qutebrowserrc 	$sym_loc/qutebrowser/.qutebrowserrcFILE
+cp ~/.dot/.rofirc			$sym_loc/rofi/.rofircFILE
+cp ~/.dot/.swayrc			$sym_loc/sway/.swayrcFILE
+cp ~/.dot/.termiterc		$sym_loc/termite/.termitercFILE
+cp ~/.dot/.waybarrc			$sym_loc/waybar/.waybarrcFILE
+
+## private symlinks (config files not in git repo)
+cp ~/.dot/.mbsyncrc			$prv_sym_loc/isync/.mbsyncrcFILE
+cp ~/.dot/.msmtprc			$prv_sym_loc/msmtp/.msmtprcFILE
+cp ~/.dot/.neomuttrc		$prv_sym_loc/neomutt/.neomuttrcFILE
+cp ~/.config/newsboat/urls	$prv_sym_loc/newsboat/urlsFILE
+
+
+# 3. copy config directories
+
+## these application configurations have more config files / config directories
+cp -Lr ~/.dot/i3blockscalls	$sym_loc/i3
+cp -Lr ~/.dot/waybar		$sym_loc/waybar
+
+## private directories
+## these application configurations have more config files / config directories
+## and are not in git repo
+#cp -Lr ~/.dot/qutebrowser	$prv_sym_loc/qutebrowser
+#cp -Lr ~/.config/ranger/* ~/.dot/symlinks/ranger

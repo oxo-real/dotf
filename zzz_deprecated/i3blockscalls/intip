@@ -1,0 +1,9 @@
+#!/bin/sh
+
+i=$(ip -o -4 route show to default | awk '{print $5}')
+
+ip=$(ip a show dev $i | grep 'inet ' | awk '{print $2}')
+
+if [ ! -z "$ip" ]; then
+	echo $ip
+fi

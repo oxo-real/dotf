@@ -1,0 +1,8 @@
+#!/bin/sh
+i=$(ip -o -4 route show to default | awk '{print $5}')
+ssid=$(iwgetid -r)	
+chan=$(iwgetid -c | cut -d ':' -f 2)
+sig_lvl=$(iwconfig | grep  'Signal level' | cut -d '=' -f 3 | awk '{ print $1 }' )
+if [ ! -z "$ssid" ]; then
+	echo "$ssid $chan$sig_lvl"
+fi

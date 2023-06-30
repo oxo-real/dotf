@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+music_play=$(\
+	fd . $MUSICDIR | fzf | xargs mpv &\
+)
+
+swaymsg -t command exec $music_play

@@ -1,0 +1,59 @@
+# sway external hardware configuration
+
+## is being called by designated specific sway hardware configuration
+## (designation by means of symlink "$XDG_CONFIG_HOME/sway/current")
+
+
+
+# external input devices
+
+
+# keyboard				(identifier)
+
+## dell_separate_kb
+#set $keyboard_ext			1121:16:NOVATEK_USB_KEYBOARD
+
+## dell_usb_kb
+#set $keyboard_ext			16700:8195:Dell_Dell_USB_Keyboard
+
+## logitech mx mechanical mini
+#set $keyboard_ext			1133:50504:Logitech_USB_Receiver
+
+## zsa moonlander
+set $keyboard_ext			12951:6505:ZSA_Technology_Labs_Moonlander_Mark_I_Keyboard
+
+
+# mouse					(identifier)
+
+## logitech mx master
+#set $mouse				1133:45074:Logitech_Wireless_Mouse_MX_Master
+
+## logitech mx anywhere 3
+#set $mouse				1133:16528:Logitech_MX_Anywhere_3
+
+## logitech mbj69
+#set $mouse				1133:49166:Logitech_USB-PS/2_Optical_Mouse
+
+
+# touchpad
+
+## logitech rechargeable touchpad t650
+set $touchpad_ext			1133:16641:Logitech_Rechargeable_Touchpad_T650
+
+
+
+# external output devices
+
+
+# display
+
+## hp_z27n (dp)
+#output DP-1				mode 1060x1440 scale 1.0 pos 0 0
+#output DP-1				mode 1920x1200 scale 1.0 pos 0 0
+
+## hp_z27n (dvi)
+#output DVI-I-1				mode 1920x1200 scale 1.0 pos 0 0
+
+## dell_u2715h (hdmi)
+### pos set in sway config
+output HDMI-A-1				mode 2560x1440 scale 1.0

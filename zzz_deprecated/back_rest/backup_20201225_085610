@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# !! no pointers to personal data here !!
+
+# for every symlink in $HOME/.dot cp -Lr the symlink to $HOME/.dot/files
+# as backup for customized dotfiles and for public presentation
+
+cp -Lr $HOME/.dot/.alacrittyrc		$HOME/.dot/files/.alacrittyrc
+cp -Lr $HOME/.dot/.emacsrc			$HOME/.dot/files/.emacsrc
+cp -Lr $HOME/.dot/.makorc			$HOME/.dot/files/.makorc
+## -Lr $HOME/.dot/.mbsyncrc			$HOME/.dot/files/.mbsyncrc
+## -Lr $HOME/.dot/.msmtprc			$HOME/.dot/files/.msmtprc
+cp -Lr $HOME/.dot/.neomuttrc		$HOME/.dot/files/.neomuttrc
+cp -Lr $HOME/.dot/.newsboatrc		$HOME/.dot/files/.newsboatrc
+cp -Lr $HOME/.dot/.nvimrc			$HOME/.dot/files/.nvimrc
+cp -Lr $HOME/.dot/.qutebrowserrc	$HOME/.dot/files/.qutebrowserrc
+cp -Lr $HOME/.dot/.swayrc			$HOME/.dot/files/.swayrc
+cp -Lr $HOME/.dot/.tmuxrc			$HOME/.dot/files/.tmuxrc
+cp -Lr $HOME/.dot/.vimrc			$HOME/.dot/files/.vimrc
+cp -Lr $HOME/.dot/.waybarrc			$HOME/.dot/files/.waybarrc
+cp -Lr $HOME/.dot/.zshrc			$HOME/.dot/files/.zshrc

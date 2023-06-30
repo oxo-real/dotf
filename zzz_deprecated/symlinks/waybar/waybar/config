@@ -1,0 +1,241 @@
+{
+
+    "layer": "top"
+
+
+	,"position": "top"
+
+
+	,"height": 20 // remove for auto height
+
+
+	,"width": ""
+
+
+    ,"modules-left": ["sway/workspaces", "sway/window"]
+
+
+	,"modules-center": []
+
+
+	,"modules-right": ["custom/wifi", "custom/ip_ex", "custom/mac_ex", "custom/interface", "custom/mac_in", "custom/ip_in", "custom/v_rx", "custom/v_tx", "custom/rnd_pool_alert", "custom/knl_release", "temperature", "custom/cpu", "custom/mem", "pulseaudio", "custom/brightness", "battery", "custom/batt_flow", "custom/bt", "clock"]
+
+
+	,"sway/workspaces": {
+
+		"all-outputs": true
+		,"format": {}
+		,"max-length": 100
+		,"numeric-first": true
+
+	}
+
+
+	,"sway/window": {
+
+		"format": "{}"
+		,"max-length": 100
+
+	}
+
+
+	,"custom/brightness": {
+
+		"format": "{}%"
+		,"exec": "$HOME/.dot/code/waybar/brightness"
+		,"exec-if": "exit 0"
+		,"interval": 1
+
+	}
+
+
+	,"battery": {
+
+		"interval": 10
+        ,"states": {
+            "warning01": 79
+            ,"warning02": 59
+            ,"critical": 14
+        }
+        ,"format": "{capacity}"
+
+    }
+
+
+	,"custom/batt_flow": {
+
+		"exec": "$HOME/.dot/code/waybar/batt_flow"
+		,"exec-if": "exit 0"
+		,"interval": 10
+
+    }
+
+
+	,"custom/bt": {
+
+		"format": "{}"
+		,"exec": "$HOME/.dot/code/waybar/bt"
+		,"exec-if": "exit 0"
+		,"interval": 2
+
+	}
+
+
+	,"clock": {
+
+		"all-outputs": true
+        ,"format": "{:%u%d %H:%M}"
+        ,"tooltip-format": "<small>{:%Y %B}</small>\n<tt><small>{calendar}</small></tt>"
+        ,"format-alt": "{:%Y%m%d}"
+
+	}
+
+
+	,"custom/wifi": {
+
+		"exec": "$HOME/.dot/code/waybar/wifi"
+		,"exec-if": "exit 0"
+		,"interval": 2
+
+
+	}
+
+
+	,"custom/interface": {
+
+		"exec": "$HOME/.dot/code/waybar/interface"
+		,"exec-if": "exit 0"
+		,"interval": 2
+
+
+	}
+
+
+	,"custom/rnd_pool_alert": {
+
+		"exec": "$HOME/.dot/code/waybar/rnd_pool_alert"
+		,"exec-if": "exit 0"
+		,"interval": 5
+
+
+	}
+
+
+	,"custom/knl_release": {
+
+		"exec": "$HOME/.dot/code/waybar/knl_release"
+		,"exec-if": "exit 0"
+		,"interval": 5
+
+
+	}
+
+
+	,"custom/cpu": {
+
+		"exec": "$HOME/.dot/code/waybar/cpu"
+		,"exec-if": "exit 0"
+		,"interval": 1.5
+
+    }
+
+
+	,"custom/mem": {
+
+		"exec": "$HOME/.dot/code/waybar/mem"
+		,"exec-if": "exit 0"
+		,"interval": 5
+        ,"states": {
+            "mem_high": 15000
+            ,"mem_half": 8000
+            ,"mem_low": 4000
+        }
+
+    }
+
+
+	,"temperature": {
+
+        "critical-threshold": 80
+        ,"format": "{temperatureC}°"
+
+	}
+
+
+	,"pulseaudio": {
+
+        // "scroll-step": 1, // %, can be a float
+        "format": "{volume}~"
+        ,"format-muted": "{volume}x"
+        ,"format-bluetooth": "{volume}B"
+        ,"format-bluetooth-muted": "{volume}xB"
+
+	}
+
+
+	,"custom/ip_ex": {
+
+		"exec": "$HOME/.dot/code/waybar/ipex"
+		,"exec-if": "exit 0"
+		,"interval": 5
+
+    }
+
+
+	,"custom/ip_in": {
+
+		"exec": "$HOME/.dot/code/waybar/ipin"
+		,"exec-if": "exit 0"
+		,"interval": 5
+
+    }
+
+
+	,"custom/mac_ex": {
+
+		"exec": "$HOME/.dot/code/waybar/macex"
+		,"exec-if": "exit 0"
+		,"interval": 5
+
+    }
+
+
+	,"custom/mac_in": {
+
+		"exec": "$HOME/.dot/code/waybar/macin"
+		,"exec-if": "exit 0"
+		,"interval": 5
+
+    }
+
+
+	,"custom/v_rx": {
+
+		"exec": "$HOME/.dot/code/waybar/vrx"
+		,"exec-if": "exit 0"
+		,"interval": 2
+        ,"states": {
+            "rx_flow_0": 0
+            ,"rx_flow_low": 50
+            ,"rx_flow_high": 10000
+        }
+
+
+    }
+
+
+	,"custom/v_tx": {
+
+		"exec": "$HOME/.dot/code/waybar/vtx"
+		,"exec-if": "exit 0"
+		,"interval": 2
+        ,"states": {
+            "tx_flow_0": 0
+            ,"tx_flow_low": 50
+            ,"tx_flow_high": 10000
+			}
+
+    }
+
+
+}

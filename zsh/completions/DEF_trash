@@ -1,0 +1,83 @@
+#compdef trashDEF
+
+_trash() {
+
+    typeset -A opt_args
+
+    _arguments -C \
+	       '1:empty:->empty' \
+	       '2:element:->element' \
+	       '*:: :->args' \
+	&& ret=0
+
+    case "$state" in
+
+	commobj)
+
+	    # command
+            local -a command
+
+    	    command=(
+		'open:command -- open LUKS password vault'
+		'login:command -- login GPG password store'
+		'status:command -- verify LUKS & GPG status'
+		'logout:command -- logout GPG password store'
+		'close:command -- close LUKS password vault'
+		'persist:command -- menu returns after select'
+		'search:command -- search object name in password store'
+		'grep:command -- search within object data'
+		'new:command -- create object in password store'
+		'edit:command -- edit object data'
+	    )
+
+	    # object
+            ## prefix = passr object
+	    ## see also: /usr/share/zsh/site-functions/_pass
+	    local -a object
+
+	    zstyle -s ":completion:${curcontext}:" object prefix || \
+		object="${PASSWORD_STORE_DIR:-$HOME/.password-store}"
+	    _values -C 'passwords' \
+		    ${$(find -L "$object" \( -name .git -o -name .gpg-id \) \
+			    -prune -o $@ -print 2>/dev/null | \
+			    sed -e "s#${object}/\{0,1\}##" -e 's#\.gpg##' \
+				-e 's#\\#\\\\#g' -e 's#:#\\:#g' | sort):-""}
+
+	    ## command and object arrays joined
+            local -a commobj
+	    commobj=("${command[@]}" "${object[@]}")
+
+	    _describe -t commobj 'commobj' commobj && ret=0
+	    ;;
+
+	element)
+	    element=(
+		'url:element -- target location'
+		'userid:element -- userid'
+		'password:element -- password of userid'
+		'otp:element -- one time pass code'
+		'unlock:element -- symmetric unlock code'
+		'peacto:element -- personal access token'
+		'autoentry:element -- get required login fields'
+		'show:element -- object data to stdout'
+		'copy:element -- object data to clipboard'
+		'edit:element -- open object in $EDITOR'
+	    )
+
+	    _describe -t element 'element' element && ret=0
+	    ;;
+
+    esac
+
+    return 1
+}
+
+
+main() {
+
+    _trash
+
+}
+
+
+main

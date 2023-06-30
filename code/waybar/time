@@ -1,0 +1,47 @@
+#!/bin/sh
+
+: '
+##[TODO] posix compliance:
+#/bin/sh does not accept the array
+
+# set clock divider sign
+sync=$(timedatectl | grep sync | awk '{print $4}')
+
+if [[ "$sync" = "yes" ]]; then
+
+	divider=(':' '·' ':' '.')
+
+else
+
+	divider=('!' '.' '!' '.')
+
+fi
+
+
+cnt=0
+
+while true; do
+#while [ -n "$SWAYSOCK" ]; do
+
+	loc=$(($cnt % 4))
+
+	cnt=$(($cnt + 1))
+
+	echo $(date "+%H${divider[$loc]}%M")
+	#echo $(date "+%u%d %H${divider[$loc]}%M")
+
+	sleep 2
+
+done
+# '
+
+# simple clock (ud HM)
+#echo $(date "+%u%d %H%M")
+dow_num=$(date "+%u")
+day=$(date "+%d")
+hour=$(date "+%H")
+minute=$(date "+%M")
+time_zone=$(date "+%-:::z %Z")
+
+# simple clock (HHMM)
+printf '%s\n' "$hour$minute"

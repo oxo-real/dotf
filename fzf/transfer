@@ -1,0 +1,34 @@
+#!/bin/zsh
+
+# transfer fzf from ~/.fzf to ~/.config/fzf
+
+mkdir $HOME/.config/fzf
+mv $HOME/.fzf* $HOME/.config/fzf
+
+## add to $HOME/.dot/.zshrc:
+:'
+
+# fzf
+[ -f ~/.config/fzf/.fzf.zsh ] && source ~/.config/fzf/.fzf.zsh
+
+'
+
+## replace $HOME/.config/fzf/.fzf.zsh with:
+: '
+
+# Setup fzf
+# ---------
+if [[ ! "$PATH" == *#HOME/.config/fzf/bin* ]]; then
+  export PATH="${PATH:+${PATH}:}$HOME/.config/fzf/.fzf/bin"
+fi
+
+# Auto-completion
+# ---------------
+[[ $- == *i* ]] && source "$HOME/.config/fzf/.fzf/shell/completion.zsh
+" 2> /dev/null
+
+# Key bindings
+# ------------
+source "$HOME/.config/fzf/.fzf/shell/key-bindings.zsh"
+'
+

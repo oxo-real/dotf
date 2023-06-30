@@ -1,0 +1,25 @@
+#!/bin/sh
+
+scrot -q 5 /tmp/lockscreen.png
+
+# Add a lock to the swirled and blurred image
+#[[ -f ~/.config/i3/lock.png ]] && convert /tmp/lockscreen.png -paint 1.2 -swirl -900 -implode 0.3 ~/.config/i3/lock.png -gravity center -composite -matte /tmp/lockscreen.png
+# frozen screen and add lock
+#[[ -f ~/.config/i3/lock.png ]] && convert /tmp/lockscreen.png -spread 5 -blur 5 ~/.config/i3/lock.png -gravity south -composite -matte /tmp/lockscreen.png
+# fast image blurring; shrink and resize image and add lock
+[[ -f ~/.config/i3/lock.png ]] && convert /tmp/lockscreen.png -scale 5% -resize 2000% ~/.config/i3/lock.png -gravity south -composite -matte /tmp/lockscreen.png
+
+
+# mute audio
+amixer sset Master mute
+
+# i3lock
+i3lock -e -f -c 000000 -i /tmp/lockscreen.png
+
+timeout="120000"
+
+# If still locked after $timeout milliseconds, turn off screen.
+while [[ $(pgrep -x i3lock) ]]; do
+	[[ $timeout -lt $(xssstate -i) ]] && xset dpms force off
+	sleep 5
+done

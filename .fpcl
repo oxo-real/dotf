@@ -1,0 +1,61 @@
+alacritty
+code
+c element
+emacs/config.org
+emacs/custom.el
+fonts
+freecad
+fzf
+fzf-tab
+c git
+c gnupg
+c greasemonkey
+i3blocks
+isync
+c isync/mbsync_config
+lf
+lo
+lynx
+mako
+mozilla
+mpv/mpv.conf
+c mpv/watch_later
+msmtp
+c msmtp/config
+neofetch
+c neomutt
+nerd-dictation
+c nerd-dictation/specific
+c network
+c newsboat
+c notmuch
+nvim
+nyxt
+c libvirt
+qutebrowser
+c qutebrowser/blocking_data
+c qutebrowser/bookmarks
+c qutebrowser/greasemonkey
+c qutebrowser/bookmark_urls
+c qutebrowser/quickmarks
+qutebrowser/config.py
+c rsync
+shln
+sway
+c sway/hw/machine_list
+c taskwarrior
+tmux
+c ublock_origin
+urlscan
+w3m
+c w3m/cookie
+c w3m/history
+c w3m/passwd
+waybar
+c yk
+zathura
+zsa
+zsh
+zzz_deprecated
+.fpcl
+mimeapps.list

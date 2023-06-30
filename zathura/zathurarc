@@ -1,0 +1,32 @@
+# oxo zathurarc
+# man 5 zathurarc
+
+# view
+map = zoom in
+map - zoom out
+map 0 zoom default
+map r rotate rotate-cw
+map R rotate rotate-ccw
+map <C-b> toggle_statusbar
+
+# font
+set font 'Source Code Pro Regular 11'
+
+# colors
+set recolor true
+set completion-fg #000000
+set completion-bg #96cbfe
+set completion-group-fg #000000
+set completion-group-bg #96cbfe
+set highlight-fg #000000
+set highlight-color #96cbfe
+set highlight-active-color #ffffff
+
+# clipboard
+set selection-clipboard clipboard
+
+# sandbox
+#set sandbox none
+
+# statusbar
+set statusbar-page-percent true

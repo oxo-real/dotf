@@ -1,0 +1,47 @@
+#!/bin/bash
+
+
+# main file locations
+
+##lsq: $HOME/.local/share/qutebrowser
+lsq="$XDG_DATA_HOME/qutebrowser"
+
+## cq: $HOME/.config/qutebrowser
+cq="$XDG_CONFIG_HOME/qutebrowser"
+
+## adblock-cache.dat
+abc_dat="$lsq/adblock-cache.dat"
+
+## blocked-hosts
+bh="$lsq/blocked-hosts"
+
+
+# copy adblock & blocked hosts data
+
+[ -d $cq/blocking_data ]	|| mkdir $cq/blocking_data
+
+[ -f $abc_dat ]				&& cp $abc_dat	$cq/blocking_data
+
+[ -f $bh ]					&& cp $bh		$cq/blocking_data
+
+
+# removing
+
+[ -d $lsq ]					&& rm -rf $lsq
+
+[ -d $cq/bookmarks ]		&& rm -rf $cq/bookmarks
+
+[ -d $cq/qsettings ]		&& rm -rf $cq/qsettings
+
+[ -f $cq/quickmarks ]		&& rm $cq/quickmarks
+
+
+# restoring
+
+[ -d $lsq ]					|| mkdir $lsq
+
+## restore blocking data files
+[ -n "$(ls -A $cq/blocking_data)" ] 2>/dev/null && cp $cq/blocking_data/* $lsq
+
+echo
+printf "cleanup complete\n"

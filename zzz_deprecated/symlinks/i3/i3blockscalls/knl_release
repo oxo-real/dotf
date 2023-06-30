@@ -1,0 +1,12 @@
+#!/bin/bash
+
+active_kernel_version=$(uname -r)
+kernel_boot_executable_file="/boot/vmlinuz-linux"
+boot_kernel_version=$(file $kernel_boot_executable_file | cut -d " " -f 9)
+
+uname -r | awk -F '-' '{print $1}' | tr -d '.'
+
+if [ -e "$kernel_boot_executable_file" ]; then
+	[ "$active_kernel_version" != "$boot_kernel_version" ] && exit 33 || exit 0
+
+fi

@@ -1,0 +1,108 @@
+#!/bin/bash
+: '
+            _         _
+  ___ _ __ | |__   __| |
+ / __| '_ \| '_ \ / _` |
+| (__| |_) | |_) | (_| |
+ \___| .__/|_.__/ \__,_|
+     |_|
+ _    _
+(_)><(_)
+
+cpbd
+manage multiple copied items
+
+usage:
+    add to cpbd:
+	select item
+	wl-copy		C-S-c
+	cpbd_add	C-S-y
+
+    retrieve cpbd:
+	put item	C-S-p
+	fzf select
+	wl-paste	C-S-v
+
+    remove cpbd:
+	put item	C-S-p
+	fzf select
+	cpbd_remove	C-S-r
+
+    clear cpbd:
+	cpbd_clear	C-S-M-r
+# '
+
+
+arg=$1
+
+
+## add current wl-clipboard item to cpbd_file
+add()
+{
+    cp_item=$(wl-paste)
+
+    # do not add empty strings
+    case $cp_item in
+
+	'')
+	    :
+	    ;;
+
+	*)
+	    wl-paste >> $XDG_CACHE_HOME/cpbd
+	    notify-send "cpbd add"
+	    ;;
+
+    esac
+
+    unset cp_item
+    wl-copy -c
+}
+
+
+## copy fzf selected item(s) from cpbd_file to cb_file
+put()
+{
+    put=$(cat $XDG_CACHE_HOME/cpbd | fzf -m --prompt='to cb ' > $XDG_CACHE_HOME/cb)
+    swaymsg -t command exec $put
+}
+
+
+remove_item()
+{
+    #[TODO]
+    # for loop on fzf -m selected items
+    remove_item=$(sed -i "/$(cat $XDG_CACHE_HOME/cpbd | fzf -m)/d" $XDG_CACHE_HOME/cpbd)
+    notify-send "cpdb selected line(s) removed"
+    swaymsg -t command exec $remove_item 2&>0
+}
+
+
+remove_all()
+{
+    rm $XDG_CACHE_HOME/cpbd
+    rm $XDG_CACHE_HOME/cb
+    wl-copy -c
+    notify-send "cpbd all lines removed"
+}
+
+
+case $arg in
+
+    add)
+	add
+	;;
+
+    put)
+	put
+	;;
+
+    remove_item)
+	remove_item
+	;;
+
+    remove_all)
+	remove_all
+	;;
+
+esac
