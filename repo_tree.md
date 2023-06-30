@@ -296,6 +296,15 @@
 │   └── config.conf
 ├── neomutt.tar.aes
 ├── neomutt.tar.hash
+├── nerd-dictation
+│   ├── nerd-dictation.py
+│   ├── __pycache__
+│   │   ├── lang_en.cpython-311.pyc
+│   │   ├── lang_nl.cpython-311.pyc
+│   │   ├── lang_sv.cpython-311.pyc
+│   │   └── nerd-dictation.cpython-311.pyc
+│   ├── specific.tar.aes
+│   └── specific.tar.hash
 ├── network.tar.aes
 ├── network.tar.hash
 ├── newsboat.tar.aes
@@ -1116,13 +1125,17 @@
 │   ├── autoconfig.yml
 │   ├── blocking_data.tar.aes
 │   ├── blocking_data.tar.hash
+│   ├── bookmarks.tar.aes
+│   ├── bookmarks.tar.hash
 │   ├── bookmark_urls.aes
 │   ├── bookmark_urls.hash
 │   ├── cleanup
 │   ├── config.py
 │   ├── greasemonkey.tar.aes
 │   ├── greasemonkey.tar.hash
-│   └── new_session
+│   ├── new_session
+│   ├── quickmarks.aes
+│   └── quickmarks.hash
 ├── repo_tree.md
 ├── rsync.tar.aes
 ├── rsync.tar.hash
@@ -1164,6 +1177,7 @@
 │   ├── upgrader -> /home/oxo/.local/share/c/git/code/tool/upgrader
 │   ├── vault -> /home/oxo/.local/share/c/git/code/tool/vault
 │   ├── vim_diff -> /home/oxo/.config/git/vim_diff
+│   ├── vtxt -> /home/oxo/.local/share/c/git/code/tool/vtxt
 │   └── yank_buffer -> /home/oxo/.local/share/c/git/code/tool/yank_buffer
 ├── sway
 │   ├── bar
@@ -1244,9 +1258,9 @@
 │   └── zathurarc
 ├── zsa
 │   └── moonlander
-│       ├── moonlander_oxo_default_NZWR6_QPG7n.bin
-│       ├── moonlander_oxo_default_NZWR6_QPG7n.zip
-│       └── zsa_oxo
+│       ├── moonlander_oxo_qwerty_NZWR6_LxE0R.bin
+│       ├── moonlander_oxo_qwerty_NZWR6_LxE0R.zip
+│       └── zsa_oxo_url
 ├── zsh
 │   ├── alia
 │   ├── completions
@@ -1257,7 +1271,6 @@
 │   │   └── _passr
 │   ├── etc_zsh_zshenv
 │   ├── git-prompt.sh
-│   ├── #.zshrc#
 │   └── zzz_deprecated
 └── zzz_deprecated
     ├── back_rest
@@ -1381,5 +1394,5 @@
     │   └── config
     └── xresources_colors
 
-204 directories, 1177 files
+206 directories, 1188 files
 ```
