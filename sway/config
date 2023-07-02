@@ -676,7 +676,8 @@ bindsym F9			exec wpctl set-mute	@DEFAULT_AUDIO_SOURCE@ toggle
 # pactl set-sink-mute
 
 ## audio control
-bindsym XF86AudioPlay 		exec playerctl play-pause
+# --locked allows a keybinding to be executed while the lockscreen is active
+bindsym --locked XF86AudioPlay 	exec playerctl play-pause
 bindsym XF86AudioNext 		exec playerctl next
 bindsym XF86AudioPrev 		exec playerctl previous
 #bindsym XF86AudioNext		exec lmc next

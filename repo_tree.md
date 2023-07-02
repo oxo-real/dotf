@@ -1134,6 +1134,8 @@
 │   ├── greasemonkey.tar.aes
 │   ├── greasemonkey.tar.hash
 │   ├── new_session
+│   ├── qsettings
+│   │   └── QtProject.conf
 │   ├── quickmarks.aes
 │   └── quickmarks.hash
 ├── repo_tree.md
@@ -1260,6 +1262,8 @@
 │   └── moonlander
 │       ├── moonlander_oxo_qwerty_NZWR6_LxE0R.bin
 │       ├── moonlander_oxo_qwerty_NZWR6_LxE0R.zip
+│       ├── moonlander_oxo_qwerty_NZWR6_pnGRW.bin
+│       ├── moonlander_oxo_qwerty_NZWR6_pnGRW.zip
 │       └── zsa_oxo_url
 ├── zsh
 │   ├── alia
@@ -1394,5 +1398,5 @@
     │   └── config
     └── xresources_colors
 
-206 directories, 1188 files
+207 directories, 1191 files
 ```

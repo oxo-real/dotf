@@ -10,7 +10,6 @@
 alias sudo='sudo '
 
 function sudo() {
-
     ## sudo -k cannot be aliased
     ## therefore solution below
     case "$1" in
@@ -77,8 +76,21 @@ alias beep="pw-play $BEEP"
 # pulseaudio
 #alias beep="paplay $BEEP"
 
+function say() {
+    # usage: say sdate
+    #        sdate | say
+    spch="$@"
+    [[ -z $@ ]] && spch="$(</dev/stdin)"
+    echo "$spch" | festival --tts
+}
+
+
 # time
 alias now='date +%s'
+## (for say)
+alias sdate="date +'%A %d %B %Y'"
+alias sweek="echo week $(date +%V)"
+alias stime='date +%R'
 
 # application configuration
 
