@@ -11,6 +11,8 @@ c git
 c gnupg
 c greasemonkey
 i3blocks
+icons/cursors
+c icons/cursors/source
 isync
 c isync/mbsync_config
 lf
@@ -52,6 +54,7 @@ c w3m/cookie
 c w3m/history
 c w3m/passwd
 waybar
+c wttr
 c yk
 zathura
 zsa

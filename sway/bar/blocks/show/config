@@ -92,6 +92,10 @@ separator_block_width=0
 interval=2
 separator_block_width=8
 
+[weather]
+interval=300
+separator_block_width=8
+
 [time]
 interval=2
 #color=#ffffd3

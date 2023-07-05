@@ -3,30 +3,6 @@
 ├── alacritty
 │   └── alacritty.yml
 ├── code
-│   ├── bar_blocks
-│   │   ├── bar_custom
-│   │   ├── click
-│   │   ├── hide
-│   │   ├── show
-│   │   │   ├── audio
-│   │   │   ├── batt
-│   │   │   ├── brightness
-│   │   │   ├── bt
-│   │   │   ├── cpu
-│   │   │   ├── interface
-│   │   │   ├── ipex
-│   │   │   ├── ipin
-│   │   │   ├── macex
-│   │   │   ├── macin
-│   │   │   ├── mem
-│   │   │   ├── temp
-│   │   │   ├── time
-│   │   │   ├── vol
-│   │   │   ├── vrx
-│   │   │   ├── vtx
-│   │   │   ├── wifi
-│   │   │   └── window
-│   │   └── toggle
 │   ├── blocklist
 │   │   ├── customize -> /home/oxo/.local/share/c/git/prvt/code/tool/dns/customize_blocklist
 │   │   └── update -> /home/oxo/.local/share/c/git/code/tool/update_dns_hosts_blocklist
@@ -81,6 +57,31 @@
 │   │   ├── aliases
 │   │   └── git-prompt.sh
 │   └── zzz_deprecated
+│       ├── bar_blocks
+│       │   ├── bar_custom
+│       │   ├── click
+│       │   ├── hide
+│       │   ├── show
+│       │   │   ├── audio
+│       │   │   ├── batt
+│       │   │   ├── brightness
+│       │   │   ├── bt
+│       │   │   ├── cpu
+│       │   │   ├── interface
+│       │   │   ├── ipex
+│       │   │   ├── ipin
+│       │   │   ├── macex
+│       │   │   ├── macin
+│       │   │   ├── mem
+│       │   │   ├── temp
+│       │   │   ├── time
+│       │   │   ├── vol
+│       │   │   ├── vrx
+│       │   │   ├── vtx
+│       │   │   ├── weather
+│       │   │   ├── wifi
+│       │   │   └── window
+│       │   └── toggle
 │       ├── bemenu
 │       │   ├── bemenu_run
 │       │   ├── spicules
@@ -255,6 +256,13 @@
 │   ├── config -> ../sway/bar/blocks/show/config
 │   ├── cycle
 │   └── toggle
+├── icons
+│   └── cursors
+│       ├── oxo
+│       │   ├── copilot
+│       │   └── pilot
+│       ├── source.tar.aes
+│       └── source.tar.hash
 ├── isync
 │   ├── mbsync_config.aes
 │   └── mbsync_config.hash
@@ -1144,6 +1152,7 @@
 ├── shln
 │   ├── aaa_whats_here
 │   ├── askpass -> /home/oxo/.local/share/c/git/code/tool/askpass
+│   ├── atis -> /home/oxo/.local/share/c/git/code/tool/atis
 │   ├── c2b -> /home/oxo/.local/share/c/git/code/tool/c2b
 │   ├── chua -> /home/oxo/.local/share/c/git/code/tool/chua
 │   ├── cryptr -> /home/oxo/.local/share/c/git/code/tool/cryptr
@@ -1203,6 +1212,7 @@
 │   │       ├── vol
 │   │       ├── vrx
 │   │       ├── vtx
+│   │       ├── weather
 │   │       ├── wifi
 │   │       └── window
 │   ├── colors
@@ -1254,6 +1264,8 @@
 │   ├── config_default
 │   ├── style.css
 │   └── waybar_code -> /home/oxo/.config/code/waybar
+├── wttr.tar.aes
+├── wttr.tar.hash
 ├── yk.tar.aes
 ├── yk.tar.hash
 ├── zathura
@@ -1398,5 +1410,5 @@
     │   └── config
     └── xresources_colors
 
-207 directories, 1191 files
+210 directories, 1200 files
 ```

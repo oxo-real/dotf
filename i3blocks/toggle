@@ -21,6 +21,10 @@ initialize() {
     ## network blocks
     network_blocks="wifi ipex macex interface macin ipin vrx vtx"
 
+    #TODO
+    ## weather_block
+    weather_block='weather'
+
     ## core blocks
     core_blocks="temp cpu mem bt vol brightness batt"
 

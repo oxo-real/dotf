@@ -1,5 +1,0 @@
-#!/bin/sh
-brightness=$(brightnessctl i | grep Current | awk '{print $4}' | tr -c -d "[:digit:]")
-
-printf '%02d\n' "$brightness"
-#printf "%02d" "$brightness"

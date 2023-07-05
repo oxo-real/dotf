@@ -1,0 +1,52 @@
+#!/usr/bin/env sh
+
+code_dir="$XDG_CONFIG_HOME/code/bar_blocks/show"
+#code_dir="$XDG_CONFIG_HOME/code/waybar"
+
+info_tool='ipex macex interface macin ipin vrx vtx rnd_pool_alert bt temp cpu mem vol audio_source brightness batt_perc weather time'
+
+tput civis
+
+for i in $info_tool; do
+
+    info=$(sh $code_dir/$i)
+    #printf "DEV $code_dir/$i\n"; exit 255
+
+    : '
+    ## DEV if no info
+    case $info in
+
+	'')
+	    printf "$i "
+	    ;;
+
+    esac
+    # '
+
+    ## special formatting
+    ## managing symbols, grouping and spaces
+    case $i in
+
+	temp)
+	    printf '%sC' "$info"
+	    ;;
+
+	brightness)
+	    printf '%s%%' "$info"
+	    ;;
+
+	vol | audio_source | batt_perc | time)
+	    printf '%s' "$info"
+	    ;;
+
+	*)
+	    printf '%s' "$info "
+	    ;;
+
+    esac
+
+done
+
+echo
+
+tput cnorm
