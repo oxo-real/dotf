@@ -457,7 +457,7 @@ bindkey "^A" insert_pacmanqq
 
 
 #>>>>>>>>>>>>>	function insert_application
-# add (+=) application to cursor position (^q) (ctrl q)
+# add (+=) application to cursor position (^a) (ctrl a)
 
 function insert_appn() {
 

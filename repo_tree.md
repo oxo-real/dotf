@@ -21,6 +21,7 @@
 │   │   ├── spawn_term_pwd
 │   │   └── sway_nodes.jq
 │   ├── terminal
+│   │   ├── fzf_spicules_term
 │   │   └── samedir
 │   ├── waybar
 │   │   ├── 4tmux
@@ -1142,8 +1143,6 @@
 │   ├── greasemonkey.tar.aes
 │   ├── greasemonkey.tar.hash
 │   ├── new_session
-│   ├── qsettings
-│   │   └── QtProject.conf
 │   ├── quickmarks.aes
 │   └── quickmarks.hash
 ├── repo_tree.md
@@ -1410,5 +1409,5 @@
     │   └── config
     └── xresources_colors
 
-210 directories, 1200 files
+209 directories, 1200 files
 ```

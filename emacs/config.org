@@ -69,14 +69,14 @@ VERTical Interactive COmpletion
 vertico only provides the completion UI
 #+begin_src emacs-lisp
 
-    (use-package vertico
-      :ensure t
+  (use-package vertico
+    :ensure t
 
-      :custom
-      (vertico-cycle t)
+    :custom
+    (vertico-cycle t)
 
-      :init
-      (vertico-mode))
+    :init
+    (vertico-mode))
 
   #+end_src
 
@@ -85,9 +85,9 @@ completion style matches multiple regular expressions in any order
 #+begin_src emacs-lisp
 
   (use-package orderless
-  :ensure t
+    :ensure t
 
-  :custom
+    :custom
     (completion-styles '(orderless basic))
     (completion-category-overrides '((file (styles basic partial-completion)))))
 
@@ -113,9 +113,21 @@ completion style matches multiple regular expressions in any order
   (use-package doom-modeline
     :ensure t
 
-    :init (doom-modeline-mode 1)
+    :init
+    (doom-modeline-mode 1)
 
-    :custom ((doom-modeline-height 12)))
+    :custom
+    (doom-modeline-height 12)
+    (doom-modeline-bar-width 3)
+    (doom-modeline-lsp t)
+    (doom-modeline-github nil)
+    (doom-modeline-mu4e nil)
+    (doom-modeline-irc nil)
+    (doom-modeline-minor-modes t)
+    (doom-modeline-persp-name nil)
+    (doom-modeline-buffer-file-name-style 'truncate-except-project)
+    (doom-modeline-icon nil)
+    (doom-modeline-major-mode-icon nil))
 
 #+end_src
 
@@ -174,9 +186,7 @@ https://nathantypanski.com/blog/2014-08-03-a-vim-like-emacs-config.html
 
     (general-create-definer oxo/leader-key-def
                             :keymaps '(normal insert visual emacs)
-
                             :prefix "SPC"
-
                             :global-prefix "C-SPC")
 
     (general-create-definer oxo/ctrl-c-keys
@@ -189,7 +199,6 @@ https://nathantypanski.com/blog/2014-08-03-a-vim-like-emacs-config.html
 
   (use-package helpful
     :config
-
     ;; Note that the built-in `describe-function' includes both functions
     ;; and macros. `helpful-function' is functions only, so we provide
     ;; `helpful-callable' as a drop-in replacement.
@@ -220,129 +229,131 @@ https://nathantypanski.com/blog/2014-08-03-a-vim-like-emacs-config.html
 similar and lighter than counsel
 #+begin_src emacs-lisp
 
-      (use-package consult
-        ;; Replace bindings. Lazily loaded due by `use-package'.
-        :bind (;; C-c bindings (mode-specific-map)
-               ("C-c h" . consult-history)
-               ("C-c m" . consult-mode-command)
-               ("C-c k" . consult-kmacro)
-               ;; C-x bindings (ctl-x-map)
-               ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
-               ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
-               ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
-               ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
-               ("C-x r b" . consult-bookmark)            ;; orig. bookmark-jump
-               ("C-x p b" . consult-project-buffer)      ;; orig. project-switch-to-buffer
-               ;; Custom M-# bindings for fast register access
-               ("M-#" . consult-register-load)
-               ("M-'" . consult-register-store)          ;; orig. abbrev-prefix-mark (unrelated)
-               ("C-M-#" . consult-register)
-               ;; Other custom bindings
-               ("M-y" . consult-yank-pop)                ;; orig. yank-pop
-               ("<help> a" . consult-apropos)            ;; orig. apropos-command
-               ;; M-g bindings (goto-map)
-               ("M-g e" . consult-compile-error)
-               ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
-               ("M-g g" . consult-goto-line)             ;; orig. goto-line
-               ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
-               ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
-               ("M-g m" . consult-mark)
-               ("M-g k" . consult-global-mark)
-               ("M-g i" . consult-imenu)
-               ("M-g I" . consult-imenu-multi)
-               ;; M-s bindings (search-map)
-               ("M-s d" . consult-find)
-               ("M-s D" . consult-locate)
-               ("M-s g" . consult-grep)
-               ("M-s G" . consult-git-grep)
-               ("M-s r" . consult-ripgrep)
-               ("M-s l" . consult-line)
-               ("M-s L" . consult-line-multi)
-               ("M-s m" . consult-multi-occur)
-               ("M-s k" . consult-keep-lines)
-               ("M-s u" . consult-focus-lines)
-               ;; Isearch integration
-               ("M-s e" . consult-isearch-history)
+  (use-package consult
+    ;; Replace bindings. Lazily loaded due by `use-package'.
+    :bind (;; C-c bindings (mode-specific-map)
+           ("C-c h" . consult-history)
+           ("C-c m" . consult-mode-command)
+           ("C-c k" . consult-kmacro)
+           ;; C-x bindings (ctl-x-map)
+           ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
+           ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
+           ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
+           ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
+           ("C-x r b" . consult-bookmark)            ;; orig. bookmark-jump
+           ("C-x p b" . consult-project-buffer)      ;; orig. project-switch-to-buffer
+           ;; Custom M-# bindings for fast register access
+           ("M-#" . consult-register-load)
+           ("M-'" . consult-register-store)          ;; orig. abbrev-prefix-mark (unrelated)
+           ("C-M-#" . consult-register)
+           ;; Other custom bindings
+           ("M-y" . consult-yank-pop)                ;; orig. yank-pop
+           ("<help> a" . consult-apropos)            ;; orig. apropos-command
+           ;; M-g bindings (goto-map)
+           ("M-g e" . consult-compile-error)
+           ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
+           ("M-g g" . consult-goto-line)             ;; orig. goto-line
+           ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
+           ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
+           ("M-g m" . consult-mark)
+           ("M-g k" . consult-global-mark)
+           ("M-g i" . consult-imenu)
+           ("M-g I" . consult-imenu-multi)
+           ;; M-s bindings (search-map)
+           ("M-s d" . consult-find)
+           ("M-s D" . consult-locate)
+           ("M-s g" . consult-grep)
+           ("M-s G" . consult-git-grep)
+           ("M-s r" . consult-ripgrep)
+           ("M-s l" . consult-line)
+           ("M-s L" . consult-line-multi)
+           ("M-s m" . consult-multi-occur)
+           ("M-s k" . consult-keep-lines)
+           ("M-s u" . consult-focus-lines)
 
-               :map isearch-mode-map
-               ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
-               ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
-               ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
-               ("M-s L" . consult-line-multi)            ;; needed by consult-line to detect isearch
+           ;; Isearch integration
+           ("M-s e" . consult-isearch-history)
+           :map isearch-mode-map
+           ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
+           ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
+           ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
+           ("M-s L" . consult-line-multi)            ;; needed by consult-line to detect isearch
 
-               ;; Minibuffer history
-               :map minibuffer-local-map
-               ("M-s" . consult-history)                 ;; orig. next-matching-history-element
-               ("M-r" . consult-history))                ;; orig. previous-matching-history-element
+           ;; Minibuffer history
+           :map minibuffer-local-map
+           ("M-s" . consult-history)                 ;; orig. next-matching-history-element
+           ("M-r" . consult-history))                ;; orig. previous-matching-history-element
 
-        ;; Enable automatic preview at point in the *Completions* buffer. This is
-        ;; relevant when you use the default completion UI.
-        :hook (completion-list-mode . consult-preview-at-point-mode)
+    ;; Enable automatic preview at point in the *Completions* buffer. This is
+    ;; relevant when you use the default completion UI.
+    :hook (completion-list-mode . consult-preview-at-point-mode)
 
-        ;; The :init configuration is always executed (Not lazy)
-        :init
+    ;; The :init configuration is always executed (Not lazy)
+    :init
 
-        ;; Optionally configure the register formatting. This improves the register
-        ;; preview for `consult-register', `consult-register-load',
-        ;; `consult-register-store' and the Emacs built-ins.
-        (setq register-preview-delay 0.5
-              register-preview-function #'consult-register-format)
+    ;; Optionally configure the register formatting. This improves the register
+    ;; preview for `consult-register', `consult-register-load',
+    ;; `consult-register-store' and the Emacs built-ins.
+    (setq register-preview-delay 0.5
+          register-preview-function #'consult-register-format)
 
-        ;; Optionally tweak the register preview window.
-        ;; This adds thin lines, sorting and hides the mode line of the window.
-        (advice-add #'register-preview :override #'consult-register-window)
+    ;; Optionally tweak the register preview window.
+    ;; This adds thin lines, sorting and hides the mode line of the window.
+    (advice-add #'register-preview :override #'consult-register-window)
 
-        ;; Use Consult to select xref locations with preview
-        (setq xref-show-xrefs-function #'consult-xref
-              xref-show-definitions-function #'consult-xref)
+    ;; Use Consult to select xref locations with preview
+    (setq xref-show-xrefs-function #'consult-xref
+          xref-show-definitions-function #'consult-xref)
 
-        ;; Configure other variables and modes in the :config section,
-        ;; after lazily loading the package.
-        :config
+    ;; Configure other variables and modes in the :config section,
+    ;; after lazily loading the package.
+    :config
 
-        ;; Optionally configure preview. The default value
-        ;; is 'any, such that any key triggers the preview.
-        ;; (setq consult-preview-key 'any)
-        ;; (setq consult-preview-key (kbd "M-."))
-        ;; (setq consult-preview-key (list (kbd "<S-down>") (kbd "<S-up>")))
-        ;; For some commands and buffer sources it is useful to configure the
-        ;; :preview-key on a per-command basis using the `consult-customize' macro.
-        (consult-customize
-         consult-theme
-         :preview-key '(:debounce 0.2 any)
-         consult-ripgrep consult-git-grep consult-grep
-         consult-bookmark consult-recent-file consult-xref
-         consult--source-bookmark consult--source-recent-file
-         consult--source-project-recent-file
-         :preview-key "M-.")
-         ;; [consult-buffer error · Issue #772 · minad/consult GitHub]
-         ;; (https://github.com/minad/consult/issues/772)
+    ;; Optionally configure preview. The default value
+    ;; is 'any, such that any key triggers the preview.
+    ;; (setq consult-preview-key 'any)
+    ;; (setq consult-preview-key (kbd "M-."))
+    ;; (setq consult-preview-key (list (kbd "<S-down>") (kbd "<S-up>")))
+    ;; For some commands and buffer sources it is useful to configure the
+    ;; :preview-key on a per-command basis using the `consult-customize' macro.
+    (consult-customize
+     consult-theme
 
-        ;; Optionally configure the narrowing key.
-        ;; Both < and C-+ work reasonably well.
-        (setq consult-narrow-key "<") ;; (kbd "C-+")
+     :preview-key '(:debounce 0.2 any)
+     consult-ripgrep consult-git-grep consult-grep
+     consult-bookmark consult-recent-file consult-xref
+     consult--source-bookmark consult--source-recent-file
+     consult--source-project-recent-file
 
-        ;; Optionally make narrowing help available in the minibuffer.
-        ;; You may want to use `embark-prefix-help-command' or which-key instead.
-        ;; (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help)
+     :preview-key "M-.")
+     ;; [consult-buffer error · Issue #772 · minad/consult GitHub]
+     ;; (https://github.com/minad/consult/issues/772)
 
-        ;; By default `consult-project-function' uses `project-root' from project.el.
-        ;; Optionally configure a different project root function.
-        ;; There are multiple reasonable alternatives to chose from.
-        ;;;; 1. project.el (the default)
-        ;; (setq consult-project-function #'consult--default-project--function)
-        ;;;; 2. projectile.el (projectile-project-root)
-        ;; (autoload 'projectile-project-root "projectile")
-        ;; (setq consult-project-function (lambda (_) (projectile-project-root)))
-        ;;;; 3. vc.el (vc-root-dir)
-        ;; (setq consult-project-function (lambda (_) (vc-root-dir)))
-        ;;;; 4. locate-dominating-file
-        ;; (setq consult-project-function (lambda (_) (locate-dominating-file "." ".git")))
-      )
+    ;; Optionally configure the narrowing key.
+    ;; Both < and C-+ work reasonably well.
+    (setq consult-narrow-key "<") ;; (kbd "C-+")
 
-        (define-key evil-normal-state-map (kbd "/") 'consult-line)
-        (define-key evil-normal-state-map (kbd "*") 'evil-search-word-forward)
-        (define-key evil-normal-state-map (kbd "#") 'evil-search-word-backward)
+    ;; Optionally make narrowing help available in the minibuffer.
+    ;; You may want to use `embark-prefix-help-command' or which-key instead.
+    ;; (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help)
+
+    ;; By default `consult-project-function' uses `project-root' from project.el.
+    ;; Optionally configure a different project root function.
+    ;; There are multiple reasonable alternatives to chose from.
+    ;;;; 1. project.el (the default)
+    ;; (setq consult-project-function #'consult--default-project--function)
+    ;;;; 2. projectile.el (projectile-project-root)
+    ;; (autoload 'projectile-project-root "projectile")
+    ;; (setq consult-project-function (lambda (_) (projectile-project-root)))
+    ;;;; 3. vc.el (vc-root-dir)
+    ;; (setq consult-project-function (lambda (_) (vc-root-dir)))
+    ;;;; 4. locate-dominating-file
+    ;; (setq consult-project-function (lambda (_) (locate-dominating-file "." ".git")))
+  )
+
+    (define-key evil-normal-state-map (kbd "/") 'consult-line)
+    (define-key evil-normal-state-map (kbd "*") 'evil-search-word-forward)
+    (define-key evil-normal-state-map (kbd "#") 'evil-search-word-backward)
 
 #+end_src
 
@@ -364,11 +375,15 @@ similar and lighter than counsel
 
   (use-package marginalia
     :after vertigo
+
     :ensure t
+
     :custom
     (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+
     :init
     (marginalia-mode))
+
   (marginalia-mode t)
 
 #+end_src
@@ -410,10 +425,13 @@ choose a command to run based on what is near point
   ;; Consult users will also want the embark-consult package.
   (use-package embark-consult
     :ensure t
+
     :after (embark consult)
+
     :demand t ; only necessary if you have the hook below
     ;; if you want to have consult previews as you move around an
     ;; auto-updating embark collect buffer
+
     :hook
     (embark-collect-mode . consult-preview-at-point-mode))
 
@@ -554,8 +572,8 @@ note taking tool
     :custom (org-bullets-bullet-list '("●")))
 
   (defun oxo/org-mode-visual-fill ()
-    (setq visual-fill-column-width 100
-          visual-fill-column-center-text t)
+    (setq visual-fill-column-width 100)
+          ;;visual-fill-column-center-text t)
     (visual-fill-column-mode 1))
 
   (use-package visual-fill-column
@@ -772,7 +790,9 @@ contacts
 
   (use-package org-capture
     :ensure nil
+
     :after org
+
     :custom (org-contacts-files '("~/.local/share/c/org/contacts/contacts.org")))
 
 #+end_src
@@ -888,44 +908,46 @@ this changes the location to a separate file and loads from there
 #+end_src
 
 ** mode line (status bar)
-!disable doom modeline
+CAUTION! may interfere with package doom-modeline
 #+begin_src emacs-lisp
 
-        ;; column number in modeline
-        ;;(column-number-mode)
+   (defun oxo/custom-mode-line ()
+     ;; column number in modeline
+     (column-number-mode)
 
-        ;; background
-        ;;(custom-theme-set-faces 'modus-vivendi
-        ;;                        :box nil)
-        ;;(set-face-attribute 'mode-line nil
-        ;;                    :background "black"
-        ;;                    :box nil)
-        ;; ------
+         ;; background
+         ;;(custom-theme-set-faces 'modus-vivendi
+         ;;                        :box nil)
+         ;;(set-face-attribute 'mode-line nil
+         ;;                    :background "black"
+         ;;                    :box nil)
+         ;; ------
 
-  (setq mode-line-format nil)
-  ;; default mode line
-  (setq mode-line-format
-     '("%e"
-       mode-line-front-space
-       mode-line-mule-info
-       mode-line-client
-       mode-line-modified
-       mode-line-remote
-       mode-line-frame-identification
-       mode-line-buffer-identification
-       "   "
-       mode-line-position
-       (vc-mode vc-mode)
-       "  "
-       mode-line-modes
-       mode-line-misc-info
-       mode-line-end-spaces))
+     (setq mode-line-format nil)
+     ;; default mode line
+     (setq mode-line-format
+        '("%e"
+          mode-line-front-space
+          mode-line-mule-info
+          mode-line-client
+          mode-line-modified
+          mode-line-remote
+          mode-line-frame-identification
+          mode-line-buffer-identification
+          "   "
+          mode-line-position
+          (vc-mode vc-mode)
+          "  "
+          mode-line-modes
+          mode-line-misc-info
+          mode-line-end-spaces))
 
-  (setq mode-line-format
-        (list
-         "%b"
-         ))
+     (setq mode-line-format
+           (list
+            "%b"
+            )))
 
+  (oxo/custom-mode-line)
 
 #+end_src
 
@@ -1153,11 +1175,24 @@ M-x recentf-open-files
 #+end_src
 
 ** window
+*** close
 window close  :q
-window splith C-x 2
-window splitv C-x 3
+
+*** insert
+window insert:
+xaxis (window splitv):
+  right C-x 3
+yaxis (window splith):
+  below C-x 2
 
 *** focus
+window move focus:
+xaxis:
+  left  M-h
+  right M-l
+yaxis:
+  down  M-j
+  up    M-k
 #+begin_src emacs-lisp
 
   ;; prevent interference with org mode map
@@ -1175,17 +1210,15 @@ window splitv C-x 3
 
 #+end_src
 
-*** resize
-#+begin_src emacs-lisp
-
-  (global-set-key (kbd "M-C-h") 'shrink-window-horizontally)
-  (global-set-key (kbd "M-C-j") 'enlarge-window)
-  (global-set-key (kbd "M-C-k") 'shrink-window)
-  (global-set-key (kbd "M-C-l") 'enlarge-window-horizontally)
-
-#+end_src
 
 *** move
+window move:
+xaxis:
+  left  M-S-h
+  right M-S-l
+yaxis:
+  down  M-S-j
+  up    M-S-k
 #+begin_src emacs-lisp
 
   (use-package buffer-move
@@ -1196,6 +1229,23 @@ window splitv C-x 3
     (global-set-key (kbd "M-J") 'buf-move-down)
     (global-set-key (kbd "M-K") 'buf-move-up)
     (global-set-key (kbd "M-L") 'buf-move-right))
+
+#+end_src
+
+*** resize
+window resize (rh corner):
+xaxis:
+  shrink  M-C-h
+  enlarge M-C-l
+yaxis:
+  enlarge M-C-j
+  shrink  M-C-k
+#+begin_src emacs-lisp
+
+  (global-set-key (kbd "M-C-h") 'shrink-window-horizontally)
+  (global-set-key (kbd "M-C-j") 'enlarge-window)
+  (global-set-key (kbd "M-C-k") 'shrink-window)
+  (global-set-key (kbd "M-C-l") 'enlarge-window-horizontally)
 
 #+end_src
 

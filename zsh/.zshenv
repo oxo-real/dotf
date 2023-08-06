@@ -82,9 +82,14 @@ export VISUAL='emacs'
 
 export GTK_USE_PORTAL=0
 
-# fzf default options
+
+# fzf
+
+## fzf default options
 export FZF_DEFAULT_OPTS='--cycle --layout=reverse --info=inline --bind ctrl-u:clear-query --preview="tree -L 1 {}" --preview-window=:hidden --color=dark,prompt:#96cbfe,pointer:#ffffb6,spinner:#a8ff60'
-#export FZF_DEFAULT_OPTS='--cycle --layout=reverse --sort= --info=inline --bind ctrl-u:clear-query --preview="tree -L 1 {}" --preview-window=:hidden --color=dark,prompt:#96cbfe,pointer:#ffffb6,spinner:#a8ff60'
+## fzf completion trigger (default **)
+export FZF_COMPLETION_TRIGGER='~~'
+
 
 ## signposts to config
 export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"

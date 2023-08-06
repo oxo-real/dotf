@@ -586,7 +586,7 @@ for_window [app_id="float_spicules"]
     opacity set 0.8
 }
 
-## fzf_spicules			(search cmd_cat)
+## fzf_spicules			(search cmd_catalog)
 bindsym $mod+z			exec $term --class="float_spicules" -e \
 				$XDG_CONFIG_HOME/code/sway/fzf_spicules && wl-copy -n < $XDG_CACHE_HOME/cb
 
@@ -723,6 +723,7 @@ bindsym $mod+F9			exec grim -g "$(slurp -p)" -t ppm - | \
 bindsym Shift+Control+0		exec echo -n '' | wl-copy && notify-send 'clipboard cleared'
 
 # speech-to-text
+# Shift+Control+Mod=Meh
 bindsym Shift+Control+Mod1+e	exec $(vtxt begin en)
 bindsym Shift+Control+Mod1+r	exec $(vtxt end)
 bindsym Shift+Control+Mod1+n	exec $(vtxt begin nl)
