@@ -59,7 +59,7 @@ alias mv='mv -v'
 #alias mv='rsync -aAXv --info=ALL --human-readable && rm -rf $1'
 alias rm='trash'
 alias mkdir='mkdir -pv'
-
+alias lf='lfcd'
 
 # colors
 
@@ -86,11 +86,13 @@ function say() {
 
 
 # time
+
 alias now='date +%s'
 ## (for say)
 alias sdate="date +'%A %d %B %Y'"
 alias sweek="echo week $(date +%V)"
 alias stime='date +%R'
+
 
 # application configuration
 
@@ -100,6 +102,7 @@ alias fim='fim --no-history'
 
 
 # network
+
 #alias myip='dig myip.opendns.com @resolver1.opendns.com +dnssec +short'
 alias myip='curl icanhazip.com'
 alias exip='myip'

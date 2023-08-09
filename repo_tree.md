@@ -268,6 +268,8 @@
 │   ├── mbsync_config.aes
 │   └── mbsync_config.hash
 ├── lf
+│   ├── lfcd_run
+│   ├── lfcd.sh
 │   ├── lfrc
 │   └── scope
 ├── libvirt.tar.aes
@@ -1409,5 +1411,5 @@
     │   └── config
     └── xresources_colors
 
-209 directories, 1200 files
+209 directories, 1202 files
 ```

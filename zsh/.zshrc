@@ -24,6 +24,7 @@ git_prompt="$XDG_CONFIG_HOME/zsh/git-prompt.sh"
 zsh_alia="$XDG_CONFIG_HOME/zsh/alia"
 zsh_completions="$XDG_CONFIG_HOME/zsh/completions/completion.zsh"
 zsh_syntax_hl='/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh'
+lf_cd="$XDG_CONFIG_HOME/lf/lfcd.sh"
 
 
 # sourcing
@@ -34,6 +35,8 @@ zsh_syntax_hl='/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlig
 [[ -f $zsh_alia ]] && source $zsh_alia
 ## zsh completions
 [[ -f $zsh_completions ]] && source $zsh_completions
+## lf exit cd
+[[ -f $lf_cd ]] && source $lf_cd
 
 
 # shell parameters

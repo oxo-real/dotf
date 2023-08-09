@@ -41,7 +41,7 @@ set autoquit true
 #&ctpv -s $id
 #&ctpvquit $id
 
- cmds/functions
+cmds/functions
 cmd open ${{
     case $(file --mime-type "$(readlink -f $f)" -b) in
 
@@ -182,6 +182,7 @@ cmd fasd_dir ${{
     fi
     lf -remote "send $id $cmd \"$res\""
 }}
+
 
 map go :fasd_dir
 cmd setbg "$1"
