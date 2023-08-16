@@ -63,6 +63,10 @@ export HISTFILE="$XDG_LOGS_HOME/history/history"
 export DEFAULT_VI_MODE=viins
 export KEYTIMEOUT=1
 
+## debug prompt
+## used by sh -x
+export PS4=':${BASH_SOURCE[0]:-$0} $(printf '%4d%s' "${LINENO}") ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
+
 ## default applications
 export COLORTERM='truecolor'
 export BROWSER='/usr/bin/qutebrowser'
@@ -105,6 +109,7 @@ export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
 export APPNDIR="$XDG_CONFIG_HOME/shln"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export TEMPDIR="$XDG_CACHE_HOME/temp"
+export TMPDIR="$XDG_CACHE_HOME/temp"  # for mktemp
 export TESTDIR="$XDG_CACHE_HOME/test"
 export TRASHDIR="$XDG_CACHE_HOME/trash"
 

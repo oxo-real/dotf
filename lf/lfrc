@@ -1,48 +1,276 @@
 #!/usr/bin/env sh
-
+#
 # list files runcom
+#
+
+# resources
+
+#[Tips · gokcehan/lf Wiki · GitHub](https://github.com/gokcehan/lf/wiki/Tips#toggling-the-preview-column)
+#[lf command - github.com/gokcehan/lf - Go Packages](https://pkg.go.dev/github.com/gokcehan/lf#hdr-File_Operations)
+
+#[TODO] image viewer under wayland
+
 
 # basic config
 
 # interpreter for shell commands
 set shell sh
-
-# set '-eu' options for shell commands
-# These options are used to have safer shell commands. Option '-e' is used to
-# exit on error and option '-u' is used to give error for unset variables.
-# Option '-f' disables pathname expansion which can be useful when $f, $fs, and
-# $fx variables contain names with '*' or '?' characters. However, this option
-# is used selectively within individual commands as it can be limiting at
-# times.
 set shellopts '-eu'
-
-# set internal field separator (IFS) to "\n" for shell commands
-# This is useful to automatically split file names in $fs and $fx properly
-# since default file separator used in these variables (i.e. 'filesep' option)
-# is newline. You need to consider the values of these options and create your
-# commands accordingly.
 set ifs "\n"
 
-# leave some space at the top and the bottom of the screen
-set scrolloff 10
-
+set sortby natural
+set info
+set ratios 1:2:3
+#set scrolloff 10
 set wrapscroll true
 #set icons
 set period 1
+#set number
+set relativenumber false
+set numberfmt "\033[37m"
 set hiddenfiles ".*:*.aux:*.log:*.bbl:*.bcf:*.blg:*.run.xml"
 set hidden true
-#set cleaner '~/.config/lf/cleaner'
-#set previewer '~/.config/lf/scope'
 set preview true
 set autoquit true
 
-#set previewer ctpv
-#set cleaner ctpvclear
-#&ctpv -s $id
-#&ctpvquit $id
+#`acc` shows the pressed keys (e.g. for bindings with multiple key presses or counts given to bindings).
+#`progress` shows the progress of file operations (e.g. copying a large directory).
+#`selection` shows the number of files that are selected, or designated for being cut/copied.
+#`filter` shows 'F' if a filter is currently being applied.
+#`ind` shows the current position of the cursor as well as the number of files in the current directory.
+#`df` shows the amount of free disk space remaining.
+#Names starting with `lf_` show the value of environment variables exported by lf.
+set ruler 'df:acc:progress:selection:filter:ind'
 
-cmds/functions
+&[ $LF_LEVEL -eq 1 ] || lf -remote "send $id echoerr \"Warning: You're in a nested lf instance!\""
+
+cmd setbg "$1"
+
+
+# view
+
+## no info (default)
+map zn set info
+
+## set info
+map zh set hidden!
+map zl set relativenumber!
+map zs set info size
+map zt set info time
+map za set info size:time
+map zc calcdirsize; set info size
+
+## sort
+map zr set reverse!
+map sn :set sortby natural; set info
+map ss :set sortby size; set info size
+map st :set sortby time; set info time
+map sa :set sortby atime; set info atime
+map sc :set sortby ctime; set info ctime
+map se :set sortby ext; set info
+
+map <space> :toggle; down
+
+
+# cmds/functions
+
+cmd on-cd &{{
+
+    # '&' commands run silently in background (which is what we want here),
+    # but are not connected to stdout.
+    # To make sure our escape sequence still reaches stdout we pipe it to /dev/tty
+    #printf "\033]0; $PWD\007" > /dev/tty
+    printf "\033]0; $(pwd | sed "s|$HOME|~|") - lf\007" > /dev/tty
+}}
+
+# also run at startup
+on-cd
+
+
+cmd preview_toggle %{{
+
+  if [ "$lf_preview" = "true" ]; then
+
+    lf -remote "send $id :set preview!; set ratios 1:5"
+
+  else
+
+    lf -remote "send $id :set preview!; set ratios 1:2:3"
+
+  fi
+}}
+
+map zp preview_toggle
+
+
+## make directory
+cmd mkdir ${{
+
+    IFS=" "
+    mkdir -p -- "$*"
+    lf -remote "send $id select \"$*\""
+}}
+
+map -ad push :mkdir<space>
+
+
+## make file
+cmd mkfile ${{
+
+    IFS=" "
+    touch -- "$*"
+    lf -remote "send $id select \"$*\""
+}}
+
+map -af push :mkfile<space>
+
+
+## '-gg' go on top of the roof
+cmd gohome ${{
+
+    lf -remote "send $id cd $HOME"
+}}
+
+map -g gohome
+
+
+## copy item name to clipboard
+cmd copy_clipboard ${{
+
+    if type wl-copy > /dev/null 2>&1; then
+
+	printf '%s' "$f" | wl-copy
+
+    elif type pbcopy > /dev/null 2>&1; then
+
+	printf '%s' "$f" | pbcopy
+
+    elif type xsel > /dev/null 2>&1; then
+
+	printf '%s' "$f" | xsel -ib
+
+    fi
+}}
+
+map -cc :copy_clipboard
+
+
+cmd select_files &{{
+
+    get_files() {
+
+	if [ "$lf_hidden" = 'false' ]; then
+
+	    find "$PWD" -mindepth 1 -maxdepth 1 -type f -not -name '.*' -print0
+
+	else
+
+	    find "$PWD" -mindepth 1 -maxdepth 1 -type f -print0
+
+	fi |
+
+	    xargs -0 printf ' %q'
+    }
+
+    lf -remote "send $id :unselect; toggle $(get_files)"
+}}
+
+map -sf select_files
+
+
+cmd select_dirs &{{
+
+    get_dirs() {
+
+	if [ "$lf_hidden" = 'false' ]; then
+
+	    find "$PWD" -mindepth 1 -maxdepth 1 -type d -not -name '.*' -print0
+
+	else
+
+	    find "$PWD" -mindepth 1 -maxdepth 1 -type d -print0
+
+	fi |
+
+	    xargs -0 printf ' %q'
+    }
+
+    lf -remote "send $id :unselect; toggle $(get_dirs)"
+}}
+
+map -sd select_dirs
+
+
+# (un)select all items
+map -sa glob-select *
+map -s0 glob-unselect *
+
+
+## delete item
+## WARNING! does not use rm alias, therefore no trash
+cmd delete ${{
+
+    rm -rf -- $fx
+}}
+
+map -dd delete
+
+
+cmd paste %{{
+
+    load=$(cat ~/.local/share/lf/files)
+    mode=$(echo "$load" | sed -n '1p')
+    list=$(echo "$load" | sed '1d')
+
+    if [ $mode = 'copy' ]; then
+
+	cp -R $list .
+
+    elif [ $mode = 'move' ]; then
+
+        mv $list .
+        rm ~/.local/share/lf/files
+        lf -remote 'send clear'
+
+    fi
+}}
+
+map -x cut
+map -y copy
+map -l clear
+map -p paste
+
+
+# bindings
+map <c-f> $lf -remote "send $id select \"$(fzf)\""
+map J $lf -remote "send $id cd $(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf)"
+map g top
+map E extract
+map <c-r> reload
+map <enter> shell
+map x $$f
+map X !$f
+map o &mimeopen "$f"
+map O $mimeopen --ask "$f"
+
+# renaming files
+map r
+map i rename
+map I :rename; cmd-home
+map A :rename; cmd-end
+#map c :rename; cmd-delete-home
+#map C :rename; cmd-end; cmd-delete-home
+
+map b $setbg $f
+
+map V push :!nvim<space>
+
+map W $setsid -f $TERMINAL >/dev/null 2>&1
+
+
+## opening files
 cmd open ${{
+
     case $(file --mime-type "$(readlink -f $f)" -b) in
 
 	application/vnd.openxmlformats-officedocument.spreadsheetml.sheet)
@@ -130,92 +358,3 @@ cmd open ${{
 
     esac
 }}
-
-cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
-
-cmd extract ${{
-    clear; tput cup $(($(tput lines)/3)); tput bold
-    set -f
-    printf "%s\n\t" "$fx"
-    printf "extract?[y/N]"
-    read ans
-    [ $ans = "y" ] && aunpack $fx
-}}
-
-cmd delete ${{
-    clear; tput cup $(($(tput lines)/3)); tput bold
-    set -f
-    printf "%s\n\t" "$fx"
-    printf "delete?[y/N]"
-    read ans
-    [ $ans = "y" ] && rm -rf -- $fx
-}}
-
-cmd moveto ${{
-    clear; tput cup $(($(tput lines)/3)); tput bold
-    set -f
-    clear; echo "Move to where?"
-    dest="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')" &&
-    for x in $fx; do
-    	eval mv -iv \"$x\" \"$dest\"
-    done &&
-    notify-send "🚚 File(s) moved." "File(s) moved to $dest."
-}}
-
-cmd copyto ${{
-    clear; tput cup $(($(tput lines)/3)); tput bold
-    set -f
-    clear; echo "Copy to where?"
-    dest="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|')" &&
-    for x in $fx; do
-    	eval cp -ivr \"$x\" \"$dest\"
-    done &&
-    notify-send "📋 File(s) copied." "File(s) copies to $dest."
-}}
-
-cmd fasd_dir ${{
-    res="$(fasd -dl | grep -iv cache | fzf 2>/dev/tty | sed 's/\\/\\\\/g;s/"/\\"/g')"
-    if [ -d "$res" ]; then
-        cmd="cd"
-    else
-        cmd="select"
-    fi
-    lf -remote "send $id $cmd \"$res\""
-}}
-
-
-map go :fasd_dir
-cmd setbg "$1"
-cmd bulkrename $vidir
-
-# Bindings
-map <c-f> $lf -remote "send $id select \"$(fzf)\""
-map J $lf -remote "send $id cd $(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf)"
-map gh
-map g top
-map D delete
-map E extract
-map C copyto
-map M moveto
-map <c-n> push :mkdir<space>
-map <c-r> reload
-map <c-s> set hidden!
-map <enter> shell
-map x $$f
-map X !$f
-map o &mimeopen "$f"
-map O $mimeopen --ask "$f"
-
-map A rename # at the very end
-map c push A<c-u> # new rename
-map I push A<c-a> # at the very beginning
-map i push A<a-b><a-b><a-f> # before extension
-map a push A<a-b> # after extension
-map B bulkrename
-map b $setbg $f
-
-map <c-e> down
-map <c-y> up
-map V push :!nvim<space>
-
-map W $setsid -f $TERMINAL >/dev/null 2>&1

@@ -21,10 +21,10 @@
 fzf_tab="$XDG_CONFIG_HOME/fzf-tab/fzf-tab.zsh"
 fzf_zsh="$XDG_CONFIG_HOME/fzf/.fzf.zsh"
 git_prompt="$XDG_CONFIG_HOME/zsh/git-prompt.sh"
+#lf_cd="$XDG_CONFIG_HOME/lf/lfcd.sh"
 zsh_alia="$XDG_CONFIG_HOME/zsh/alia"
 zsh_completions="$XDG_CONFIG_HOME/zsh/completions/completion.zsh"
 zsh_syntax_hl='/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh'
-lf_cd="$XDG_CONFIG_HOME/lf/lfcd.sh"
 
 
 # sourcing
@@ -35,8 +35,8 @@ lf_cd="$XDG_CONFIG_HOME/lf/lfcd.sh"
 [[ -f $zsh_alia ]] && source $zsh_alia
 ## zsh completions
 [[ -f $zsh_completions ]] && source $zsh_completions
-## lf exit cd
-[[ -f $lf_cd ]] && source $lf_cd
+## lfcd load function
+#[[ -f $lf_cd ]] && source $lf_cd
 
 
 # shell parameters
@@ -287,7 +287,7 @@ setopt PROMPT_SUBST
 ## left prompt
 PS1="%(?..%F{magenta}%B%?%f%b)%# "
 
-# right prompt
+## right prompt
 ## commandID with running time
 ## TRAPALRM breaks fzf and zsh completion
 #RPS1="%! %D{%H%M%S}"
@@ -296,6 +296,8 @@ PS1="%(?..%F{magenta}%B%?%f%b)%# "
 #    zle reset-prompt
 #}
 
+## debug prompt
+# PS4 set in zshenv
 
 # history
 
@@ -677,6 +679,57 @@ function mountr_widget() {
 
 zle -N mountr_widget
 bindkey '^_' mountr_widget
+
+
+#>>>>>>>>>>>>>> function lfcd
+# lfcd
+# Control+j
+# function lfcd is by default externally sourced from:
+# lf_cd="$XDG_CONFIG_HOME/lf/lfcd.sh"
+function lfcd() {
+
+    # provide lfcd function inside a zsh shell environment
+    tmp="$(mktemp)"
+
+    # `command` is needed in case `lfcd` is aliased to `lf`
+    # -last-dir-path is written into $tmp
+    command lf -last-dir-path="$tmp" "$@"
+
+    if [ -f "$tmp" ]; then
+
+	# read last dir
+	dir="$(command cat "$tmp")"
+	# cleanup
+        rm -f "$tmp"
+
+	if [ -d "$dir" ]; then
+
+	    if [ "$dir" != "$(pwd)" ]; then
+
+		# inverted text to indicate widget call
+		printf '\e[7m lfcd \e[27m %s\n' "$dir"
+
+		#printf 'lfcd %s\n' "$dir"
+		cd "$dir"
+
+	    fi
+
+        fi
+
+    fi
+
+    echo
+    # TODO DEV
+    # `zle reset-prompt` gives error
+    # zle:38: widgets can only be called when ZLE is active
+    # when called directly via cli (by typing: `lfcd`)
+    zle reset-prompt
+}
+
+zle -N lfcd
+bindkey '^j' lfcd
+#bindkey -s '^j' 'lfcd\n'
+#bindkey -s '^j' "lfcd\n"
 
 
 # syntax highlighting

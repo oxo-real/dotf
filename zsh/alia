@@ -31,7 +31,7 @@ alias view='nvim -R'
 alias vimdiff='nvim -d'
 alias e='emacs $@ &'
 alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/.tmuxrc"
-alias lsblk='lsblk -i --tree -o name,uuid,fstype,path,size,fsuse%,fsused,label,mountpoint'
+alias lsblk='lsblk --ascii --tree -o name,uuid,fstype,path,size,fsuse%,fsused,label,mountpoint'
 alias cal='env TERM=xterm cal'
 alias tree='tree -n --charset=unicode'
 #alias tree='env TERM=xterm-256color tree'
@@ -40,7 +40,7 @@ alias mpv='mpv --audio-display=no'
 
 ## protect against shell command injection
 ### https://security.stackexchange.com/questions/56307/can-cat-ing-a-file-be-a-potential-security-risk/56323#56323
-alias cat='cat -vE'
+alias cat='cat --show-ends --show-nonprinting'
 
 # lessr is defined in zshrc
 alias less='lessr'
@@ -52,14 +52,14 @@ alias surfraw="surfraw -browser=$BROWSER"
 
 # file operations
 
-alias cp='cp -avi'
+alias cp='cp --archive --interactive --verbose'
 #alias cp='cp -prv'
 #alias cp='rsync -aAXv --info=ALL --human-readable'
-alias mv='mv -v'
+alias mv='mv --interactive --verbose'
 #alias mv='rsync -aAXv --info=ALL --human-readable && rm -rf $1'
 alias rm='trash'
-alias mkdir='mkdir -pv'
-alias lf='lfcd'
+alias mkdir='mkdir -parents --verbose'
+#alias lf='lfcd'
 
 # colors
 
