@@ -2,6 +2,18 @@
 
 #+PROPERTY: header-args :emacs-lisp :tangle ./init.el
 
+* space as oxo leaderkey
+#+begin_src emacs-lisp
+
+  ;; set up 'SPC' as the global leader key
+  (general-create-definer oxo/leader-keys
+    :states '(normal insert visual emacs)
+    :keymaps 'override
+    :prefix "SPC" ;; set leader
+    :global-prefix "M-SPC") ;; access leader in insert mode
+
+#+end_src
+
 * startup performance
 
 Make startup faster by reducing the frequency of garbage collection.
@@ -132,6 +144,7 @@ completion style matches multiple regular expressions in any order
 #+end_src
 
 *** evil
+evil is an emacs 'mode' that has 'states'
 #+begin_src emacs-lisp
 
   (use-package evil
@@ -1182,8 +1195,21 @@ window close  :q
 window insert:
 xaxis (window splitv):
   right C-x 3
+  #[TODO] M-enter (conflicts org mode)
 yaxis (window splith):
   below C-x 2
+  #[TODO] M-S-enter (conflicts org mode)
+#+begin_src emacs-lisp
+
+  (oxo/leader-keys
+    "w" '(:ignore t :wk "window")
+    "w w" '(:ignore t :wk "create new")
+    "w w l" '(split-window-right :wk "right")
+    "w w j" '(split-window-below :wk "below"))
+    ;;(global-set-key (kbd "SPC-w-c-l") 'split-window-right)
+    ;;(global-set-key (kbd "SPC-w-c-j") 'split-window-below)
+
+#+end_src
 
 *** focus
 window move focus:
@@ -1209,7 +1235,6 @@ yaxis:
   (global-set-key (kbd "M-l") 'windmove-right)
 
 #+end_src
-
 
 *** move
 window move:
@@ -1339,9 +1364,15 @@ passphrase prompt of gpg private keys
 #+end_src
 
 * keybindings
+escape
 #+begin_src emacs-lisp
 
   ;; make escape quit commands
   (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
+  ;; zooming text
+  (global-set-key (kbd "C-+") 'text-scale-increase)
+  (global-set-key (kbd "C--") 'text-scale-decrease)
+  (global-set-key (kbd "C-0") 'text-scale-adjust)
 
 #+end_src

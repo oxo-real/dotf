@@ -540,6 +540,7 @@ bindkey "^h" last_dir
 #>>>>>>>>>>>>>> function ins_pwd
 # insert $PWD inline
 # Control+p
+
 function ins_pwd() {
 
     # select & kill
@@ -557,9 +558,9 @@ zle -N ins_pwd
 bindkey '^p' ins_pwd
 
 
-#>>>>>>>>>>>>>> function fzf_ins_home
-# fzf insert file or directory (^f) (ctrl f)
-# search from home
+#>>>>>>>>>>>>>> function fzf_ins_dir
+# fzf insert file or directory
+#
 
 function fzf_ins_dir() {
 
@@ -574,7 +575,7 @@ function fzf_ins_dir() {
 	    fzf_input="$root_dir"
 
     # fzf query
-    fzf_output="$(fd -u . "$root_dir" | \
+    fzf_output="$(fd --ignore --no-hidden . "$root_dir" | \
     	fzf --query=`printf "$fzf_input"`)"
 
     # analyze fzf output
@@ -590,6 +591,11 @@ function fzf_ins_dir() {
     unset fzf_input
     unset input
 }
+
+
+#>>>>>>>>>>>>>> function fzf_ins_home
+# fzf insert file or directory (^f) (ctrl f)
+# search from home
 
 function fzf_ins_home() {
 
@@ -655,6 +661,7 @@ bindkey -M vicmd 's' sudo_toggle
 #>>>>>>>>>>>>>> function foreground
 # foreground
 # Control+backspace
+
 function foreground() {
 
     fg;
@@ -667,6 +674,7 @@ bindkey '^Z' foreground
 #>>>>>>>>>>>>>> function mountr
 # mountr
 # Control+slash
+
 function mountr_widget() {
 
     # inverted text to indicate widget call
@@ -686,6 +694,7 @@ bindkey '^_' mountr_widget
 # Control+j
 # function lfcd is by default externally sourced from:
 # lf_cd="$XDG_CONFIG_HOME/lf/lfcd.sh"
+
 function lfcd() {
 
     # provide lfcd function inside a zsh shell environment
