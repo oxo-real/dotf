@@ -61,7 +61,10 @@ bindkey -M viins "^[[3~" delete-char
 
 ## vi keys
 bindkey -v
-
+## [zle - Backspace in zsh stuck - Unix & Linux Stack Exchange]
+## (https://unix.stackexchange.com/questions/290392/backspace-in-zsh-stuck/290403#290403)
+bindkey -v "^?" backward-delete-char
+#bindkey -v "^H" backward-delete-char
 
 # synthesize prompt (precmd, preexec, left and right prompt)
 
@@ -575,7 +578,10 @@ function fzf_ins_dir() {
 	    fzf_input="$root_dir"
 
     # fzf query
-    fzf_output="$(fd --ignore --no-hidden . "$root_dir" | \
+    ## follow symlinks
+    ## ignore from $XDG_CONFIG_HOME/fd/ignore
+    ## include hidden files
+    fzf_output="$(fd --follow --ignore --hidden . "$root_dir" | \
     	fzf --query=`printf "$fzf_input"`)"
 
     # analyze fzf output

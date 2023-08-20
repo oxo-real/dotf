@@ -101,6 +101,8 @@
 ├── emacs
 │   ├── config.org
 │   └── custom.el
+├── fd.tar.aes
+├── fd.tar.hash
 ├── fonts
 │   ├── unifont-14.0.01.ttf
 │   ├── unifont_csur-14.0.01.ttf
@@ -1411,5 +1413,5 @@
     │   └── config
     └── xresources_colors
 
-209 directories, 1202 files
+209 directories, 1204 files
 ```

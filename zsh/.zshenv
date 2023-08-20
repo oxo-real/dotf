@@ -69,13 +69,19 @@ export PS4=':${BASH_SOURCE[0]:-$0} $(printf '%4d%s' "${LINENO}") ${FUNCNAME[0]:+
 
 ## default applications
 export COLORTERM='truecolor'
+export BAT_THEME='base16-256'
 export BROWSER='/usr/bin/qutebrowser'
 export BROWSERCLI='/usr/bin/w3m'
+## [Environment variables - delta](https://dandavison.github.io/delta/environment-variables.html)
+export DELTA_FEATURES='+side-by-side'
 #export EDITOR='/usr/bin/nvim'
 export EDITOR="emacs"
 #export EDITOR="emacsclient -c"
 export OPENER='/usr/bin/xdg-open'
+export MANPAGER="sh -c 'col --no-backspaces --spaces | env TERM=xterm bat --language man --style plain'"
+export MANROFFOPT="-c"
 export PAGER='/usr/bin/less'
+#export PAGER='/usr/bin/less'
 export READER='/usr/bin/zathura'
 export SHELL='/usr/bin/zsh'
 export TERMINAL='/usr/bin/alacritty'

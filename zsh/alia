@@ -40,11 +40,14 @@ alias mpv='mpv --audio-display=no'
 
 ## protect against shell command injection
 ### https://security.stackexchange.com/questions/56307/can-cat-ing-a-file-be-a-potential-security-risk/56323#56323
-alias cat='cat --show-ends --show-nonprinting'
+#alias cat='cat --show-ends --show-nonprinting'
+alias cat='bat'
+alias bat='bat --style=numbers'
 
 # lessr is defined in zshrc
 alias less='lessr'
-alias man='env TERM=xterm man --pager='less''
+## man is handled by bat via $MANPAGER
+#alias man='env TERM=xterm man --pager='less''
 
 alias sr="sr -browser=$BROWSERCLI"
 alias surfraw="surfraw -browser=$BROWSER"
@@ -58,7 +61,7 @@ alias cp='cp --archive --interactive --verbose'
 alias mv='mv --interactive --verbose'
 #alias mv='rsync -aAXv --info=ALL --human-readable && rm -rf $1'
 alias rm='trash'
-alias mkdir='mkdir -parents --verbose'
+alias mkdir='mkdir --parents --verbose'
 #alias lf='lfcd'
 
 # colors

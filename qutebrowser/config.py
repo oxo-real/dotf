@@ -725,7 +725,8 @@ c.content.javascript.alert = True
 ## QtWebEngine, writing the clipboard as response to a user interaction
 ## is always allowed.
 ## Type: Bool
-c.content.javascript.can_access_clipboard = False
+c.content.javascript.clipboard = 'none'
+#c.content.javascript.can_access_clipboard = False
 
 ## Allow JavaScript to close tabs.
 ## Type: Bool
@@ -1440,7 +1441,7 @@ c.statusbar.position = 'top'
 ##   - tabs: Current active tab, e.g. `2`.
 ##   - keypress: Display pressed keys when composing a vi command.
 ##   - progress: Progress bar for the current page loading.
-c.statusbar.widgets = ['progress', 'keypress', 'url', 'history', 'tabs', 'scroll_raw']
+c.statusbar.widgets = ['progress', 'keypress', 'url', 'search_match', 'history', 'tabs', 'scroll_raw']
 
 ## When to show the statusbar.
 ## Type: String
@@ -1697,8 +1698,9 @@ c.url.searchengines = {
 
 ## Page(s) to open at the start.
 ## Type: List of FuzzyUrl, or FuzzyUrl
+c.url.start_pages = ['qute://start']
 #c.url.start_pages = ['https://codeberg.org/oxo']
-c.url.start_pages= ['https://duckduckgo.com/?q=&k1=-1&kac=-1&kaj=m&kak=-1&kao=-1&kap=-1&kaq=-1&kau=-1&kax=-1&kay=b&kc=-1&kf=-1&kg=p%3Fq%3D%7B%7D&kk=-1&kz=-1&t=h']
+#c.url.start_pages= ['https://duckduckgo.com/?q=&k1=-1&kac=-1&kaj=m&kak=-1&kao=-1&kap=-1&kaq=-1&kau=-1&kax=-1&kay=b&kc=-1&kf=-1&kg=p%3Fq%3D%7B%7D&kk=-1&kz=-1&t=h']
 
 ## URL parameters to strip with `:yank url`.
 ## Type: List of String
@@ -1738,6 +1740,7 @@ c.zoom.text_only = False
 config.bind("'", 'mode-enter jump_mark')
 config.bind('=', 'zoom-in')
 config.bind('-', 'zoom-out')
+config.bind('0', 'zoom')
 config.bind('.', 'repeat-command')
 config.bind('/', 'set-cmd-text /')
 config.bind(':', 'set-cmd-text :')
@@ -1795,7 +1798,6 @@ config.bind('<F5>', 'reload')
 config.bind('<Return>', 'selection-follow')
 config.bind('<back>', 'back')
 config.bind('<forward>', 'forward')
-config.bind('0', 'zoom')
 config.bind('?', 'set-cmd-text ?')
 config.bind('@', 'macro-run/')
 config.bind('B', 'set-cmd-text -s :quickmark-load -t')
