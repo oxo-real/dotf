@@ -725,7 +725,7 @@ c.content.javascript.alert = True
 ## QtWebEngine, writing the clipboard as response to a user interaction
 ## is always allowed.
 ## Type: Bool
-c.content.javascript.clipboard = 'none'
+c.content.javascript.clipboard = 'access-paste'
 #c.content.javascript.can_access_clipboard = False
 
 ## Allow JavaScript to close tabs.
