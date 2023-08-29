@@ -1274,6 +1274,21 @@ yaxis:
 
 #+end_src
 
+** navigation
+*** search
+M-s M-. isearch-thing-at-point
+C-r search backward
+C-s search forward
+#+begin_src emacs-lisp
+
+  (oxo/leader-keys
+    "s" '(:ignore t :wk "search")
+    "s ." '(isearch-forward-thing-at-point :wk "thing at point")
+    "s j" '(isearch-forward :wk "next")
+    "s k" '(isearch-backward :wk "prev"))
+
+#+end_src
+
 * files
 ** autosave
 #+begin_src emacs-lisp
@@ -1363,7 +1378,7 @@ passphrase prompt of gpg private keys
 
 #+end_src
 
-* keybindings
+* additional keybindings
 escape
 #+begin_src emacs-lisp
 
@@ -1374,5 +1389,8 @@ escape
   (global-set-key (kbd "C-+") 'text-scale-increase)
   (global-set-key (kbd "C--") 'text-scale-decrease)
   (global-set-key (kbd "C-0") 'text-scale-adjust)
+
+  ;; consult history
+  (global-set-key (kbd "M-<up>") 'consult-history)
 
 #+end_src

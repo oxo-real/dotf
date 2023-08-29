@@ -1275,11 +1275,14 @@
 │   └── zathurarc
 ├── zsa
 │   └── moonlander
-│       ├── moonlander_oxo_qwerty_NZWR6_LxE0R.bin
-│       ├── moonlander_oxo_qwerty_NZWR6_LxE0R.zip
-│       ├── moonlander_oxo_qwerty_NZWR6_pnGRW.bin
-│       ├── moonlander_oxo_qwerty_NZWR6_pnGRW.zip
-│       └── zsa_oxo_url
+│       ├── moonlander_oxo_qwerty_NZWR6_L0MwD.bin
+│       ├── moonlander_oxo_qwerty_NZWR6_L0MwD.zip
+│       ├── zsa_oxo_url
+│       └── zzz_deprecated
+│           ├── moonlander_oxo_qwerty_NZWR6_LxE0R.bin
+│           ├── moonlander_oxo_qwerty_NZWR6_LxE0R.zip
+│           ├── moonlander_oxo_qwerty_NZWR6_pnGRW.bin
+│           └── moonlander_oxo_qwerty_NZWR6_pnGRW.zip
 ├── zsh
 │   ├── alia
 │   ├── completions
@@ -1413,5 +1416,5 @@
     │   └── config
     └── xresources_colors
 
-209 directories, 1204 files
+210 directories, 1206 files
 ```

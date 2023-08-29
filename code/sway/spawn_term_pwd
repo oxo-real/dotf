@@ -27,7 +27,7 @@ if [ "$focused_pid" -eq "$focused_pid" 2>/dev/null ]; then
 
     ## get focused present working directory
     focused_pwd=""
-    if [ "$focused_ppid" -eq "$focused_ppid" 2>/dev/null ]; then
+    if [ "$focused_pid" -eq "$focused_ppid" 2>/dev/null ]; then
 
 	focused_pwd="$(readlink "/proc/$focused_ppid/cwd")"
 

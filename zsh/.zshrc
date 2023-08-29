@@ -563,7 +563,7 @@ bindkey '^p' ins_pwd
 
 #>>>>>>>>>>>>>> function fzf_ins_dir
 # fzf insert file or directory
-#
+# ^ pwd, ^f $HOME, ^g /
 
 function fzf_ins_dir() {
 
@@ -581,12 +581,17 @@ function fzf_ins_dir() {
     ## follow symlinks
     ## ignore from $XDG_CONFIG_HOME/fd/ignore
     ## include hidden files
+    ## awk creates space separated results
     fzf_output="$(fd --follow --ignore --hidden . "$root_dir" | \
-    	fzf --query=`printf "$fzf_input"`)"
+    	fzf -m --query=`printf "$fzf_input"` --height=20% | awk NF=1 OFS=' ' ORS=' ')"
+
+    ## invalidate the current zle display in preparation for output
+    ## prevent loosing visibility of entered characters before fzf started
+    zle -I
 
     # analyze fzf output
     [[ -n "$fzf_output" ]] && \
-    	CUTBUFFER="$fzf_output " || \
+    	CUTBUFFER="$fzf_output" || \
     	    CUTBUFFER="$input"
 
     # replace selection
@@ -597,6 +602,19 @@ function fzf_ins_dir() {
     unset fzf_input
     unset input
 }
+
+
+#>>>>>>>>>>>>>> function fzf_ins_pwd
+# fzf insert file or directory (^f) (ctrl f)
+# search from current directory and below
+
+function fzf_ins_pwd() {
+
+    fzf_ins_dir "$PWD"
+}
+
+zle -N fzf_ins_pwd
+bindkey "^o" fzf_ins_pwd
 
 
 #>>>>>>>>>>>>>> function fzf_ins_home

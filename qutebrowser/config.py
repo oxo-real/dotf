@@ -665,7 +665,7 @@ c.content.headers.referer = 'same-domain'
 ## unchanged user agent of QtWebKit/QtWebEngine.  Note that the value
 ## read from JavaScript is always the global value.
 ## Type: FormatString
-c.content.headers.user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36'
+c.content.headers.user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36'
 
 # NOTICE: change ua with chua from tool
 
@@ -725,7 +725,8 @@ c.content.javascript.alert = True
 ## QtWebEngine, writing the clipboard as response to a user interaction
 ## is always allowed.
 ## Type: Bool
-c.content.javascript.clipboard = 'access-paste'
+## The content.javascript.can_access_clipboard setting got renamed to content.javascript.clipboard and now understands three different values rather than being a boolean: none (formerly false), access (formerly true) and access-paste (additionally allows pasting content, needed for websites like Photopea or GitHub Codespaces).
+c.content.javascript.clipboard = 'none'
 #c.content.javascript.can_access_clipboard = False
 
 ## Allow JavaScript to close tabs.

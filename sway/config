@@ -531,10 +531,10 @@ bindsym $mod+space	focus mode_toggle
 # spawn another terminal emulator
 
 ## in $HOME
-bindsym $mod+Return	exec $term
+bindsym $mod+Return		exec $term
 
 ## in $PWD
-bindsym $mod+Shift+Return	exec $XDG_CONFIG_HOME/code/sway/spawn_term_pwd
+bindsym $mod+Shift+Return	exec $XDG_CONFIG_HOME/code/sway/spawn_term_pwd &
 
 ## floating invisible
 for_window [app_id="term_float_inv"]
