@@ -6,57 +6,6 @@
 │   ├── blocklist
 │   │   ├── customize -> /home/oxo/.local/share/c/git/prvt/code/tool/dns/customize_blocklist
 │   │   └── update -> /home/oxo/.local/share/c/git/code/tool/update_dns_hosts_blocklist
-│   ├── sway
-│   │   ├── dimr
-│   │   ├── filter.jq
-│   │   ├── fzf_cpbd
-│   │   ├── fzf_run
-│   │   ├── fzf_spicules
-│   │   ├── fzf_sway_shutdown
-│   │   ├── fzf_sway_switch
-│   │   ├── kill_float_inv
-│   │   ├── lock
-│   │   ├── music_play
-│   │   ├── screen_onf
-│   │   ├── spawn_term_pwd
-│   │   └── sway_nodes.jq
-│   ├── terminal
-│   │   ├── fzf_spicules_term
-│   │   └── samedir
-│   ├── waybar
-│   │   ├── 4tmux
-│   │   │   ├── aaa_tmux_source
-│   │   │   ├── batt
-│   │   │   ├── gauges
-│   │   │   ├── temp
-│   │   │   └── vol
-│   │   ├── audio_source
-│   │   ├── bar_custom
-│   │   ├── batt_flow
-│   │   ├── batt_perc
-│   │   ├── brightness
-│   │   ├── bt
-│   │   ├── cpu
-│   │   ├── epoch_time
-│   │   ├── interface
-│   │   ├── ipex
-│   │   ├── ipin
-│   │   ├── knl_release
-│   │   ├── macex
-│   │   ├── macin
-│   │   ├── mem
-│   │   ├── rnd_pool_alert
-│   │   ├── rng_pool
-│   │   ├── storage
-│   │   ├── temp
-│   │   ├── time
-│   │   ├── vol
-│   │   ├── vrx
-│   │   ├── vtx
-│   │   └── wifi
-│   ├── zsh
-│   │   ├── aliases
-│   │   └── git-prompt.sh
 │   └── zzz_deprecated
 │       ├── bar_blocks
 │       │   ├── bar_custom
@@ -93,6 +42,37 @@
 │       ├── rofi
 │       │   ├── spicules
 │       │   └── sway_exit
+│       ├── waybar
+│       │   ├── 4tmux
+│       │   │   ├── aaa_tmux_source
+│       │   │   ├── batt
+│       │   │   ├── gauges
+│       │   │   ├── temp
+│       │   │   └── vol
+│       │   ├── audio_source
+│       │   ├── bar_custom
+│       │   ├── batt_flow
+│       │   ├── batt_perc
+│       │   ├── brightness
+│       │   ├── bt
+│       │   ├── cpu
+│       │   ├── epoch_time
+│       │   ├── interface
+│       │   ├── ipex
+│       │   ├── ipin
+│       │   ├── knl_release
+│       │   ├── macex
+│       │   ├── macin
+│       │   ├── mem
+│       │   ├── rnd_pool_alert
+│       │   ├── rng_pool
+│       │   ├── storage
+│       │   ├── temp
+│       │   ├── time
+│       │   ├── vol
+│       │   ├── vrx
+│       │   ├── vtx
+│       │   └── wifi
 │       └── wofi
 │           ├── style.css
 │           └── sway_exit
@@ -1160,7 +1140,7 @@
 │   ├── chua -> /home/oxo/.local/share/c/git/code/tool/chua
 │   ├── cryptr -> /home/oxo/.local/share/c/git/code/tool/cryptr
 │   ├── diffdir -> /home/oxo/.local/share/c/git/code/tool/diffdir
-│   ├── dimr -> /home/oxo/.config/code/sway/dimr
+│   ├── dimr -> /home/oxo/.config/sway/code/dimr
 │   ├── dividir -> /home/oxo/.local/share/c/git/code/tool/dividir
 │   ├── dotfbu -> /home/oxo/.local/share/c/git/code/tool/dotfbu
 │   ├── ec -> /home/oxo/.local/share/c/git/code/tool/emacs_start
@@ -1183,6 +1163,7 @@
 │   ├── passr -> /home/oxo/.local/share/c/git/code/tool/passr
 │   ├── pwgn -> /home/oxo/.local/share/c/git/code/tool/pwgn
 │   ├── qbns -> /home/oxo/.config/qutebrowser/new_session
+│   ├── qrinv -> /home/oxo/c/git/code/tool/qrinv
 │   ├── shred_all -> /home/oxo/.local/share/c/git/code/tool/shred_all
 │   ├── slicer -> /home/oxo/.local/share/c/git/code/tool/slicer
 │   ├── syncr -> /home/oxo/.local/share/c/git/code/tool/syncr
@@ -1218,9 +1199,20 @@
 │   │       ├── weather
 │   │       ├── wifi
 │   │       └── window
-│   ├── colors
-│   │   ├── color_palette
-│   │   └── colortest
+│   ├── code
+│   │   ├── dimr
+│   │   ├── filter.jq
+│   │   ├── fzf_cpbd
+│   │   ├── fzf_run
+│   │   ├── fzf_spicules
+│   │   ├── fzf_sway_shutdown
+│   │   ├── fzf_sway_switch
+│   │   ├── kill_float_inv
+│   │   ├── lock
+│   │   ├── music_play
+│   │   ├── screen_onf
+│   │   ├── spawn_term_pwd
+│   │   └── sway_nodes.jq
 │   ├── config
 │   ├── current -> /home/oxo/.config/sway/hw/dev/ltx1c
 │   └── hw
@@ -1416,5 +1408,5 @@
     │   └── config
     └── xresources_colors
 
-210 directories, 1206 files
+206 directories, 1202 files
 ```

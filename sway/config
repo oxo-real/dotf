@@ -1,5 +1,6 @@
 #
 ##
+###
 ###    _____      ____ _ _   _ _ __ ___
 ###   / __\ \ /\ / / _` | | | | '__/ __|
 ###  _\__ \\ V  V / (_| | |_| | | | (__
@@ -534,7 +535,7 @@ bindsym $mod+space	focus mode_toggle
 bindsym $mod+Return		exec $term
 
 ## in $PWD
-bindsym $mod+Shift+Return	exec $XDG_CONFIG_HOME/code/sway/spawn_term_pwd &
+bindsym $mod+Shift+Return	exec $XDG_CONFIG_HOME/sway/code/spawn_term_pwd &
 
 ## floating invisible
 for_window [app_id="term_float_inv"]
@@ -548,7 +549,7 @@ for_window [app_id="term_float_inv"]
 
 #bindsym Control+b 	exec $term --class="term_float_inv" -e \
 #			$XDG_CONFIG_HOME/code/bar_blocks/toggle :
-#			exec $XDG_CONFIG_HOME/code/sway/kill_float_inv
+#			exec $XDG_CONFIG_HOME/sway/code/kill_float_inv
 bindsym $mod+Control+b 	exec $XDG_CONFIG_HOME/i3blocks/cycle
 
 ## floating in $HOME
@@ -574,7 +575,7 @@ for_window [app_id="float_fzf_run"]
 }
 
 bindsym $mod+d			exec $term --class="float_fzf_run" -e \
-				$XDG_CONFIG_HOME/code/sway/fzf_run
+				$XDG_CONFIG_HOME/sway/code/fzf_run
 
 ## define spicules window
 for_window [app_id="float_spicules"]
@@ -588,15 +589,15 @@ for_window [app_id="float_spicules"]
 
 ## fzf_spicules			(search cmd_catalog)
 bindsym $mod+z			exec $term --class="float_spicules" -e \
-				$XDG_CONFIG_HOME/code/sway/fzf_spicules && wl-copy -n < $XDG_CACHE_HOME/cb
+				$XDG_CONFIG_HOME/sway/code/fzf_spicules && wl-copy -n < $XDG_CACHE_HOME/cb
 
 ## fzf_sway_shutdown		(shutdown menu)
 bindsym $mod+Shift+x		exec $term --class="float_spicules" -e \
-				$XDG_CONFIG_HOME/code/sway/fzf_sway_shutdown
+				$XDG_CONFIG_HOME/sway/code/fzf_sway_shutdown
 
 ## fzf_sway_switch 		(window switcher)
 bindsym $mod+grave		exec $term --class="float_spicules" -e \
-				$XDG_CONFIG_HOME/code/sway/fzf_sway_switch
+				$XDG_CONFIG_HOME/sway/code/fzf_sway_switch
 
 # fzf clipboard manager
 ## cache/cb is the active clipboard
@@ -607,42 +608,42 @@ bindsym $mod+grave		exec $term --class="float_spicules" -e \
 # this must be done explicitly (copy then fzf_cpbd add)
 
 ## fzf_cpbd add
-bindsym Control+Shift+y		exec $XDG_CONFIG_HOME/code/sway/fzf_cpbd add
+bindsym Control+Shift+y		exec $XDG_CONFIG_HOME/sway/code/fzf_cpbd add
 # TODO DEV bindsym Control+Shift+o	secure copy (wl-copy -o)
 
 
 ## fzf_cpbd put
 bindsym Control+Shift+p		exec $term --class="float_spicules" -e \
-				$XDG_CONFIG_HOME/code/sway/fzf_cpbd put && wl-copy -n < $XDG_CACHE_HOME/cb
+				$XDG_CONFIG_HOME/sway/code/fzf_cpbd put && wl-copy -n < $XDG_CACHE_HOME/cb
 
 ## fzf_cpbd remove_item
 bindsym Control+Shift+r		exec $term --class="float_spicules" -e \
-				$XDG_CONFIG_HOME/code/sway/fzf_cpbd remove_item
+				$XDG_CONFIG_HOME/sway/code/fzf_cpbd remove_item
 
 ## fzf_cpbd remove_all
 bindsym $mod+Control+Shift+r	exec $term --class="float_spicules" -e \
-				$XDG_CONFIG_HOME/code/sway/fzf_cpbd remove_all
+				$XDG_CONFIG_HOME/sway/code/fzf_cpbd remove_all
 
 
 # exit workspace (Zzz)
 
 ## swaylock
-## colors set in code/sway/lock
+## colors set in sway/code/lock
 
 ## screen backlight on/off
-bindsym $mod+Shift+s		exec $XDG_CONFIG_HOME/code/sway/screen_onf
+bindsym $mod+Shift+s		exec $XDG_CONFIG_HOME/sway/code/screen_onf
 
 ### lock instantly
-bindsym $mod+Shift+z		exec $XDG_CONFIG_HOME/code/sway/dimr swaylock
+bindsym $mod+Shift+z		exec $XDG_CONFIG_HOME/sway/code/dimr swaylock
 
 ### screen off
-bindsym $mod+Shift+Slash	exec $XDG_CONFIG_HOME/code/sway/dimr screen_off
+bindsym $mod+Shift+Slash	exec $XDG_CONFIG_HOME/sway/code/dimr screen_off
 
 ### enable (lock after 2 * idle_time)
-bindsym $mod+Control+Shift+e	exec $XDG_CONFIG_HOME/code/sway/dimr swaylock_enable
+bindsym $mod+Control+Shift+e	exec $XDG_CONFIG_HOME/sway/code/dimr swaylock_enable
 
 ### disable (no lock after idle_time)
-bindsym $mod+Control+Shift+d	exec $XDG_CONFIG_HOME/code/sway/dimr swaylock_disable
+bindsym $mod+Control+Shift+d	exec $XDG_CONFIG_HOME/sway/code/dimr swaylock_disable
 
 # reload sway configuration
 bindsym $mod+Shift+c		reload
@@ -687,7 +688,7 @@ bindsym XF86AudioPrev 		exec playerctl previous
 
 bindsym XF86Search 		exec $menu
 bindsym $mod+m			exec $term --class="float_spicules" -e \
-				$XDG_CONFIG_HOME/code/sway/music_play
+				$XDG_CONFIG_HOME/sway/code/music_play
 
 # screencapture
 # https://wiki.archlinux.org/index.php/Sway#Screen_capture

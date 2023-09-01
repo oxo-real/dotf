@@ -9,7 +9,8 @@
 ## therefore also 'sudo $cmd' lets $cmd expand to alias
 alias sudo='sudo '
 
-function sudo() {
+function sudo()
+{
     ## sudo -k cannot be aliased
     ## therefore solution below
     case "$1" in
@@ -25,6 +26,7 @@ function sudo() {
     esac
 }
 
+
 alias vi='nvim'
 alias vim='nvim'
 alias view='nvim -R'
@@ -37,6 +39,19 @@ alias tree='tree -n --charset=unicode'
 #alias tree='env TERM=xterm-256color tree'
 alias zsh="env ZDOTDIR="$XDG_CONFIG_HOME/zsh" zsh"
 alias mpv='mpv --audio-display=no'
+
+function qr()
+{
+    # usage: qr $(wl-paste)
+    #        echo hello | qr
+    args="$@"
+    [[ -z $@ ]] && args="$(</dev/stdin)"
+    ## qrcode inverse colors
+    qrinv "$args"
+    ## qrcode default colors
+    #qrencode --type utf8 "$args"
+}
+
 
 ## protect against shell command injection
 ### https://security.stackexchange.com/questions/56307/can-cat-ing-a-file-be-a-potential-security-risk/56323#56323
@@ -79,7 +94,8 @@ alias beep="pw-play $BEEP"
 # pulseaudio
 #alias beep="paplay $BEEP"
 
-function say() {
+function say()
+{
     # usage: say sdate
     #        sdate | say
     spch="$@"

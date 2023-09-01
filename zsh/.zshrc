@@ -455,8 +455,8 @@ function chpwd() {
 #>>>>>>>>>>>>>	function insert_application
 # add (+=) application to cursor position (^q) (ctrl q)
 
-function insert_pacmanqq() {
-
+function insert_pacmanqq()
+{
     LBUFFER+="$(pacman -Qq | fzf)"
 }
 
@@ -467,8 +467,8 @@ bindkey "^A" insert_pacmanqq
 #>>>>>>>>>>>>>	function insert_application
 # add (+=) application to cursor position (^a) (ctrl a)
 
-function insert_appn() {
-
+function insert_appn()
+{
     LBUFFER+="$(ls "$APPNDIR" | fzf)"
 }
 
@@ -479,8 +479,8 @@ bindkey "^a" insert_appn
 #>>>>>>>>>>>>>	function insert_date_time
 # add (+=) current date and time to cursor position (^@) (ctrl @)
 
-function insert_date_time() {
-
+function insert_date_time()
+{
     LBUFFER+="$(date +%Y%m%d_%H%M%S)"
 }
 
@@ -492,8 +492,8 @@ bindkey "^@" insert_date_time
 #>>>>>>>>>>>>>	function insert_epoch
 # add (+=) epoch to cursor position (^#) (ctrl #)
 
-function insert_epoch() {
-
+function insert_epoch()
+{
     LBUFFER+="$(date +%s)"
 }
 
@@ -504,8 +504,8 @@ bindkey "^e" insert_epoch
 #>>>>>>>>>>>>>	function git_add_commit
 # git add & commit shortcut (^q) (ctrl q)
 
-function git_add_commit() {
-
+function git_add_commit()
+{
     BUFFER="git add . && git commit --gpg-sign=7f462acc -a -m '`date +%Y%m%d_%H%M%S` (local_update)'"
 }
 
@@ -516,8 +516,8 @@ bindkey "^q" git_add_commit
 #>>>>>>>>>>>>>> function up_dir
 # updir shortcut (^k) (ctrl k)
 
-function up_dir() {
-
+function up_dir()
+{
     BUFFER="cd .."
     zle accept-line
 }
@@ -530,8 +530,8 @@ bindkey "^k" up_dir
 # last_dir shortcut (^h) (ctrl h)
 ## bash: 'cd -'
 
-function last_dir() {
-
+function last_dir()
+{
     BUFFER="cd $OLDPWD"
     zle accept-line
 }
@@ -544,8 +544,8 @@ bindkey "^h" last_dir
 # insert $PWD inline
 # Control+p
 
-function ins_pwd() {
-
+function ins_pwd()
+{
     # select & kill
     zle select-in-blank-word
     zle kill-region
@@ -565,8 +565,8 @@ bindkey '^p' ins_pwd
 # fzf insert file or directory
 # ^ pwd, ^f $HOME, ^g /
 
-function fzf_ins_dir() {
-
+function fzf_ins_dir()
+{
     root_dir="$1"
 
     # select & kill
@@ -608,8 +608,8 @@ function fzf_ins_dir() {
 # fzf insert file or directory (^f) (ctrl f)
 # search from current directory and below
 
-function fzf_ins_pwd() {
-
+function fzf_ins_pwd()
+{
     fzf_ins_dir "$PWD"
 }
 
@@ -621,8 +621,8 @@ bindkey "^o" fzf_ins_pwd
 # fzf insert file or directory (^f) (ctrl f)
 # search from home
 
-function fzf_ins_home() {
-
+function fzf_ins_home()
+{
     fzf_ins_dir "$HOME"
 }
 
@@ -634,8 +634,8 @@ bindkey "^f" fzf_ins_home
 # fzf insert file or directory (^g) (ctrl g)
 # search from root
 
-function fzf_ins_root() {
-
+function fzf_ins_root()
+{
     fzf_ins_dir '/'
 }
 
@@ -646,8 +646,8 @@ bindkey "^g" fzf_ins_root
 #>>>>>>>>>>>>>> function sudo_toggle
 # sudo-toggle (vicmd s)
 
-function sudo_toggle() {
-
+function sudo_toggle()
+{
     [[ -z $BUFFER ]] && zle up-history
 
     if [[ $BUFFER == sudo\ * ]]; then
@@ -686,8 +686,8 @@ bindkey -M vicmd 's' sudo_toggle
 # foreground
 # Control+backspace
 
-function foreground() {
-
+function foreground()
+{
     fg;
 }
 
@@ -699,8 +699,8 @@ bindkey '^Z' foreground
 # mountr
 # Control+slash
 
-function mountr_widget() {
-
+function mountr_widget()
+{
     # inverted text to indicate widget call
     printf "\e[7m mountr \e[27m\n"
 
@@ -719,8 +719,8 @@ bindkey '^_' mountr_widget
 # function lfcd is by default externally sourced from:
 # lf_cd="$XDG_CONFIG_HOME/lf/lfcd.sh"
 
-function lfcd() {
-
+function lfcd()
+{
     # provide lfcd function inside a zsh shell environment
     tmp="$(mktemp)"
 

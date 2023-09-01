@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# termite
-#termite -directory=$PWD &
-
-# alacritty
-alacritty --working-directory $PWD &
