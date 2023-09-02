@@ -185,7 +185,8 @@ c.colors.hints.bg = 'rgba(0, 0, 0, 80%)'
 
 ## Font color for hints.
 ## Type: QssColor
-c.colors.hints.fg = '#96cbfe'
+#c.colors.hints.fg = '#96cbfe'
+c.colors.hints.fg = '#ffffff'
 
 ## Font color for the matched part of hints.
 ## Type: QtColor
@@ -231,7 +232,7 @@ c.colors.messages.info.fg = '#00ff00'
 
 ## Background color of a warning message.
 ## Type: QssColor
-c.colors.messages.warning.bg = 'darkorange'
+c.colors.messages.warning.bg = 'black'
 
 ## Border color of a warning message.
 ## Type: QssColor
@@ -239,7 +240,7 @@ c.colors.messages.warning.border = 'black'
 
 ## Foreground color of a warning message.
 ## Type: QssColor
-c.colors.messages.warning.fg = '#555555'
+c.colors.messages.warning.fg = '#ff6c60'
 
 ## Background color for prompts.
 ## Type: QssColor
@@ -259,7 +260,8 @@ c.colors.prompts.selected.bg = 'black'
 
 ## Background color of the statusbar in caret mode.
 ## Type: QssColor
-c.colors.statusbar.caret.bg = 'purple'
+c.colors.statusbar.caret.bg = '#ff73fd'
+#c.colors.statusbar.caret.bg = 'purple'
 
 ## Foreground color of the statusbar in caret mode.
 ## Type: QssColor
@@ -293,8 +295,7 @@ c.colors.statusbar.command.private.fg = 'white'
 
 ## Background color of the statusbar in insert mode.
 ## Type: QssColor
-c.colors.statusbar.insert.bg = '#00ff00'
-#c.colors.statusbar.insert.bg = 'darkgreen'
+c.colors.statusbar.insert.bg = '#a8ff60'
 
 ## Foreground color of the statusbar in insert mode.
 ## Type: QssColor
@@ -310,11 +311,12 @@ c.colors.statusbar.normal.fg = '#777777'
 
 ## Background color of the statusbar in passthrough mode.
 ## Type: QssColor
-c.colors.statusbar.passthrough.bg = 'darkblue'
+c.colors.statusbar.passthrough.bg = '#96cbfe'
+#c.colors.statusbar.passthrough.bg = 'darkblue'
 
 ## Foreground color of the statusbar in passthrough mode.
 ## Type: QssColor
-c.colors.statusbar.passthrough.fg = 'white'
+c.colors.statusbar.passthrough.fg = 'black'
 
 ## Background color of the statusbar in private browsing mode.
 ## Type: QssColor
@@ -966,7 +968,7 @@ c.editor.encoding = 'utf-8'
 
 ## Font used in the completion categories.
 ## Type: Font
-c.fonts.completion.category = 'bold default_size default_family'
+c.fonts.completion.category = 'default_size default_family'
 
 ## Font used in the completion widget.
 ## Type: Font
@@ -1003,7 +1005,8 @@ c.fonts.downloads = 'default_size default_family'
 
 ## Font used for the hints.
 ## Type: Font
-c.fonts.hints = 'bold default_size default_family'
+c.fonts.hints = 'bold default_size Source Code Pro'
+#c.fonts.hints = 'default_size default_family'
 
 ## Font used in the keyhint widget.
 ## Type: Font
@@ -1758,6 +1761,9 @@ config.bind(';i', 'hint images')
 config.bind(';o', 'hint links fill :open {hint-url}')
 config.bind(';r', 'hint --rapid links tab-bg')
 config.bind(';t', 'hint inputs')
+config.bind(';v3', 'hint links spawn mpv --ytdl-format="best[filesize<300M]" --force-window --no-terminal --keep-open=yes --ytdl {hint-url}')
+config.bind(';v6', 'hint links spawn mpv --ytdl-format="best[filesize<600M]" --force-window --no-terminal --keep-open=yes --ytdl {hint-url}')
+config.bind(';v9', 'hint links spawn mpv --ytdl-format="best[filesize<900M]" --force-window --no-terminal --keep-open=yes --ytdl {hint-url}')
 config.bind(';y', 'hint links yank')
 config.bind('<Alt-1>', 'tab-focus 1')
 config.bind('<Alt-2>', 'tab-focus 2')

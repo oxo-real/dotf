@@ -79,13 +79,14 @@ input $keyboard
 ### general
 #input type:keyboard
 ### specific
-input $keyboard_ext
-{
-    xkb_options		ctrl:nocaps,compose:ralt
-    repeat_delay	500
-    repeat_rate		20
-    xkb_numlock		enabled
-}
+#input $keyboard_ext
+#{
+#    xkb_options		compose:ralt
+#    #xkb_options		ctrl:nocaps,compose:ralt
+#    repeat_delay	500
+#    repeat_rate		20
+#    #xkb_numlock		enabled
+#}
 
 
 ## modkey settings (xmodmap)
@@ -495,6 +496,7 @@ bindsym $mod+backslash	split toggle
 
 # enter fullscreen mode for the focused window
 bindsym $mod+f		fullscreen toggle
+bindsym $mod+Shift+f	fullscreen toggle
 
 
 # focus parent container
@@ -515,11 +517,12 @@ bindsym $mod+a		layout toggle splith splitv stacking tabbed
 
 
 # toggle focused window tiling / floating
-bindsym $mod+Control+space	floating toggle
+bindsym $mod+Shift+v 	floating toggle
+#bindsym $mod+Control+space	floating toggle
 
 
 # toggle floating window sticky (always on top)
-bindsym $mod+Control+s	sticky toggle
+bindsym $mod+Shift+s	sticky toggle
 
 
 # toggle focus mode tiling / floating
@@ -609,7 +612,7 @@ bindsym $mod+grave		exec $term --class="float_spicules" -e \
 
 ## fzf_cpbd add
 bindsym Control+Shift+y		exec $XDG_CONFIG_HOME/sway/code/fzf_cpbd add
-# TODO DEV bindsym Control+Shift+o	secure copy (wl-copy -o)
+# TODO bindsym Control+Shift+o	secure copy (wl-copy -o)
 
 
 ## fzf_cpbd put
@@ -631,7 +634,7 @@ bindsym $mod+Control+Shift+r	exec $term --class="float_spicules" -e \
 ## colors set in sway/code/lock
 
 ## screen backlight on/off
-bindsym $mod+Shift+s		exec $XDG_CONFIG_HOME/sway/code/screen_onf
+#bindsym $mod+Shift+s		exec $XDG_CONFIG_HOME/sway/code/screen_onf
 
 ### lock instantly
 bindsym $mod+Shift+z		exec $XDG_CONFIG_HOME/sway/code/dimr swaylock
