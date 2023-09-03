@@ -87,7 +87,7 @@ c.colors.completion.item.selected.border.top = 'black'
 
 ## Foreground color of the selected completion item.
 ## Type: QtColor
-c.colors.completion.item.selected.fg = '#96cbfe'
+c.colors.completion.item.selected.fg =  '#a8ff60'
 #c.colors.completion.item.selected.fg = '#ff00ff'
 
 ## Foreground color of the matched text in the selected completion item.
@@ -136,7 +136,7 @@ c.colors.downloads.bar.bg = 'black'
 
 ## Background color for downloads with errors.
 ## Type: QtColor
-c.colors.downloads.error.bg = 'red'
+c.colors.downloads.error.bg = '#ff6c60'
 
 ## Foreground color for downloads with errors.
 ## Type: QtColor
@@ -190,7 +190,7 @@ c.colors.hints.fg = '#ffffff'
 
 ## Font color for the matched part of hints.
 ## Type: QtColor
-c.colors.hints.match.fg = '#555555'
+c.colors.hints.match.fg = '#96cbfe'
 
 ## Background color of the keyhint widget.
 ## Type: QssColor
@@ -199,7 +199,7 @@ c.colors.keyhint.bg = 'rgba(0, 0, 0, 80%)'
 
 ## Text color for the keyhint widget.
 ## Type: QssColor
-c.colors.keyhint.fg = '#ffff00'
+c.colors.keyhint.fg = '#ffffff'
 
 ## Highlight color for keys to complete the current keychain.
 ## Type: QssColor
@@ -215,7 +215,7 @@ c.colors.messages.error.border = 'black'
 
 ## Foreground color of an error message.
 ## Type: QssColor
-c.colors.messages.error.fg = '#ff0000'
+c.colors.messages.error.fg = '#ff6c60'
 
 ## Background color of an info message.
 ## Type: QssColor
@@ -332,7 +332,8 @@ c.colors.statusbar.progress.bg = '#777777'
 
 ## Foreground color of the URL in the statusbar on error.
 ## Type: QssColor
-c.colors.statusbar.url.error.fg = '#996300'
+c.colors.statusbar.url.error.fg = '#ff6c60'
+#c.colors.statusbar.url.error.fg = '#996300'
 
 ## Default foreground color of the URL in the statusbar.
 ## Type: QssColor
@@ -340,7 +341,7 @@ c.colors.statusbar.url.fg = '#777777'
 
 ## Foreground color of the URL in the statusbar for hovered links.
 ## Type: QssColor
-c.colors.statusbar.url.hover.fg = '#0090ff'
+c.colors.statusbar.url.hover.fg = '#a8ff60'
 
 ## Foreground color of the URL in the statusbar on successful load
 ## (http).
@@ -350,7 +351,7 @@ c.colors.statusbar.url.success.http.fg = 'magenta'
 ## Foreground color of the URL in the statusbar on successful load
 ## (https).
 ## Type: QssColor
-c.colors.statusbar.url.success.https.fg = '#777777'
+c.colors.statusbar.url.success.https.fg = '#000000'
 
 ## Foreground color of the URL in the statusbar when there's a warning.
 ## Type: QssColor
@@ -371,15 +372,15 @@ c.colors.tabs.even.fg = '#666666'
 
 ## Color for the tab indicator on errors.
 ## Type: QtColor
-c.colors.tabs.indicator.error = '#ff0000'
+c.colors.tabs.indicator.error = '#ff6c60'
 
 ## Color gradient start for the tab indicator.
 ## Type: QtColor
-c.colors.tabs.indicator.start = '#ffffd3'
+c.colors.tabs.indicator.start = '#96cbfe'
 
 ## Color gradient end for the tab indicator.
 ## Type: QtColor
-c.colors.tabs.indicator.stop = '#666666'
+c.colors.tabs.indicator.stop = '#000000'
 #c.colors.tabs.indicator.stop = '#888888'
 
 ## Color gradient interpolation system for the tab indicator.
@@ -1746,9 +1747,9 @@ config.bind("'", 'mode-enter jump_mark')
 config.bind('=', 'zoom-in')
 config.bind('-', 'zoom-out')
 config.bind('0', 'zoom')
-config.bind('.', 'repeat-command')
-config.bind('/', 'set-cmd-text /')
-config.bind(':', 'set-cmd-text :')
+config.bind('.', 'cmd-repeat-last')
+config.bind('/', 'cmd-set-text /')
+config.bind(':', 'cmd-set-text :')
 config.bind(';I', 'hint images tab')
 config.bind(';O', 'hint links fill :open -t -r {hint-url}')
 config.bind(';R', 'hint --rapid links window')
@@ -1806,9 +1807,9 @@ config.bind('<F5>', 'reload')
 config.bind('<Return>', 'selection-follow')
 config.bind('<back>', 'back')
 config.bind('<forward>', 'forward')
-config.bind('?', 'set-cmd-text ?')
+config.bind('?', 'cmd-set-text ?')
 config.bind('@', 'macro-run/')
-config.bind('B', 'set-cmd-text -s :quickmark-load -t')
+config.bind('B', 'cmd-set-text -s :quickmark-load -t')
 #config.bind('D', 'tab-close -o')
 config.bind('F', 'hint all tab')
 config.bind('G', 'scroll-to-perc')
@@ -1820,7 +1821,7 @@ config.bind('L', 'scroll right')
 #config.bind('L', 'forward')
 config.bind('M', 'bookmark-add')
 config.bind('N', 'search-prev')
-config.bind('O', 'set-cmd-text -s :open -t')
+config.bind('O', 'cmd-set-text -s :open -t')
 config.bind('PP', 'open -t -- {primary}')
 config.bind('Pp', 'open -t -- {clipboard}')
 config.bind('R', 'reload -f')
@@ -1835,30 +1836,30 @@ config.bind('[[', 'navigate prev')
 config.bind(']]', 'navigate next')
 config.bind('`', 'mode-enter set_mark')
 config.bind('ad', 'download-cancel')
-config.bind('b', 'set-cmd-text -s :quickmark-load')
+config.bind('b', 'cmd-set-text -s :quickmark-load')
 config.bind('cd', 'download-clear')
 config.bind('co', 'tab-only')
 #config.bind('d', 'tab-close')
 config.bind('f', 'hint')
 config.bind('g$', 'tab-focus -1')
 config.bind('g0', 'tab-focus 1')
-config.bind('gB', 'set-cmd-text -s :bookmark-load -t')
+config.bind('gB', 'cmd-set-text -s :bookmark-load -t')
 config.bind('gC', 'tab-clone')
 config.bind('gD', 'tab-give')
-config.bind('gO', 'set-cmd-text :open -t -r {url:pretty}')
+config.bind('gO', 'cmd-set-text :open -t -r {url:pretty}')
 config.bind('gU', 'navigate up -t')
 config.bind('g^', 'tab-focus 1')
 config.bind('ga', 'open -t')
-config.bind('gb', 'set-cmd-text -s :bookmark-load')
+config.bind('gb', 'cmd-set-text -s :bookmark-load')
 config.bind('gd', 'download')
 config.bind('gf', 'view-source')
 config.bind('gg', 'scroll-to-perc 0')
 config.bind('gi', 'hint inputs --first')
 config.bind('gl', 'tab-move -')
 config.bind('gm', 'tab-move')
-config.bind('go', 'set-cmd-text :open {url:pretty}')
+config.bind('go', 'cmd-set-text :open {url:pretty}')
 config.bind('gr', 'tab-move +')
-config.bind('gt', 'set-cmd-text -s :tab-select')
+config.bind('gt', 'cmd-set-text -s :tab-select')
 config.bind('gu', 'navigate up')
 config.bind('`', 'devtools ;; mode-enter normal ;; devtools-focus')
 # toggle devtools (open):   `
@@ -1875,15 +1876,15 @@ config.bind('l', 'forward')
 #config.bind('l', 'scroll right')
 config.bind('m', 'quickmark-save')
 config.bind('n', 'search-next')
-config.bind('o', 'set-cmd-text -s :open')
+config.bind('o', 'cmd-set-text -s :open')
 config.bind('pP', 'open -- {primary}')
 config.bind('pp', 'open -- {clipboard}')
 config.bind('q', 'macro-record')
 config.bind('r', 'reload')
 config.bind('sf', 'save')
-config.bind('sk', 'set-cmd-text -s :bind')
-config.bind('sl', 'set-cmd-text -s :set -t')
-config.bind('ss', 'set-cmd-text -s :set')
+config.bind('sk', 'cmd-set-text -s :bind')
+config.bind('sl', 'cmd-set-text -s :set -t')
+config.bind('ss', 'cmd-set-text -s :set')
 config.bind('tIH', 'config-cycle -p -u *://*.{url:host}/* content.images ;; reload')
 config.bind('tIh', 'config-cycle -p -u *://{url:host}/* content.images ;; reload')
 config.bind('tIu', 'config-cycle -p -u {url} content.images ;; reload')
@@ -1906,18 +1907,18 @@ config.bind('tsh', 'config-cycle -p -t -u *://{url:host}/* content.javascript.en
 config.bind('tsu', 'config-cycle -p -t -u {url} content.javascript.enabled ;; reload')
 config.bind('u', 'undo')
 config.bind('v', 'mode-enter caret')
-config.bind('wB', 'set-cmd-text -s :bookmark-load -w')
-config.bind('wO', 'set-cmd-text :open -w {url:pretty}')
+config.bind('wB', 'cmd-set-text -s :bookmark-load -w')
+config.bind('wO', 'cmd-set-text :open -w {url:pretty}')
 config.bind('wP', 'open -w -- {primary}')
-config.bind('wb', 'set-cmd-text -s :quickmark-load -w')
+config.bind('wb', 'cmd-set-text -s :quickmark-load -w')
 config.bind('wf', 'hint all window')
 config.bind('wh', 'back -w')
 config.bind('wi', 'inspector')
 config.bind('wl', 'forward -w')
-config.bind('wo', 'set-cmd-text -s :open -w')
+config.bind('wo', 'cmd-set-text -s :open -w')
 config.bind('wp', 'open -w -- {clipboard}')
-config.bind('xO', 'set-cmd-text :open -b -r {url:pretty}')
-config.bind('xo', 'set-cmd-text -s :open -b')
+config.bind('xO', 'cmd-set-text :open -b -r {url:pretty}')
+config.bind('xo', 'cmd-set-text -s :open -b')
 config.bind('yD', 'yank domain -s')
 config.bind('yM', 'yank inline [{title}]({url}) -s')
 config.bind('yP', 'yank pretty-url -s')
