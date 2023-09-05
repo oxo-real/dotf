@@ -179,14 +179,12 @@ c.colors.downloads.system.fg = 'none'
 ## Background color for hints. Note that you can use a `rgba(...)` value
 ## for transparency.
 ## Type: QssColor
-#c.colors.hints.bg = 'rgba(0, 0, 0, 50%)'
-c.colors.hints.bg = 'rgba(0, 0, 0, 80%)'
-#c.colors.hints.bg = 'qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(255, 247, 133, 0.8), stop:1 rgba(255, 197, 66, 0.8))'
+c.colors.hints.bg = 'black'
 
 ## Font color for hints.
 ## Type: QssColor
 #c.colors.hints.fg = '#96cbfe'
-c.colors.hints.fg = '#ffffff'
+c.colors.hints.fg = '#aaaaaa'
 
 ## Font color for the matched part of hints.
 ## Type: QtColor
@@ -194,16 +192,16 @@ c.colors.hints.match.fg = '#96cbfe'
 
 ## Background color of the keyhint widget.
 ## Type: QssColor
-c.colors.keyhint.bg = 'rgba(0, 0, 0, 80%)'
-#c.colors.keyhint.bg = 'black'
+c.colors.keyhint.bg = 'black'
+#c.colors.keyhint.bg = 'rgba(0, 0, 0, 80%)'
 
 ## Text color for the keyhint widget.
 ## Type: QssColor
-c.colors.keyhint.fg = '#ffffff'
+c.colors.keyhint.fg = '#aaaaaa'
 
 ## Highlight color for keys to complete the current keychain.
 ## Type: QssColor
-c.colors.keyhint.suffix.fg = '#ffff00'
+c.colors.keyhint.suffix.fg = '#96cbfe'
 
 ## Background color of an error message.
 ## Type: QssColor
@@ -228,7 +226,7 @@ c.colors.messages.info.border = 'black'
 ## Foreground color of an info message.
 ## Type: QssColor
 ## i.e. after yy: yanked to clipboard
-c.colors.messages.info.fg = '#00ff00'
+c.colors.messages.info.fg = '#a8ff60'
 
 ## Background color of a warning message.
 ## Type: QssColor
@@ -1011,7 +1009,7 @@ c.fonts.hints = 'bold default_size Source Code Pro'
 
 ## Font used in the keyhint widget.
 ## Type: Font
-c.fonts.keyhint = 'default_size default_family'
+c.fonts.keyhint = 'bold default_size Source Code Pro'
 
 ## Font used for error messages.
 ## Type: Font
@@ -1237,7 +1235,8 @@ c.keyhint.delay = 500
 
 ## Rounding radius (in pixels) for the edges of the keyhint dialog.
 ## Type: Int
-c.keyhint.radius = 6
+c.keyhint.radius = 0
+#c.keyhint.radius = 6
 
 ## Duration (in milliseconds) to show messages in the statusbar for. Set
 ## to 0 to never clear messages.

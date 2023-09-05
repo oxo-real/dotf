@@ -587,7 +587,7 @@ note taking tool
   (defun oxo/org-mode-visual-fill ()
     (setq visual-fill-column-width 100)
           ;;visual-fill-column-center-text t)
-    (visual-fill-column-mode 1))
+    (visual-fill-column-mode 0))
 
   (use-package visual-fill-column
     :hook (org-mode . oxo/org-mode-visual-fill))
@@ -598,6 +598,9 @@ note taking tool
   (require 'org)
 
 #+end_src
+
+#+RESULTS:
+: org
 
 *** org agenda
 #+begin_src emacs-lisp

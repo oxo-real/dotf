@@ -24,7 +24,10 @@
 
 [[ "$SWAYSOCK" ]] &&
 {
-    dimr="$XDG_CONFIG_HOME/code/sway/dimr"
+    csc="$XDG_CONFIG_HOME/sway/code"
+    dimr="$csc/dimr"
+    lock="$csc/lock"
+
     idle_time=$2
     [[ -z $idle_time ]] && idle_time=120
 
@@ -48,7 +51,8 @@
 
     swaylock_exec()
     {
-	sh $XDG_CONFIG_HOME/code/sway/lock
+	sh $lock
+	#sh $XDG_CONFIG_HOME/code/sway/lock
     }
 
 

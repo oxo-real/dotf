@@ -1118,17 +1118,13 @@
 │   ├── autoconfig.yml
 │   ├── blocking_data.tar.aes
 │   ├── blocking_data.tar.hash
-│   ├── bookmarks.tar.aes
-│   ├── bookmarks.tar.hash
 │   ├── bookmark_urls.aes
 │   ├── bookmark_urls.hash
 │   ├── cleanup
 │   ├── config.py
 │   ├── greasemonkey.tar.aes
 │   ├── greasemonkey.tar.hash
-│   ├── new_session
-│   ├── quickmarks.aes
-│   └── quickmarks.hash
+│   └── new_session
 ├── repo_tree.md
 ├── rsync.tar.aes
 ├── rsync.tar.hash
@@ -1215,22 +1211,24 @@
 │   │   └── sway_nodes.jq
 │   ├── config
 │   ├── current -> /home/oxo/.config/sway/hw/dev/ltx1c
-│   └── hw
-│       ├── dev
-│       │   ├── amb
-│       │   ├── ambair
-│       │   ├── dl3189
-│       │   ├── dxps139110
-│       │   ├── ext
-│       │   ├── ltx1c
-│       │   ├── ltx220
-│       │   ├── none
-│       │   └── tp15
-│       ├── get_sway_devices
-│       ├── machine_list.aes
-│       ├── machine_list.hash
-│       ├── select_current_machine
-│       └── sway_hw_sel_process
+│   ├── env
+│   ├── hw
+│   │   ├── dev
+│   │   │   ├── amb
+│   │   │   ├── ambair
+│   │   │   ├── dl3189
+│   │   │   ├── dxps139110
+│   │   │   ├── ext
+│   │   │   ├── ltx1c
+│   │   │   ├── ltx220
+│   │   │   ├── none
+│   │   │   └── tp15
+│   │   ├── get_sway_devices
+│   │   ├── machine_list.aes
+│   │   ├── machine_list.hash
+│   │   ├── select_current_machine
+│   │   └── sway_hw_sel_process
+│   └── ssw
 ├── taskwarrior.tar.aes
 ├── taskwarrior.tar.hash
 ├── tmux
@@ -1408,5 +1406,5 @@
     │   └── config
     └── xresources_colors
 
-206 directories, 1202 files
+206 directories, 1200 files
 ```

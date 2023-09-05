@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
-# dependencies:	jq
+# dependencies:	jq, alacritty
 
-# let sway spawn a new terminal window in $PWD
+# let sway spawn a new terminal window in the cwd
 
 terminal_cmd="alacritty"
 
@@ -17,7 +17,7 @@ focused_pid="$(swaymsg -t get_tree | \
     select(.focused==true).pid')"
 
 
-# readlink from pid cwd
+# readlink from focused ppid cwd
 
 ## check if $focused_pid is an integer
 if [ "$focused_pid" -eq "$focused_pid" 2>/dev/null ]; then
@@ -27,7 +27,7 @@ if [ "$focused_pid" -eq "$focused_pid" 2>/dev/null ]; then
 
     ## get focused present working directory
     focused_pwd=""
-    if [ "$focused_pid" -eq "$focused_ppid" 2>/dev/null ]; then
+    if [ "$focused_ppid" 2>/dev/null ]; then
 
 	focused_pwd="$(readlink "/proc/$focused_ppid/cwd")"
 
@@ -38,17 +38,19 @@ fi
 
 # spawn terminal
 
-## check if directory exists
+## ceck if directory exists
 if [ -d "$focused_pwd" ]; then
 
     $terminal_cmd --working-directory="$focused_pwd" $@ &
 
 else
 
-    $terminal_cmd $@ &
+    exit 48
+    #$terminal_cmd $@ &
+    #printf 'error finding ${RED}%s${NOC}\n' "$focused_pwd"
 
 fi
 
-
+# under here can probably been deleted
 # [TODO] take over priviledge escalation status
-sudo -n printf "" > /dev/null 2>&1
+#sudo -n printf "" > /dev/null 2>&1

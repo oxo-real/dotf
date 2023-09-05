@@ -1,6 +1,5 @@
 #
 ##
-###
 ###    _____      ____ _ _   _ _ __ ___
 ###   / __\ \ /\ / / _` | | | | '__/ __|
 ###  _\__ \\ V  V / (_| | |_| | | | (__
@@ -15,6 +14,19 @@
 ###
 ##
 #
+
+
+## environment.d
+## https://wiki.archlinux.org/title/Systemd/User#Environment_variables
+## $XDG_CONFIG_HOME/environment.d/50-sway.conf
+#exec_always" systemctl --user import-environment"
+## https://github-wiki-see.page/m/swaywm/sway/wiki/Systemd-integration
+#exec "systemctl --user import-environment {,WAYLAND_}DISPLAY SWAYSOCK; systemctl --user start sway-session.target"
+
+
+
+## disable Xwayland (X clients under Wayland) support
+#xwayland disable
 
 
 # system identity
@@ -78,15 +90,15 @@ input $keyboard
 ## external keyboard
 ### general
 #input type:keyboard
-### specific
-#input $keyboard_ext
-#{
-#    xkb_options		compose:ralt
-#    #xkb_options		ctrl:nocaps,compose:ralt
-#    repeat_delay	500
-#    repeat_rate		20
-#    #xkb_numlock		enabled
-#}
+## specific
+input $keyboard_ext
+{
+    xkb_options		compose:ralt
+    #xkb_options		ctrl:nocaps,compose:ralt
+    repeat_delay	500
+    repeat_rate		20
+    #xkb_numlock		enabled
+}
 
 
 ## modkey settings (xmodmap)
@@ -587,7 +599,7 @@ for_window [app_id="float_spicules"]
     resize set width 1000
     resize set height 500
     move position 0 0
-    opacity set 0.8
+    opacity set 1.0
 }
 
 ## fzf_spicules			(search cmd_catalog)

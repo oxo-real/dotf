@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #[TODO] posix compliance: #!/bin/sh does not accept the array
 

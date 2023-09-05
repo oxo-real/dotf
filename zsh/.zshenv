@@ -29,14 +29,20 @@ typeset -U path PATH
 
 ## main path
 ### start from scratch
-path=(/usr/bin /usr/local/bin /usr/local/sbin)
+path=( /usr/bin /usr/local/bin /usr/local/sbin )
 
 ## custom shell symlinks
-path=($HOME/.config/shln $path)
+path+=( "$HOME/.config/shln" )
 
 
 # fpath environment
-fpath=($fpath $HOME/.config/zsh/completions)
+## search path for function definitions
+fpath=( $fpath $HOME/.config/zsh/completions )
+
+
+# sway environment
+
+export XKB_DEFAULT_OPTIONS='compose:ralt'
 
 
 # xdg environment
@@ -127,10 +133,13 @@ export TRASHDIR="$XDG_CACHE_HOME/trash"
 ## display raw control chars (-R)
 ## prevent clearing screen on exit (-X)
 ## define colors for error (Emk), search (Swk) & prompt (Pkw)
-function lessr() {
+function lessr()
+{
    less -MFJRX -P '%f %l %L %PX' --mouse --use-color --color='Emk' --color='SWk' --color='Pkw' $1
 }
+
 export READNULLCMD=lessr
+
 
 ## same pager for man
 #export MANPAGER=lessr
