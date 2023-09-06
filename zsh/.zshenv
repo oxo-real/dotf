@@ -41,7 +41,10 @@ fpath=( $fpath $HOME/.config/zsh/completions )
 
 
 # sway environment
-
+## $XKB_DEFAULT_OPTIONS must been set
+## before sway has been started
+## for zsa moonlander AltGr key to work
+## as a compose key as expected
 export XKB_DEFAULT_OPTIONS='compose:ralt'
 
 
