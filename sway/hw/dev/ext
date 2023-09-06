@@ -20,16 +20,16 @@
 #set $keyboard_ext			1133:50504:Logitech_USB_Receiver
 
 ## zsa moonlander
-#set $keyboard_ext			12951:6505:ZSA_Technology_Labs_Moonlander_Mark_I
-#set $keyboard_ext			12951:6505:ZSA_Technology_Labs_Moonlander_Mark_I_Keyboard
-#set $keyboard_ext			12951:6505:ZSA_Technology_Labs_Moonlander_Mark_I_System_Control
-#set $keyboard_ext			12951:6505:ZSA_Technology_Labs_Moonlander_Mark_I_Consumer_Control
+set $keyboard_ext			12951:6505:ZSA_Technology_Labs_Moonlander_Mark_I
+set $keyboard_ext			12951:6505:ZSA_Technology_Labs_Moonlander_Mark_I_Keyboard
+set $keyboard_ext			12951:6505:ZSA_Technology_Labs_Moonlander_Mark_I_System_Control
+set $keyboard_ext			12951:6505:ZSA_Technology_Labs_Moonlander_Mark_I_Consumer_Control
 
 
 # mouse					(identifier)
 
 ## logitech mx master
-#set $mouse				1133:45074:Logitech_Wireless_Mouse_MX_Master
+set $mouse				1133:45074:Logitech_Wireless_Mouse_MX_Master
 
 ## logitech mx anywhere 3
 #set $mouse				1133:16528:Logitech_MX_Anywhere_3
@@ -41,7 +41,7 @@
 # touchpad
 
 ## logitech rechargeable touchpad t650
-set $touchpad_ext			1133:16641:Logitech_Rechargeable_Touchpad_T650
+#set $touchpad_ext			1133:16641:Logitech_Rechargeable_Touchpad_T650
 
 
 

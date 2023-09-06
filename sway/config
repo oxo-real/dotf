@@ -16,15 +16,6 @@
 #
 
 
-## environment.d
-## https://wiki.archlinux.org/title/Systemd/User#Environment_variables
-## $XDG_CONFIG_HOME/environment.d/50-sway.conf
-#exec_always" systemctl --user import-environment"
-## https://github-wiki-see.page/m/swaywm/sway/wiki/Systemd-integration
-#exec "systemctl --user import-environment {,WAYLAND_}DISPLAY SWAYSOCK; systemctl --user start sway-session.target"
-
-
-
 ## disable Xwayland (X clients under Wayland) support
 #xwayland disable
 
