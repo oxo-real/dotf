@@ -730,7 +730,9 @@ bindsym $mod+F9			exec grim -g "$(slurp -p)" -t ppm - | \
 bindsym Shift+Control+0		exec echo -n '' | wl-copy && notify-send 'clipboard cleared'
 
 # speech-to-text
-# Shift+Control+Mod=Meh
+# Shift+Control+Alt = Hypl S-C-A (left)
+# Shift+Control+Alt = Hypr S-C-A-M (right)
+
 bindsym Shift+Control+Mod1+e	exec $(vtxt begin en)
 bindsym Shift+Control+Mod1+r	exec $(vtxt end)
 bindsym Shift+Control+Mod1+n	exec $(vtxt begin nl)

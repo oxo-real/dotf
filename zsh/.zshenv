@@ -105,7 +105,7 @@ export GTK_USE_PORTAL=0
 # fzf
 
 ## fzf default options
-export FZF_DEFAULT_OPTS='--cycle --layout=reverse --info=inline --bind ctrl-u:clear-query --preview="tree -L 1 {}" --preview-window=:hidden --color=dark,prompt:#96cbfe,pointer:#ffffb6,spinner:#a8ff60'
+export FZF_DEFAULT_OPTS='--cycle --layout=reverse --info=inline --height ~25% --bind ctrl-u:clear-query --preview="tree -L 1 {}" --preview-window=:hidden --color=dark,prompt:#96cbfe,pointer:#ffffb6,spinner:#a8ff60'
 ## fzf completion trigger (default **)
 export FZF_COMPLETION_TRIGGER='~~'
 
@@ -121,12 +121,14 @@ export NOTMUCH_CONFIG="$XDG_CONFIG_HOME/notmuch/notmuch_config"
 export USER_AGENT="$(head -n 1 $XDG_LOGS_HOME/network/user_agent/current)"
 export VIMINIT="source $XDG_CONFIG_HOME/nvim/init.vim"
 export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
+
 export APPNDIR="$XDG_CONFIG_HOME/shln"
-export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export DNLDDIR="$XDG_DATA_HOME/c/download"
 export TEMPDIR="$XDG_CACHE_HOME/temp"
-export TMPDIR="$XDG_CACHE_HOME/temp"  # for mktemp
 export TESTDIR="$XDG_CACHE_HOME/test"
+export TMPDIR="$XDG_CACHE_HOME/temp"  # for mktemp
 export TRASHDIR="$XDG_CACHE_HOME/trash"
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
 ## '< $file' behaviour
 ## prevent less writing lesshst to $HOME

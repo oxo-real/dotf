@@ -1269,8 +1269,8 @@
 │   └── zathurarc
 ├── zsa
 │   └── moonlander
-│       ├── moonlander_oxo_qwerty_NZWR6_L0MwD.bin
-│       ├── moonlander_oxo_qwerty_NZWR6_L0MwD.zip
+│       ├── moonlander_oxo_qwerty_NZWR6_AGEeG.bin
+│       ├── moonlander_oxo_qwerty_NZWR6_AGEeG.zip
 │       ├── zsa_oxo_url
 │       └── zzz_deprecated
 │           ├── moonlander_oxo_qwerty_NZWR6_LxE0R.bin

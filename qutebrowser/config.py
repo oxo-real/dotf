@@ -136,19 +136,19 @@ c.colors.downloads.bar.bg = 'black'
 
 ## Background color for downloads with errors.
 ## Type: QtColor
-c.colors.downloads.error.bg = '#ff6c60'
+c.colors.downloads.error.bg = 'black'
 
 ## Foreground color for downloads with errors.
 ## Type: QtColor
-c.colors.downloads.error.fg = '#333333'
+c.colors.downloads.error.fg = '#ff6c60'
 
 ## Color gradient start for download backgrounds.
 ## Type: QtColor
-c.colors.downloads.start.bg = '#555555'
+c.colors.downloads.start.bg = 'black'
 
 ## Color gradient start for download text.
 ## Type: QtColor
-c.colors.downloads.start.fg = 'black'
+c.colors.downloads.start.fg = '#96cbfe'
 
 ## Color gradient stop for download backgrounds.
 ## Type: QtColor
@@ -156,7 +156,7 @@ c.colors.downloads.stop.bg = 'black'
 
 ## Color gradient end for download text.
 ## Type: QtColor
-c.colors.downloads.stop.fg = 'black'
+c.colors.downloads.stop.fg = '#a8ff60'
 
 ## Color gradient interpolation system for download backgrounds.
 ## Type: ColorSystem
@@ -349,7 +349,7 @@ c.colors.statusbar.url.success.http.fg = 'magenta'
 ## Foreground color of the URL in the statusbar on successful load
 ## (https).
 ## Type: QssColor
-c.colors.statusbar.url.success.https.fg = '#000000'
+c.colors.statusbar.url.success.https.fg = '#777777'
 
 ## Foreground color of the URL in the statusbar when there's a warning.
 ## Type: QssColor
@@ -451,17 +451,19 @@ c.colors.tabs.selected.odd.fg = '#aaaaaa'
 ## Type: QtColor
 #c.colors.webpage.bg = 'white'
 
-## darkmode
-c.colors.webpage.bg = 'black'
+### darkmode
+c.colors.webpage.preferred_color_scheme = 'dark'
 c.colors.webpage.darkmode.enabled = True
 c.colors.webpage.darkmode.threshold.background = 100
-c.colors.webpage.darkmode.threshold.text = 256
-c.colors.webpage.darkmode.threshold.background
+c.colors.webpage.darkmode.threshold.text = 150
+#c.colors.webpage.darkmode.threshold.text = 256
+c.colors.webpage.darkmode.algorithm = "lightness-cielab"
 c.colors.webpage.darkmode.policy.images = 'smart'
-c.colors.webpage.preferred_color_scheme = 'dark'
+c.colors.webpage.darkmode.grayscale.images = 0.35
 
-## Number of commands to save in the command history. 0: no history / -1:
-## unlimited
+config.set('colors.webpage.bg', '#282828')
+## Number of commands to save in the command history.
+## 0: no history / -1: unlimited
 ## Type: Int
 c.completion.cmd_history_max_items = -1
 
@@ -542,7 +544,7 @@ c.completion.web_history.max_items = -1
 ##   - multiple-tabs: Show a confirmation if multiple tabs are opened.
 ##   - downloads: Show a confirmation if downloads are running
 ##   - never: Never show a confirmation.
-c.confirm_quit = ['never']
+c.confirm_quit = ['downloads']
 
 ## Automatically start playing `<video>` elements. Note: On Qt < 5.11,
 ## this option needs a restart and does not support URL patterns.
@@ -913,12 +915,13 @@ c.content.xss_auditing = False
 ## Directory to save downloads to. If unset, a sensible OS-specific
 ## default is used.
 ## Type: Directory
-c.downloads.location.directory = '$XDG_DATA_HOME/c/download'
+c.downloads.location.directory = '$DNLDDIR'
+#c.downloads.location.directory = '$XDG_DATA_HOME/c/download'
 
 ## Prompt the user for the download location. If set to false,
 ## `downloads.location.directory` will be used.
 ## Type: Bool
-c.downloads.location.prompt = True
+c.downloads.location.prompt = False
 
 ## Remember the last used download directory.
 ## Type: Bool
@@ -1931,19 +1934,24 @@ config.bind('yy', 'yank')
 config.bind('{{', 'navigate prev -t')
 config.bind('}}', 'navigate next -t')
 ################# added by oxo
-config.bind('<Ctrl-[>', 'tab-prev')
-config.bind('<Ctrl-]>', 'tab-next')
-config.bind('T', 'open -t')
-config.bind('V', 'hint links spawn mpv --force-window --no-terminal --keep-open=yes --ytdl {hint-url}')
+config.bind('<Ctrl-y>', 'tab-prev')
+config.bind('<Ctrl-o>', 'tab-next')
 config.unbind('d') # remove dangerous default keybinding
+config.bind('dc', 'download-cancel')
 config.bind('ddd', 'tab-close')
 config.unbind('D') # remove dangerous default keybinding
 config.bind('DDD', 'tab-close -o')
 config.bind('t', 'tab-next')
+config.bind('T', 'open -t')
+config.bind('V', 'hint links spawn mpv --force-window --no-terminal --keep-open=yes --ytdl {hint-url}')
 config.bind('yf', 'hint all yank')
 config.bind('<Ctrl-t>', 'config-cycle tabs.show always never')
 #config.bind('<Ctrl-Space>', 'config-cycle statusbar.show always never')
 config.bind('<Ctrl-b>', 'config-cycle statusbar.show always never')
+## view toggle bar
+config.bind('<Space>vtb', 'config-cycle statusbar.show always never')
+config.bind('<Space>vtt', 'config-cycle tabs.show always never')
+config.bind('<Space>vtd', 'config-cycle downloadbar.show always never')
 
 ## Bindings for caret mode
 config.bind('$', 'move-to-end-of-line', mode='caret')
