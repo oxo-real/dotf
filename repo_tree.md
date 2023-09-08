@@ -1153,6 +1153,7 @@
 │   ├── kill_float -> /home/oxo/.local/share/c/git/code/tool/kill_float
 │   ├── kill_proc -> /home/oxo/.local/share/c/git/code/tool/kill_proc
 │   ├── metar -> /home/oxo/.local/share/c/git/code/tool/metar
+│   ├── mic_switch -> /home/oxo/c/git/code/tool/mic_switch
 │   ├── monitor -> /home/oxo/.config/git/monitor
 │   ├── mountr -> /home/oxo/.local/share/c/git/code/tool/mountr
 │   ├── netconn -> /home/oxo/.local/share/c/git/code/netconn/netconn
@@ -1271,6 +1272,8 @@
 │   └── moonlander
 │       ├── moonlander_oxo_qwerty_NZWR6_AGEeG.bin
 │       ├── moonlander_oxo_qwerty_NZWR6_AGEeG.zip
+│       ├── moonlander_oxo_qwerty_NZWR6_yQmD0.bin
+│       ├── moonlander_oxo_qwerty_NZWR6_yQmD0.zip
 │       ├── zsa_oxo_url
 │       └── zzz_deprecated
 │           ├── moonlander_oxo_qwerty_NZWR6_LxE0R.bin
@@ -1410,5 +1413,5 @@
     │   └── config
     └── xresources_colors
 
-206 directories, 1204 files
+206 directories, 1207 files
 ```

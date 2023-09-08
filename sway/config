@@ -732,13 +732,12 @@ bindsym Shift+Control+0		exec echo -n '' | wl-copy && notify-send 'clipboard cle
 # speech-to-text
 # Shift+Control+Alt = Hypl S-C-A (left)
 # Shift+Control+Alt = Hypr S-C-A-M (right)
-
-bindsym Shift+Control+Mod1+e	exec $(vtxt begin en)
-bindsym Shift+Control+Mod1+r	exec $(vtxt end)
-bindsym Shift+Control+Mod1+n	exec $(vtxt begin nl)
-bindsym Shift+Control+Mod1+m	exec $(vtxt end)
-bindsym Shift+Control+Mod1+s	exec $(vtxt begin sv)
-bindsym Shift+Control+Mod1+d	exec $(vtxt end)
+bindsym Shift+Control+Mod1+e	exec vtxt begin en
+bindsym Shift+Control+Mod1+r	exec vtxt end
+bindsym Shift+Control+Mod1+n	exec vtxt begin nl
+bindsym Shift+Control+Mod1+m	exec vtxt end
+bindsym Shift+Control+Mod1+s	exec vtxt begin sv
+bindsym Shift+Control+Mod1+d	exec vtxt end
 
 # waybar
 #exec waybar
