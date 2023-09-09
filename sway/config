@@ -729,6 +729,9 @@ bindsym $mod+F9			exec grim -g "$(slurp -p)" -t ppm - | \
 #bindsym Shift+Control+y	wl-copy -o -n && exec notify-send 'secure copy is in DEV'
 bindsym Shift+Control+0		exec echo -n '' | wl-copy && notify-send 'clipboard cleared'
 
+# switch microphone on/off
+bindsym Shift+Control+Mod1+x	exec mic_switch toggle Webcam C310
+
 # speech-to-text
 # Shift+Control+Alt = Hypl S-C-A (left)
 # Shift+Control+Alt = Hypr S-C-A-M (right)

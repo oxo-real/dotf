@@ -66,6 +66,23 @@ bindkey -v
 bindkey -v "^?" backward-delete-char
 #bindkey -v "^H" backward-delete-char
 
+# CAUTION! bindkey ^V is occupied -> find zsh keycodes with C-v $key;
+
+
+# up-to-cursor match dependent $HISTFILE search
+
+## man zshzle
+## [zsh: 18 Zsh Line Editor](https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html#History-Control)
+## man zshcontrib
+## [zsh: 26 User Contributions](https://zsh.sourceforge.io/Doc/Release/User-Contributions.html#User-Contributions)
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "^[[A" up-line-or-beginning-search # up arrow
+bindkey "^[[B" down-line-or-beginning-search # down arrow
+
+
 # synthesize prompt (precmd, preexec, left and right prompt)
 
 ## define cursor styles
