@@ -580,7 +580,7 @@ bindkey '^p' ins_pwd
 
 #>>>>>>>>>>>>>> function fzf_ins_dir
 # fzf insert file or directory
-# ^ pwd, ^f $HOME, ^g /
+# ^o pwd, ^f $HOME, ^g /
 
 function fzf_ins_dir()
 {
@@ -599,8 +599,9 @@ function fzf_ins_dir()
     ## ignore from $XDG_CONFIG_HOME/fd/ignore
     ## include hidden files
     ## awk creates space separated results
-    fzf_output="$(fd --follow --ignore --hidden . "$root_dir" | \
-    	fzf -m --query=`printf "$fzf_input"` --height=20% | awk NF=1 OFS=' ' ORS=' ')"
+    fzf_output="$(fd --follow --ignore --hidden \
+      --ignore-file "$XDG_CONFIG_HOME/fd/ignore" . "$root_dir" | \
+      fzf -m --query=`printf "$fzf_input"` --height=20% | awk NF=1 OFS=' ' ORS=' ')"
 
     ## invalidate the current zle display in preparation for output
     ## prevent loosing visibility of entered characters before fzf started

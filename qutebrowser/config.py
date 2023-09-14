@@ -184,11 +184,12 @@ c.colors.hints.bg = 'black'
 ## Font color for hints.
 ## Type: QssColor
 #c.colors.hints.fg = '#96cbfe'
-c.colors.hints.fg = '#aaaaaa'
+c.colors.hints.fg = '#ffffb6'
 
 ## Font color for the matched part of hints.
 ## Type: QtColor
-c.colors.hints.match.fg = '#96cbfe'
+c.colors.hints.match.fg = 'black'
+#c.colors.hints.match.fg = '#96cbfe'
 
 ## Background color of the keyhint widget.
 ## Type: QssColor
@@ -197,7 +198,8 @@ c.colors.keyhint.bg = 'black'
 
 ## Text color for the keyhint widget.
 ## Type: QssColor
-c.colors.keyhint.fg = '#aaaaaa'
+c.colors.keyhint.fg = '#ffffb6'
+#c.colors.keyhint.fg = '#aaaaaa'
 
 ## Highlight color for keys to complete the current keychain.
 ## Type: QssColor

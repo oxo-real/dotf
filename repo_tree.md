@@ -1118,13 +1118,17 @@
 │   ├── autoconfig.yml
 │   ├── blocking_data.tar.aes
 │   ├── blocking_data.tar.hash
+│   ├── bookmarks.tar.aes
+│   ├── bookmarks.tar.hash
 │   ├── bookmark_urls.aes
 │   ├── bookmark_urls.hash
 │   ├── cleanup
 │   ├── config.py
 │   ├── greasemonkey.tar.aes
 │   ├── greasemonkey.tar.hash
-│   └── new_session
+│   ├── new_session
+│   ├── quickmarks.aes
+│   └── quickmarks.hash
 ├── repo_tree.md
 ├── rsync.tar.aes
 ├── rsync.tar.hash
@@ -1161,7 +1165,7 @@
 │   ├── pwgn -> /home/oxo/.local/share/c/git/code/tool/pwgn
 │   ├── qbns -> /home/oxo/.config/qutebrowser/new_session
 │   ├── qrinv -> /home/oxo/c/git/code/tool/qrinv
-│   ├── shred_all -> /home/oxo/.local/share/c/git/code/tool/shred_all
+│   ├── shredr -> /home/oxo/c/git/code/tool/shredr
 │   ├── slicer -> /home/oxo/.local/share/c/git/code/tool/slicer
 │   ├── syncr -> /home/oxo/.local/share/c/git/code/tool/syncr
 │   ├── trash -> /home/oxo/.local/share/c/git/code/tool/trash
@@ -1233,6 +1237,10 @@
 ├── taskwarrior.tar.aes
 ├── taskwarrior.tar.hash
 ├── tmux
+├── tty
+│   ├── 1694673229_sttyrc
+│   ├── 1694673596_sttyrc
+│   └── 1694673633_sttyrc
 ├── ublock_origin.tar.aes
 ├── ublock_origin.tar.hash
 ├── urlscan
@@ -1411,5 +1419,5 @@
     │   └── config
     └── xresources_colors
 
-206 directories, 1205 files
+207 directories, 1212 files
 ```

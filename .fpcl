@@ -48,6 +48,7 @@ sway
 c sway/hw/machine_list
 c taskwarrior
 tmux
+tty
 c ublock_origin
 urlscan
 w3m
