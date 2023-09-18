@@ -205,7 +205,7 @@ function git_branch()
 
     git_status="$(git status 2> /dev/null)"
 
-    if echo "${git_status}" | grep -c 'branch is up to date' &> /dev/null; then
+    if echo "${git_status}" | grep -c 'working tree clean' &> /dev/null; then
 
 	## up-to-date branch (white)
 	print "%F{#ffffff}$branch%f"
@@ -251,14 +251,14 @@ function git_dirty()
 
     if echo "${git_status}" | grep -c 'new file:' &> /dev/null; then
 
-	new=$(git status --porcelain &> /dev/null | grep '^A\|^ A' | wc -l)
+	new=$(git status --porcelain &> /dev/null | grep '^A\|^.A' | wc -l)
 	printf '+%s ' "$new"
 
     fi
 
     if echo "${git_status}" | grep -c 'deleted:' &> /dev/null; then
 
-	deleted=$(git status --porcelain &> /dev/null | grep '^D\|^ D' | wc -l)
+	deleted=$(git status --porcelain &> /dev/null | grep '^D\|^.D' | wc -l)
 	printf '-%s ' "$deleted"
 
     fi
@@ -274,7 +274,7 @@ function git_dirty()
 
     if echo "${git_status}" | grep -c 'renamed:' &> /dev/null; then
 
-	renamed=$(git status --porcelain &> /dev/null | grep '^R\|^ R' | wc -l)
+	renamed=$(git status --porcelain &> /dev/null | grep '^R\|^.R' | wc -l)
 	printf 'r%s ' "$renamed"
 
     fi
@@ -399,7 +399,7 @@ zle -N zle-line-finish
 setopt PROMPT_SUBST
 
 ## left prompt
-PS1="%(?..%F{magenta}%B%?%f%b)%# "
+PS1="%(?..%F{#ff6c60}%B%?%f%b)%# "
 
 ## right prompt
 ## commandID with running time
