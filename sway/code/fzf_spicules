@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#spicules=$(print -z $(cat $XDG_DATA_HOME/c/git/note/linux/shell/command/catalog | fzf | sed 's/  ## .*$//'))
+
+
 spicules=$(\
 	cat $XDG_DATA_HOME/c/git/note/linux/shell/command/catalog | \
 	#sort | \

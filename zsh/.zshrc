@@ -18,19 +18,18 @@
 
 # file pointers
 
-fzf_tab="$XDG_CONFIG_HOME/fzf-tab/fzf-tab.zsh"
-fzf_zsh="$XDG_CONFIG_HOME/fzf/.fzf.zsh"
-git_prompt="$XDG_CONFIG_HOME/zsh/git-prompt.sh"
+xcfh="$XDG_CONFIG_HOME"
+fzf_tab="$xcfh/fzf-tab/fzf-tab.zsh"
+fzf_zsh="$xcfh/fzf/.fzf.zsh"
+git_prompt="$xcfh/zsh/git-prompt.sh"
 #lf_cd="$XDG_CONFIG_HOME/lf/lfcd.sh"
-zsh_alia="$XDG_CONFIG_HOME/zsh/alia"
-zsh_completions="$XDG_CONFIG_HOME/zsh/completions/completion.zsh"
+zsh_alia="$xcfh/zsh/alia"
+zsh_completions="$xcfh/zsh/completions/completion.zsh"
 zsh_syntax_hl='/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh'
 
 
 # sourcing
 
-## git prompt
-[[ -f $git_prompt ]] && source $git_prompt
 ## alia (or aliasses)
 [[ -f $zsh_alia ]] && source $zsh_alia
 ## zsh completions
@@ -86,8 +85,8 @@ bindkey "^[[B" down-line-or-beginning-search # down arrow
 # synthesize prompt (precmd, preexec, left and right prompt)
 
 ## define cursor styles
-function __def_cursor() {
-
+function __def_cursor()
+{
     local style
 
     case $1 in
@@ -144,8 +143,8 @@ zle_highlight=(\
 
 
 ## set cursor styles
-function __set_cursor() {
-
+function __set_cursor()
+{
     case $KEYMAP in
 
         main | viins)
@@ -165,20 +164,19 @@ function __set_cursor() {
 	    ;;
 
     esac
-
 }
 
 
-function zle-keymap-select() {
-
+function zle-keymap-select()
+{
     #__set_ps1
     __set_cursor
     zle reset-prompt
 }
 
 
-function zle-line-init() {
-
+function zle-line-init()
+{
     zle -K $DEFAULT_VI_MODE
     #__set_ps1
     __set_cursor
@@ -186,18 +184,72 @@ function zle-line-init() {
 }
 
 
-function zle-line-finish() {
-
+function zle-line-finish()
+{
     #__set_ps1
     __set_cursor
     zle reset-prompt
 }
 
 
+function git_dirty()
+{
+    git_status="$(git status 2> /dev/null)"
+    if echo "${git_status}" | grep -c 'branch is ahead:' &> /dev/null; then printf "a"; fi
+    if echo "${git_status}" | grep -c 'new file::'       &> /dev/null; then printf "+"; fi
+    if echo "${git_status}" | grep -c 'modified:'        &> /dev/null; then printf "*"; fi
+
+    if echo "${git_status}" | grep -c 'Changes to be committed:' &> /dev/null; then
+
+	tobeco=$(git diff --cached --numstat | wc -l)
+	#tobeco=$(git rev-list --count --all)
+	printf 'c%s ' "$tobeco"
+
+    fi
+
+    if echo "${git_status}" | grep -c 'renamed:' &> /dev/null; then
+
+	renamed=$(git status --porcelain &> /dev/null | grep '^R' | wc -l)
+	printf 'r%s ' "$renamed"
+
+    fi
+
+    if echo "${git_status}" | grep -c 'new file:' &> /dev/null; then
+
+	new=$(git status --porcelain &> /dev/null | grep '^A' | wc -l)
+	printf '+%s ' "$new"
+
+    fi
+
+    if echo "${git_status}" | grep -c 'deleted:' &> /dev/null; then
+
+	deleted=$(git status --porcelain &> /dev/null | grep '^.D' | wc -l)
+	printf '-%s ' "$deleted"
+
+    fi
+
+    if echo "${git_status}" | grep -c 'Untracked files:' &> /dev/null; then
+
+	untracked=$(git status --porcelain &> /dev/null | grep '^??' | wc -l)
+	printf '?%s ' "$untracked"
+
+    fi
+}
+
+
+function git_branch()
+{
+    # Long form
+    git rev-parse --abbrev-ref HEAD 2> /dev/null
+    # Short form
+    # git rev-parse --abbrev-ref HEAD 2> /dev/null | sed -e 's/.*\/\(.*\)/\1/'
+}
+
+
 # precmd
 ## runs before each prompt
-function precmd() {
-
+function precmd()
+{
     # get t1 for $time_exec (ns)
     t1_exec=`date +%s%N`
 
@@ -212,12 +264,14 @@ function precmd() {
     # prompt path color
     if [[ -w $PWD ]]; then
 
-	local precmd_left="%F{blue}%B%~%f%b $(__git_ps1 "[%s] ")"
+	local precmd_left="%F{blue}%B%~%f%b %F{#ffffff}$(git_branch "%s")%f $(git_dirty "%s")"
+	#local precmd_left="%F{blue}%B%~%f%b $(git_branch "[%s] ")"
+	#local precmd_left="%F{blue}%B%~%f%b $(__git_ps1 "[%s] ")"
 
     else
 
 	# no write permission directory color #ff73fd
-	local precmd_left="%F{#ff73fd}%B%~%f%b $(__git_ps1 "[%s] ")"
+	local precmd_left="%F{#ff73fd}%B%~%f%b $(git_branch "%s") $(git_dirty "%s")"
 
     fi
 
@@ -254,8 +308,8 @@ function precmd() {
 
 # strlen
 ## called by preexec
-function strlen() {
-
+function strlen()
+{
     FOO=$1
     local zero='%([BSUbfksu]|([FB]|){*})'
     LEN=${#${(S%%)FOO//$~zero/}}
@@ -264,8 +318,8 @@ function strlen() {
 
 # preexec
 # run before each command execution
-function preexec() {
-
+function preexec()
+{
     # get t0 for $time_exec (ns)
     # not equal to (pretty) start_time!!
     t0_exec=`date +%s%N`
@@ -365,8 +419,8 @@ setopt SHARE_HISTORY
 
 
 # pwd, statistics and ls on chpwd
-function chpwd() {
-
+function chpwd()
+{
     ## prompt path color
     if [[ -w $PWD ]]; then
 
