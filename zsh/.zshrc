@@ -22,6 +22,7 @@ xcfh="$XDG_CONFIG_HOME"
 fzf_tab="$xcfh/fzf-tab/fzf-tab.zsh"
 fzf_zsh="$xcfh/fzf/.fzf.zsh"
 git_prompt="$xcfh/zsh/git-prompt.sh"
+text_appearance="$xcfh/source/text_appearance"
 #lf_cd="$XDG_CONFIG_HOME/lf/lfcd.sh"
 zsh_alia="$xcfh/zsh/alia"
 zsh_completions="$xcfh/zsh/completions/completion.zsh"
@@ -32,6 +33,8 @@ zsh_syntax_hl='/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlig
 
 ## alia (or aliasses)
 [[ -f $zsh_alia ]] && source $zsh_alia
+## alia (or aliasses)
+[[ -f $text_appearance ]] && source $text_appearance
 ## zsh completions
 [[ -f $zsh_completions ]] && source $zsh_completions
 ## lfcd load function
@@ -192,39 +195,87 @@ function zle-line-finish()
 }
 
 
+function git_branch()
+{
+    # Long form
+    branch="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
+    #git rev-parse --abbrev-ref HEAD 2> /dev/null
+    # Short form
+    # git rev-parse --abbrev-ref HEAD 2> /dev/null | sed -e 's/.*\/\(.*\)/\1/'
+
+    git_status="$(git status 2> /dev/null)"
+
+    if echo "${git_status}" | grep -c 'branch is up to date' &> /dev/null; then
+
+	## up-to-date branch (white)
+	print "%F{#ffffff}$branch%f"
+
+    else
+
+	## changed branch (amber)
+	print "%F{#ffbf00}$branch%f"
+
+    fi
+}
+
+
 function git_dirty()
 {
     git_status="$(git status 2> /dev/null)"
-    if echo "${git_status}" | grep -c 'branch is ahead:' &> /dev/null; then printf "a"; fi
-    if echo "${git_status}" | grep -c 'new file::'       &> /dev/null; then printf "+"; fi
-    if echo "${git_status}" | grep -c 'modified:'        &> /dev/null; then printf "*"; fi
+
+    if echo "${git_status}" | grep -c 'branch is ahead' &> /dev/null; then
+
+	ahead=$(git status | grep 'branch is ahead' | awk '{print $8}')
+
+	printf 'a%s ' "$ahead"
+
+    fi
+
+    if echo "${git_status}" | grep -c 'branch is behind' &> /dev/null; then
+
+	behind=$(git status | grep 'branch is behind' | awk '{print $8}')
+
+	printf 'b%s ' "$behind"
+
+    fi
 
     if echo "${git_status}" | grep -c 'Changes to be committed:' &> /dev/null; then
 
 	tobeco=$(git diff --cached --numstat | wc -l)
 	#tobeco=$(git rev-list --count --all)
+
+	#print "%F{#0022c7}c$tobeco%f"
 	printf 'c%s ' "$tobeco"
-
-    fi
-
-    if echo "${git_status}" | grep -c 'renamed:' &> /dev/null; then
-
-	renamed=$(git status --porcelain &> /dev/null | grep '^R' | wc -l)
-	printf 'r%s ' "$renamed"
 
     fi
 
     if echo "${git_status}" | grep -c 'new file:' &> /dev/null; then
 
-	new=$(git status --porcelain &> /dev/null | grep '^A' | wc -l)
+	new=$(git status --porcelain &> /dev/null | grep '^A\|^ A' | wc -l)
 	printf '+%s ' "$new"
 
     fi
 
     if echo "${git_status}" | grep -c 'deleted:' &> /dev/null; then
 
-	deleted=$(git status --porcelain &> /dev/null | grep '^.D' | wc -l)
+	deleted=$(git status --porcelain &> /dev/null | grep '^D\|^ D' | wc -l)
 	printf '-%s ' "$deleted"
+
+    fi
+
+    if echo "${git_status}" | grep -c 'modified:' &> /dev/null; then
+
+	modified=$(git status --porcelain &> /dev/null | grep '^M\|^ M' | wc -l)
+
+	#print "%F{#0040ff}m$modified%f"
+	printf 'm%s ' "$modified"
+
+    fi
+
+    if echo "${git_status}" | grep -c 'renamed:' &> /dev/null; then
+
+	renamed=$(git status --porcelain &> /dev/null | grep '^R\|^ R' | wc -l)
+	printf 'r%s ' "$renamed"
 
     fi
 
@@ -234,15 +285,6 @@ function git_dirty()
 	printf '?%s ' "$untracked"
 
     fi
-}
-
-
-function git_branch()
-{
-    # Long form
-    git rev-parse --abbrev-ref HEAD 2> /dev/null
-    # Short form
-    # git rev-parse --abbrev-ref HEAD 2> /dev/null | sed -e 's/.*\/\(.*\)/\1/'
 }
 
 
@@ -264,14 +306,12 @@ function precmd()
     # prompt path color
     if [[ -w $PWD ]]; then
 
-	local precmd_left="%F{blue}%B%~%f%b %F{#ffffff}$(git_branch "%s")%f $(git_dirty "%s")"
-	#local precmd_left="%F{blue}%B%~%f%b $(git_branch "[%s] ")"
-	#local precmd_left="%F{blue}%B%~%f%b $(__git_ps1 "[%s] ")"
+	local precmd_left="%F{blue}%B%~%f%b $(git_branch "%s") $(git_dirty "%s")"
 
     else
 
-	# no write permission directory color #ff73fd
-	local precmd_left="%F{#ff73fd}%B%~%f%b $(git_branch "%s") $(git_dirty "%s")"
+	# no write permission directory color (amber)
+	local precmd_left="%F{#ffbf00}%B%~%f%b $(git_branch "%s") $(git_dirty "%s")"
 
     fi
 
