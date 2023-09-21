@@ -496,9 +496,8 @@ bindsym $mod+Shift+q		kill
 
 # split horizontal / vertical toggle
 ## new window below / aside
-#bindsym $mod+t		split toggle
-bindsym $mod+backslash	split toggle
-
+## auto fallback to default via nfs_split_fb
+bindsym $mod+backslash	split toggle; exec $XDG_CONFIG_HOME/sway/code/nfs_split
 
 # enter fullscreen mode for the focused window
 bindsym $mod+f		fullscreen toggle
@@ -541,10 +540,13 @@ bindsym $mod+space	focus mode_toggle
 # spawn another terminal emulator
 
 ## in $HOME
-bindsym $mod+Return		exec $term
+### split toggle for fibonacci-esque effect
+bindsym $mod+Return		exec $XDG_CONFIG_HOME/sway/code/spawn_term &; split toggle
+#bindsym $mod+Return		exec $term
 
 ## in $PWD
-bindsym $mod+Shift+Return	exec $XDG_CONFIG_HOME/sway/code/spawn_term_pwd &
+### split toggle for fibonacci-esque effect
+bindsym $mod+Shift+Return	exec $XDG_CONFIG_HOME/sway/code/spawn_term pwd &; split toggle
 
 ## floating invisible
 for_window [app_id="term_float_inv"]

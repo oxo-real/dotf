@@ -1362,8 +1362,11 @@
 │   │   ├── kill_float_inv
 │   │   ├── lock
 │   │   ├── music_play
+│   │   ├── nfs_split
+│   │   ├── nfs_split_fb
 │   │   ├── screen_onf
-│   │   ├── spawn_term_pwd
+│   │   ├── spawn_term
+│   │   ├── spawn_term_pwdDEL
 │   │   └── sway_nodes.jq
 │   ├── config
 │   ├── current -> /home/oxo/.config/sway/hw/dev/ltx1c
@@ -1570,5 +1573,5 @@
     │   └── config
     └── xresources_colors
 
-212 directories, 1358 files
+212 directories, 1361 files
 ```

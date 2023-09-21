@@ -1,0 +1,38 @@
+#! /usr/bin/env sh
+
+# notify-send split
+
+# show focused window sway split toggle status (splith/v)
+
+nfs_split_fb="$XDG_CONFIG_HOME/sway/code/nfs_split_fb"
+
+## jq is fine with literal line breaks
+split_status=$(swaymsg -t get_tree | \
+		   jq 'recurse(.nodes[]) |
+		   select(.nodes[].focused == true).layout' | \
+		   tr -d '"')
+
+case $split_status in
+
+    splitv)
+	## notify-send message
+	nfsm='splitv (beside)'
+	;;
+
+    splith)
+	## notify-send message
+	nfsm='splith (below)'
+	;;
+
+esac
+
+## show time reference
+## i keep forget that
+## notify-send spawns from the top
+## highest is newest
+## and has the highest time reference
+ts="$(date '+%s%N' | cut -c 9-11)"
+notify-send -- "$ts $nfsm"
+
+## fallback to default split status
+[[ "$split_status" == 'splith' ]] && exec "$nfs_split_fb"

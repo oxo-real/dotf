@@ -1,0 +1,68 @@
+#! /usr/bin/env sh
+
+# dependencies:	jq, alacritty
+
+# let sway spawn a new terminal window in the cwd
+
+
+terminal_cmd=${TERMINAL:-'alacritty'}
+target_path=$1
+
+
+case $target_path in
+
+    'pwd')
+	# get focused process ID
+
+	focused_pid=""
+	focused_pid="$(swaymsg -t get_tree | \
+   			jq '.. |
+   			select(.type?) |
+   			select(.type=="con") |
+   			select(.focused==true).pid')"
+
+
+	# readlink from focused ppid cwd
+
+	## check if $focused_pid is an integer
+	if [ "$focused_pid" -eq "$focused_pid" 2>/dev/null ]; then
+
+	    ## get focused parent process ID
+	    focused_ppid="$(ps -o pid= --ppid "$focused_pid" | awk '{print $1}')"
+
+	    ## get focused present working directory
+	    focused_pwd=""
+	    if [ "$focused_ppid" 2>/dev/null ]; then
+
+		focused_pwd="$(readlink "/proc/$focused_ppid/cwd")"
+
+	    fi
+
+	fi
+	;;
+
+    '')
+	focused_pwd="$HOME"
+	;;
+
+    *)
+	focused_pwd="$target_path"
+
+esac
+
+
+# spawn terminal
+
+## check if directory exists and spawn terminal
+if [ -d "$focused_pwd" ]; then
+
+    $terminal_cmd --working-directory="$focused_pwd" & &> /dev/null
+    exit 0
+
+else
+
+    printf 'error finding ${RED}%s${NOC}\n' "$focused_pwd"
+    #notify-send "ERROR not found: $focused_pwd"
+    exit 48
+
+fi
