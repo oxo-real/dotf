@@ -1,0 +1,209 @@
+#! /usr/bin/env sh
+# after: wev
+
+
+args="$@"
+
+
+initialize()
+{
+    script_name='snap_to'
+    usage="usage: $script_name [-i,--id <id>] NW|N|NE|E|SE|S|SW|W|LEFT|DOWN|UP|RIGHT|Z
+move sway window to screen corner, edge or center.
+OPTIONS:
+-i|--id <id>    move a designated window"
+
+    while [[ "$1" ]]; do
+
+        case "$1" in
+
+            -h|--help)
+                echo "$usage"
+                exit 0
+                ;;
+
+            NW|N|NE|E|SE|S|SW|W|LEFT|DOWN|UP|RIGHT|Z)
+                command="$1"
+                break
+                ;;
+
+            -i|--id)
+		## get id value
+                shift
+                id="$1"
+		## get command in next while loop
+                shift
+                ;;
+
+            *)
+                echo "${script_name}: bad argument" >&2
+                exit 1
+                ;;
+
+	esac
+
+    done
+
+    return 0
+}
+
+
+set_params()
+{
+    monitor_dimensions=$( swaymsg -t get_workspaces |
+			      jq -r '.. | select(.focused?) | select(.type=="workspace") | .rect | "\(.width)x\(.height)"' )
+    monitor_width=${monitor_dimensions%x*}
+    monitor_height=${monitor_dimensions#*x}
+
+    selection=".focused?"
+    criteria=
+    [[ "$id" ]] && {
+	selection=".id == $id"
+	criteria="[con_id = $id] "
+    }
+
+    mapfile -t win_param < <( swaymsg -t get_tree |
+				  jq -r ".. | select(.type?) | select($selection)|.rect.x, .rect.y, .rect.width, .rect.height, .deco_rect.height, .type" )
+
+    new_x=${win_param[0]}
+    new_y=${win_param[1]}
+    win_width=${win_param[2]}
+    win_height=${win_param[3]}
+    deco_height=${win_param[4]}
+    win_type=${win_param[5]}
+}
+
+
+direction()
+{
+    case "$win_type" in
+
+	"floating_con")
+
+	    case $command in
+
+		UP)
+		    new_y=0
+		    ;;
+
+		DOWN)
+		    new_y=$(( monitor_height - win_height - deco_height ))
+		    ;;
+
+		LEFT)
+		    new_x=0
+		    new_y=$(( new_y - deco_height ))
+		    ;;
+
+		RIGHT)
+		    new_x=$(( monitor_width -  win_width ))
+		    new_y=$(( new_y - deco_height ))
+		    ;;
+
+		N)
+		    new_x=$(( ( monitor_width -  win_width ) / 2))
+		    new_y=0
+		    ;;
+
+		W)
+		    new_x=0
+		    new_y=$(( ( monitor_height - win_height - deco_height ) / 2))
+		    ;;
+
+		E)
+		    new_x=$(( monitor_width -  win_width ))
+		    new_y=$(( ( monitor_height - win_height - deco_height ) / 2))
+		    ;;
+
+		S)
+		    new_x=$(( ( monitor_width -  win_width ) / 2 ))
+		    new_y=$(( monitor_height - win_height - deco_height ))
+		    ;;
+
+		NW)
+		    new_x=0
+		    new_y=0
+		    ;;
+
+		NE)
+		    new_x=$(( monitor_width -  win_width ))
+		    new_y=0
+		    ;;
+
+		SE)
+		    new_x=$(( monitor_width -  win_width ))
+		    new_y=$(( monitor_height - win_height - deco_height ))
+		    ;;
+
+		SW)
+		    new_x=0
+		    new_y=$(( monitor_height - win_height - deco_height ))
+		    ;;
+
+		Z)
+		    new_x=$(( ( monitor_width -  win_width ) / 2 ))
+		    new_y=$(( ( monitor_height - win_height - deco_height ) / 2 ))
+		    ;;
+
+	    esac
+
+	    swaymsg "${criteria}move position $new_x $new_y"
+	    ;;
+
+	"con")
+	    case $command in
+		UP|N)
+		    swaymsg "${criteria}move up"
+		    ;;
+
+		DOWN|S)
+		    swaymsg "${criteria}move down"
+		    ;;
+
+		LEFT|W)
+		    swaymsg "${criteria}move left"
+		    ;;
+
+		RIGHT|E)
+		    swaymsg "${criteria}move right"
+		    ;;
+
+		NW)
+		    swaymsg "${criteria}move up"
+		    swaymsg "${criteria}move left"
+		    ;;
+
+		NE)
+		    swaymsg "${criteria}move up"
+		    swaymsg "${criteria}move right"
+		    ;;
+
+		SW)
+		    swaymsg "${criteria}move down"
+		    swaymsg "${criteria}move left"
+		    ;;
+
+		SE)
+		    swaymsg "${criteria}move right"
+		    swaymsg "${criteria}move down"
+		    ;;
+
+		Z)
+		    : #DEV TODO minimize / hide
+		    ;;
+
+	    esac
+	    ;;
+
+    esac
+}
+
+
+main()
+{
+    initialize "$args"
+    set_params
+    direction
+}
+
+main

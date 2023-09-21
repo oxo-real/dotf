@@ -24,6 +24,9 @@
 ## change symlink for specific system config
 include $XDG_CONFIG_HOME/sway/current
 
+## sway code directory
+set $csc		"$XDG_CONFIG_HOME/sway/code"
+
 
 ## general settings ##
 
@@ -418,7 +421,7 @@ mouse_warping		none
 # output (monitor)
 
 # focus_container	$mod
-# move			$mod+Shift
+  # move			$mod+Shift
 # resize		$mod+Control
 
 
@@ -441,7 +444,7 @@ set $ri			Period
 
 
 # change window focus
-# $mod+hjkl
+## $mod+hjkl
 bindsym $mod+$left		focus left
 bindsym $mod+$down	        focus down
 bindsym $mod+$up		focus up
@@ -449,23 +452,38 @@ bindsym $mod+$right		focus right
 
 
 # move focused window
-# $mod+Shift+hjkl		(regular movement)
+## $mod+Shift+hjkl		(regular movement)
 bindsym $mod+Shift+$left	move left
 bindsym $mod+Shift+$down	move down
 bindsym $mod+Shift+$up		move up
 bindsym $mod+Shift+$right	move right
 
-# $mod+Shift+yuio		(major movement)
+## $mod+Shift+yuio		(major movement)
 bindsym $mod+Shift+$la		move left 30 px or 30 ppt
 bindsym $mod+Shift+$da		move down 30 px or 30 ppt
 bindsym $mod+Shift+$ua		move up 30 px or 30 ppt
 bindsym $mod+Shift+$ra		move right 30 px or 30 ppt
 
-# $mod+Shift+nm,.		(minor movement)
+## $mod+Shift+nm,.		(minor movement)
 bindsym $mod+Shift+$li		move left 1 px or 1 ppt
 bindsym $mod+Shift+$di		move down 1 px or 1 ppt
 bindsym $mod+Shift+$ui		move up 1 px or 1 ppt
 bindsym $mod+Shift+$ri		move right 1 px or 1 ppt
+
+## floating window; snap to screen edge
+### virtual numeric keyboard as compass rose
+### $mod+Mod4+uio
+###	      jkl
+###	      m,.
+bindsym $mod+Mod1+i		exec sh $csc/snap_to N
+bindsym $mod+Mod1+o		exec sh $csc/snap_to NE
+bindsym $mod+Mod1+l		exec sh $csc/snap_to E
+bindsym $mod+Mod1+Period	exec sh $csc/snap_to SE
+bindsym $mod+Mod1+Comma		exec sh $csc/snap_to S
+bindsym $mod+Mod1+m		exec sh $csc/snap_to SW
+bindsym $mod+Mod1+j		exec sh $csc/snap_to W
+bindsym $mod+Mod1+u		exec sh $csc/snap_to NW
+bindsym $mod+Mod1+k		exec sh $csc/snap_to Z
 
 
 # resize focused window
@@ -497,7 +515,7 @@ bindsym $mod+Shift+q		kill
 # split horizontal / vertical toggle
 ## new window below / aside
 ## auto fallback to default via nfs_split_fb
-bindsym $mod+backslash	split toggle; exec $XDG_CONFIG_HOME/sway/code/nfs_split
+bindsym $mod+backslash	split toggle; exec $csc/nfs_split
 
 # enter fullscreen mode for the focused window
 bindsym $mod+f		fullscreen toggle
@@ -541,12 +559,12 @@ bindsym $mod+space	focus mode_toggle
 
 ## in $HOME
 ### split toggle for fibonacci-esque effect
-bindsym $mod+Return		exec $XDG_CONFIG_HOME/sway/code/spawn_term &; split toggle
+bindsym $mod+Return		exec $csc/spawn_term &; split toggle
 #bindsym $mod+Return		exec $term
 
 ## in $PWD
 ### split toggle for fibonacci-esque effect
-bindsym $mod+Shift+Return	exec $XDG_CONFIG_HOME/sway/code/spawn_term pwd &; split toggle
+bindsym $mod+Shift+Return	exec $csc/spawn_term pwd &; split toggle
 
 ## floating invisible
 for_window [app_id="term_float_inv"]
@@ -586,7 +604,7 @@ for_window [app_id="float_fzf_run"]
 }
 
 bindsym $mod+d			exec $term --class="float_fzf_run" -e \
-				$XDG_CONFIG_HOME/sway/code/fzf_run
+				$csc/fzf_run
 
 ## define spicules window
 for_window [app_id="float_spicules"]
@@ -600,15 +618,15 @@ for_window [app_id="float_spicules"]
 
 ## fzf_spicules			(search cmd_catalog)
 bindsym $mod+z			exec $term --class="float_spicules" -e \
-				$XDG_CONFIG_HOME/sway/code/fzf_spicules && wl-copy -n < $XDG_CACHE_HOME/cb
+				$csc/fzf_spicules && wl-copy -n < $XDG_CACHE_HOME/cb
 
 ## fzf_sway_shutdown		(shutdown menu)
 bindsym $mod+Shift+x		exec $term --class="float_spicules" -e \
-				$XDG_CONFIG_HOME/sway/code/fzf_sway_shutdown
+				$csc/fzf_sway_shutdown
 
 ## fzf_sway_switch 		(window switcher)
 bindsym $mod+grave		exec $term --class="float_spicules" -e \
-				$XDG_CONFIG_HOME/sway/code/fzf_sway_switch
+				$csc/fzf_sway_switch
 
 # fzf clipboard manager
 ## cache/cb is the active clipboard
@@ -625,15 +643,15 @@ bindsym Control+Shift+y		exec $XDG_CONFIG_HOME/sway/code/fzf_cpbd add
 
 ## fzf_cpbd put
 bindsym Control+Shift+p		exec $term --class="float_spicules" -e \
-				$XDG_CONFIG_HOME/sway/code/fzf_cpbd put && wl-copy -n < $XDG_CACHE_HOME/cb
+				$csc/fzf_cpbd put && wl-copy -n < $XDG_CACHE_HOME/cb
 
 ## fzf_cpbd remove_item
 bindsym Control+Shift+r		exec $term --class="float_spicules" -e \
-				$XDG_CONFIG_HOME/sway/code/fzf_cpbd remove_item
+				$csc/fzf_cpbd remove_item
 
 ## fzf_cpbd remove_all
 bindsym $mod+Control+Shift+r	exec $term --class="float_spicules" -e \
-				$XDG_CONFIG_HOME/sway/code/fzf_cpbd remove_all
+				$csc/fzf_cpbd remove_all
 
 
 # exit workspace (Zzz)
@@ -645,16 +663,16 @@ bindsym $mod+Control+Shift+r	exec $term --class="float_spicules" -e \
 #bindsym $mod+Shift+s		exec $XDG_CONFIG_HOME/sway/code/screen_onf
 
 ### lock instantly
-bindsym $mod+Shift+z		exec $XDG_CONFIG_HOME/sway/code/dimr swaylock
+bindsym $mod+Shift+z		exec $csc/dimr swaylock
 
 ### screen off
-bindsym $mod+Shift+Slash	exec $XDG_CONFIG_HOME/sway/code/dimr screen_off
+bindsym $mod+Shift+Slash	exec $csc/dimr screen_off
 
 ### enable (lock after 2 * idle_time)
-bindsym $mod+Control+Shift+e	exec $XDG_CONFIG_HOME/sway/code/dimr swaylock_enable
+bindsym $mod+Control+Shift+e	exec $csc/dimr swaylock_enable
 
 ### disable (no lock after idle_time)
-bindsym $mod+Control+Shift+d	exec $XDG_CONFIG_HOME/sway/code/dimr swaylock_disable
+bindsym $mod+Control+Shift+d	exec $csc/dimr swaylock_disable
 
 # reload sway configuration
 bindsym $mod+Shift+c		reload
@@ -699,7 +717,7 @@ bindsym XF86AudioPrev 		exec playerctl previous
 
 bindsym XF86Search 		exec $menu
 bindsym $mod+m			exec $term --class="float_spicules" -e \
-				$XDG_CONFIG_HOME/sway/code/music_play
+				$csc/music_play
 
 # screencapture
 # https://wiki.archlinux.org/index.php/Sway#Screen_capture

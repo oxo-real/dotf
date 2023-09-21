@@ -1353,7 +1353,6 @@
 │   │       └── window
 │   ├── code
 │   │   ├── dimr
-│   │   ├── filter.jq
 │   │   ├── fzf_cpbd
 │   │   ├── fzf_run
 │   │   ├── fzf_spicules
@@ -1365,9 +1364,8 @@
 │   │   ├── nfs_split
 │   │   ├── nfs_split_fb
 │   │   ├── screen_onf
-│   │   ├── spawn_term
-│   │   ├── spawn_term_pwdDEL
-│   │   └── sway_nodes.jq
+│   │   ├── snap_to
+│   │   └── spawn_term
 │   ├── config
 │   ├── current -> /home/oxo/.config/sway/hw/dev/ltx1c
 │   ├── env
@@ -1573,5 +1571,5 @@
     │   └── config
     └── xresources_colors
 
-212 directories, 1361 files
+212 directories, 1359 files
 ```
