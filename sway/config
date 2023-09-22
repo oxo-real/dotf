@@ -453,9 +453,9 @@ bindsym $mod+$right		focus right
 
 # move focused window
 set $smt			exec sh $csc/snap_move_to
-set $move_major_step		30
-set $move_regular_step		15
-set $move_minor_step		1
+set $move_major_step		100
+set $move_regular_step		20
+set $move_minor_step		10
 
 ## $mod+Shift+hjkl		(regular movement)
 bindsym $mod+Shift+$left	$smt left $move_regular_step px or $move_regular_step ppt
@@ -477,7 +477,7 @@ bindsym $mod+Shift+$ri		$smt right $move_minor_step px or $move_minor_step ppt
 
 ## floating window; snap to screen center
 ### $mod+Mod1+hjkl
-bindsym $mod+Mod1+z		$smt Z
+bindsym $mod+Mod1+Comma		$smt Z
 
 ## snap to screen edge, centered (floating window)
 ## move focused window (tiling window)
@@ -503,9 +503,9 @@ bindsym $mod+Mod1+u		$smt NW
 
 # resize focused window
 ## SE adjust
-set $resize_major_step		10
-set $resize_regular_step	5
-set $resize_minor_step		1
+set $resize_major_step		100
+set $resize_regular_step	20
+set $resize_minor_step		10
 
 ## $mod+Control+hjkl		(regular adjustment)
 bindsym $mod+Control+$left	resize shrink width $resize_regular_step px or $resize_regular_step ppt

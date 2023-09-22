@@ -1,20 +1,18 @@
 #!/usr/bin/env sh
 
-#source $XDG_DATA_HOME/c/git/code/source/function/text_appearance
+## focused container (window)
+pid=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.focused == true) | .pid')
 
-## active node (window)
-name=$(swaymsg -t get_tree | jq '.. | (.nodes? // empty)[] | select(.focused == true).name? // empty' | sed 's/"//g' | sed 's/null//')
-workspace=$(swaymsg -t get_tree | jq '.nodes[].current_workspace' | sed 's/"//g' | sed 's/null//')
-pid=$(swaymsg -t get_tree | jq '.. | (.nodes? // empty)[] | select(.focused == true).pid? // empty')
+name=$(swaymsg -t get_tree | jq  ".. | select(.type?) | select(.pid == "$pid") | .name")
 
-# NOTICE: the eol is important for i3blocks
+#workspace=$(swaymsg -t get_tree | jq  '.. | select(.nodes?) | select(.current_workspace) | .current_workspace' | sed 's/"//g')
+
+type=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.focused == true) | .type')
+[[ $type == '"floating_con"' ]] && con_type='[~]' || con_type='[]'
+
+# NOTICE the eol is important for i3blocks
 if [[ -n $pid ]]; then
 
-    printf "%s  %s  %s  \n" "$name" $workspace $pid
+    printf "%s  %s  %s  \n" "$name" $pid $con_type
 
 fi
-#printf "${BOLD}%s${NOC}  %s  %s  \n" "$name" $workspace $pid
-
-#swaymsg -t subscribe -m '["window"]' | \
-#    jq --unbuffered -M -r -c '"\(.container.name) \(.container.id) \(.container.pid)"'
-##\ | awk '{printf "%s %03i %07i\n", $1, $2, $3}'

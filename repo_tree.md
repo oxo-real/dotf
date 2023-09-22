@@ -1269,13 +1269,16 @@
 │   ├── autoconfig.yml
 │   ├── blocking_data.tar.aes
 │   ├── blocking_data.tar.hash
+│   ├── bookmarks
+│   │   └── urls
 │   ├── bookmark_urls.aes
 │   ├── bookmark_urls.hash
 │   ├── cleanup
 │   ├── config.py
 │   ├── greasemonkey.tar.aes
 │   ├── greasemonkey.tar.hash
-│   └── new_session
+│   ├── new_session
+│   └── quickmarks
 ├── repo_tree.md
 ├── rsync.tar.aes
 ├── rsync.tar.hash
@@ -1361,7 +1364,6 @@
 │   │   ├── nfs_split_fb
 │   │   ├── screen_onf
 │   │   ├── snap_move_to
-│   │   ├── snap_to
 │   │   └── spawn_term
 │   ├── config
 │   ├── current -> /home/oxo/.config/sway/hw/dev/ltx1c
@@ -1568,5 +1570,5 @@
     │   └── config
     └── xresources_colors
 
-212 directories, 1356 files
+213 directories, 1357 files
 ```
