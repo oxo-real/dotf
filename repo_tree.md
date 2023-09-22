@@ -1269,17 +1269,13 @@
 │   ├── autoconfig.yml
 │   ├── blocking_data.tar.aes
 │   ├── blocking_data.tar.hash
-│   ├── bookmarks.tar.aes
-│   ├── bookmarks.tar.hash
 │   ├── bookmark_urls.aes
 │   ├── bookmark_urls.hash
 │   ├── cleanup
 │   ├── config.py
 │   ├── greasemonkey.tar.aes
 │   ├── greasemonkey.tar.hash
-│   ├── new_session
-│   ├── quickmarks.aes
-│   └── quickmarks.hash
+│   └── new_session
 ├── repo_tree.md
 ├── rsync.tar.aes
 ├── rsync.tar.hash
@@ -1573,5 +1569,5 @@
     │   └── config
     └── xresources_colors
 
-212 directories, 1361 files
+212 directories, 1357 files
 ```

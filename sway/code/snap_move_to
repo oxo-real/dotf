@@ -7,7 +7,7 @@ args="$@"
 initialize()
 {
     script_name='snap_move_to'
-    usage="usage: $script_name [-i,--id <id>] NW|N|NE|E|SE|S|SW|W|LEFT|DOWN|UP|RIGHT|Z
+    usage="usage: $script_name [-i,--id <id>] NW|N|NE|E|SE|S|SW|W|Z|left|down|up|right
 move sway window to screen corner, edge or center.
 OPTIONS:
 -i|--id <id>    move a designated window"
@@ -15,13 +15,7 @@ OPTIONS:
     ## loop through all arguments
     while [[ "$1" ]]; do
 
-	printf '%s\n' "$1"
         case "$1" in
-
-            -h|--help)
-                echo "$usage"
-                exit 0
-                ;;
 
             NW|N|NE|E|SE|S|SW|W|Z)
 		# snap floating window
@@ -46,9 +40,14 @@ OPTIONS:
                 shift
                 ;;
 
+            -h|--help)
+                printf '%s\n' "$usage"
+                exit 0
+                ;;
+
             *)
-                echo "${script_name}: bad argument" >&2
-                exit 1
+                printf '%s: no valid argument\n' "$script_name"
+                exit 51
                 ;;
 
 	esac
@@ -61,33 +60,47 @@ OPTIONS:
 
 set_params()
 {
-    monitor_dimensions=$( swaymsg -t get_workspaces |
-			      jq -r '.. | select(.focused?) | select(.type=="workspace") | .rect | "\(.width)x\(.height)"' )
+    monitor_dimensions=$(
+	swaymsg -t get_workspaces |
+	    jq -r '.. | select(.focused?) |
+	    select(.type=="workspace") |
+	    .rect |
+	    "\(.width)x\(.height)"' \
+		      )
+
     monitor_width=${monitor_dimensions%x*}
     monitor_height=${monitor_dimensions#*x}
 
     selection=".focused?"
     criteria=
-    [[ "$id" ]] && {
-	selection=".id == $id"
-	criteria="[con_id = $id] "
-    }
+    [[ "$id" ]] && \
+	{
+	    selection=".id == $id"
+	    criteria="[con_id = $id]"
+	}
 
-    mapfile -t win_param < <( swaymsg -t get_tree |
-				  jq -r ".. | select(.type?) | select($selection)|.rect.x, .rect.y, .rect.width, .rect.height, .deco_rect.height, .type" )
+    mapfile -t window_params_arr < <( \
+	swaymsg -t get_tree | \
+	    jq -r ".. |
+	    select(.type?) |
+	    select($selection) |
+	    .rect.x, .rect.y,
+	    .rect.width, .rect.height,
+	    .deco_rect.height, .type" \
+		)
 
-    new_x=${win_param[0]}
-    new_y=${win_param[1]}
-    win_width=${win_param[2]}
-    win_height=${win_param[3]}
-    deco_height=${win_param[4]}
-    win_type=${win_param[5]}
+    new_x=${window_params_arr[0]}
+    new_y=${window_params_arr[1]}
+    window_width=${window_params_arr[2]}
+    window_height=${window_params_arr[3]}
+    decor_height=${window_params_arr[4]}
+    window_type=${window_params_arr[5]}
 }
 
 
 snap_or_move()
 {
-    case "$win_type" in
+    case "$window_type" in
 
 	## floating container
 	"floating_con")
@@ -98,67 +111,67 @@ snap_or_move()
 		    # no amount given
 		    case $direction in
 
-			up)
-			    new_y=0
-			    ;;
-
-			down)
-			    new_y=$(( monitor_height - win_height - deco_height ))
-			    ;;
-
-			left)
-			    new_x=0
-			    new_y=$(( new_y - deco_height ))
-			    ;;
-
-			right)
-			    new_x=$(( monitor_width -  win_width ))
-			    new_y=$(( new_y - deco_height ))
-			    ;;
-
-			N)
-			    new_x=$(( ( monitor_width -  win_width ) / 2))
-			    new_y=0
-			    ;;
-
-			W)
-			    new_x=0
-			    new_y=$(( ( monitor_height - win_height - deco_height ) / 2))
-			    ;;
-
-			E)
-			    new_x=$(( monitor_width -  win_width ))
-			    new_y=$(( ( monitor_height - win_height - deco_height ) / 2))
-			    ;;
-
-			S)
-			    new_x=$(( ( monitor_width -  win_width ) / 2 ))
-			    new_y=$(( monitor_height - win_height - deco_height ))
-			    ;;
-
 			NW)
 			    new_x=0
 			    new_y=0
 			    ;;
 
-			NE)
-			    new_x=$(( monitor_width -  win_width ))
+			N)
+			    new_x=$(( ( monitor_width -  window_width ) / 2))
 			    new_y=0
 			    ;;
 
+			NE)
+			    new_x=$(( monitor_width -  window_width ))
+			    new_y=0
+			    ;;
+
+			E)
+			    new_x=$(( monitor_width -  window_width ))
+			    new_y=$(( ( monitor_height - window_height - decor_height ) / 2))
+			    ;;
+
 			SE)
-			    new_x=$(( monitor_width -  win_width ))
-			    new_y=$(( monitor_height - win_height - deco_height ))
+			    new_x=$(( monitor_width -  window_width ))
+			    new_y=$(( monitor_height - window_height - decor_height ))
+			    ;;
+
+			S)
+			    new_x=$(( ( monitor_width -  window_width ) / 2 ))
+			    new_y=$(( monitor_height - window_height - decor_height ))
 			    ;;
 
 			SW)
 			    new_x=0
-			    new_y=$(( monitor_height - win_height - deco_height ))
+			    new_y=$(( monitor_height - window_height - decor_height ))
+			    ;;
+
+			W)
+			    new_x=0
+			    new_y=$(( ( monitor_height - window_height - decor_height ) / 2))
 			    ;;
 
 			Z)
-			    new_x=$(( ( monitor_width -  win_width ) / 2 ))
-			    new_y=$(( ( monitor_height - win_height - deco_height ) / 2 ))
+			    new_x=$(( ( monitor_width -  window_width ) / 2 ))
+			    new_y=$(( ( monitor_height - window_height - decor_height ) / 2 ))
+			    ;;
+
+			left)
+			    new_x=0
+			    new_y=$(( new_y - decor_height ))
+			    ;;
+
+			down)
+			    new_y=$(( monitor_height - window_height - decor_height ))
+			    ;;
+
+			up)
+			    new_y=0
+			    ;;
+
+			right)
+			    new_x=$(( monitor_width -  window_width ))
+			    new_y=$(( new_y - decor_height ))
 			    ;;
 
 		    esac
@@ -181,25 +194,13 @@ snap_or_move()
 	"con")
 
 	    case $direction in
-		up|N)
-		    swaymsg "${criteria}move up"
-		    ;;
-
-		down|S)
-		    swaymsg "${criteria}move down"
-		    ;;
-
-		left|W)
-		    swaymsg "${criteria}move left"
-		    ;;
-
-		right|E)
-		    swaymsg "${criteria}move right"
-		    ;;
-
 		NW)
 		    swaymsg "${criteria}move up"
 		    swaymsg "${criteria}move left"
+		    ;;
+
+		N|up)
+		    swaymsg "${criteria}move up"
 		    ;;
 
 		NE)
@@ -207,9 +208,8 @@ snap_or_move()
 		    swaymsg "${criteria}move right"
 		    ;;
 
-		SW)
-		    swaymsg "${criteria}move down"
-		    swaymsg "${criteria}move left"
+		E|right)
+		    swaymsg "${criteria}move right"
 		    ;;
 
 		SE)
@@ -217,8 +217,21 @@ snap_or_move()
 		    swaymsg "${criteria}move down"
 		    ;;
 
+		S|down)
+		    swaymsg "${criteria}move down"
+		    ;;
+
+		SW)
+		    swaymsg "${criteria}move down"
+		    swaymsg "${criteria}move left"
+		    ;;
+
+		W|left)
+		    swaymsg "${criteria}move left"
+		    ;;
+
 		Z)
-		    : #DEV TODO minimize / hide
+		    :
 		    ;;
 
 	    esac
@@ -230,7 +243,7 @@ snap_or_move()
 
 main()
 {
-    ## NOTICE no quoatation for $args
+    ## NOTICE no quotation around $args
     ## that sends entire string to $1
     initialize $args
     set_params

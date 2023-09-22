@@ -3,7 +3,7 @@
 ## focused container (window)
 pid=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.focused == true) | .pid')
 
-name=$(swaymsg -t get_tree | jq  ".. | select(.type?) | select(.pid == "$pid") | .name")
+name=$(swaymsg -t get_tree | jq  ".. | select(.type?) | select(.pid == "$pid") | .name" | sed 's/"//g')
 
 #workspace=$(swaymsg -t get_tree | jq  '.. | select(.nodes?) | select(.current_workspace) | .current_workspace' | sed 's/"//g')
 
@@ -13,6 +13,6 @@ type=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.focused == true) 
 # NOTICE the eol is important for i3blocks
 if [[ -n $pid ]]; then
 
-    printf "%s  %s  %s  \n" "$name" $pid $con_type
+    printf '%s %s %s \n' $pid "$name" $con_type
 
 fi
