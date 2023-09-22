@@ -247,7 +247,7 @@ gaps outer			0
 smart_gaps			on
 bindsym $mod+Ctrl+bracketleft	gaps inner current plus 5
 bindsym $mod+Ctrl+bracketright	gaps inner current minus 5
-bindsym $mod+Ctrl+p		gaps inner current set 0; gaps outer current set 0
+bindsym $mod+Ctrl+slash		gaps inner current set 0; gaps outer current set 0
 
 
 # set terminal
@@ -542,7 +542,7 @@ bindsym $mod+Shift+f	fullscreen toggle
 
 # focus parent container
 #bindsym $mod+a		focus parent
-bindsym $mod+p		focus parent
+#bindsym $mod+p		focus parent
 
 
 # focus child container
@@ -741,27 +741,27 @@ bindsym $mod+m			exec $term --class="float_spicules" -e \
 # https://wiki.archlinux.org/index.php/Sway#Screen_capture
 
 ## current output
-bindsym Print			exec grim -o $(swaymsg -t get_outputs \
+bindsym $mod+p			exec grim -o $(swaymsg -t get_outputs \
 				| jq -r '.[] | select (.focused) | .name') \
 				$XDG_DATA_HOME/a/media/images/scr_cap/`date "+%Y%m%d_%H%M%S"`.png && \
 				notify-send 'scr_cap curr output'
 
 ## all outputs
-bindsym Mod1+Print		exec grim \
+bindsym $mod+Mod1+p		exec grim \
 				$XDG_DATA_HOME/a/media/images/scr_cap/`date "+%Y%m%d_%H%M%S"`.png  && \
 				exec notify-send 'scr_cap all outputs'
 
 ## selective rectangle
 ### to file
-bindsym --release Shift+Print	exec grim -g "$(slurp)" \
+bindsym --release $mod+Shift+p	exec grim -g "$(slurp)" \
 				$XDG_DATA_HOME/a/media/images/scr_cap/`date "+%Y%m%d_%H%M%S"`.png && \
-				exec notify-send 'scr_cap selective'
+				exec notify-send 'scr_cap selective rect'
 ### to clipboard
-bindsym Shift+Control+Print	exec grim -g "$(slurp)" | wl-copy && \
+bindsym $mod+Control+p		exec grim -g "$(slurp)" | wl-copy && \
 				notify-send 'scr_cap sel copy'
 
 ## pick a color
-bindsym $mod+F9			exec grim -g "$(slurp -p)" -t ppm - | \
+bindsym $mod+Mod1+c		exec grim -g "$(slurp -p)" -t ppm - | \
 				convert - -format '%[pixel:p{0,0}]' txt:- | \
 				wl-copy -n && \
 				notify-send 'color data copy'
@@ -774,8 +774,8 @@ bindsym Shift+Control+0		exec echo -n '' | wl-copy && notify-send 'clipboard cle
 bindsym Shift+Control+Mod1+x	exec mic_switch toggle Webcam C310
 
 # speech-to-text
-# Shift+Control+Alt = Hypl S-C-A (left)
-# Shift+Control+Alt = Hypr S-C-A-M (right)
+# Shift+Control+Mod1		= A-C-S		(left)
+# $mod+Shift+Control+Mod1	= M-A-C-S	(right)
 bindsym Shift+Control+Mod1+e	exec vtxt begin en
 bindsym Shift+Control+Mod1+r	exec vtxt end
 bindsym Shift+Control+Mod1+n	exec vtxt begin nl

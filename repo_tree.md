@@ -1269,8 +1269,8 @@
 │   ├── autoconfig.yml
 │   ├── blocking_data.tar.aes
 │   ├── blocking_data.tar.hash
-│   ├── bookmarks
-│   │   └── urls
+│   ├── bookmarks.tar.aes
+│   ├── bookmarks.tar.hash
 │   ├── bookmark_urls.aes
 │   ├── bookmark_urls.hash
 │   ├── cleanup
@@ -1278,7 +1278,8 @@
 │   ├── greasemonkey.tar.aes
 │   ├── greasemonkey.tar.hash
 │   ├── new_session
-│   └── quickmarks
+│   ├── quickmarks.aes
+│   └── quickmarks.hash
 ├── repo_tree.md
 ├── rsync.tar.aes
 ├── rsync.tar.hash
@@ -1425,12 +1426,14 @@
 │   └── zathurarc
 ├── zsa
 │   └── moonlander
-│       ├── moonlander_oxo_qwerty_NZWR6_JLml7.bin
-│       ├── moonlander_oxo_qwerty_NZWR6_JLml7.zip
-│       ├── zsa_oxo_url
+│       ├── moonlander_oxo_qwerty_NZWR6_p5dvW.bin
+│       ├── moonlander_oxo_qwerty_NZWR6_p5dvW.zip
+│       ├── zsa_oxo_moon_url
 │       └── zzz_deprecated
 │           ├── moonlander_oxo_qwerty_NZWR6_AGEeG.bin
 │           ├── moonlander_oxo_qwerty_NZWR6_AGEeG.zip
+│           ├── moonlander_oxo_qwerty_NZWR6_JLml7.bin
+│           ├── moonlander_oxo_qwerty_NZWR6_JLml7.zip
 │           ├── moonlander_oxo_qwerty_NZWR6_LxE0R.bin
 │           ├── moonlander_oxo_qwerty_NZWR6_LxE0R.zip
 │           ├── moonlander_oxo_qwerty_NZWR6_pnGRW.bin
@@ -1570,5 +1573,5 @@
     │   └── config
     └── xresources_colors
 
-213 directories, 1357 files
+212 directories, 1361 files
 ```
