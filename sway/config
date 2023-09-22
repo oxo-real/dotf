@@ -452,60 +452,78 @@ bindsym $mod+$right		focus right
 
 
 # move focused window
+set $smt			exec sh $csc/snap_move_to
+set $move_major_step		30
+set $move_regular_step		15
+set $move_minor_step		1
+
 ## $mod+Shift+hjkl		(regular movement)
-bindsym $mod+Shift+$left	move left
-bindsym $mod+Shift+$down	move down
-bindsym $mod+Shift+$up		move up
-bindsym $mod+Shift+$right	move right
+bindsym $mod+Shift+$left	$smt left $move_regular_step px or $move_regular_step ppt
+bindsym $mod+Shift+$down	$smt down $move_regular_step px or $move_regular_step ppt
+bindsym $mod+Shift+$up		$smt up $move_regular_step px or $move_regular_step ppt
+bindsym $mod+Shift+$right	$smt right $move_regular_step px or $move_regular_step ppt
 
 ## $mod+Shift+yuio		(major movement)
-bindsym $mod+Shift+$la		move left 30 px or 30 ppt
-bindsym $mod+Shift+$da		move down 30 px or 30 ppt
-bindsym $mod+Shift+$ua		move up 30 px or 30 ppt
-bindsym $mod+Shift+$ra		move right 30 px or 30 ppt
+bindsym $mod+Shift+$la		$smt left $move_major_step px or $move_major_step ppt
+bindsym $mod+Shift+$da		$smt down $move_major_step px or $move_major_step ppt
+bindsym $mod+Shift+$ua		$smt up $move_major_step px or $move_major_step ppt
+bindsym $mod+Shift+$ra		$smt right $move_major_step px or $move_major_step ppt
 
 ## $mod+Shift+nm,.		(minor movement)
-bindsym $mod+Shift+$li		move left 1 px or 1 ppt
-bindsym $mod+Shift+$di		move down 1 px or 1 ppt
-bindsym $mod+Shift+$ui		move up 1 px or 1 ppt
-bindsym $mod+Shift+$ri		move right 1 px or 1 ppt
+bindsym $mod+Shift+$li		$smt left $move_minor_step px or $move_minor_step ppt
+bindsym $mod+Shift+$di		$smt down $move_minor_step px or $move_minor_step ppt
+bindsym $mod+Shift+$ui		$smt up $move_minor_step px or $move_minor_step ppt
+bindsym $mod+Shift+$ri		$smt right $move_minor_step px or $move_minor_step ppt
 
-## floating window; snap to screen edge
-### virtual numeric keyboard as compass rose
-### $mod+Mod4+uio
-###	      jkl
-###	      m,.
-bindsym $mod+Mod1+i		exec sh $csc/snap_to N
-bindsym $mod+Mod1+o		exec sh $csc/snap_to NE
-bindsym $mod+Mod1+l		exec sh $csc/snap_to E
-bindsym $mod+Mod1+Period	exec sh $csc/snap_to SE
-bindsym $mod+Mod1+Comma		exec sh $csc/snap_to S
-bindsym $mod+Mod1+m		exec sh $csc/snap_to SW
-bindsym $mod+Mod1+j		exec sh $csc/snap_to W
-bindsym $mod+Mod1+u		exec sh $csc/snap_to NW
-bindsym $mod+Mod1+k		exec sh $csc/snap_to Z
+## floating window; snap to screen center
+### $mod+Mod1+hjkl
+bindsym $mod+Mod1+z		$smt Z
 
+## snap to screen edge, centered (floating window)
+## move focused window (tiling window)
+### $mod+Mod1+hjkl
+bindsym $mod+Mod1+$left		$smt W
+bindsym $mod+Mod1+$down        	$smt S
+bindsym $mod+Mod1+$up          	$smt N
+bindsym $mod+Mod1+$right	$smt E
+
+## snap to screen edge, straight slide (floating window)
+#bindsym $mod+Mod1+6		 $smt left
+#bindsym $mod+Mod1+7		 $smt down
+#bindsym $mod+Mod1+8		 $smt up
+#bindsym $mod+Mod1+9		 $smt right
+
+## snap to screen corner (floating window)
+### virtual numeric keyboard as compass rose for corners
+### $mod+Mod4+uom.
+bindsym $mod+Mod1+o		$smt NE
+bindsym $mod+Mod1+Period	$smt SE
+bindsym $mod+Mod1+m		$smt SW
+bindsym $mod+Mod1+u		$smt NW
 
 # resize focused window
 ## SE adjust
+set $resize_major_step		10
+set $resize_regular_step	5
+set $resize_minor_step		1
 
 ## $mod+Control+hjkl		(regular adjustment)
-bindsym $mod+Control+$left	resize shrink width 5 px or 5 ppt
-bindsym $mod+Control+$down	resize grow height 5 px or 5 ppt
-bindsym $mod+Control+$up	resize shrink height 5 px or 5 ppt
-bindsym $mod+Control+$right	resize grow width 5 px or 5 ppt
+bindsym $mod+Control+$left	resize shrink width $resize_regular_step px or $resize_regular_step ppt
+bindsym $mod+Control+$down	resize grow height $resize_regular_step px or $resize_regular_step ppt
+bindsym $mod+Control+$up	resize shrink height $resize_regular_step px or $resize_regular_step ppt
+bindsym $mod+Control+$right	resize grow width $resize_regular_step px or $resize_regular_step ppt
 
 ## $mod+Control+yuio		(major adjustment)
-bindsym $mod+Control+$la	resize shrink width 10 px or 10 ppt
-bindsym $mod+Control+$da	resize grow height 10 px or 10 ppt
-bindsym $mod+Control+$ua	resize shrink height 10 px or 10 ppt
-bindsym $mod+Control+$ra	resize grow width 10 px or 10 ppt
+bindsym $mod+Control+$la	resize shrink width $resize_major_step px or $resize_major_step ppt
+bindsym $mod+Control+$da	resize grow height $resize_major_step px or $resize_major_step ppt
+bindsym $mod+Control+$ua	resize shrink height $resize_major_step px or $resize_major_step ppt
+bindsym $mod+Control+$ra	resize grow width $resize_major_step px or $resize_major_step ppt
 
 ## $mod+Control+nm,.		(minor adjustment)
-bindsym $mod+Control+$li	resize shrink width 1 px or 1 ppt
-bindsym $mod+Control+$di	resize grow height 1 px or 1 ppt
-bindsym $mod+Control+$ui	resize shrink height 1 px or 1 ppt
-bindsym $mod+Control+$ri	resize grow width 1 px or 1 ppt
+bindsym $mod+Control+$li	resize shrink width $resize_minor_step px or $resize_minor_step ppt
+bindsym $mod+Control+$di	resize grow height $resize_minor_step px or $resize_minor_step ppt
+bindsym $mod+Control+$ui	resize shrink height $resize_minor_step px or $resize_minor_step ppt
+bindsym $mod+Control+$ri	resize grow width $resize_minor_step px or $resize_minor_step ppt
 
 
 # kill (quit) focused window
@@ -539,17 +557,17 @@ bindsym $mod+s		layout toggle split
 bindsym $mod+a		layout toggle splith splitv stacking tabbed
 
 
+# toggle focus mode tiling / floating
+bindsym $mod+semicolon		focus mode_toggle; notify-send 'TODO $(swaymsg -t get_inputs | jq -r .[] | .select'
+
+
 # toggle focused window tiling / floating
-bindsym $mod+Shift+v 	floating toggle
+bindsym $mod+Shift+semicolon 	floating toggle
 #bindsym $mod+Control+space	floating toggle
 
 
 # toggle floating window sticky (always on top)
-bindsym $mod+Shift+s	sticky toggle
-
-
-# toggle focus mode tiling / floating
-bindsym $mod+space	focus mode_toggle
+bindsym $mod+Shift+s	 	sticky toggle
 
 
 ## other keybindings ##

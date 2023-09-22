@@ -1269,17 +1269,13 @@
 │   ├── autoconfig.yml
 │   ├── blocking_data.tar.aes
 │   ├── blocking_data.tar.hash
-│   ├── bookmarks.tar.aes
-│   ├── bookmarks.tar.hash
 │   ├── bookmark_urls.aes
 │   ├── bookmark_urls.hash
 │   ├── cleanup
 │   ├── config.py
 │   ├── greasemonkey.tar.aes
 │   ├── greasemonkey.tar.hash
-│   ├── new_session
-│   ├── quickmarks.aes
-│   └── quickmarks.hash
+│   └── new_session
 ├── repo_tree.md
 ├── rsync.tar.aes
 ├── rsync.tar.hash
@@ -1364,6 +1360,7 @@
 │   │   ├── nfs_split
 │   │   ├── nfs_split_fb
 │   │   ├── screen_onf
+│   │   ├── snap_move_to
 │   │   ├── snap_to
 │   │   └── spawn_term
 │   ├── config
@@ -1571,5 +1568,5 @@
     │   └── config
     └── xresources_colors
 
-212 directories, 1359 files
+212 directories, 1356 files
 ```
