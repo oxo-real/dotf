@@ -30,25 +30,25 @@ align=left
 interval=10
 separator_block_width=8
 
-[ipex]
-interval=10
-separator_block_width=8
+#[ipex]
+#interval=10
+#separator_block_width=8
 
-[macex]
-interval=10
-separator_block_width=8
+#[macex]
+#interval=10
+#separator_block_width=8
 
 [interface]
 interval=10
 separator_block_width=8
 
-[macin]
-interval=10
-separator_block_width=8
+#[macin]
+#interval=10
+#separator_block_width=8
 
-[ipin]
-interval=10
-separator_block_width=8
+#[ipin]
+#interval=10
+#separator_block_width=8
 
 [vrx]
 interval=2
@@ -58,15 +58,15 @@ separator_block_width=8
 interval=2
 separator_block_width=16
 
+[mem]
+interval=2
+separator_block_width=8
+
 [temp]
 interval=2
 separator_block_width=0
 
 [cpu]
-interval=2
-separator_block_width=8
-
-[mem]
 interval=2
 separator_block_width=8
 
@@ -92,9 +92,9 @@ separator_block_width=0
 interval=2
 separator_block_width=8
 
-[weather]
-interval=300
-separator_block_width=8
+#[weather]
+#interval=300
+#separator_block_width=8
 
 [time]
 interval=2

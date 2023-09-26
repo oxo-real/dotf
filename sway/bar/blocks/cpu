@@ -34,7 +34,7 @@ cpu_perc=$((100*(load1-load0)/(total_tick1-total_tick0)))
 cpu=$(printf "%02d" $cpu_perc)
 
 #printf "%s\n" "$cpu"
-echo $cpu
+echo ${cpu}
 # echo text background border
 # !! finer granularity than 2 stages causes unpredictable behaviour
 [[ $cpu_perc -gt 50 ]] && exit 33
