@@ -1319,14 +1319,25 @@ C-s search forward
 #+end_src
 
 ** backup
+Put backup and autosave files neatly away
 #+begin_src emacs-lisp
 
-  (setq backup-directory-alist '(("." . "~/.config/emacs/backup"))
-    backup-by-copying t    ; Don't delink hardlinks
-    version-control t      ; Use version numbers on backups
-    delete-old-versions t  ; Automatically delete excess backups
-    kept-new-versions 20   ; how many of the newest versions to keep
-    kept-old-versions 5)    ; and how many of the old
+  (let ((backup-dir "~/.cache/temp/emacs/backup")
+        (autosave-dir "~/.cache/temp/emacs/autosave"))
+    (dolist (dir (list backup-dir autosave-dir))
+      (when (not (file-directory-p dir))
+        (make-directory dir t)))
+    (setq backup-directory-alist `(("." . ,backup-dir))
+          auto-save-file-name-transforms `((".*" ,autosave-dir t))
+          auto-save-list-file-prefix (concat autosave-dir ".saves-")
+          tramp-backup-directory-alist `((".*" . ,backup-dir))
+          tramp-auto-save-directory autosave-dir))
+
+  (setq backup-by-copying t    ;; don't delink hardlinks
+        delete-old-versions t  ;; automatically delete excess backups
+        version-control t      ;; use version numbers on backups
+        kept-new-versions 20   ;; how many of the newest versions to keep
+        kept-old-versions 5)   ;; and how many of the old
 
 #+end_src
 

@@ -231,7 +231,9 @@
 ├── element.tar.hash
 ├── emacs
 │   ├── config.org
-│   └── custom.el
+│   ├── custom.el
+│   ├── early-init.el
+│   └── init.el
 ├── fd.tar.aes
 ├── fd.tar.hash
 ├── fonts
@@ -1573,5 +1575,5 @@
     │   └── config
     └── xresources_colors
 
-212 directories, 1361 files
+212 directories, 1363 files
 ```
