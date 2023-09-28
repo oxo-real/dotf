@@ -69,6 +69,12 @@ export HISTFILE="$XDG_LOGS_HOME/history/history"
 
 # z shell environment
 
+## 24 bits colors
+## easy define hex rgb colors with FHX and BHX
+## in $cgcsft defined color names are available in zsh
+cgcsft="$XDG_DATA_HOME/c/git/code/source/function/text_appearance"
+[[ -f "$cgcsft" ]] && source "$cgcsft"
+
 export DEFAULT_VI_MODE=viins
 export KEYTIMEOUT=1
 
