@@ -244,7 +244,8 @@ snap_or_move()
 main()
 {
     ## NOTICE no quotation around $args
-    ## that sends entire string to $1
+    ## with quoted $args: "$args"
+    ## initialize() receives only one argument
     initialize $args
     set_params
     snap_or_move

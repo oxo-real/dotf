@@ -5,6 +5,10 @@
 # let sway spawn a new terminal window in the cwd
 
 
+# set split direction
+sh $XDG_CONFIG_HOME/sway/code/auto_split
+
+
 terminal_cmd=${TERMINAL:-'alacritty'}
 target_path=$1
 

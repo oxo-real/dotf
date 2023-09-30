@@ -1,0 +1,16 @@
+#! /usr/bin/env sh
+
+con_width=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.focused == true) | .rect.width')
+con_height=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.focused == true) | .rect.height')
+
+if [[ $con_width -gt $con_height ]]; then
+
+    split='splith'
+
+else
+
+    split='splitv'
+
+fi
+
+swaymsg "$split"

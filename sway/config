@@ -575,14 +575,13 @@ bindsym $mod+Shift+s	 	sticky toggle
 
 # spawn another terminal emulator
 
+## auto_split container direction (called in spawn_term)
+
 ## in $HOME
-### split toggle for fibonacci-esque effect
-bindsym $mod+Return		exec $csc/spawn_term &; split toggle
-#bindsym $mod+Return		exec $term
+bindsym $mod+Return		exec $csc/spawn_term &
 
 ## in $PWD
-### split toggle for fibonacci-esque effect
-bindsym $mod+Shift+Return	exec $csc/spawn_term pwd &; split toggle
+bindsym $mod+Shift+Return	exec $csc/spawn_term pwd &
 
 ## floating invisible
 for_window [app_id="term_float_inv"]

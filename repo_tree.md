@@ -1354,6 +1354,7 @@
 │   │       ├── wifi
 │   │       └── window
 │   ├── code
+│   │   ├── auto_split
 │   │   ├── dimr
 │   │   ├── fzf_cpbd
 │   │   ├── fzf_run
@@ -1577,5 +1578,5 @@
     │   └── config
     └── xresources_colors
 
-212 directories, 1365 files
+212 directories, 1366 files
 ```
