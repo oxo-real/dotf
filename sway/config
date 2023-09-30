@@ -395,10 +395,6 @@ client.urgent		#000000 #000000 #ff0000 #000000
 # start with touchpad disabled
 input $touchpad		events disabled
 
-# $mod+MouseLeft move container
-# $mod+MouseRight resize container
-## not needed under wayland (sway wm)
-
 # peek at the bar
 floating_modifier	$mod
 
@@ -452,6 +448,10 @@ bindsym $mod+$right		focus right
 
 
 # move focused window
+
+## mouse method
+## $mod+MouseLeft and manually move container
+
 set $smt			exec sh $csc/snap_move_to
 set $move_major_step		100
 set $move_regular_step		20
@@ -501,8 +501,13 @@ bindsym $mod+Mod1+Period	$smt SE
 bindsym $mod+Mod1+m		$smt SW
 bindsym $mod+Mod1+u		$smt NW
 
+
 # resize focused window
-## SE adjust
+
+## mouse method
+## $mod+MouseRight and manually resize container
+
+## keyboard SE adjust
 set $resize_major_step		100
 set $resize_regular_step	20
 set $resize_minor_step		10
