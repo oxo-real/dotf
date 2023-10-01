@@ -468,8 +468,8 @@ function chpwd()
 
     else
 
-	# no write permission directory color #ff73fd
-	local left_bar="%F{#ff73fd}%B%~%f%b"
+	# no write permission directory color #ffbf00
+	local left_bar="%F{#ffbf60}%B%~%f%b"
 
     fi
 

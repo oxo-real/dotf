@@ -40,17 +40,21 @@ alias tree='tree -n --charset=unicode'
 alias zsh="env ZDOTDIR="$XDG_CONFIG_HOME/zsh" zsh"
 alias mpv='mpv --audio-display=no'
 
-function qr()
-{
-    # usage: qr $(wl-paste)
-    #        echo hello | qr
-    args="$@"
-    [[ -z $@ ]] && args="$(</dev/stdin)"
-    ## qrcode inverse colors
-    qrinv "$args"
-    ## qrcode default colors
-    #qrencode --type utf8 "$args"
-}
+if command -v qrinv &> /dev/null; then
+
+   function qr()
+   {
+       # usage: qr $(wl-paste)
+       #        echo hello | qr
+       args="$@"
+       [[ -z $@ ]] && args="$(</dev/stdin)"
+       ## qrcode inverse colors
+       qrinv "$args"
+       ## qrcode default colors
+       #qrencode --type utf8 "$args"
+   }
+
+fi
 
 
 ## protect against shell command injection
@@ -81,7 +85,8 @@ alias mkdir='mkdir --parents --verbose'
 
 # colors
 
-alias ls='ls -A --group-directories-first --color=auto'
+alias ls='exa -A --group-directories-first --color=auto'
+#alias ls='ls -A --group-directories-first --color=auto'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'

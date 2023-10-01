@@ -1280,6 +1280,8 @@
 │   ├── greasemonkey.tar.aes
 │   ├── greasemonkey.tar.hash
 │   ├── new_session
+│   ├── qsettings
+│   │   └── QtProject.conf
 │   ├── quickmarks.aes
 │   └── quickmarks.hash
 ├── repo_tree.md
@@ -1578,5 +1580,5 @@
     │   └── config
     └── xresources_colors
 
-212 directories, 1366 files
+213 directories, 1367 files
 ```

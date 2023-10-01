@@ -218,7 +218,7 @@ lc=\e[:\
 *.mpg=01;35:*.avi=01;35:*.gl=01;37:*.dl=01;37:\
 *.mp4=01;35:*.webm=01;35:*.mkv=01;35:\
 *.mp3=36"
-export LS_COLORS
+#export LS_COLORS
 
 ## grep colors
 ### ms matching string
