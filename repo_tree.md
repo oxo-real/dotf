@@ -1268,22 +1268,7 @@
 │   ├── auto-config.lisp
 │   └── init.lisp
 ├── qutebrowser
-│   ├── autoconfig.yml
-│   ├── blocking_data.tar.aes
-│   ├── blocking_data.tar.hash
-│   ├── bookmarks.tar.aes
-│   ├── bookmarks.tar.hash
-│   ├── bookmark_urls.aes
-│   ├── bookmark_urls.hash
-│   ├── cleanup
-│   ├── config.py
-│   ├── greasemonkey.tar.aes
-│   ├── greasemonkey.tar.hash
-│   ├── new_session
-│   ├── qsettings
-│   │   └── QtProject.conf
-│   ├── quickmarks.aes
-│   └── quickmarks.hash
+│   └── config.py
 ├── repo_tree.md
 ├── rsync.tar.aes
 ├── rsync.tar.hash
@@ -1374,23 +1359,22 @@
 │   ├── config
 │   ├── current -> /home/oxo/.config/sway/hw/dev/ltx1c
 │   ├── env
-│   ├── hw
-│   │   ├── dev
-│   │   │   ├── amb
-│   │   │   ├── ambair
-│   │   │   ├── dl3189
-│   │   │   ├── dxps139110
-│   │   │   ├── ext
-│   │   │   ├── ltx1c
-│   │   │   ├── ltx220
-│   │   │   ├── none
-│   │   │   └── tp15
-│   │   ├── get_sway_devices
-│   │   ├── machine_list.aes
-│   │   ├── machine_list.hash
-│   │   ├── select_current_machine
-│   │   └── sway_hw_sel_process
-│   └── ssw
+│   └── hw
+│       ├── dev
+│       │   ├── amb
+│       │   ├── ambair
+│       │   ├── dl3189
+│       │   ├── dxps139110
+│       │   ├── ext
+│       │   ├── ltx1c
+│       │   ├── ltx220
+│       │   ├── none
+│       │   └── tp15
+│       ├── get_sway_devices
+│       ├── machine_list.aes
+│       ├── machine_list.hash
+│       ├── select_current_machine
+│       └── sway_hw_sel_process
 ├── taskwarrior.tar.aes
 ├── taskwarrior.tar.hash
 ├── tmux
@@ -1580,5 +1564,5 @@
     │   └── config
     └── xresources_colors
 
-213 directories, 1367 files
+212 directories, 1352 files
 ```

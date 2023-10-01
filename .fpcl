@@ -38,12 +38,6 @@ c notmuch
 nvim
 nyxt
 c libvirt
-qutebrowser
-c qutebrowser/blocking_data
-c qutebrowser/bookmarks
-c qutebrowser/greasemonkey
-c qutebrowser/bookmark_urls
-c qutebrowser/quickmarks
 qutebrowser/config.py
 c rsync
 shln

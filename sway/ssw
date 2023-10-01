@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-export XKB_DEFAULT_OPTIONS=compose:ralt
-sway &
