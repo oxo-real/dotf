@@ -934,8 +934,8 @@
   (super-save-mode +1)
   (setq super-save-auto-save-when-idle t))
 
-(let ((backup-dir "~/.cache/temp/emacs/backup")
-      (autosave-dir "~/.cache/temp/emacs/autosave"))
+(let ((backup-dir "~/c/emacs/backup")
+      (autosave-dir "~/c/emacs/autosave"))
   (dolist (dir (list backup-dir autosave-dir))
     (when (not (file-directory-p dir))
       (make-directory dir t)))

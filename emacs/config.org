@@ -1322,8 +1322,8 @@ C-s search forward
 Put backup and autosave files neatly away
 #+begin_src emacs-lisp
 
-  (let ((backup-dir "~/.cache/temp/emacs/backup")
-        (autosave-dir "~/.cache/temp/emacs/autosave"))
+  (let ((backup-dir "~/c/emacs/backup")
+        (autosave-dir "~/c/emacs/autosave"))
     (dolist (dir (list backup-dir autosave-dir))
       (when (not (file-directory-p dir))
         (make-directory dir t)))

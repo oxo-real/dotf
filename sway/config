@@ -563,7 +563,8 @@ bindsym $mod+a		layout toggle splith splitv stacking tabbed
 
 
 # toggle focus mode tiling / floating
-bindsym $mod+semicolon		focus mode_toggle; notify-send 'TODO $(swaymsg -t get_inputs | jq -r .[] | .select'
+## status is visible in swaybar window
+bindsym $mod+semicolon		focus mode_toggle
 
 
 # toggle focused window tiling / floating

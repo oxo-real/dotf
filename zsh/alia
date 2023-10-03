@@ -86,7 +86,7 @@ alias mkdir='mkdir --parents --verbose'
 
 # colors
 
-alias ls='exa -A --group-directories-first --color=auto'
+alias ls='eza -A --group-directories-first --color=auto'
 #alias ls='ls -A --group-directories-first --color=auto'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
