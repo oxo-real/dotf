@@ -458,7 +458,7 @@ setopt SHARE_HISTORY
 ###setopt EXTENDED_HISTORY
 
 
-# pwd, statistics and ls on chpwd
+# pwd, statistics and ls when cwd changes
 function chpwd()
 {
     ## prompt path color
@@ -560,11 +560,12 @@ function chpwd()
 
 
 # spawn terminal into cwd
+## M-S-Return
 ## --> see sway config
 
 
 #>>>>>>>>>>>>>	function insert_application
-# add (+=) application to cursor position (^q) (ctrl q)
+# add (+=) application to cursor position (^A) (ctrl-shift-A)
 
 function insert_pacmanqq()
 {
@@ -589,7 +590,7 @@ bindkey "^a" insert_appn
 
 #>>>>>>>>>>>>>	function insert_date_time
 # add (+=) current date and time to cursor position (^@) (ctrl @)
-
+# compact readable form of iso8601
 function insert_date_time()
 {
     LBUFFER+="$(date +%Y%m%d_%H%M%S)"
@@ -597,7 +598,7 @@ function insert_date_time()
 
 zle -N insert_date_time
 bindkey "^@" insert_date_time
-# C-` also work (control backtick)
+# C-` also works (control backtick)
 
 
 #>>>>>>>>>>>>>	function insert_epoch
@@ -780,20 +781,6 @@ zle -N sudo_toggle #create widget
 bindkey -M vicmd 's' sudo_toggle
 
 
-#>>>>>>>>>>>>>> function histdel
-# histdel
-# Control+backspace
-# [TODO]
-#function histdel()
-#{
-#	export shiftbackspace=1
-#	sh $XDG_DATA_HOME/c/git/code/tool/histdel
-#}
-#
-#zle -N histdel
-#bindkey '^H' histdel
-
-
 #>>>>>>>>>>>>>> function foreground
 # foreground
 # Control+backspace
@@ -805,24 +792,6 @@ function foreground()
 
 zle -N foreground
 bindkey '^Z' foreground
-
-
-#>>>>>>>>>>>>>> function mountr
-# mountr
-# Control+slash
-
-function mountr_widget()
-{
-    # inverted text to indicate widget call
-    printf "\e[7m mountr \e[27m\n"
-
-    sh $XDG_DATA_HOME/c/git/code/tool/mountr
-    echo
-    zle reset-prompt
-}
-
-zle -N mountr_widget
-bindkey '^_' mountr_widget
 
 
 #>>>>>>>>>>>>>> function lfcd

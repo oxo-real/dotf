@@ -1284,6 +1284,7 @@
 │   ├── dividir -> /home/oxo/.local/share/c/git/code/tool/dividir
 │   ├── dotfbu -> /home/oxo/.local/share/c/git/code/tool/dotfbu
 │   ├── ec -> /home/oxo/.local/share/c/git/code/tool/emacs_start
+│   ├── fzf_word -> /home/oxo/c/git/code/tool/fzf_word
 │   ├── gacp_all -> /home/oxo/.config/git/gacp_all
 │   ├── get_newest_file -> /home/oxo/.local/share/c/git/code/tool/get_newest_file
 │   ├── histdel -> /home/oxo/.local/share/c/git/code/tool/histdel
@@ -1314,7 +1315,7 @@
 │   ├── vault -> /home/oxo/.local/share/c/git/code/tool/vault
 │   ├── vim_diff -> /home/oxo/.config/git/vim_diff
 │   ├── vtxt -> /home/oxo/.local/share/c/git/code/tool/vtxt
-│   └── yank_buffer -> /home/oxo/.local/share/c/git/code/tool/yank_buffer
+│   └── yank_buffer -> /home/oxo/c/git/code/tool/yank_buffer
 ├── sway
 │   ├── bar
 │   │   └── blocks
@@ -1564,5 +1565,5 @@
     │   └── config
     └── xresources_colors
 
-212 directories, 1352 files
+212 directories, 1353 files
 ```

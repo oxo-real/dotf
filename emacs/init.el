@@ -395,11 +395,12 @@
 ;; showed in this manual.  We define it here and add it to a key binding
 ;; below.
 (defun my-denote-journal ()
-  "Create an entry tagged 'journal', while prompting for a title."
+  "Create an entry tagged 'journal' with the date as its title."
   (interactive)
   (denote
-   (denote--title-prompt)
-   '("journal")))
+   (format-time-string "%A %e %B %Y") ; format like Tuesday 14 June 2022
+   '("journal"))) ; multiple keywords are a list of strings: '("one" "two")
+
 
 ;; Denote DOES NOT define any key bindings.  This is for the user to
 ;; decide.  For example:
