@@ -331,15 +331,17 @@ bindsym $mod+Period		workspace next
 #### custom bar location
 #set $bar_custom			$XDG_CONFIG_HOME/code/waybar/bar_custom
 #
-bar {
+bar
+{
     position		    	top
     height			18
     font			Source Code Pro 11
     swaybar_command		swaybar
     status_command		i3blocks
-    wrap_scroll			yes
+    wrap_scroll			no
 
-    colors {
+    colors
+    {
     	   ## color		border	backgr	text
     	   background		#000000
 	   statusline		#777777
@@ -352,7 +354,7 @@ bar {
 	   active_workspace	#000000 #777777 #000000
 	   inactive_workspace	#1f1f1f #000000 #777777
 	   urgent_workspace	#000000 #770055 #ffffd3
-	   }
+    }
 }
 
 ### bar toggle
@@ -378,7 +380,7 @@ bindsym $mod+b			bar mode toggle
 # #  is moved to the end of the config file
 
 # # # hide waybar
-# # bindsym $mod+b		    exec killall -SIGUSR1 waybar
+# # bindsym $mod+b		exec killall -SIGUSR1 waybar
 
 
 # window configuration
@@ -390,6 +392,8 @@ client.focused		#000000 #000000 #999999 #000000
 client.focused_inactive	#000000 #000000 #333333 #000000
 client.unfocused	#000000 #000000 #333333 #000000
 client.urgent		#000000 #000000 #ff0000 #000000
+
+bindsym $mod+Shift+b	border toggle
 
 
 # start with touchpad disabled
@@ -475,10 +479,6 @@ bindsym $mod+Shift+$di		$smt down $move_minor_step px or $move_minor_step ppt
 bindsym $mod+Shift+$ui		$smt up $move_minor_step px or $move_minor_step ppt
 bindsym $mod+Shift+$ri		$smt right $move_minor_step px or $move_minor_step ppt
 
-## floating window; snap to screen center
-### $mod+Mod1+hjkl
-bindsym $mod+Mod1+Comma		$smt Z
-
 ## snap to screen edge, centered (floating window)
 ## move focused window (tiling window)
 ### $mod+Mod1+hjkl
@@ -500,6 +500,10 @@ bindsym $mod+Mod1+o		$smt NE
 bindsym $mod+Mod1+Period	$smt SE
 bindsym $mod+Mod1+m		$smt SW
 bindsym $mod+Mod1+u		$smt NW
+
+## floating window; snap to screen center
+### $mod+Mod1+,
+bindsym $mod+Mod1+Comma		$smt Z
 
 
 # resize focused window
@@ -529,6 +533,13 @@ bindsym $mod+Control+$li	resize shrink width $resize_minor_step px or $resize_mi
 bindsym $mod+Control+$di	resize grow height $resize_minor_step px or $resize_minor_step ppt
 bindsym $mod+Control+$ui	resize shrink height $resize_minor_step px or $resize_minor_step ppt
 bindsym $mod+Control+$ri	resize grow width $resize_minor_step px or $resize_minor_step ppt
+
+## floating window; maximize, bisect, quarter, minimize
+### $mod+Control+9240
+bindsym $mod+Control+9		floating enable; $smt Z; exec sh $csc/float_max
+bindsym $mod+Control+2		floating enable; exec sh $csc/float_bisect
+bindsym $mod+Control+4		floating enable; exec sh $csc/float_quarter
+bindsym $mod+Control+0		floating enable; $smt Z; exec sh $csc/float_min
 
 
 # kill (quit) focused window
@@ -568,7 +579,7 @@ bindsym $mod+semicolon		focus mode_toggle
 
 
 # toggle focused window tiling / floating
-bindsym $mod+Shift+semicolon 	floating toggle
+bindsym $mod+Control+semicolon 	floating toggle
 #bindsym $mod+Control+space	floating toggle
 
 
@@ -589,14 +600,26 @@ bindsym $mod+Return		exec $csc/spawn_term &
 ## in $PWD
 bindsym $mod+Shift+Return	exec $csc/spawn_term pwd &
 
+
+## show me the key
+for_window [title="Floating Window - Show Me The Key"]
+{
+    floating enable
+    sticky enable
+    resize set width 280
+    resize set height 70
+    move position 0 0
+}
+
+
 ## floating invisible
 for_window [app_id="term_float_inv"]
 {
-	floating enable
-	resize set width 10
-	resize set height 10
-	move position 0 0
-	opacity set 1.0
+    floating enable
+    resize set width 10
+    resize set height 10
+    move position 0 0
+    opacity set 1.0
 }
 
 #bindsym Control+b 	exec $term --class="term_float_inv" -e \
@@ -607,8 +630,8 @@ bindsym $mod+Control+b 	exec $XDG_CONFIG_HOME/i3blocks/cycle
 ## floating in $HOME
 for_window [app_id="term_float"]
 {
-	floating enable
-	opacity set 0.8
+    floating enable
+    opacity set 0.8
 }
 
 bindsym $mod+Control+Return	exec $term --class="term_float"
