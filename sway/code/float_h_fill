@@ -67,6 +67,7 @@ horizontal_fill()
 
     if [[ $bar_mode == 'dock' ]]; then
 
+	# sway-ipc - interprocess communication (IPC) protocol for sway
 	bar_height=$(swaymsg -rt get_bar_config bar-0 | jq -r '.bar_height')
 
 	case $con_focused_y in

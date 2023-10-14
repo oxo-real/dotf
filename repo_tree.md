@@ -1342,7 +1342,6 @@
 │   │       ├── wifi
 │   │       └── window
 │   ├── code
-│   │   ├── auto_split
 │   │   ├── dimr
 │   │   ├── float_bisect
 │   │   ├── float_h_fill
@@ -1358,11 +1357,11 @@
 │   │   ├── kill_float_inv
 │   │   ├── lock
 │   │   ├── music_play
-│   │   ├── nfs_split
-│   │   ├── nfs_split_fb
 │   │   ├── screen_onf
 │   │   ├── snap_move_to
-│   │   └── spawn_term
+│   │   ├── split_auto
+│   │   ├── split_ntfy_send
+│   │   └── term_spawn
 │   ├── config
 │   ├── current -> /home/oxo/.config/sway/hw/dev/ltx1c
 │   ├── env
@@ -1571,5 +1570,5 @@
     │   └── config
     └── xresources_colors
 
-212 directories, 1359 files
+212 directories, 1358 files
 ```

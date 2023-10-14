@@ -1,5 +1,7 @@
 #! /usr/bin/env sh
 
+# set the split direction to the longest side
+
 con_width=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.focused == true) | .rect.width')
 con_height=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.focused == true) | .rect.height')
 
@@ -13,4 +15,5 @@ else
 
 fi
 
+## do spawn
 swaymsg "$split"

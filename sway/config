@@ -547,8 +547,7 @@ bindsym $mod+Shift+q		kill
 
 # split horizontal / vertical toggle
 ## new window below / aside
-## auto fallback to default via nfs_split_fb
-bindsym $mod+backslash	split toggle; exec $csc/nfs_split
+bindsym $mod+backslash	split toggle; exec $csc/split_ntfy_send
 
 # enter fullscreen mode for the focused window
 bindsym $mod+f		fullscreen toggle
@@ -579,7 +578,7 @@ bindsym $mod+semicolon		focus mode_toggle
 
 # toggle focused window tiling / floating
 bindsym $mod+Control+semicolon 	floating toggle
-#bindsym $mod+Control+space	floating toggle
+bindsym $mod+Mod1+semicolon 	floating toggle
 
 
 # toggle floating window sticky (always on top)
@@ -593,11 +592,24 @@ bindsym $mod+Shift+s	 	sticky toggle
 
 ## auto_split container direction (called in spawn_term)
 
-## in $HOME
-bindsym $mod+Return		exec $csc/spawn_term &
+### in $HOME
+bindsym $mod+Return		exec $csc/term_spawn &
 
-## in $PWD
-bindsym $mod+Shift+Return	exec $csc/spawn_term pwd &
+### in $PWD
+bindsym $mod+Shift+Return	exec $csc/term_spawn pwd &
+
+## float in $HOME
+for_window [app_id="term_float"]
+{
+    floating enable
+    opacity set 0.8
+}
+
+bindsym $mod+Mod1+Return	exec $term --class="term_float" -e \
+				$csc/term_spawn &
+#bindsym $mod+Mod1+Return	exec $term --class="term_float"
+#bindsym $mod+Mod1+Shift+Return	exec $term --class="term_float"
+
 
 
 ## show me the key
@@ -608,6 +620,7 @@ for_window [title="Floating Window - Show Me The Key"]
     resize set width 280
     resize set height 70
     move position 0 0
+    opacity set 0.0
 }
 
 
@@ -625,16 +638,6 @@ for_window [app_id="term_float_inv"]
 #			$XDG_CONFIG_HOME/code/bar_blocks/toggle :
 #			exec $XDG_CONFIG_HOME/sway/code/kill_float_inv
 bindsym $mod+Control+b 	exec $XDG_CONFIG_HOME/i3blocks/cycle
-
-## floating in $HOME
-for_window [app_id="term_float"]
-{
-    floating enable
-    opacity set 0.8
-}
-
-bindsym $mod+Control+Return	exec $term --class="term_float"
-
 
 # fzf configuration
 

@@ -67,5 +67,10 @@ else
 
 fi
 
-# set split direction
-sh $XDG_CONFIG_HOME/sway/code/auto_split
+## set split direction
+sh $XDG_CONFIG_HOME/sway/code/split_auto
+
+## do spawn
+#swaymsg "$split"
+
+#swaymsg <("$XDG_CONFIG_HOME/sway/code/split_auto") &

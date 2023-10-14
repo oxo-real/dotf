@@ -1,0 +1,55 @@
+#! /usr/bin/env sh
+
+# notify-send split status
+
+# NOTICE does not work with terminal spawns
+# DEV TODO override split_auto
+
+# jq is fine with literal line breaks
+get_split_status()
+{
+    split_status=$(swaymsg -t get_tree | \
+		       jq 'recurse(.nodes[]) |
+		   select(.nodes[].focused == true).layout' | \
+		       tr -d '"')
+}
+
+
+set_ntfy_send_msg()
+{
+    case $split_status in
+
+	splitv)
+	    ## notify-send message
+	    ntfy_send_msg='splitv (below)'
+	    ;;
+
+	splith)
+	    ## notify-send message
+	    ntfy_send_msg='splith (beside)'
+	    ;;
+
+    esac
+}
+
+
+ntfy_send()
+{
+    ## show time reference
+    ## i keep forget that
+    ## notify-send spawns from the top
+    ## highest is newest
+    ## and has the highest time reference
+    ts="$(date '+%s%N' | cut -c 9-11)"
+    notify-send -- "$ts $ntfy_send_msg"
+}
+
+
+main()
+{
+    get_split_status
+    set_ntfy_send_msg
+    ntfy_send
+}
+
+main
