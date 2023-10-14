@@ -1,5 +1,9 @@
 #! /usr/bin/env sh
 
+
+csc="$XDG_CONFIG_HOME/sway/code"
+
+
 set_params()
 {
     monitor_dimensions=$(
@@ -31,6 +35,14 @@ set_params()
 	    .deco_rect.height, .type" \
 		)
 
+    container_curr_position=($(
+	swaymsg -t get_tree |
+	    jq -r '.. | select(.type?) |
+	    select(.focused?) |
+	    .rect |
+	    "\(.x) \(.y)"' \
+		      ))
+
     new_x=${window_params_arr[0]}
     new_y=${window_params_arr[1]}
     window_width=${window_params_arr[2]}
@@ -40,16 +52,39 @@ set_params()
 }
 
 
-minimize()
+vertical_fill()
 {
-    swaymsg "${criteria}resize set width 20 px height 20 px"
+    divisor=4
+
+    set_width=$(echo "scale=0; $monitor_width"/"$divisor" | bc)
+    #set_height=$(echo "scale=0; $monitor_height"/"$divisor" | bc)
+
+    con_focused_x=${container_curr_position[0]}
+    con_focused_y=${container_curr_position[1]}
+
+    case $con_focused_x in
+
+	0)
+	    #snap to right screen border
+	    snap_toggle='E'
+	    ;;
+
+	*)
+	    #snap to left screen border
+	    snap_toggle='W'
+	    ;;
+
+    esac
+
+    swaymsg "${criteria}resize set width $set_width px height $monitor_height px"
+    sh $csc/snap_move_to $snap_toggle
 }
 
 
 main()
 {
     set_params
-    minimize
+    vertical_fill
 }
 
 main

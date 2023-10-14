@@ -479,31 +479,37 @@ bindsym $mod+Shift+$di		$smt down $move_minor_step px or $move_minor_step ppt
 bindsym $mod+Shift+$ui		$smt up $move_minor_step px or $move_minor_step ppt
 bindsym $mod+Shift+$ri		$smt right $move_minor_step px or $move_minor_step ppt
 
-## snap to screen edge, centered (floating window)
-## move focused window (tiling window)
+## container float
+### snap to screen edge; centered
 ### $mod+Mod1+hjkl
-bindsym $mod+Mod1+$left		$smt W
-bindsym $mod+Mod1+$down        	$smt S
-bindsym $mod+Mod1+$up          	$smt N
-bindsym $mod+Mod1+$right	$smt E
+bindsym $mod+Mod1+$left		floating enable; $smt W
+bindsym $mod+Mod1+$down        	floating enable; $smt S
+bindsym $mod+Mod1+$up          	floating enable; $smt N
+bindsym $mod+Mod1+$right	floating enable; $smt E
 
-## snap to screen edge, straight slide (floating window)
-#bindsym $mod+Mod1+6		 $smt left
-#bindsym $mod+Mod1+7		 $smt down
-#bindsym $mod+Mod1+8		 $smt up
-#bindsym $mod+Mod1+9		 $smt right
-
-## snap to screen corner (floating window)
-### virtual numeric keyboard as compass rose for corners
+## snap to screen corner
 ### $mod+Mod4+uom.
-bindsym $mod+Mod1+o		$smt NE
-bindsym $mod+Mod1+Period	$smt SE
-bindsym $mod+Mod1+m		$smt SW
-bindsym $mod+Mod1+u		$smt NW
+### virtual numeric keyboard as compass rose for corners
+bindsym $mod+Mod1+u		floating enable; $smt NW
+bindsym $mod+Mod1+o		floating enable; $smt NE
+bindsym $mod+Mod1+m		floating enable; $smt SW
+bindsym $mod+Mod1+Period	floating enable; $smt SE
 
-## floating window; snap to screen center
-### $mod+Mod1+,
-bindsym $mod+Mod1+Comma		$smt Z
+## snap to screen center
+### $mod+Mod1+5
+bindsym $mod+Mod1+5		floating enable; $smt Z
+
+## snap to screen edge; filled
+### $mod+Mod1+78
+bindsym $mod+Mod1+7		floating enable; exec sh $csc/float_h_fill
+bindsym $mod+Mod1+8		floating enable; exec sh $csc/float_v_fill
+
+## container float; minimize, bisect, quarter, maximize
+### $mod+Control+0249
+bindsym $mod+Mod1+0		floating enable; $smt Z; exec sh $csc/float_min
+bindsym $mod+Mod1+2		floating enable; exec sh $csc/float_bisect
+bindsym $mod+Mod1+4		floating enable; exec sh $csc/float_quarter
+bindsym $mod+Mod1+9		floating enable; $smt Z; exec sh $csc/float_max
 
 
 # resize focused window
@@ -533,13 +539,6 @@ bindsym $mod+Control+$li	resize shrink width $resize_minor_step px or $resize_mi
 bindsym $mod+Control+$di	resize grow height $resize_minor_step px or $resize_minor_step ppt
 bindsym $mod+Control+$ui	resize shrink height $resize_minor_step px or $resize_minor_step ppt
 bindsym $mod+Control+$ri	resize grow width $resize_minor_step px or $resize_minor_step ppt
-
-## floating window; maximize, bisect, quarter, minimize
-### $mod+Control+9240
-bindsym $mod+Control+9		floating enable; $smt Z; exec sh $csc/float_max
-bindsym $mod+Control+2		floating enable; exec sh $csc/float_bisect
-bindsym $mod+Control+4		floating enable; exec sh $csc/float_quarter
-bindsym $mod+Control+0		floating enable; $smt Z; exec sh $csc/float_min
 
 
 # kill (quit) focused window

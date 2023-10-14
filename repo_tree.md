@@ -1345,9 +1345,11 @@
 │   │   ├── auto_split
 │   │   ├── dimr
 │   │   ├── float_bisect
+│   │   ├── float_h_fill
 │   │   ├── float_max
 │   │   ├── float_min
 │   │   ├── float_quarter
+│   │   ├── float_v_fill
 │   │   ├── fzf_cpbd
 │   │   ├── fzf_run
 │   │   ├── fzf_spicules
@@ -1569,5 +1571,5 @@
     │   └── config
     └── xresources_colors
 
-212 directories, 1357 files
+212 directories, 1359 files
 ```
