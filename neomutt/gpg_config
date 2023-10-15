@@ -1,0 +1,15 @@
+# vim: filetype=neomuttrc
+
+# general encryption settings for neomutt
+## account specific settings are in: ./<provider_name>/<account_name>/account_config
+## for help man neomuttrc
+
+
+# gpg/pgp
+set pgp_sign_as =				<gpg_fingerprint>
+set crypt_use_gpgme =			yes
+set crypt_autosign =			no
+set crypt_verify_sig =			yes
+set crypt_replysign =			yes
+set crypt_replyencrypt =		yes
+set crypt_replysignencrypted =	yes

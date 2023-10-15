@@ -1,0 +1,12 @@
+# these locations are relative to the source location in the rsync command
+ACRCalls/
+backups/
+bitwarden/
+DCIM/
+EasyVoiceRecorder/
+Meteogram/
+Pictures/
+Signal/
+Snapseed/
+Threema/
+Writer/

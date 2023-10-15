@@ -415,15 +415,18 @@ focus_follows_mouse	no
 # no mouse warping (when switching focus to a window)
 mouse_warping		none
 
+### ## #
+### ## # navigational keybindings
+### ## #
 
-## navigation keybindings
 # container (window)
 # output (monitor)
 
-# focus_container	$mod
-  # move			$mod+Shift
-# resize		$mod+Control
-
+# container
+## focus		$mod
+## move			$mod+Shift
+## resize		$mod+Control
+## float		$mod_Mod1
 
 # navigation direction
 ## default
@@ -504,20 +507,21 @@ bindsym $mod+Mod1+5		floating enable; $smt Z
 bindsym $mod+Mod1+7		floating enable; exec sh $csc/float_h_fill
 bindsym $mod+Mod1+8		floating enable; exec sh $csc/float_v_fill
 
-## container float; minimize, bisect, quarter, maximize
+## container float; minimize, divide 2,3,4, maximize
 ### $mod+Control+0249
 bindsym $mod+Mod1+0		floating enable; $smt Z; exec sh $csc/float_min
-bindsym $mod+Mod1+2		floating enable; exec sh $csc/float_bisect
-bindsym $mod+Mod1+4		floating enable; exec sh $csc/float_quarter
+bindsym $mod+Mod1+2		floating enable; exec sh $csc/float_divide 2
+bindsym $mod+Mod1+3		floating enable; exec sh $csc/float_divide 3
+bindsym $mod+Mod1+4		floating enable; exec sh $csc/float_divide 4
 bindsym $mod+Mod1+9		floating enable; $smt Z; exec sh $csc/float_max
 
 
 # resize focused window
 
 ## mouse method
-## $mod+MouseRight and manually resize container
+## $mod+MouseRight+mouse_move resizes container
 
-## keyboard SE adjust
+## container SE corner adjusts resize
 set $resize_major_step		100
 set $resize_regular_step	20
 set $resize_minor_step		10
@@ -541,7 +545,7 @@ bindsym $mod+Control+$ui	resize shrink height $resize_minor_step px or $resize_m
 bindsym $mod+Control+$ri	resize grow width $resize_minor_step px or $resize_minor_step ppt
 
 
-# kill (quit) focused window
+# close (quit) container
 bindsym $mod+Shift+q		kill
 
 
@@ -551,16 +555,16 @@ bindsym $mod+backslash	split toggle; exec $csc/split_ntfy_send
 
 # enter fullscreen mode for the focused window
 bindsym $mod+f		fullscreen toggle
-bindsym $mod+Shift+f	fullscreen toggle
+#bindsym $mod+Shift+f	fullscreen toggle
 
 
 # focus parent container
-#bindsym $mod+a		focus parent
-#bindsym $mod+p		focus parent
+#bindsym $mod+a		focus parent  ## default
+#bindsym $mod+p		focus parent  ## replaced by cscreen capture
 
 
 # focus child container
-#bindsym $mod+i		focus child
+#bindsym $mod+i		focus child  ## default
 bindsym $mod+c		focus child
 
 
@@ -585,20 +589,21 @@ bindsym $mod+Mod1+semicolon 	floating toggle
 bindsym $mod+Shift+s	 	sticky toggle
 
 
-## other keybindings ##
+### ## #
+### ## # other keybindings
+### ## #
 
 
-# spawn another terminal emulator
+# spawn a terminal emulator
 
-## auto_split container direction (called in spawn_term)
-
-### in $HOME
+## container tile split_auto direction (called in term_spawn)
+### cwd $HOME
 bindsym $mod+Return		exec $csc/term_spawn &
-
-### in $PWD
+### cwd $PWD
 bindsym $mod+Shift+Return	exec $csc/term_spawn pwd &
 
-## float in $HOME
+## container float
+### cwd $HOME
 for_window [app_id="term_float"]
 {
     floating enable

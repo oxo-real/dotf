@@ -8,7 +8,7 @@ name=$(swaymsg -t get_tree | jq  ".. | select(.type?) | select(.pid == "$pid") |
 #workspace=$(swaymsg -t get_tree | jq  '.. | select(.nodes?) | select(.current_workspace) | .current_workspace' | sed 's/"//g')
 
 type=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.focused == true) | .type')
-[[ $type == '"con"' ]] && con_type='[ ]' || con_type='[*]'
+[[ $type == '"con"' ]] && con_type='=[]' || con_type='=<>'
 
 # NOTICE eol for i3blocks
 if [[ -n $pid ]]; then

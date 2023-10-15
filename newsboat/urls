@@ -1,0 +1,92 @@
+#https://www.youtube.com/feeds/videos.xml?channel_id=
+# externalId in source
+# rssUrl
+
+# flags {{{
+
+#"query:Starred:flags # \"s\""
+
+#}}}
+
+# linux {{{
+https://www.archlinux.org/feeds/news/ "arch linux news" arch
+https://videos.lukesmith.xyz/feeds/videos.xml "~Luke Smith xyz" video linux
+https://www.youtube.com/feeds/videos.xml?channel_id=UCi8XrDg1bK_MJ0goOnbpTMQ "~budlabs" yt linux cli
+https://www.youtube.com/feeds/videos.xml?channel_id=UCZrrEuHiQjN2CUo84g5tk7w "tripcode!Q/7" yt linux cli hardware
+https://www.youtube.com/feeds/videos.xml?channel_id=UCgREucssIfY9e0Iy3yhse8w "connor mcdaniel" yt linux cli vim
+https://www.youtube.com/feeds/videos.xml?channel_id=UCq2QwnKW79w4a55ZQqOBReg "irishluck linux" yt linux
+https://www.youtube.com/feeds/videos.xml?channel_id=UCkf4VIqu3Acnfzuk3kRIFwA "gotbletu" yt linux newsboat w3m bash
+https://www.reddit.com/r/archlinux/.rss "reddit arch linux" reddit arch linux
+https://www.reddit.com/r/qutebrowser/.rss "reddit qutebrowser" reddit qutebrowser
+https://www.reddit.com/r/neomutt/.rss "reddit neomutt" reddit neomutt
+https://www.reddit.com/r/vim/.rss "reddit vim" reddit vim
+https://www.reddit.com/r/emacs/.rss "reddit emacs" reddit emacs
+https://yewtu.be/feeds/videos.xml?channel_id=UCX_WM2O-X96URC5n66G-hvw "Ermanno Ferrari" yt linux arch
+https://yewtu.be/feed/channel/UCAiiOTio8Yu69c3XnR7nQBQ "yt linux emacs" yt linux emacs
+# }}}
+
+# podcasts {{{
+https://asknoah.fireside.fm/rss "~Ask Noah Show" podcast linux audio
+https://feeds.megaphone.fm/darknetdiaries podcast audio
+https://jockopodcast.libsyn.com/rss podcast audio
+https://rss.art19.com/onbehaarde-apen podcast audio dutch
+https://smlr.us/?feed=rss&cat=4 "~Sunday Morning Linux Review" podcast audio linux
+https://feeds.twit.tv/sn.xml "Security Now" podcast
+# }}}
+
+# space {{{
+http://www.space.com/feeds/all "space.com" space news us
+http://www.esa.int/rssfeed/TopNews "esa news" space news esa eu
+https://www.youtube.com/feeds/videos.xml?channel_id=UCLA_DiR1FfKNvjuUpBHmylQ "~NASA" space yt nasa
+https://www.youtube.com/feeds/videos.xml?channel_id=UCryGec9PdUCLjpJW2mgCuLw "~NASA JPL" space yt nasa
+https://www.youtube.com/feeds/videos.xml?channel_id=UCtI0Hodo5o5dUb67FeUjDeA "SpaceX" space yt spacex
+https://www.youtube.com/feeds/videos.xml?channel_id=UCxzC4EngIsMrPmbm6Nxvb-A "Scott Manley" space yt
+https://www.youtube.com/feeds/videos.xml?channel_id=UC6uKrU_WqJ1R2HMTY3LIx5Q "Everyday Astrounaut" space yt
+https://mars.nasa.gov/rss/api/?feed=news&category=mars2020&feedtype=rss "NASA JPL mars 2020" space nasa mars
+https://yewtu.be/feeds/videos.xml?channel_id=UCBNHHEoiSF8pcLgqLKVugOw "Marcus House yewtube" space spacex
+#https://www.youtube.com/feeds/videos.xml?channel_id=UCBNHHEoiSF8pcLgqLKVugOw "Marcus House" space spacex
+# }}}
+
+# other {{{
+https://gitlab.com/cytopyge.atom "cytopyge gitlab" git gitlab linux
+#https://codeberg.org/cytopyg3/feeds "cytopyge codeberg" git codeberg linux
+https://codeberg.org/oxo.rss "oxo codeberg git"
+https://yewtu.be/feed/channel/UC4AkVj-qnJxNtKuz3rkq16A "Robert Murray-Smith"
+# }}}
+
+# training
+https://www.youtube.com/feeds/videos.xml?channel_id=UCOxkak25bS67-EIGCd89BLw "Sondre Berg movement"
+https://yewtu.be/feed/channel/UC8ajlSZRbV2Kh7LDv2B14TQ "Steve Maxwell"
+https://yewtu.be/feed/channel/UCZIIRX8rkNjVpP-oLMHpeDw "calimove"
+
+
+# news {{{
+# }}}
+
+# other yt {{{
+https://www.youtube.com/feeds/videos.xml?channel_id=UCgBg0aacyJnw4qUnb1FlfEQ "Human anatomy" science physiology yt
+https://www.youtube.com/feeds/videos.xml?channel_id=UC6107grRI4m0o2-emgoDnAA "SmarterEveryDay" science yt
+https://www.youtube.com/feeds/videos.xml?channel_id=UCkoujZQZatbqy4KGcgjpVxQ "~Vigilance Elite Shawn Ryan" yt
+https://www.youtube.com/feeds/videos.xml?channel_id=UCpw2gh99XM6Mwsbksv0feEg "Moojiji" meditation health
+https://www.youtube.com/feeds/videos.xml?channel_id=UCB1J6siDdmhwah7q0O2WJBg "Charles Dowding" gardening
+https://www.youtube.com/feeds/videos.xml?channel_id=UC_gSotrFVZ_PiAxo3fTQVuQ "Magnus Midtbø" training yt
+https://www.youtube.com/feeds/videos.xml?channel_id=UChAu6Cof9KlfFxSbL9ytosQ "Ham Radio Crash Course" radio yt
+https://www.youtube.com/feeds/videos.xml?channel_id=UCOe0_RzGUDm73XNtRozPfMw "ModernHam" radio yt
+https://y.com.sb/feed/channel/UCYd0us2OtW4d4-1cfpT2ktw "Norris Nuts"
+# }}}
+
+# homesteading {{{
+#
+https://www.youtube.com/feeds/videos.xml?channel_id=UCMIjEnXruVHtvgSVf6TgfUg "Wranglerstar" yt homestead firewood axe saw
+https://www.youtube.com/feeds/videos.xml?channel_id=UChhBsM9K_Bc9a_YTK7UUlnQ "Pure living for life" yt homestead
+# }}}
+
+# svenska {{{
+https://8sidor.se/feed "8sidor" news svenska
+https://www.youtube.com/feeds/videos.xml?channel_id=UCXm1UDWRRND6SoLxTbbp87A "Peter SFI" yt svenska
+https://www.youtube.com/feeds/videos.xml?channel_id=UCsBJdKJxjnCf_6BxcmZHadw "Svenska med Anastasia" yt svenska
+https://api.sr.se/api/rss/program/493 "Sveriges Radio Klartext" svenska nyheter radio
+https://api.sr.se/api/rss/program/4916 "Radio Sweden lätt" svenska nyheter radio
+# }}}
+
+# bookmarks {{{

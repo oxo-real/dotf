@@ -1,0 +1,51 @@
+! 1/6/2020 https://github.com
+github.com##.rounded-1.mb-4.text-center.p-4.signup-prompt
+
+! 1/7/2020 https://duckduckgo.com
+duckduckgo.com##.social.header--aside__item
+duckduckgo.com##.header__label.showcase.header--aside__item
+duckduckgo.com##.tag-home__item
+duckduckgo.com##.cw--c > .logo-wrap--home
+
+! 1/7/2020 https://www.nu.nl
+www.nu.nl##.container
+www.nu.nl###block-387009
+www.nu.nl##.adblocker.toast.block
+
+! 1/7/2020 https://www.google.com
+www.google.com##.vk_c.yAVMkd
+
+! 1/7/2020 https://www.netflix.com
+www.netflix.com##.reg.cookie-disclosure-message
+
+! 1/7/2020 https://www.youtube.com
+www.youtube.com###ticker > .ytd-masthead.style-scope
+
+! 1/10/2020 https://gitlab.com
+gitlab.com##.gl-banner.js-autodevops-banner
+
+! 1/11/2020 https://www.google.com
+www.google.com##.gb_na.gb_F
+
+! 1/17/2020 https://www.youtube.com
+www.youtube.com###main
+||www.gstatic.com/youtube/img/promos/growth/76c905151a1424cd926c78b301c000a99b39ea69824fced2956a1a609c2f8163_384x384.png$image
+
+! 1/18/2020 https://www.google.com
+www.google.com##.widget-consent-dialog
+
+! 2/14/2020 https://unix.stackexchange.com
+unix.stackexchange.com##.js-dismissable-hero.ps-relative.sm\:pb24.sm\:pt24.fc-black-200.bg-black-750.py48
+
+! 3/9/2020 https://www.startpage.com
+www.startpage.com##.hero-search__learn-more
+www.startpage.com##.text-block--image.text-block--spacious.text-block--large.block--blue.text-block
+www.startpage.com##.text-block--spacious.text-block--large.block--.text-block
+www.startpage.com##.block--blue.quotes-block
+www.startpage.com##.usps
+www.startpage.com##.footer.home-footer
+www.startpage.com##.hero-search__tagline > p
+www.startpage.com##.hero-search__logo
+www.startpage.com##[href="https://www.startmail.com/"]
+www.startpage.com##[href^="https://support.startpage.com/index.php"]
+www.startpage.com##.header__content

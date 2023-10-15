@@ -1,0 +1,27 @@
+[user]
+    email = 2oxo@protonmail.com
+    name = oxo
+    signingkey = 0x78E1A33526FE84AB
+[http]
+    version = HTTP/2
+[core]
+    pager = less -MFJRX -P '%f %l %L %PX' --use-color --color='Emk' --color='SWk' --color='Pkw'
+[diff]
+    tool = nvimdiff
+[difftool]
+    prompt = true
+    keepBackup = false
+[difftool "nvimdiff"]
+    cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
+[init]
+    templateDir = ~/.config/git/template
+[merge]
+    tool = nvimdiff
+[mergetool]
+    prompt = true
+    keepBackup = false
+[color]
+    ui = auto
+[alias]
+    d = difftool
+    hist = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit

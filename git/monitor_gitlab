@@ -1,0 +1,103 @@
+#!/usr/bin/env bash
+
+sign_key='0x6AE5B577A658681A'
+
+#remote_repo='codeberg'
+remote_repo="gitlab"
+
+source_dir="$XDG_DATA_HOME/c/git/code/source/function"
+source $source_dir/get_sudo
+source $source_dir/reply_functions
+source $source_dir/text_appearance
+
+
+git_repo_mon_list="$XDG_CONFIG_HOME/git/git_repo_mon_list"
+# list is for the time being hardcoded
+#[TODO] redirection $HOME and $XDG_DATA_HOME
+
+
+get_git_pwd()
+{
+	case $remote_repo in
+
+		codeberg)
+			pass show codeberg_cytopyg3 | head -n 1 | wl-copy -n -o
+			;;
+
+		gitlab)
+			pass show gitlab_cytopyge | grep peacto | awk '{print $2}' | wl-copy -n -o
+			;;
+
+	esac
+}
+
+
+loop_through_file()
+{
+	while IFS= read -r -u "$fd" line; do
+	#while IFS= read -r line <&9; do
+	    ## fd redirection because of nested read
+		## https://stackoverflow.com/questions/1521462/looping-through-the-content-of-a-file-in-bash
+		## https://www.cyberciti.biz/faq/bash-loop-over-file/
+		## http://mywiki.wooledge.org/BashFAQ/089
+	    ## see shell command 'read' in notes
+		## zsh knows no read -u option
+
+		cd $line
+		echo
+		pwd
+		git_status=$(git status -sb)
+		printf "$git_status\n"
+
+		if [ "$git_status" != "## master...$remote_repo/master" ]; then
+
+		    # files to be added
+		    if [[ -n $(echo "$git_status" | grep '??') ]]; then
+
+				printf "git add? (Y/n) "
+				reply_single
+		    	#read -s -n 1 reply
+
+		    fi
+
+
+		    if printf "$reply" | grep -iq "^n"; then
+
+				echo
+				printf "skipping git add\n"
+
+		    else
+
+				git add .
+				echo
+
+		    fi
+
+		    # files to be committed and pushed
+		    printf "git commit & push? (Y/n) "
+			reply_single
+		    #read -s -n 1 reply
+
+
+		    if printf "$reply" | grep -iq "^n"; then
+
+				echo
+				printf "skipping git commit & push\n"
+
+		    else
+
+				timestamp=$(date +%Y%m%d_%H%M%S)
+				message="$timestamp (update_mon)"
+				get_git_pwd
+				git commit -S -a -m "$message" && git push $remote_repo
+				echo
+
+		    fi
+
+		fi
+
+	done {fd}< $git_repo_mon_list
+}
+
+get_sudo
+loop_through_file

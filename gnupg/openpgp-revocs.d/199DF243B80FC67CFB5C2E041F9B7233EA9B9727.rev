@@ -1,0 +1,28 @@
+This is a revocation certificate for the OpenPGP key:
+
+pub   dsa3072/0x1F9B7233EA9B9727 2021-03-13 [S] [expires: 2022-03-13]
+      Key fingerprint = 199D F243 B80F C67C FB5C  2E04 1F9B 7233 EA9B 9727
+uid                            Rogier Rood (gpg3072dsa) <rogierrood@protonmail.com>
+
+A revocation certificate is a kind of "kill switch" to publicly
+declare that a key shall not anymore be used.  It is not possible
+to retract such a revocation certificate once it has been published.
+
+Use it to revoke this key in case of a compromise or loss of
+the secret key.  However, if the secret key is still accessible,
+it is better to generate a new revocation certificate and give
+a reason for the revocation.  For details see the description of
+of the gpg command "--generate-revocation" in the GnuPG manual.
+
+To avoid an accidental use of this file, a colon has been inserted
+before the 5 dashes below.  Remove this colon with a text editor
+before importing and publishing this revocation certificate.
+
+:-----BEGIN PGP PUBLIC KEY BLOCK-----
+Comment: This is a revocation certificate
+
+iHgEIBEKACAWIQQZnfJDuA/GfPtcLgQfm3Iz6puXJwUCYEzQ4wIdAAAKCRAfm3Iz
+6puXJ+VDAQC23pZFvZIZi28+CMIMbrz28o7lIoEcYG6kc4bJDk8W/AEApgbLllko
+g9g9bfgCOlERuLXBq/vT0drUJNQ919WQWms=
+=GROe
+-----END PGP PUBLIC KEY BLOCK-----

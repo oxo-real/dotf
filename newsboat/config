@@ -1,0 +1,99 @@
+# https://newsboat.org/releases/2.12/docs/newsboat.html
+
+#show-read-feeds no
+auto-reload	no
+
+article-sort-order			date-asc
+articlelist-format			"%4i %f %D   %?T?|%-17T|  ?%t"
+articlelist-title-format	"%N %V - Articles in feed '%T' (%u unread, %t total)%?F? matching filter `%F'&? - %U (localized)"
+browser						"w3m -config ~/.config/w3m/config %u"
+#cache-file					"$XDG_DATA_HOME/newsboat/cache.db"
+cache-file					"~/.local/share/newsboat/cache.db"
+cleanup-on-quit				yes
+datetime-format				"%b %d"
+display-article-progress	yes
+external-url-viewer			"urlscan -dc -r 'linkhandler {}'"
+#external-url-viewer			"urlscan -dc -r 'lynx {}'"
+feedlist-format				"%4i %n %11u %t"
+feed-sort-order				"lastupdated-asc title-asc firsttag-asc"
+#feed-sort-order				"firsttag-asc title-asc"
+feedlist-title-format		"%N %V - %?F?Feeds&Your feeds? (%u unread, %t total)%?F? matching filter `%F'&?%?T? - tag `%T'&? (localized)"
+reload-threads				100
+
+
+# key bindings
+
+unbind-key	A
+unbind-key	n
+unbind-key	o
+unbind-key	p
+unbind-key	q
+unbind-key	r
+unbind-key	R
+unbind-key	C
+
+
+bind-key	D	pb-download
+bind-key	G	end
+bind-key	g	home
+bind-key	h	quit article
+bind-key	h	quit articlelist
+bind-key	h	quit filebrowser
+bind-key	h	quit filterselection
+bind-key	h	quit help
+bind-key	h	quit tagselection
+bind-key	j	down
+bind-key	J	next-unread
+bind-key	K	prev-unread
+bind-key	k	up
+bind-key	l	open
+bind-key	l	open-in-browser	article
+bind-key	n	next article
+bind-key	O	reload-all
+bind-key	o	reload articlelist
+bind-key	o	reload feedlist
+bind-key	p	prev article
+bind-key	q	quit feedlist
+bind-key	r	mark-feed-read feedlist
+bind-key	R	mark-all-feeds-read feedlist
+bind-key	R	mark-feed-read articlelist
+bind-key	r	toggle-article-read articlelist
+#bind-key	s	toggle-article-sort-order date
+bind-key	U	show-urls
+bind-key	x	pb-delete
+
+# colors
+
+color background          yellow	default
+color listfocus           default	default	reverse
+color listfocus_unread    default	default	reverse	bold
+color listnormal          default	default
+color listnormal_unread   default	default	bold
+color info                default	default	dim
+color article             default	default
+
+
+# highlights
+highlight article "^(Feed|Link):.*$" color6 default bold
+highlight article "^(Title|Date|Author):.*$" color6 default bold
+highlight article "https?://[^ ]+" color10 default underline
+highlight article "\\[[0-9]+\\]" color10 default bold
+highlight article "\\[image\\ [0-9]+\\]" color10 default bold
+highlight feedlist "^─.*$" color6 color236 bold
+
+
+# macros
+
+# open video url in mpv
+# ,y to activate macro
+macro y set browser "mpv --ytdl-format='best[filesize<300M]' --profile=cache_xs --demuxer-cache-wait --msg-level=all=v %u" ; open-in-browser ; set browser "w3m -config ~/.config/w3m/config %u"
+#macro y set browser "mpv %u" ; open-in-browser ; set browser "w3m -config ~/.config/w3m/config %u"
+#macro , open-in-browser
+#macro t set browser "tsp youtube-dl --add-metadata -ic"; open-in-browser ; set browser linkhandler
+#macro a set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best"; open-in-browser ; set browser linkhandler
+# ,v to open videostream to mpv
+macro v set browser "setsid nohup mpv"; open-in-browser ; set browser linkhandler
+#macro w set browser "w3m"; open-in-browser ; set browser linkhandler
+macro q set browser "qutebrowser"; open-in-browser ; set browser linkhandler
+#macro p set browser "dmenuhandler"; open-in-browser ; set browser linkhandler
+#macro c set browser "xsel -b <<<" ; open-in-browser ; set browser linkandler
