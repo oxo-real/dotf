@@ -1,9 +1,0 @@
-# these locations are relative to the source location in the rsync command
-DCIM/
-MineCraftSkins/
-Pictures/
-Signal/
-Threema/
-WhatsApp/
-games/
-#'screen shot'/

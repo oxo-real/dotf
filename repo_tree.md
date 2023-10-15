@@ -227,9 +227,6 @@
 │       └── wofi
 │           ├── style.css
 │           └── sway_exit
-├── element
-│   ├── e
-│   └── element-keys.txt
 ├── element.tar.aes
 ├── element.tar.hash
 ├── emacs
@@ -237,8 +234,6 @@
 │   ├── custom.el
 │   ├── early-init.el
 │   └── init.el
-├── fd
-│   └── ignore
 ├── fd.tar.aes
 ├── fd.tar.hash
 ├── fonts
@@ -387,107 +382,10 @@
 │       ├── runtests.zsh
 │       ├── select
 │       └── ztst.zsh
-├── git
-│   ├── config
-│   ├── gacp_all
-│   ├── git_repo_mon_list
-│   ├── monitor
-│   ├── monitor_gitlab
-│   ├── pull_all
-│   ├── template
-│   │   └── HEAD
-│   └── vim_diff
 ├── git.tar.aes
 ├── git.tar.hash
-├── gnupg
-│   ├── crls.d
-│   │   └── DIR.txt
-│   ├── gnupg
-│   ├── gpg-agent.conf
-│   ├── gpg.conf
-│   ├── openpgp-revocs.d
-│   │   ├── 00F72B6F52747DB735EA335F457B6E005EAE28E5.rev
-│   │   ├── 0B5BC79174498760E7A298367FDFB963431A3581.rev
-│   │   ├── 199DF243B80FC67CFB5C2E041F9B7233EA9B9727.rev
-│   │   ├── 21290EFBA2887CE60F8FEE4B564340FE325DB00D.rev
-│   │   ├── 2EC9BB294BFA38C9E762C0352D84EB25DF97CCAE.rev
-│   │   ├── 35138A0CE595B7E56CD7CEFCECDD2BDB2409B72D.rev
-│   │   ├── 4119CBD7EA660DAA7FD17546AAA6708E950570A2.rev
-│   │   ├── 468C52CF50AC2D4D45E7913B1EFB978D7F462ACC.rev
-│   │   ├── 7BC7738F10F8621A555209B21063A72A10A3F036.rev
-│   │   ├── 834638D4CA774EA725204930A024E3703EE24CD0.rev
-│   │   ├── 870D0B4F7EB3F9984E6B4836C820B492F74E5549.rev
-│   │   ├── A1FBC69356B2D3E0195525855409CCC3056D763A.rev
-│   │   ├── E51A050AAA5BF35B34DD803FC1728D1A08E9CD25.rev
-│   │   ├── E9E725540B9D4C8A0B8CD469951C94032A1E3724.rev
-│   │   └── EEA2F77B0FFD1C2C1C5EFC50925B07F28629387D.rev
-│   ├── private-keys-v1.d
-│   │   ├── 09DFDD298E687B74500BAD92ECF001D20668E821.key
-│   │   ├── 0E42D43178DE9D76C2CBD68F73EB1076AFE5067C.key
-│   │   ├── 20438C6395282571CBA427824AEABD1960AFEE9F.key
-│   │   ├── 244A462AB1FDAEC5D1F6517B61CD2A6605397B88.key
-│   │   ├── 24ECA1308B73F447EABFA5BF78F292FA8322DC97.key
-│   │   ├── 2F6839D182DCF3E0862ACBDCC8B0C3B430A7FECD.key
-│   │   ├── 34FBBFDB23C32371E161A6657F21FDF061C84076.key
-│   │   ├── 369D3FA2433EAADECBD2BF9AC7B4755E614D881A.key
-│   │   ├── 3E6F7283EC71E84CD4EA20A05BA5E20FE87549C3.key
-│   │   ├── 458D4A4D1F85611A967C57B82BF1ECF44A75AD23.key
-│   │   ├── 4DC5D83F4D177C5F36DC602A92E464E7594778AB.key
-│   │   ├── 55B8C5AB0CF34F8A18F8ABCE9FAC7C689AFA9C90.key
-│   │   ├── 58D3C7ECB48C3355F0BB154BC4DC1E8C048BE8A4.key
-│   │   ├── 5B1F8D039ECA970B642A17C47A840B77CD2B536F.key
-│   │   ├── 5BC0AD3ACCABFB924336132264CEF11446383928.key
-│   │   ├── 5E1ED3BA67385B9F8AE739B1477F3D59A80E5873.key
-│   │   ├── 5F9DDF41C7EE61F03739F0871C72A8F4AF559A74.key
-│   │   ├── 679CBBD11B90F41E0C980E75A87D082AE8FFF318.key
-│   │   ├── 68666B37595E43B6F5C5A60D832060CD4EAAF8B7.key
-│   │   ├── 84F3C13D3FA10A7B295D043F5DF657633174713B.key
-│   │   ├── 887ABEA0DFD147D3226340D67905FF3E1E0138C7.key
-│   │   ├── 8A783BB514D68A6CC923959AC44BD04F709636A6.key
-│   │   ├── 8C9C7AE2514FBC8622128ED6FFACBF20E1338455.key
-│   │   ├── 8F9068417F95ECA705B025E8435AABDB055ED924.key
-│   │   ├── 93C36B9F648921989037CB91BCDB25A70E5E9D81.key
-│   │   ├── A6D5F490A9CD9BCDD6DA4E55A05893E68FD578EC.key
-│   │   ├── AD24B35609CAEED97F8D8B78BC3793D31EDC3D44.key
-│   │   ├── B19E86378FDEBB771D63809C873ED6190187A5A4.key
-│   │   ├── B310BCCB12AC17EEF140BE1B34BE42F172599A43.key
-│   │   ├── B361FDE4BFAFB3C052244164D0A02CF470D6DF91.key
-│   │   ├── BF86737847C91E5468C7BA8E36991029E57C5015.key
-│   │   ├── D4075E0C7AE5FEF7B9367B64C84EC30CF87079BC.key
-│   │   ├── D663FFF310404594E48559263F9E1F97F2B47C56.key
-│   │   ├── D8176815DE82C9A7DB5B39C1F467096A98B4A588.key
-│   │   ├── E1AD5465C49C3B6D5A9F852489FF1C05E5C86117.key
-│   │   ├── E8DE3C2C4926F9EA25C8D0696B9926CCA1173DE8.key
-│   │   ├── F48552FA7BF32504A331C6C20A1075460C6F9E5E.key
-│   │   ├── F953713BCD5CA0023163847FA512D7DAEA6DEF81.key
-│   │   ├── FBAE1F7677F4D246889D62731C17F55CF7AA91FA.key
-│   │   ├── FC7CBB57C14A58E51ECAD63B53D217824772E6F7.key
-│   │   ├── FCED773974A37BB20AE71BD93B7D4859264C1570.key
-│   │   └── FFE0DED862C8C7B296B25D94D625FD9889B583A7.key
-│   ├── pubring.kbx
-│   ├── pubring.kbx~
-│   ├── random_seed
-│   ├── reader_0.status
-│   ├── reader_1.status
-│   ├── sshcontrol
-│   ├── tofu.db
-│   └── trustdb.gpg
 ├── gnupg.tar.aes
 ├── gnupg.tar.hash
-├── greasemonkey
-│   ├── google_agree_continue.js
-│   ├── nrc_paywall.js
-│   ├── README
-│   ├── stack_overflow
-│   ├── youtube_dismiss_signin070.js
-│   ├── youtube_no_ad.js
-│   ├── youtube_no_autoplay.js
-│   ├── yt2yewtube.js
-│   └── zzz_deprecated
-│       ├── google_shut_up.js
-│       ├── youtube_dismiss_signin062.js
-│       ├── youtube_dismiss_signin2.js
-│       └── youtube_dismiss_signin.js
 ├── greasemonkey.tar.aes
 ├── greasemonkey.tar.hash
 ├── i3blocks
@@ -499,24 +397,16 @@
 │       ├── oxo
 │       │   ├── copilot
 │       │   └── pilot
-│       └── source
-│           ├── copilot
-│           ├── copilot.cursor
-│           ├── copilot.odg
-│           ├── copilot.png
-│           ├── pilot
-│           ├── pilot.cursor
-│           ├── pilot.odg
-│           └── pilot.png
+│       ├── source.tar.aes
+│       └── source.tar.hash
 ├── isync
-│   └── mbsync_config
+│   ├── mbsync_config.aes
+│   └── mbsync_config.hash
 ├── lf
 │   ├── lfcd_run
 │   ├── lfrc
 │   ├── lfub
 │   └── scope
-├── libvirt
-│   └── qemu.conf
 ├── libvirt.tar.aes
 ├── libvirt.tar.hash
 ├── lo
@@ -536,15 +426,11 @@
 ├── mozilla
 ├── mpv
 │   ├── mpv.conf
-│   ├── watch_later
-│   │   ├── 1BEC8933C664DE56D178B594ACC63AF5
-│   │   ├── 4858DAB5B4AC16AD2B7D274698C2532A
-│   │   ├── 6666CD76F96956469E7BE39D750CC7D9
-│   │   └── 9BEE97A1D2D6C8864A6F5553B1E256D1
 │   ├── watch_later.tar.aes
 │   └── watch_later.tar.hash
 ├── msmtp
-│   ├── config
+│   ├── config.aes
+│   ├── config.hash
 │   └── queue
 │       ├── ChangeLog
 │       ├── msmtp-enqueue.sh
@@ -554,41 +440,6 @@
 │       └── README_RR.md
 ├── neofetch
 │   └── config.conf
-├── neomutt
-│   ├── certificates
-│   │   ├── gmail.crt
-│   │   └── google.crt
-│   ├── color_config
-│   ├── gmail
-│   │   ├── elev.olofstrom.se
-│   │   │   └── rogier.rood
-│   │   │       └── account_config
-│   │   └── rogierrood
-│   │       ├── \
-│   │       └── account_config
-│   ├── gpg_config
-│   ├── key_config
-│   ├── mailcap
-│   ├── main_config
-│   ├── protonmail
-│   │   └── rogierrood
-│   │       ├── account_config
-│   │       └── certificates
-│   ├── README.md
-│   ├── signature
-│   │   ├── dashdash
-│   │   ├── empty
-│   │   ├── gvr
-│   │   ├── hrr
-│   │   └── mvgrr
-│   └── temp
-│       ├── neomutt-tux-1000-654926-14700313577218602800
-│       ├── neomutt-tux-1000-825959-4140228453612839073
-│       ├── neomutt-tux-1000-825959-6988871268168255193
-│       ├── neomutt-tux-1000-859098-5284223583270011185
-│       ├── neomutt-tux-1000-920466-6093504515368197951
-│       ├── neomutt-tux-1000-947669-13504256695764704365
-│       └── neomutt-tux-1000-957125-11875260960581872542
 ├── neomutt.tar.aes
 ├── neomutt.tar.hash
 ├── nerd-dictation
@@ -598,42 +449,12 @@
 │   │   ├── lang_nl.cpython-311.pyc
 │   │   ├── lang_sv.cpython-311.pyc
 │   │   └── nerd-dictation.cpython-311.pyc
-│   └── specific
-│       ├── lang_en.py
-│       ├── lang_nl.py
-│       ├── lang_sh.py
-│       ├── lang_sv.py
-│       └── __pycache__
-│           ├── lang_en.cpython-311.pyc
-│           ├── lang_nl.cpython-311.pyc
-│           └── lang_sv.cpython-311.pyc
-├── network
-│   └── ua
-│       └── default -> /home/oxo/.local/share/c/git/note/network/internet/user_agent
+│   ├── specific.tar.aes
+│   └── specific.tar.hash
 ├── network.tar.aes
 ├── network.tar.hash
-├── newsboat
-│   ├── colorschemes
-│   │   ├── commander
-│   │   ├── cyanism
-│   │   ├── greenscreen
-│   │   ├── inkpot
-│   │   ├── kinda-maia
-│   │   ├── light
-│   │   ├── nord
-│   │   ├── plain
-│   │   ├── psychedelic
-│   │   ├── schleichfahrt
-│   │   ├── simple
-│   │   ├── solarized-dark
-│   │   └── solarized-light
-│   ├── config
-│   └── urls
 ├── newsboat.tar.aes
 ├── newsboat.tar.hash
-├── notmuch
-│   ├── notmuch_config
-│   └── omit
 ├── notmuch.tar.aes
 ├── notmuch.tar.hash
 ├── nvim
@@ -1449,13 +1270,6 @@
 ├── qutebrowser
 │   └── config.py
 ├── repo_tree.md
-├── rsync
-│   ├── garmin_gpsmap_67_files_from_list
-│   ├── mi9tpro_rogier_files_from_list
-│   ├── op5t128_jasmijn_files_from_list
-│   ├── op6t128_rogier_files_from_list
-│   ├── parvus_exclude_list
-│   └── x1c_exclude_list
 ├── rsync.tar.aes
 ├── rsync.tar.hash
 ├── shln
@@ -1562,10 +1376,10 @@
 │       │   ├── none
 │       │   └── tp15
 │       ├── get_sway_devices
-│       ├── machine_list
+│       ├── machine_list.aes
+│       ├── machine_list.hash
 │       ├── select_current_machine
 │       └── sway_hw_sel_process
-├── taskwarrior
 ├── taskwarrior.tar.aes
 ├── taskwarrior.tar.hash
 ├── tmux
@@ -1573,15 +1387,6 @@
 │   ├── 1694673229_sttyrc
 │   ├── 1694673596_sttyrc
 │   └── 1694673633_sttyrc
-├── ublock_origin
-│   ├── my-ublock-backup_2018-09-21_08.42.44.txt
-│   ├── my-ublock-backup_2018-09-21_09.17.14.txt
-│   ├── my-ublock-backup_2019-12-09_06.57.47.txt
-│   ├── my-ublock-backup_2020-03-09_10.53.04.txt
-│   ├── my-ublock-backup_2020-03-09_11.15.17.txt
-│   ├── my-ublock-dynamic-rules_2020-03-09_10.54.21.txt
-│   ├── my-ublock-static-filters_2020-03-09_10.54.00.txt
-│   └── my-ublock-whitelist_2020-03-09_10.54.32.txt
 ├── ublock_origin.tar.aes
 ├── ublock_origin.tar.hash
 ├── urlscan
@@ -1594,22 +1399,21 @@
 │   │   ├── magnet.py
 │   │   └── usr_cgi-bin -> /usr/lib/w3m/cgi-bin
 │   ├── config
-│   ├── cookie
-│   ├── history
+│   ├── cookie.aes
+│   ├── cookie.hash
+│   ├── history.aes
+│   ├── history.hash
 │   ├── keymap
-│   ├── passwd
+│   ├── passwd.aes
+│   ├── passwd.hash
 │   └── urimethodmap
 ├── waybar
 │   ├── config
 │   ├── config_default
 │   ├── style.css
 │   └── waybar_code -> /home/oxo/.config/code/waybar
-├── wttr
-│   └── default-city.txt
 ├── wttr.tar.aes
 ├── wttr.tar.hash
-├── yk
-│   └── u2f_keys
 ├── yk.tar.aes
 ├── yk.tar.hash
 ├── zathura
@@ -1765,5 +1569,5 @@
     │   └── config
     └── xresources_colors
 
-249 directories, 1516 files
+212 directories, 1357 files
 ```

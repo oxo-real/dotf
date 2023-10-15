@@ -1,9 +1,0 @@
-# these locations are relative to the source location in the rsync command
-# usage example:
-# rsync -aAXv --dry-run --recursive --info=progress2 --files-from=$XDG_CONFIG_HOME/rsync/mi9tpro_rogier_files_from_list $HOME/dock/mobile/ $HOME/d/mobile/mi9tpro
-AudioRecorder
-DCIM
-Download
-Pictures
-Snapseed
-backups
