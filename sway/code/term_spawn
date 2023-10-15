@@ -2,75 +2,127 @@
 
 # dependencies:	jq, alacritty
 
-# let sway spawn a new terminal window in the cwd
+# spawn a new terminal window
 
 
 terminal_cmd=${TERMINAL:-'alacritty'}
 target_path=$1
 
 
-case $target_path in
+get_target_path()
+{
+    case $target_path in
 
-    'pwd')
-	# get focused process ID
+	'pwd')
+	    # get focused process ID
 
-	focused_pid=""
-	focused_pid="$(swaymsg -t get_tree | \
+	    focused_pid=""
+	    focused_pid="$(swaymsg -t get_tree | \
    			jq '.. |
    			select(.type?) |
-   			select(.type=="con") |
-   			select(.focused==true).pid')"
+   			select(.focused==true) |
+			.pid')"
 
 
-	# readlink from focused ppid cwd
+	    # readlink from focused ppid cwd
 
-	## check if $focused_pid is an integer
-	if [ "$focused_pid" -eq "$focused_pid" 2>/dev/null ]; then
+	    ## check if $focused_pid is an integer
+	    if [ "$focused_pid" -eq "$focused_pid" 2>/dev/null ]; then
 
-	    ## get focused parent process ID
-	    focused_ppid="$(ps -o pid= --ppid "$focused_pid" | awk '{print $1}')"
+		## get focused parent process ID
+		focused_ppid="$(ps -o pid= --ppid "$focused_pid" | awk '{print $1}')"
 
-	    ## get focused present working directory
-	    focused_pwd=""
-	    if [ "$focused_ppid" 2>/dev/null ]; then
+		## get focused present working directory
+		focused_pwd=""
+		if [ "$focused_ppid" 2>/dev/null ]; then
 
-		focused_pwd="$(readlink "/proc/$focused_ppid/cwd")"
+		    focused_pwd="$(readlink "/proc/$focused_ppid/cwd")"
+
+		fi
 
 	    fi
+	    ;;
 
-	fi
-	;;
+	'')
+	    focused_pwd="$HOME"
+	    ;;
 
-    '')
-	focused_pwd="$HOME"
-	;;
+	*)
+	    focused_pwd="$target_path"
 
-    *)
-	focused_pwd="$target_path"
+    esac
+}
 
-esac
-
-
-# spawn terminal
 
 ## check if directory exists and spawn terminal
-if [ -d "$focused_pwd" ]; then
+#if [ ! -d "$focused_pwd" ]; then break; fi
+#if [ -d "$focused_pwd" ]; then
+#
+#    $terminal_cmd --working-directory="$focused_pwd" & &> /dev/null
+#    #exit 0
+#
+#else
+#
+#    printf 'error finding ${RED}%s${NOC}\n' "$focused_pwd"
+#    #notify-send "ERROR not found: $focused_pwd"
+#    #exit 48
+#
+#fi
 
-    $terminal_cmd --working-directory="$focused_pwd" & &> /dev/null
-    #exit 0
+## check container type
+get_con_data()
+{
+    con_type=$(swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.focused?) | .type')
+    con_width=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.focused == true) | .rect.width')
+    con_height=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.focused == true) | .rect.height')
+}
 
-else
 
-    printf 'error finding ${RED}%s${NOC}\n' "$focused_pwd"
-    #notify-send "ERROR not found: $focused_pwd"
-    #exit 48
+# set the split direction to the longest side
 
-fi
 
-## set split direction
-sh $XDG_CONFIG_HOME/sway/code/split_auto
+split_auto()
+{
+    if [[ $con_width -gt $con_height ]]; then
 
-## do spawn
-#swaymsg "$split"
+	split='splith'
 
-#swaymsg <("$XDG_CONFIG_HOME/sway/code/split_auto") &
+    else
+
+	split='splitv'
+
+    fi
+}
+
+
+spawn_terminal()
+{
+    if [[ "$con_type" == "floating_con" ]]; then
+
+	# spawn float
+	# TODO DEV does not spawn float
+	swaymsg exec $($terminal_cmd --working-directory="$focused_pwd") --class="term_float" & &> /dev/null
+	swaymsg exec sh $csc/snap_move_to SE
+
+    elif [[ "$con_type" == "con" ]]; then
+
+	# spawn tile
+	## designate split direction
+	split_auto
+	## set split direction for focused container
+	swaymsg "$split"
+	## spawn terminal
+	swaymsg exec $($terminal_cmd --working-directory="$focused_pwd") & &> /dev/null
+
+    fi
+}
+
+
+main()
+{
+    get_target_path
+    get_con_data
+    spawn_terminal
+}
+
+main

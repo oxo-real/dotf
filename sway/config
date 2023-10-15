@@ -596,25 +596,19 @@ bindsym $mod+Shift+s	 	sticky toggle
 
 # spawn a terminal emulator
 
-## container tile split_auto direction (called in term_spawn)
+## container tile split_auto direction
+## spawns same type as focused container
 ### cwd $HOME
 bindsym $mod+Return		exec $csc/term_spawn &
 ### cwd $PWD
 bindsym $mod+Shift+Return	exec $csc/term_spawn pwd &
 
-## container float
-### cwd $HOME
+## floating terminal
 for_window [app_id="term_float"]
 {
     floating enable
     opacity set 0.8
 }
-
-bindsym $mod+Mod1+Return	exec $term --class="term_float" -e \
-				$csc/term_spawn &
-#bindsym $mod+Mod1+Return	exec $term --class="term_float"
-#bindsym $mod+Mod1+Shift+Return	exec $term --class="term_float"
-
 
 
 ## show me the key

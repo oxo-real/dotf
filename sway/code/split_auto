@@ -16,4 +16,4 @@ else
 fi
 
 ## do spawn
-swaymsg "$split"
+#swaymsg "$split"
