@@ -262,7 +262,6 @@ set $term		alacritty
 ## ws0 named 'O' (letter) sorts after 9, like the keyboard
 
 ## workspace names
-#set $ws0		    "O"
 set $ws1		    "1"
 set $ws2		    "2"
 set $ws3		    "3"
@@ -272,7 +271,8 @@ set $ws6		    "6"
 set $ws7		    "7"
 set $ws8		    "8"
 set $ws9		    "9"
-set $ws0		    "0"
+#set $ws0		    "0"
+set $ws0		    "O"
 set $ws-		    "-"
 set $ws=		    "="
 
@@ -549,30 +549,29 @@ bindsym $mod+Control+$ri	resize grow width $resize_minor_step px or $resize_mino
 bindsym $mod+Shift+q		kill
 
 
-# split horizontal / vertical toggle
-## new window below / aside
-bindsym $mod+backslash	split toggle; exec $csc/split_ntfy_send
+# change container layout
+
+## split horizontal / vertical toggle
+## next new container below / aside
+bindsym $mod+backslash		layout toggle split; exec $csc/layout_ntfy_send
+
+## cycle through all layouts
+bindsym $mod+Shift+backslash	layout toggle splith splitv stacking tabbed; exec $csc/layout_ntfy_send
+
+
 
 # enter fullscreen mode for the focused window
-bindsym $mod+f		fullscreen toggle
-#bindsym $mod+Shift+f	fullscreen toggle
+bindsym $mod+f		        fullscreen toggle
 
 
 # focus parent container
-#bindsym $mod+a		focus parent  ## default
-#bindsym $mod+p		focus parent  ## replaced by cscreen capture
+#bindsym $mod+a			focus parent  ## default
+#bindsym $mod+p			focus parent  ## replaced by screen capture
 
 
 # focus child container
-#bindsym $mod+i		focus child  ## default
-bindsym $mod+c		focus child
-
-
-# change window layout (stacked, tabbed, toggle split)
-#bindsym $mod+s		layout stacking
-bindsym $mod+t		layout toggle stacking tabbed
-bindsym $mod+s		layout toggle split
-bindsym $mod+a		layout toggle splith splitv stacking tabbed
+#bindsym $mod+i			focus child  ## default
+bindsym $mod+c			focus child
 
 
 # toggle focus mode tiling / floating
@@ -589,12 +588,22 @@ bindsym $mod+Mod1+semicolon 	floating toggle
 bindsym $mod+Shift+s	 	sticky toggle
 
 
+# move focused container to scratchpad
+bindsym $mod+Shift+slash	move scratchpad
+
+# show next scratchpad container or hide focused scratchpad container
+# cycle through multiple scratchpad containers
+bindsym $mod+slash		scratchpad show
+
+
 ### ## #
 ### ## # other keybindings
 ### ## #
 
 
 # spawn a terminal emulator
+
+# TODO FIX spawn on empty workspace
 
 ## container tile split_auto direction
 ## spawns same type as focused container
@@ -713,7 +722,7 @@ bindsym $mod+Control+Shift+r	exec $term --class="float_spicules" -e \
 bindsym $mod+Shift+z		exec $csc/dimr swaylock
 
 ### screen off
-bindsym $mod+Shift+Slash	exec $csc/dimr screen_off
+#bindsym $mod+Shift+Slash	exec $csc/dimr screen_off
 
 ### enable (lock after 2 * idle_time)
 bindsym $mod+Control+Shift+e	exec $csc/dimr swaylock_enable

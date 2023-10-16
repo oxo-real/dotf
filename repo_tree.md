@@ -1354,12 +1354,12 @@
 │   │   ├── fzf_sway_shutdown
 │   │   ├── fzf_sway_switch
 │   │   ├── kill_float_inv
+│   │   ├── layout_ntfy_send
 │   │   ├── lock
 │   │   ├── music_play
 │   │   ├── screen_onf
 │   │   ├── snap_move_to
 │   │   ├── split_auto
-│   │   ├── split_ntfy_send
 │   │   └── term_spawn
 │   ├── config
 │   ├── current -> /home/oxo/.config/sway/hw/dev/ltx1c

@@ -1,14 +1,14 @@
 #! /usr/bin/env sh
 
-# notify-send split status
+# notify-send layout status
 
 # NOTICE does not work with terminal spawns
 # DEV TODO override split_auto
 
 # jq is fine with literal line breaks
-get_split_status()
+get_layout_status()
 {
-    split_status=$(swaymsg -t get_tree | \
+    layout_status=$(swaymsg -t get_tree | \
 		       jq 'recurse(.nodes[]) |
 		   select(.nodes[].focused == true).layout' | \
 		       tr -d '"')
@@ -17,17 +17,21 @@ get_split_status()
 
 set_ntfy_send_msg()
 {
-    case $split_status in
+    case $layout_status in
 
 	splitv)
 	    ## notify-send message
-	    ntfy_send_msg='splitv (below)'
+	    ntfy_send_msg="$layout_status (below)"
 	    ;;
 
 	splith)
 	    ## notify-send message
-	    ntfy_send_msg='splith (beside)'
+	    ntfy_send_msg="$layout_status (beside)"
+	    #ntfy_send_msg='plith (beside)'
 	    ;;
+
+	*)
+	    ntfy_send_msg="$layout_status"
 
     esac
 }
@@ -47,7 +51,7 @@ ntfy_send()
 
 main()
 {
-    get_split_status
+    get_layout_status
     set_ntfy_send_msg
     ntfy_send
 }
