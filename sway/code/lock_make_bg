@@ -1,0 +1,20 @@
+#! /usr/bin/env sh
+
+csc="$XDG_CONFIG_HOME/sway/code"
+lock_bg="$XDG_CACHE_HOME/temp/lock_bg.png"
+
+
+# screenshot
+
+grim -o $(swaymsg -t get_outputs \
+	| jq -r '.[] | select (.focused) | .name') \
+	"$lock_bg"
+
+
+# screen blur
+
+image_in="$lock_bg"
+## overwrite original screenshot
+image_out="$image_in"
+
+sh $csc/lock_scr_eff -r -s 3.5 -t displace -a 10 -m 1 "$image_in" "$image_out"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /usr/bin/env sh
 #
 ##
 ### dimr
@@ -9,7 +9,7 @@
 ### usage:
 ###
 ###	% dimr swaylock_enable
-###	enabls swaylock timer to lock system after 2 * idle_time
+###	enables swaylock timer to lock system after 2 * idle_time
 ###
 ###	% dimr swaylock_disable
 ###	disables swaylock timer function
@@ -28,31 +28,28 @@
     dimr="$csc/dimr"
     lock="$csc/lock"
 
+    option=$1
     idle_time=$2
     [[ -z $idle_time ]] && idle_time=120
 
 
     swaylock_status()
     {
+	## status: ''/(no_)/swaylock
+	## awk NF: last field
 	swaylock_status=$(ps -ef | \
 	    grep -v ^root | \
 	    grep 'swayidle -w' | \
 	    grep 'dimr' | \
 	    awk -F : '{print $4}' | \
 	    awk 'NF>1{print $NF}')
-
-	# [Sway - ArchWiki](https://wiki.archlinux.org/title/Sway#Idle)
-	# lock the screen before suspending and pause any playing media
-	swayidle -w \
-		 before-sleep 'playerctl pause' \
-		 before-sleep 'swaylock'
     }
 
 
     swaylock_exec()
     {
 	sh $lock
-	#sh $XDG_CONFIG_HOME/code/sway/lock
+	#sh $XDG_CONFIG_HOME/sway/code/lock
     }
 
 
@@ -60,27 +57,36 @@
     {
     	swaylock_status
 
+	# [Sway - ArchWiki](https://wiki.archlinux.org/title/Sway#Idle)
+	# lock the screen before suspending and pause any playing media
+	#swayidle -w \
+	#	 before-sleep 'playerctl pause' \
+	#	 before-sleep 'swaylock'
+
 	if [[ "$swaylock_status" == "no_swaylock" ]]; then
 
 	    pkill swayidle
+
 	    swayidle -w \
-	        timeout 1   "swaymsg 'output * dpms off'" \
-	        resume	    "swaymsg 'output * dpms on'; pkill swayidle; $dimr swaylock_disable"
+	        timeout 1   'swaymsg "output * power off"' \
+	        resume	    'swaymsg "output * power on"; $($dimr swaylock_disable)'
 
 	elif [[ "$swaylock_status" == "swaylock" ]]; then
 
 	    pkill swayidle
+
 	    swayidle -w \
-	        timeout 1   "swaymsg 'output * dpms off'" \
-	        resume	    "swaymsg 'output * dpms on'; pkill swayidle; $dimr swaylock_enable"
+	        timeout 1   'swaymsg "output * power off"' \
+	        resume	    'swaymsg "output * power on"; $($dimr swaylock_enable $idle_time)'
 
 	else
 
 	    # undefined or other swaylock_status
 	    pkill swayidle
+
 	    swayidle -w \
-	        timeout 1   "swaymsg 'output * dpms off'" \
-	        resume	    "swaymsg 'output * dpms on'; pkill swayidle"
+	        timeout 1   'swaymsg "output * power off"' \
+	        resume	    'swaymsg "output * power on"'
 
 	fi
     }
@@ -89,56 +95,65 @@
     swaylock_enable()
     {
 	pkill swayidle
+
         swayidle -w \
-	    timeout $idle_time	"swaymsg 'output * dpms off'" \
-	    resume		"swaymsg 'output * dpms on'" \
-            timeout $(( 2 * idle_time )) \
-				"swaymsg 'output * dpms on'; $dimr swaylock" \
-            timeout $(( 3 * idle_time )) \
-				"sudo systemctl suspend" \
-            before-sleep        "$dimr swaylock" & \
-				notify-send "enabled swaylock $idle_time"
-	}
+	    timeout $(( 1 * idle_time )) \
+	        'swaymsg "output * $(feh --fullscreen /home/oxo/.cache/temp/lock.png)"' \
+	        resume          'pkill feh'
+
+	    timeout $(( 2 * idle_time )) \
+		'$($dimr swaylock)'
+		#'swaymsg "output * power on"; $(dimr swaylock)' \
+
+	    timeout $(( 3 * idle_time )) \
+		'swaymsg "output * power off"' \
+	        resume	        'swaymsg "output * power on"' \
+	        after-resume    'notify-send "swaylock enabled $idle_time"' \
+
+	    timeout $(( 4 * idle_time )) \
+		'$(sudo systemctl suspend)' \
+	        before-sleep    '$($dimr swaylock)' & \
+	                        'playerctl pause' & \
+				'notify-send "swaylock enabled $idle_time"'
+    }
 
 
     swaylock_disable()
     {
 	pkill swayidle
-        swayidle -w \
-	    timeout $idle_time  "swaymsg 'output * dpms off'" \
-                resume		"swaymsg 'output * dpms on'" \
-	        before-sleep	"$dimr no_swaylock" & \
-				notify-send "disabled swaylock $idle_time"
-	}
+
+	swayidle -w \
+	    timeout $(( 1 * idle_time )) \
+	        'swaymsg "output * power off"' \
+                resume		'swaymsg "output * power on"' \
+	        before-sleep	'$($dimr no_swaylock)' & \
+				'notify-send "swaylock disabled"'
+    }
 
 
-    case "$1" in
+    case "$option" in
 
 	swaylock)
-
 	    ## immediate swaylock
 	    swaylock_exec
 	    ;;
 
 	screen_off)
-
 	    ## immediate screen off
 	    screen_off_exec
 	    ;;
 
 	swaylock_disable)
-
 	    ## disable swaylock
 	    swaylock_disable
 	    ;;
 
         swaylock_enable | *)
-
 	    ## enable swaylock
 	    swaylock_enable
             ;;
 
     esac
 
-    exit $?
+    exit 0
 }

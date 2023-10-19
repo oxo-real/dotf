@@ -1353,9 +1353,13 @@
 │   │   ├── fzf_spicules
 │   │   ├── fzf_sway_shutdown
 │   │   ├── fzf_sway_switch
+│   │   ├── image_in
+│   │   ├── image_in.cache
 │   │   ├── kill_float_inv
 │   │   ├── layout_ntfy_send
 │   │   ├── lock
+│   │   ├── lock_make_bg
+│   │   ├── lock_scr_eff
 │   │   ├── music_play
 │   │   ├── screen_onf
 │   │   ├── snap_move_to
@@ -1364,22 +1368,25 @@
 │   ├── config
 │   ├── current -> /home/oxo/.config/sway/hw/dev/ltx1c
 │   ├── env
-│   └── hw
-│       ├── dev
-│       │   ├── amb
-│       │   ├── ambair
-│       │   ├── dl3189
-│       │   ├── dxps139110
-│       │   ├── ext
-│       │   ├── ltx1c
-│       │   ├── ltx220
-│       │   ├── none
-│       │   └── tp15
-│       ├── get_sway_devices
-│       ├── machine_list.aes
-│       ├── machine_list.hash
-│       ├── select_current_machine
-│       └── sway_hw_sel_process
+│   ├── hw
+│   │   ├── dev
+│   │   │   ├── amb
+│   │   │   ├── ambair
+│   │   │   ├── dl3189
+│   │   │   ├── dxps139110
+│   │   │   ├── ext
+│   │   │   ├── ltx1c
+│   │   │   ├── ltx220
+│   │   │   ├── none
+│   │   │   └── tp15
+│   │   ├── get_sway_devices
+│   │   ├── machine_list.aes
+│   │   ├── machine_list.hash
+│   │   ├── select_current_machine
+│   │   └── sway_hw_sel_process
+│   └── lock
+│       ├── config
+│       └── config_bg
 ├── taskwarrior.tar.aes
 ├── taskwarrior.tar.hash
 ├── tmux
@@ -1569,5 +1576,5 @@
     │   └── config
     └── xresources_colors
 
-212 directories, 1357 files
+213 directories, 1363 files
 ```

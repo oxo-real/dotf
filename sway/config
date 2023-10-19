@@ -262,6 +262,8 @@ set $term		alacritty
 ## ws0 named 'O' (letter) sorts after 9, like the keyboard
 
 ## workspace names
+#set $ws0		    "O"
+set $ws0		    "0"
 set $ws1		    "1"
 set $ws2		    "2"
 set $ws3		    "3"
@@ -271,8 +273,6 @@ set $ws6		    "6"
 set $ws7		    "7"
 set $ws8		    "8"
 set $ws9		    "9"
-#set $ws0		    "0"
-set $ws0		    "O"
 set $ws-		    "-"
 set $ws=		    "="
 
@@ -676,10 +676,6 @@ for_window [app_id="float_spicules"]
 bindsym $mod+z			exec $term --class="float_spicules" -e \
 				$csc/fzf_spicules && wl-copy -n < $XDG_CACHE_HOME/cb
 
-## fzf_sway_shutdown		(shutdown menu)
-bindsym $mod+Shift+x		exec $term --class="float_spicules" -e \
-				$csc/fzf_sway_shutdown
-
 ## fzf_sway_switch 		(window switcher)
 bindsym $mod+grave		exec $term --class="float_spicules" -e \
 				$csc/fzf_sway_switch
@@ -710,25 +706,30 @@ bindsym $mod+Control+Shift+r	exec $term --class="float_spicules" -e \
 				$csc/fzf_cpbd remove_all
 
 
-# exit workspace (Zzz)
+# exit workspace
 
-## swaylock
+## fzf_sway_shutdown		(shutdown menu)
+bindsym $mod+Shift+x		exec $term --class="float_spicules" -e \
+				$csc/fzf_sway_shutdown
+
+## swaylock			(Zzz)
 ## colors set in sway/code/lock
 
 ## screen backlight on/off
 #bindsym $mod+Shift+s		exec $XDG_CONFIG_HOME/sway/code/screen_onf
 
 ### lock instantly
-bindsym $mod+Shift+z		exec $csc/dimr swaylock
+#### background (image/solid) via $csc/lock
+bindsym $mod+Shift+z		exec sh $csc/dimr swaylock
 
 ### screen off
 #bindsym $mod+Shift+Slash	exec $csc/dimr screen_off
 
 ### enable (lock after 2 * idle_time)
-bindsym $mod+Control+Shift+e	exec $csc/dimr swaylock_enable
+bindsym $mod+Control+Shift+e	exec sh $csc/dimr swaylock_enable 10
 
 ### disable (no lock after idle_time)
-bindsym $mod+Control+Shift+d	exec $csc/dimr swaylock_disable
+bindsym $mod+Control+Shift+d	exec sh $csc/dimr swaylock_disable
 
 # reload sway configuration
 bindsym $mod+Shift+c		reload

@@ -121,7 +121,8 @@ spawn_terminal()
 
 	spawn_float
 
-    elif [[ "$curr_con_type" == "con" ]]; then
+    else
+    #elif [[ "$curr_con_type" == "con" ]]; then
 
 	spawn_tile
 

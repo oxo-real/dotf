@@ -1,3 +1,3 @@
-#!/usr/bin/env sh
+#! /usr/bin/env sh
 
-swaymsg -t get_tree | jq -rf $XDG_CONFIG_HOME/code/sway/sway_nodes.jq | fzf | awk '{print $3}' | xargs -I{} swaymsg '[con_id={}]' focus
+swaymsg -t get_tree | jq -rf $XDG_CONFIG_HOME/sway/code/sway_nodes.jq | fzf | awk '{print $3}' | xargs -I{} swaymsg '[con_id={}]' focus
