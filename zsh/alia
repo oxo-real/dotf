@@ -86,8 +86,32 @@ alias mkdir='mkdir --parents --verbose'
 
 # colors
 
-alias ls='eza -A --group-directories-first --color=auto'
+ls()
+{
+    args="$*"
+    echo
+    if [ -n "$args" ]; then
+
+	case $1 in
+	    -ilatr)
+		eza -ila --sort newest
+		;;
+
+	    *)
+		eza "$args"
+		;;
+
+	esac
+
+    else
+
+	eza
+
+    fi
+}
+#alias ls='eza -A --group-directories-first --color=auto'
 #alias ls='ls -A --group-directories-first --color=auto'
+
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'

@@ -98,11 +98,12 @@
 
         swayidle -w \
 	    timeout $(( 1 * idle_time )) \
+	        swaymsg fullscreen enable && \
 	        'swaymsg "output * $(feh --fullscreen /home/oxo/.cache/temp/lock.png)"' \
-	        resume          'pkill feh'
+	        resume          'kill -STOP $(pgrep feh)' \
 
 	    timeout $(( 2 * idle_time )) \
-		'$($dimr swaylock)'
+		'$($dimr swaylock)' \
 		#'swaymsg "output * power on"; $(dimr swaylock)' \
 
 	    timeout $(( 3 * idle_time )) \

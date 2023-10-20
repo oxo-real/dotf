@@ -28,6 +28,7 @@ zsh_alia="$xcfh/zsh/alia"
 zsh_completions="$xcfh/zsh/completions/completion.zsh"
 zsh_syntax_hl='/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh'
 
+hist_cmd_offset=100000
 
 # sourcing
 
@@ -300,17 +301,18 @@ function precmd()
     [[ -n $t0_exec ]] && \
 	time_exec=$( echo "scale=0; ( $t1_exec - $t0_exec ) / 1000000 " | bc -l )
 
-    # time_exec prettyfied
+    ## time_exec prettyfied
     t_ex_pretty=$(printf "%4s" "$time_exec")
 
-    # prompt path color
+    ## prompt path color
     if [[ -w $PWD ]]; then
 
+	### normal state (user write permissions)
 	local precmd_left="%F{blue}%B%~%f%b $(git_branch "%s") $(git_dirty "%s")"
 
     else
 
-	# no write permission directory color (amber)
+	### no write permission directory color (amber)
 	local precmd_left="%F{#ffbf00}%B%~%f%b $(git_branch "%s") $(git_dirty "%s")"
 
     fi
@@ -318,8 +320,8 @@ function precmd()
     ### right side
     if 	[[ -n $t0_exec ]]; then
 
-	# histcounter prettyfied by +100k
-	local precmd_right="$t_ex_pretty $((HISTCMD -1 +100000)) %D{%H%M%S}"
+	# histcounter prettyfied by offset
+	local precmd_right="$t_ex_pretty %F{#999999}$((HISTCMD -1 +$hist_cmd_offset))%f %D{%H%M%S}"
 	#local precmd_right="$t_ex_pretty %! %D{%H%M%S}"
 	#%! runs only inside session
 
@@ -355,6 +357,7 @@ function strlen()
     LEN=${#${(S%%)FOO//$~zero/}}
     echo $LEN
 }
+
 
 # preexec
 # run before each command execution
@@ -521,7 +524,7 @@ function chpwd()
     local bar_filler_spaces=$((COLUMNS - lb_length - rb_length ))
 
     print -Pr "$left_bar${(l:$bar_filler_spaces:)}$right_bar"
-    echo
+    #echo
 
     ## testing alignment
     #print $COLUMNS $lb_length $bar_filler_spaces $rb_length
