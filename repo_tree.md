@@ -1364,6 +1364,7 @@
 │   │   ├── screen_onf
 │   │   ├── snap_move_to
 │   │   ├── split_auto
+│   │   ├── term_font_size
 │   │   └── term_spawn
 │   ├── config
 │   ├── current -> /home/oxo/.config/sway/hw/dev/ltx1c
@@ -1576,5 +1577,5 @@
     │   └── config
     └── xresources_colors
 
-213 directories, 1363 files
+213 directories, 1364 files
 ```

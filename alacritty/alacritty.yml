@@ -132,7 +132,7 @@ font:
     #family: monospace
     family: Source Code Pro
 
-    # The `style` can be specified to pick a specific face.
+   # The `style` can be specified to pick a specific face.
     style: Bold
 
   # Italic font face
@@ -750,6 +750,8 @@ key_bindings:
   - { key: Escape,  mods: Control,		          action: ToggleViMode }
   - { key: Y, 	    mods: Control, 			  chars: "yank_buffer | fzf_word \x0D" }
   - { key: Y, 	    mods: Shift|Control, 		  chars: "yank_buffer all | fzf_word \x0D" }
+  - { key: Key8,    mods: Control,		          chars: "alacritty msg config font.size=11 \x0D" }
+  - { key: Key9,    mods: Control,		          chars: "alacritty msg config font.size=18 \x0D" }
 
   #- { key: Paste,                                        action: Paste          }
   #- { key: Copy,                                         action: Copy           }

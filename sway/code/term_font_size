@@ -1,0 +1,20 @@
+#! /usr/bin/env sh
+
+# dependencies:	jq, alacritty
+
+# set alacritty terminal font size (for screencasts)
+
+# usage: term_font_size [point_size]
+#
+# NOTICE status experimental
+
+
+specific_point_size=$1
+
+if [ -n $1 ]  ; then
+
+    alacritty msg config font.size=$specific_point_size
+
+else
+
+    alacritty msg config font.size=11
