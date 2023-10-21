@@ -222,12 +222,20 @@ function git_branch()
 
 function git_dirty()
 {
+    # a ahead
+    # b behind
+    # c to be committed
+    # + new
+    # - deleted
+    # m modified
+    # r renamed
+    # ? untracked
+
     git_status="$(git status 2> /dev/null)"
 
     if echo "${git_status}" | grep -c 'branch is ahead' &> /dev/null; then
 
 	ahead=$(git status | grep 'branch is ahead' | awk '{print $8}')
-
 	printf 'a%s ' "$ahead"
 
     fi
@@ -235,40 +243,27 @@ function git_dirty()
     if echo "${git_status}" | grep -c 'branch is behind' &> /dev/null; then
 
 	behind=$(git status | grep 'branch is behind' | awk '{print $8}')
-
 	printf 'b%s ' "$behind"
-
-    fi
-
-    if echo "${git_status}" | grep -c 'Changes to be committed:' &> /dev/null; then
-
-	tobeco=$(git diff --cached --numstat | wc -l)
-	#tobeco=$(git rev-list --count --all)
-
-	#print "%F{#0022c7}c$tobeco%f"
-	printf 'c%s ' "$tobeco"
 
     fi
 
     if echo "${git_status}" | grep -c 'new file:' &> /dev/null; then
 
 	new=$(git status --porcelain &> /dev/null | grep '^A\|^.A' | wc -l)
-	printf '+%s ' "$new"
+	printf "${fg_green}+%s${st_def} " "$new"
 
     fi
 
     if echo "${git_status}" | grep -c 'deleted:' &> /dev/null; then
 
 	deleted=$(git status --porcelain &> /dev/null | grep '^D\|^.D' | wc -l)
-	printf '-%s ' "$deleted"
+	printf "${fg_red}-%s${st_def} " "$deleted"
 
     fi
 
     if echo "${git_status}" | grep -c 'modified:' &> /dev/null; then
 
 	modified=$(git status --porcelain &> /dev/null | grep '^M\|^ M' | wc -l)
-
-	#print "%F{#0040ff}m$modified%f"
 	printf 'm%s ' "$modified"
 
     fi
@@ -280,10 +275,18 @@ function git_dirty()
 
     fi
 
-    if echo "${git_status}" | grep -c 'Untracked files:' &> /dev/null; then
+    if echo "${git_status}" | grep -c 'Changes to be committed:' &> /dev/null; then
+
+	tobeco=$(git diff --cached --numstat | wc -l)
+	#tobeco=$(git rev-list --count --all)
+	printf "${st_rev}c%s${st_def} " "$tobeco"
+
+    fi
+
+   if echo "${git_status}" | grep -c 'Untracked files:' &> /dev/null; then
 
 	untracked=$(git status --porcelain &> /dev/null | grep '^??' | wc -l)
-	printf '?%s ' "$untracked"
+	printf "${bg_red}${fg_black}?%s${st_def} " "$untracked"
 
     fi
 }
@@ -312,7 +315,7 @@ function precmd()
 
     else
 
-	### no write permission directory color (amber)
+	### no write permission directory color (amber #ffbf00)
 	local precmd_left="%F{#ffbf00}%B%~%f%b $(git_branch "%s") $(git_dirty "%s")"
 
     fi

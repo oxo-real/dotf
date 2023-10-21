@@ -78,8 +78,7 @@ cgcsft="$XDG_DATA_HOME/c/git/code/source/function/text_appearance"
 export DEFAULT_VI_MODE=viins
 export KEYTIMEOUT=1
 
-## debug prompt
-## used by sh -x
+## debug prompt (used by sh -x)
 export PS4=':${BASH_SOURCE[0]:-$0} $(printf '%4d%s' "${LINENO}") ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 
 ## default applications
@@ -100,6 +99,7 @@ export PAGER='/usr/bin/less'
 export READER='/usr/bin/zathura'
 export SHELL='/usr/bin/zsh'
 export TERMINAL='/usr/bin/alacritty'
+export TERM_BU='/usr/bin/foot'
 export VIDEO='/usr/bin/mpv'
 export VISUAL='emacs'
 #export VISUAL='emacsclient -c -a emacs'
