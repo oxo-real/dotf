@@ -14,9 +14,12 @@
 terminal_cmd=${TERMINAL:-'alacritty'}
 target_path=$1
 shift
-target_con_dims=$@
+target_con_float=$1
+shift
+target_con_dims="$@"
 
 
+# NOTICE unused
 get_curr_con_data()
 {
     ## check container type, width and height
@@ -52,7 +55,6 @@ process_target_path()
 		focused_ppid="$(ps -o pid= --ppid "$focused_pid" | awk '{print $1}')"
 
 		## get focused present working directory
-		focused_pwd=""
 		if [ "$focused_ppid" 2>/dev/null ]; then
 
 		    focused_pwd="$(readlink "/proc/$focused_ppid/cwd")"
@@ -81,7 +83,7 @@ process_dims()
 
 	    case "$1" in
 
-		w)
+		'w')
 		    shift
 		    target_con_width=$1
 		    ;;
@@ -117,12 +119,11 @@ split_auto()
 
 spawn_terminal()
 {
-    if [[ "$curr_con_type" == "floating_con" ]]; then
+    if [[ -n $target_con_float ]]; then
 
 	spawn_float
 
     else
-    #elif [[ "$curr_con_type" == "con" ]]; then
 
 	spawn_tile
 
@@ -132,43 +133,29 @@ spawn_terminal()
 
 spawn_float()
 {
-    # TODO DEV does not spawn float
-    #swaymsg exec $($terminal_cmd --working-directory="$focused_pwd") --class="term_float" &
-    #swaymsg exec sh $csc/snap_move_to SE
+    swaymsg exec --no-startup-id $($terminal_cmd --working-directory="$focused_pwd" --class="term_float" & )
 
-    swaymsg for_window [app_id="term_float_xy"]
-    {
-	floating enable
-    	resize set width $target_con_width
-    	resize set height $target_con_height
-    	move position 0 0
-    	opacity set 0.8
-    }
+    if [[ -n "$target_con_dims" ]]; then
 
-    swaymsg exec $($terminal_cmd --working-directory="$focused_pwd") --class="term_float_xy" &
+	#TODO check if this works
+	process_dims $target_con_dims
+	swaymsg resize set width $target_con_width
+	swaymsg resize set height $target_con_height
 
-    # workaround with dotool
-    #swaymsg exec $($terminal_cmd --working-directory="$focused_pwd") &
-    #echo key meta+alt+period | dotool
+    fi
 }
 
 
 spawn_tile()
 {
-    ## designate split direction
-    split_auto
-    ## set split direction for focused container
-    swaymsg "$split"
-    ## spawn terminal
     swaymsg exec $($terminal_cmd --working-directory="$focused_pwd") &
 }
 
 
 main()
 {
-    get_curr_con_data
+    #get_curr_con_data
     process_target_path
-    process_dims
     spawn_terminal
 }
 

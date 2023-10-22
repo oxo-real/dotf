@@ -252,6 +252,7 @@ bindsym $mod+Ctrl+slash		gaps inner current set 0; gaps outer current set 0
 
 # set terminal
 set $term		alacritty
+set $term_opaq		alacritty --option='window.opacity=1' --option='colors.primary.background='"#000000"''
 
 
 ## workspace settings ##
@@ -611,11 +612,16 @@ bindsym $mod+slash		scratchpad show
 bindsym $mod+Return		exec $csc/term_spawn &
 ### cwd $PWD
 bindsym $mod+Shift+Return	exec $csc/term_spawn pwd &
+### cwd float $HOME
+bindsym $mod+Mod1+Return	exec $csc/term_spawn '' float &
+### cwd $PWD
+bindsym $mod+Mod1+Shift+Return	exec $csc/term_spawn pwd float &
 
 ## floating terminal
 for_window [app_id="term_float"]
 {
     floating enable
+    $smt Z
     opacity set 0.8
 }
 
@@ -627,7 +633,8 @@ for_window [title="Floating Window - Show Me The Key"]
     sticky enable
     resize set width 280
     resize set height 70
-    move position 0 0
+    $smt NE
+    #move position 0 0
     opacity set 0.0
 }
 
@@ -655,11 +662,12 @@ for_window [app_id="float_fzf_run"]
     floating enable
     resize set width 500
     resize set height 500
-    move position 0 0
-    opacity set 0.8
+    $smt Z
+    #move position 0 0
+    opacity set 1.0
 }
 
-bindsym $mod+d			exec $term --class="float_fzf_run" -e \
+bindsym $mod+d			exec $term_opaq --class="float_fzf_run" -e \
 				$csc/fzf_run
 
 ## define spicules window
@@ -677,7 +685,7 @@ bindsym $mod+z			exec $term --class="float_spicules" -e \
 				$csc/fzf_spicules && wl-copy -n < $XDG_CACHE_HOME/cb
 
 ## fzf_sway_switch 		(window switcher)
-bindsym $mod+grave		exec $term --class="float_spicules" -e \
+bindsym $mod+grave		exec $term_opaq --class="float_spicules" -e \
 				$csc/fzf_sway_switch
 
 # fzf clipboard manager

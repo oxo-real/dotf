@@ -248,7 +248,7 @@ colors:
     # affected cell, or hexadecimal colors like #ff00ff.
     start:
       foreground: '#000000'
-      background: '#96cbfe'
+      background: '#ffffb6'
 
     # All characters after the first one in the hint label
     #
@@ -256,7 +256,7 @@ colors:
     # affected cell, or hexadecimal colors like #ff00ff.
     end:
       foreground: '#000000'
-      background: '#96cbfe'
+      background: '#ffffb6'
 
   # Line indicator
   #

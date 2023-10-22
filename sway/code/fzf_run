@@ -6,7 +6,7 @@ execute=$(\
 	find -L {} -maxdepth 1 -mindepth 1 -type f -executable -printf '%P\n' \
 	2>/dev/null | \
 	sort -u | \
-	fzf\
+	fzf --height ~100%\
 )
 
 swaymsg -t command exec $execute

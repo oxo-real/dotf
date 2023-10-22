@@ -1,3 +1,19 @@
 #! /usr/bin/env sh
 
-swaymsg -t get_tree | jq -rf $XDG_CONFIG_HOME/sway/code/sway_nodes.jq | fzf | awk '{print $3}' | xargs -I{} swaymsg '[con_id={}]' focus
+# sway switch to workspace or container via fzf menu
+
+fzf_selection=$(swaymsg --pretty --type get_tree | fzf --height ~100%)
+
+if [[ $(printf '%s' "$fzf_selection" | grep 'workspace') ]]; then
+
+    workspace_name=$(printf '%s' "$fzf_selection" | awk '{print $3}' | tr -d '"')
+
+    swaymsg -r workspace $workspace_name
+
+else
+
+    container_id=$(printf '%s' "$fzf_selection" | awk '{print $1}' | tr -d -c 0-9)
+
+    swaymsg "[con_id=${container_id}]" focus
+
+fi
