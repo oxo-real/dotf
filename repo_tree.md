@@ -1263,7 +1263,8 @@
 │   │       └── spell
 │   │           └── en-basic.latin1.spl
 │   ├── test.init
-│   └── viminfo
+│   ├── viminfo.aes
+│   └── viminfo.hash
 ├── nyxt
 │   ├── auto-config.lisp
 │   └── init.lisp
@@ -1576,5 +1577,5 @@
     │   └── config
     └── xresources_colors
 
-213 directories, 1363 files
+213 directories, 1364 files
 ```

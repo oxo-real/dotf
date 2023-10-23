@@ -36,6 +36,7 @@ c network
 c newsboat
 c notmuch
 nvim
+c nvim/viminfo
 nyxt
 c libvirt
 qutebrowser/config.py
