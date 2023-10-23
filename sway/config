@@ -319,7 +319,7 @@ workspace_auto_back_and_forth	yes
 #bindsym $mod+bracketleft	workspace prev
 
 ## workspace next previous
-## key on virtual ansi numeric keyboard (moonlander)
+## key on virtual ansi numeric keyboard layer (moonlander)
 ## key: o = 9 (pgup)
 ## key: . = . (pgdn)
 bindsym $mod+o			workspace prev
@@ -688,7 +688,9 @@ bindsym $mod+z			exec $term --class="float_spicules" -e \
 bindsym $mod+grave		exec $term_opaq --class="float_spicules" -e \
 				$csc/fzf_sway_switch
 
+
 # fzf clipboard manager
+
 ## cache/cb is the active clipboard
 ## cache/cpbd is the clipboard list
 #

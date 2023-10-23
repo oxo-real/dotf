@@ -1351,10 +1351,9 @@
 │   │   ├── fzf_cpbd
 │   │   ├── fzf_run
 │   │   ├── fzf_spicules
+│   │   ├── fzf_sway_move
 │   │   ├── fzf_sway_shutdown
 │   │   ├── fzf_sway_switch
-│   │   ├── image_in
-│   │   ├── image_in.cache
 │   │   ├── kill_float_inv
 │   │   ├── layout_ntfy_send
 │   │   ├── lock
@@ -1577,5 +1576,5 @@
     │   └── config
     └── xresources_colors
 
-213 directories, 1364 files
+213 directories, 1363 files
 ```

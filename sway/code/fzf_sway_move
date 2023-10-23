@@ -1,0 +1,9 @@
+#! /usr/bin/env sh
+
+# sway move to workspace via fzf menu
+
+fzf_selection=$(swaymsg --pretty --type get_tree | grep workspace | fzf --height ~100%)
+
+workspace_name=$(printf '%s' "$fzf_selection" | awk '{print $3}' | tr -d '"')
+
+swaymsg -r move container to workspace $workspace_name
