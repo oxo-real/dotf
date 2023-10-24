@@ -6,7 +6,7 @@
 spicules=$(\
 	cat $XDG_DATA_HOME/c/git/note/linux/shell/command/catalog | \
 	#sort | \
-	fzf | \
+	fzf --height ~100% | \
 	sed 's/  ## .*$//' \
 	    > $XDG_CACHE_HOME/cb\
 )

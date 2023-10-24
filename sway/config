@@ -252,7 +252,7 @@ bindsym $mod+Ctrl+slash		gaps inner current set 0; gaps outer current set 0
 
 # set terminal
 set $term		alacritty
-set $term_opaq		alacritty --option='window.opacity=1' --option='colors.primary.background='"#000000"''
+#set $term		foot
 
 
 ## workspace settings ##
@@ -633,9 +633,8 @@ for_window [title="Floating Window - Show Me The Key"]
     sticky enable
     resize set width 280
     resize set height 70
-    $smt NE
-    #move position 0 0
     opacity set 0.0
+    $smt NE
 }
 
 
@@ -645,8 +644,8 @@ for_window [app_id="term_float_inv"]
     floating enable
     resize set width 10
     resize set height 10
+    opacity set 0.0
     move position 0 0
-    opacity set 1.0
 }
 
 #bindsym Control+b 	exec $term --class="term_float_inv" -e \
@@ -662,12 +661,12 @@ for_window [app_id="float_fzf_run"]
     floating enable
     resize set width 500
     resize set height 500
+    opacity set 0.9
     $smt Z
-    #move position 0 0
-    opacity set 1.0
+    exec $term msg config colors.primary.background='"#000020"'
 }
 
-bindsym $mod+d			exec $term_opaq --class="float_fzf_run" -e \
+bindsym $mod+d			exec $term --class="float_fzf_run" -e \
 				$csc/fzf_run
 
 ## define spicules window
@@ -676,16 +675,17 @@ for_window [app_id="float_spicules"]
     floating enable
     resize set width 1000
     resize set height 500
-    move position 0 0
-    opacity set 1.0
+    opacity set 0.9
+    exec $csc/float_h_fill
+    exec $term msg config colors.primary.background='"#000000"'
 }
 
 ## fzf_spicules			(search cmd_catalog)
 bindsym $mod+z			exec $term --class="float_spicules" -e \
-				$csc/fzf_spicules && wl-copy -n < $XDG_CACHE_HOME/cb
+				$csc/fzf_spicules && wl-copy -n < $XDG_CACHE_HOME/cb -e \
 
 ## fzf_sway_switch 		(window switcher)
-bindsym $mod+grave		exec $term_opaq --class="float_spicules" -e \
+bindsym $mod+grave		exec $term --class="float_spicules" -e \
 				$csc/fzf_sway_switch
 
 
@@ -718,9 +718,21 @@ bindsym $mod+Control+Shift+r	exec $term --class="float_spicules" -e \
 
 # exit workspace
 
-## fzf_sway_shutdown		(shutdown menu)
-bindsym $mod+Shift+x		exec $term --class="float_spicules" -e \
-				$csc/fzf_sway_shutdown
+### define exit window
+for_window [app_id="float_exit"]
+{
+    floating enable
+    resize set width 340
+    resize set height 150
+    opacity set 0.95
+    exec $smt NW
+    exec $term msg config window.opacity=0.95
+    exec $term msg config colors.primary.background='"#550000"'
+}
+
+# fzf_sway_exit		(shutdown menu)
+bindsym $mod+Shift+x		exec $term --class="float_exit" -e \
+				$csc/fzf_sway_exit
 
 ## swaylock			(Zzz)
 ## colors set in sway/code/lock
