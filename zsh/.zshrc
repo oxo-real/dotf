@@ -317,7 +317,6 @@ function preexec()
     t0_epoch=$(printf "%1d\n" ${t0_exec_ns: 0 : -9})
 
     start_time_hms=$(date -d @$t0_epoch +'%H%M%S')
-    #start_time=$(echo '>' $(date +"%H%M%S"))
     start_time=$(printf '> %s' "$start_time_hms")
 
     local len_right_wo_corr=$(strlen "$start_time")
@@ -360,7 +359,7 @@ function precmd()
 	time_exec_ms=$( echo "scale=0; ( $t1_exec_ns - $t0_exec_ns ) / 1000000 " | bc -l )
 
     ## time_exec prettyfied
-    t_ex_pretty=$(printf '%4s' "$time_exec_ms")
+    t_ex_pretty=$(printf '%s' "$time_exec_ms")
 
     ## prompt path color
     if [[ -w $PWD ]]; then
@@ -380,14 +379,12 @@ function precmd()
 
 	# histcounter prettyfied by offset
 	local precmd_right="%B$t_ex_pretty%b %F{#999999}$((HISTCMD -1 +$hist_cmd_offset))%f %B%D{%H%M%S}%b"
-	#local precmd_right="$t_ex_pretty %! %D{%H%M%S}"
-	#%! runs only inside session
 
     else
 
 	# no starttime detected
 	# when starting zsh or enter an empty line
-	local precmd_right="%D{%H%M%S}"
+	local precmd_right="* %D{%H%M%S}"
 
     fi
 

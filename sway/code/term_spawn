@@ -4,12 +4,13 @@
 
 # spawn a new terminal window
 
-# usage: term_spawn $directory
-#
 # NOTICE status experimental
 # TODO DEV
-# usage: term_spawn $directory [w $con_width h $con_height]
+
+# usage: term_spawn $directory [float [w $con_width h $con_height]]
+
 # example: term_spawn $HOME float w 300 h 300
+
 
 terminal_cmd=${TERMINAL:-'alacritty'}
 target_path=$1
@@ -30,11 +31,29 @@ get_curr_con_data()
 }
 
 
+split_auto()
+{
+    ## set the split direction to the longest side
+    if [[ $curr_con_width -gt $curr_con_height ]]; then
+
+	split_dir='splith'
+
+    else
+
+	split_dir='splitv'
+
+    fi
+
+    ## set split direction for focused container
+    swaymsg "$split_dir"
+}
+
+
 process_target_path()
 {
     case $target_path in
 
-	'pwd')
+	pwd)
 	    # get focused process ID
 
 	    focused_pid=""
@@ -60,6 +79,10 @@ process_target_path()
 
 		fi
 
+	    else
+
+		focused_pwd="$HOME"
+
 	    fi
 	    ;;
 
@@ -69,56 +92,76 @@ process_target_path()
 
 	*)
 	    focused_pwd="$target_path"
+	    ;;
 
     esac
 }
 
 
-process_dims()
+process_dim_args()
 {
+    while [[ "$1" ]]; do
+
+	case "$1" in
+
+	    'w')
+		shift
+		target_con_width=$1
+		;;
+
+	    h)
+		shift
+		target_con_height=$1
+		;;
+	esac
+
+	shift
+
+    done
+}
+
+
+resize_float()
+{
+    [[ -n $target_con_width ]] || target_con_width=800
+    [[ -n $target_con_height ]] || target_con_height=600
+
+    ## TODO DEV not working because no focus
+    swaymsg resize set width $target_con_width
+    swaymsg resize set height $target_con_height
+}
+
+
+spawn_float()
+{
+    ## spawn terminal
+    ## NOTICE --no-startup-id to prevent
+    ## warning: queue 0x7efe7c000ca0 destroyed while proxies still attached
+    swaymsg exec --no-startup-id $($terminal_cmd --working-directory="$focused_pwd" --class="term_float") &
+
     if [[ -n "$target_con_dims" ]]; then
 
-	while [[ "$1" ]]; do
-
-	    case "$1" in
-
-		'w')
-		    shift
-		    target_con_width=$1
-		    ;;
-
-		h)
-		    shift
-		    target_con_height=$1
-		    ;;
-	    esac
-
-	    shift
-
-	done
+    	process_dim_args $target_con_dims
+    	#TODO fix this
+	#resize_float
 
     fi
 }
 
 
-split_auto()
+spawn_tile()
 {
-    ## set the split direction to the longest side
-    if [[ $curr_con_width -gt $curr_con_height ]]; then
+    split_auto
 
-	split='splith'
-
-    else
-
-	split='splitv'
-
-    fi
+    ## spawn terminal
+    swaymsg exec --no-startup-id $($terminal_cmd --working-directory="$focused_pwd") &
+    #swaymsg exec $($terminal_cmd --working-directory="$focused_pwd") &
 }
 
 
 spawn_terminal()
 {
-    if [[ -n $target_con_float ]]; then
+    if [[ "$target_con_float" == 'float' ]]; then
 
 	spawn_float
 
@@ -130,36 +173,9 @@ spawn_terminal()
 }
 
 
-spawn_float()
-{
-    swaymsg exec --no-startup-id $($terminal_cmd --working-directory="$focused_pwd" --class="term_float" & )
-
-    if [[ -n "$target_con_dims" ]]; then
-
-	#TODO check if this works
-	process_dims $target_con_dims
-	swaymsg resize set width $target_con_width
-	swaymsg resize set height $target_con_height
-
-    fi
-}
-
-
-spawn_tile()
-{
-    ## designate split direction
-    split_auto
-    ## set split direction for focused container
-    swaymsg "$split"
-    ## spawn terminal
-    swaymsg exec $($terminal_cmd --working-directory="$focused_pwd") &
-}
-
-
 main()
 {
     get_curr_con_data
-    split_auto
     process_target_path
     spawn_terminal
 }

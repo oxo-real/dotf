@@ -124,7 +124,8 @@ set $mod		Mod4
 ## on all output names
 ## override in specific output name
 ## background image with fallback color
-#output * background	$XDG_DATA_HOME/media/images/wallpaper/active fit #000000
+## ln -s $XDG_DATA_HOME/a/media/image/wallpaper/$image $XDG_DATA_HOME/a/media/image/wallpaper/active
+#output * background	$XDG_DATA_HOME/a/media/images/wallpaper/active fit #000000
 ## solid color
 output * background	#000000 solid_color
 
@@ -343,18 +344,18 @@ bar
 
     colors
     {
-    	   ## color		border	backgr	text
-    	   background		#000000
+    	   ## color		border	  backgr    text
+    	   background		#00000095
 	   statusline		#777777
 	   separator		#777777
-	   focused_background	#000000
+	   focused_background	#00000095
 	   focused_statusline	#777777
 	   focused_separator	#ffffff
-	   focused_workspace	#000000 #000000 #cccccc
-	   #focused_workspace	#005577 #005577 #ffffd3
-	   active_workspace	#000000 #777777 #000000
-	   inactive_workspace	#1f1f1f #000000 #777777
-	   urgent_workspace	#000000 #770055 #ffffd3
+	   focused_workspace	#00000095 #00000095 #cccccc
+	   #focused_workspace	#005577   #00557795 #ffffd3
+	   active_workspace	#00000095 #77777795 #000000
+	   inactive_workspace	#1f1f1f95 #00000095 #777777
+	   urgent_workspace	#00000095 #77005595 #ffffd3
     }
 }
 
@@ -548,6 +549,8 @@ bindsym $mod+Control+$ri	resize grow width $resize_minor_step px or $resize_mino
 
 # close (quit) container
 bindsym $mod+Shift+q		kill
+## for convenience
+bindsym $mod+Mod1+q		kill
 
 
 # change container layout
@@ -611,7 +614,7 @@ bindsym $mod+Return		exec $csc/term_spawn &
 ### cwd $PWD
 bindsym $mod+Shift+Return	exec $csc/term_spawn pwd &
 ### cwd float $HOME
-bindsym $mod+Mod1+Return	exec $csc/term_spawn '' float &
+bindsym $mod+Mod1+Return	exec $csc/term_spawn $HOME float &
 ### cwd $PWD
 bindsym $mod+Mod1+Shift+Return	exec $csc/term_spawn pwd float &
 
@@ -620,8 +623,10 @@ bindsym $mod+Mod1+Shift+Return	exec $csc/term_spawn pwd float &
 for_window [app_id="term_float"]
 {
     floating enable
+    resize set width 800
+    resize set height 600
+    opacity set 1.0
     $smt Z
-    opacity set 0.8
 }
 
 
@@ -632,7 +637,7 @@ for_window [title="Floating Window - Show Me The Key"]
     sticky enable
     resize set width 280
     resize set height 70
-    opacity set 0.0
+    opacity set 0.8
     $smt NE
 }
 
@@ -660,7 +665,7 @@ for_window [app_id="float_fzf_run"]
     floating enable
     resize set width 500
     resize set height 500
-    opacity set 0.9
+    opacity set 1.0
     $smt Z
     exec $term msg config colors.primary.background='"#000020"'
 }
@@ -674,7 +679,7 @@ for_window [app_id="float_spicules"]
     floating enable
     resize set width 1000
     resize set height 500
-    opacity set 0.9
+    opacity set 1.0
     exec $csc/float_h_fill
     exec $term msg config colors.primary.background='"#000000"'
 }
