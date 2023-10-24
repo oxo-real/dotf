@@ -604,8 +604,6 @@ bindsym $mod+slash		scratchpad show
 
 # spawn a terminal emulator
 
-# TODO FIX spawn on empty workspace
-
 ## container tile split_auto direction
 ## spawns same type as focused container
 ### cwd $HOME
@@ -616,6 +614,7 @@ bindsym $mod+Shift+Return	exec $csc/term_spawn pwd &
 bindsym $mod+Mod1+Return	exec $csc/term_spawn '' float &
 ### cwd $PWD
 bindsym $mod+Mod1+Shift+Return	exec $csc/term_spawn pwd float &
+
 
 ## floating terminal
 for_window [app_id="term_float"]

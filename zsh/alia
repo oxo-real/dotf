@@ -94,11 +94,15 @@ ls()
 
 	case $1 in
 	    -ilatr)
-		eza -ila --sort newest
+		eza -l --inode --all --group-directories-first --sort newest
+		;;
+
+	    -ila)
+		eza -l --inode --all --group-directories-first
 		;;
 
 	    *)
-		eza "$args"
+		eza -l "$args"
 		;;
 
 	esac

@@ -9,7 +9,7 @@
 # NOTICE status experimental
 # TODO DEV
 # usage: term_spawn $directory [w $con_width h $con_height]
-
+# example: term_spawn $HOME float w 300 h 300
 
 terminal_cmd=${TERMINAL:-'alacritty'}
 target_path=$1
@@ -19,7 +19,6 @@ shift
 target_con_dims="$@"
 
 
-# NOTICE unused
 get_curr_con_data()
 {
     ## check container type, width and height
@@ -148,13 +147,19 @@ spawn_float()
 
 spawn_tile()
 {
+    ## designate split direction
+    split_auto
+    ## set split direction for focused container
+    swaymsg "$split"
+    ## spawn terminal
     swaymsg exec $($terminal_cmd --working-directory="$focused_pwd") &
 }
 
 
 main()
 {
-    #get_curr_con_data
+    get_curr_con_data
+    split_auto
     process_target_path
     spawn_terminal
 }

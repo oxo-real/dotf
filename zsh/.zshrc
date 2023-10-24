@@ -292,20 +292,75 @@ function git_dirty()
 }
 
 
+# strlen
+
+## called by preexec
+function strlen()
+{
+    # calculate string length
+    arg=$1
+    local zero='%([BSUbfksu]|([FB]|){*})'
+    local length=${#${(S%%)arg//$~zero/}}
+    echo $length
+}
+
+
+# preexec
+
+## runs before each command execution
+function preexec()
+{
+    # get t0 for $time_exec (ns)
+    # not equal to (pretty) start_time!!
+    t0_exec_ns=$(date +'%s%N')
+    ### %1d at least one 0 in t0_epoch
+    t0_epoch=$(printf "%1d\n" ${t0_exec_ns: 0 : -9})
+
+    start_time_hms=$(date -d @$t0_epoch +'%H%M%S')
+    #start_time=$(echo '>' $(date +"%H%M%S"))
+    start_time=$(printf '> %s' "$start_time_hms")
+
+    local len_right_wo_corr=$(strlen "$start_time")
+    local len_right=$(( $len_right_wo_corr + 1 ))
+    local right_start=$(( $COLUMNS - $len_right ))
+
+    local len_cmd=$(strlen "$@")
+    local len_prompt=$(strlen "$PROMPT")
+    local len_left=$(( $len_cmd + $len_prompt ))
+
+    pre_exec_right="\e[${right_start}C ${start_time}"
+
+    ## if end of $PROMPT lays left of first column of $pre_exec_right
+    if [ $len_left -lt $right_start ]; then
+
+	## then we have enough columns and we shift one line up
+        echo -e "\e[1A${pre_exec_right}"
+
+    else
+
+        # no upshift to prevent left prompt overwriting
+	echo -e "${pre_exec_right}"
+
+    fi
+}
+
+
 # precmd
+
 ## runs before each prompt
+## runs after each command execution
 function precmd()
 {
     # get t1 for $time_exec (ns)
-    t1_exec=`date +%s%N`
+    t1_exec_ns=$(date +'%s%N')
 
     # get execution time (ms)
-    ## prevent errors if empty t0_exec (i.e. zsh (re)start)
-    [[ -n $t0_exec ]] && \
-	time_exec=$( echo "scale=0; ( $t1_exec - $t0_exec ) / 1000000 " | bc -l )
+    ## prevent errors if empty t0_exec_ns (i.e. zsh (re)start)
+    [[ -n $t0_exec_ns ]] && \
+	time_exec_ms=$( echo "scale=0; ( $t1_exec_ns - $t0_exec_ns ) / 1000000 " | bc -l )
 
     ## time_exec prettyfied
-    t_ex_pretty=$(printf "%4s" "$time_exec")
+    t_ex_pretty=$(printf '%4s' "$time_exec_ms")
 
     ## prompt path color
     if [[ -w $PWD ]]; then
@@ -321,15 +376,17 @@ function precmd()
     fi
 
     ### right side
-    if 	[[ -n $t0_exec ]]; then
+    if 	[[ -n $t0_exec_ns ]]; then
 
 	# histcounter prettyfied by offset
-	local precmd_right="$t_ex_pretty %F{#999999}$((HISTCMD -1 +$hist_cmd_offset))%f %D{%H%M%S}"
+	local precmd_right="%B$t_ex_pretty%b %F{#999999}$((HISTCMD -1 +$hist_cmd_offset))%f %B%D{%H%M%S}%b"
 	#local precmd_right="$t_ex_pretty %! %D{%H%M%S}"
 	#%! runs only inside session
 
     else
 
+	# no starttime detected
+	# when starting zsh or enter an empty line
 	local precmd_right="%D{%H%M%S}"
 
     fi
@@ -347,51 +404,7 @@ function precmd()
     print -Pr "${(l:$num_filler_spaces:)}$precmd_right"
     print -Pr "$precmd_left"
 
-    unset t0_exec
-}
-
-
-# strlen
-## called by preexec
-function strlen()
-{
-    FOO=$1
-    local zero='%([BSUbfksu]|([FB]|){*})'
-    LEN=${#${(S%%)FOO//$~zero/}}
-    echo $LEN
-}
-
-
-# preexec
-# run before each command execution
-function preexec()
-{
-    # get t0 for $time_exec (ns)
-    # not equal to (pretty) start_time!!
-    t0_exec=`date +%s%N`
-
-    start_time=$( date +"%H%M%S" )
-    local len_right=$( strlen "$start_time" )
-    len_right=$(( $len_right + 1 ))
-    local right_start=$(( $COLUMNS - $len_right ))
-
-    local len_cmd=$( strlen "$@" )
-    local len_prompt=$( strlen "$PROMPT" )
-    local len_left=$(( $len_cmd + $len_prompt ))
-
-    RDATE="\033[${right_start}C ${start_time}"
-
-    if [ $len_left -lt $right_start ]; then
-
-        # no right prompt overwriting
-        # we can move one line up
-        echo -e "\033[1A${RDATE}"
-
-    else
-
-	echo -e "${RDATE}"
-
-    fi
+    unset t0_exec_ns
 }
 
 
@@ -527,13 +540,14 @@ function chpwd()
     local bar_filler_spaces=$((COLUMNS - lb_length - rb_length ))
 
     print -Pr "$left_bar${(l:$bar_filler_spaces:)}$right_bar"
-    #echo
+    echo
 
     ## testing alignment
     #print $COLUMNS $lb_length $bar_filler_spaces $rb_length
     ## end testing alignment
 
-    ls -A
+    eza --all --group-directories-first
+    #ls -A
 }
 
 

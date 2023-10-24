@@ -37,14 +37,16 @@ done
 
 # simple clock (ud HM)
 #echo $(date "+%u%d %H%M")
-##dow_num=$(date "+%u")
-##day=$(date "+%d")
+#dow_num=$(date "+%u")
+#day=$(date "+%d")
 hour=$(date "+%H")
 minute=$(date "+%M")
-##second=$(date "+%S")
-##time_zone=$(date "+%-:::z %Z")
+#second=$(date "+%S")
+#time_zone=$(date "+%-:::z %Z")
+time_hms=$(date '+%H%M%S')
 
 # simple clock (HHMM)
 #printf '%s\n' "$hour$minute"
-echo $hour$minute
+#echo $hour$minute
 #echo $hour$minute$second
+echo $time_hms
