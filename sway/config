@@ -686,7 +686,7 @@ for_window [app_id="float_spicules"]
 
 ## fzf_spicules			(search cmd_catalog)
 bindsym $mod+z			exec $term --class="float_spicules" -e \
-				$csc/fzf_spicules && wl-copy -n < $XDG_CACHE_HOME/cb -e \
+				$csc/fzf_spicules && wl-copy -n < $XDG_CACHE_HOME/cb
 
 ## fzf_sway_switch 		(window switcher)
 bindsym $mod+grave		exec $term --class="float_spicules" -e \
@@ -726,7 +726,7 @@ bindsym $mod+Control+Shift+r	exec $term --class="float_spicules" -e \
 for_window [app_id="float_exit"]
 {
     floating enable
-    resize set width 340
+    resize set width 300
     resize set height 150
     opacity set 0.95
     exec $smt NW

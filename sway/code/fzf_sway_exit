@@ -20,10 +20,12 @@
 #
 
 
+sway_ver=$(sway -v | sed 's/ersion //')
+
 exit_option=$(printf \
 	" cancel \n idle \n lock \n exit \n suspend \n reboot \n poweroff " | \
 	fzf \
-	--prompt="E X I T ? $(sway -v) "
+	--prompt="  E X I T ? $(printf '%s' "$sway_ver") "
 	)
 
 

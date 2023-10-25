@@ -97,5 +97,11 @@ separator_block_width=8
 #separator_block_width=8
 
 [time]
-interval=1
+interval=3
 #color=#ffffd3
+separator_block_width=0
+
+[time_seconds]
+interval=3
+color=#ffffd3
+separator_block_width=0

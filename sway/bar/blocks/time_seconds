@@ -35,19 +35,40 @@ while true; do
 done
 # '
 
-# simple clock (ud HM)
-#echo $(date "+%u%d %H%M")
-#dow_num=$(date "+%u")
-#day=$(date "+%d")
-#hour=$(date "+%H")
-#minute=$(date "+%M")
-#second=$(date "+%S")
-#time_zone=$(date "+%-:::z %Z")
-#time_hms=$(date '+%H%M%S')
-time_hms=$(date '+%H%M')
+second=$(date "+%S")
 
 # simple clock (HHMM)
 #printf '%s\n' "$hour$minute"
 #echo $hour$minute
 #echo $hour$minute$second
-echo $time_hms
+
+## full text
+echo $second
+
+## short text
+echo
+
+## color echo text background border
+if [[ $(( second % 2 )) -eq 0 ]]; then
+
+    ## text
+    echo "#999999"
+
+    ## background
+    echo
+
+    ## border
+    echo
+
+else
+
+    ## text
+    echo "#777777"
+
+    ## background
+    echo
+
+    ## border
+    echo
+
+fi
