@@ -55,7 +55,7 @@ batt_af=$(echo "obase=16; ibase=10; $batt_afd" | bc)
 echo "${batt_af}$flow"
 
 ## short text
-echo
+echo  ## none
 
 ## color
 case $batt_status in

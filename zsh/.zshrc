@@ -365,12 +365,13 @@ function precmd()
     if [[ -w $PWD ]]; then
 
 	### normal state (user write permissions)
+	### [zsh: 13 Prompt Expansion](https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html)
 	local precmd_left="%F{blue}%B%~%f%b $(git_branch "%s") $(git_dirty "%s")"
 
     else
 
 	### no write permission directory color (amber #ffbf00)
-	local precmd_left="%F{#ffbf00}%B%~%f%b $(git_branch "%s") $(git_dirty "%s")"
+	local precmd_left="%F{#000000}%K{#ffbf00}%B%~%b%k%f $(git_branch "%s") $(git_dirty "%s")"
 
     fi
 
@@ -485,7 +486,7 @@ function chpwd()
     else
 
 	# no write permission directory color #ffbf00
-	local left_bar="%F{#ffbf60}%B%~%f%b"
+	local left_bar="%F{#000000}%K{#ffbf00}%B%~%b%k%f"
 
     fi
 

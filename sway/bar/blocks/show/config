@@ -40,7 +40,7 @@ separator_block_width=8
 
 [interface]
 interval=10
-separator_block_width=8
+separator_block_width=12
 
 #[macin]
 #interval=10

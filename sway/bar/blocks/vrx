@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#! /usr/bin/env sh
 
 #[TODO] posix compliance: #!/bin/sh does not accept the array
 
@@ -42,11 +42,30 @@ dt=$(((t1-t0)/1000000000))
 vrx=$(( drx / dt ))
 #vtx=$(( dtx / dt ))
 
+## full text
 printf "%4s\n" "$vrx"
 #echo ${vrx}
-# echo text background border
-# !! finer granularity than 2 stages causes unpredictable behaviour
-[[ $vrx -gt 2000 ]] && exit 33
-[[ $vrx -gt 0 ]] && echo && echo "#aaaaaa" #&& echo "#000000" #&& echo "#000000"
 
-exit 0
+## short text
+echo  ## none
+
+## color
+## variable threshold value and interval
+var=$vrx
+min=200
+int=200
+
+## text
+(( $var > $(( min + 3 * int )) )) && echo "#ffffb6"  ## yellow
+(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo "#000000"  ## black
+(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo "#ffffb6"  ## yellow
+(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo "#999999"  ## grey99
+(( $var < $(( min + 0 * int )) )) && echo "#777777"  ## grey77
+
+## background
+(( $var > $(( min + 3 * int )) )) && echo "#ff6c60"  ## red
+(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo "#ffffb6"  ## yellow
+echo  ## none
+
+## border
+echo  ## none

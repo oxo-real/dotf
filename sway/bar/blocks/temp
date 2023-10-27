@@ -1,14 +1,33 @@
-#!/usr/bin/env sh
+#! /usr/bin/env sh
 
 cpu_temp=$(sensors | grep 'CPU' | awk '{print substr($0, 16, 2)}')
 #cpu_temp=$(sensors | grep 'Tctl' | awk '{print substr($0, 16, 2)}')
 
-#printf '%sC\n' "$cpu_temp"
 
-echo ${cpu_temp}C
-# echo text background border
-# !! finer granularity than 2 stages causes unpredictable behaviour
-[[ $cpu_temp -gt 80 ]] && exit 33
-[[ $cpu_temp -gt 60 ]] && echo && echo "#ff73fd" #&& echo "#000000" #&& echo "#000000"
+## full text
+#echo "${cpu_temp}C"
+printf '%02dC\n' $cpu_temp
 
-exit 0
+## short text
+echo  ## none
+
+## color
+## variable threshold value and interval
+var=$cpu_temp  ## inverting the treshold
+min=40
+int=15
+
+## text
+(( $var > $(( min + 3 * int )) )) && echo "#ffffb6"  ## yellow
+(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo "#000000"  ## black
+(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo "#ffffb6"  ## yellow
+(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo "#999999"  ## grey99
+(( $var < $(( min + 0 * int )) )) && echo "#777777"  ## grey77
+
+## background
+(( $var > $(( min + 3 * int )) )) && echo "#ff6c60"  ## red
+(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo "#ffffb6"  ## yellow
+echo  ## none
+
+## border
+echo  ## none
