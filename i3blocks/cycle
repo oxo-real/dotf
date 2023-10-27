@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#! /usr/bin/env sh
 
 # cycle swaybar i3blocks
 
@@ -6,12 +6,14 @@ blocks_show_dir="$XDG_CONFIG_HOME/sway/bar/blocks/show"
 
 cd $blocks_show_dir
 
-# read lines into array
+## read lines (branche names) into array
 readarray -t statuses < <(git branch | sed 's/^*//' | tr -d '[:blank:]\t')
 
 current_status="$(git branch --show-current)"
 
+
 # get current_status index from array
+
 array_length=${#statuses[@]}
 
 #for i in $array_lenght; do
@@ -29,8 +31,10 @@ for (( i=0; i<$array_length; i++ )); do
 
 done
 
+
 # next status index
-if [[ $current_status_index -lt 3 ]]; then
+number_of_statusses=$(( array_length - 1 ))
+if [[ "$current_status_index" -lt "$number_of_statusses" ]]; then
 
     ((current_status_index++))
     next_status_index=$current_status_index
@@ -48,3 +52,5 @@ git switch $next_status
 cd -
 
 sway reload
+
+notify-send "$next_status"

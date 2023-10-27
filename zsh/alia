@@ -1,4 +1,4 @@
-#!/bin/zsh
+#! /usr/bin/env zsh
 
 # mitigate alias usage for command: \[command]
 
@@ -39,7 +39,8 @@ alias tree='tree -n --charset=unicode'
 #alias tree='env TERM=xterm-256color tree'
 alias zsh="env ZDOTDIR="$XDG_CONFIG_HOME/zsh" zsh"
 alias mpv='mpv --audio-display=no'
-alias lnd='unlink'
+alias rmln='unlink'
+alias figlet="figlet -d $XDG_CONFIG_HOME/figlet"
 
 if command -v qrinv &> /dev/null; then
 

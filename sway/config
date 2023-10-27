@@ -359,12 +359,11 @@ bar
     }
 }
 
-### bar toggle
+### bar toggle (hide)
 bindsym $mod+b			bar mode toggle
 
 ### bar blocks toggle
-#bindsym Control+b		exec $XDG_CONFIG_HOME/code/bar_blocks/cycle
-# see at end of file
+bindsym $mod+Control+b 		exec $XDG_CONFIG_HOME/i3blocks/cycle
 
 
 # # # waybar
@@ -655,7 +654,6 @@ for_window [app_id="term_float_inv"]
 #bindsym Control+b 	exec $term --class="term_float_inv" -e \
 #			$XDG_CONFIG_HOME/code/bar_blocks/toggle :
 #			exec $XDG_CONFIG_HOME/sway/code/kill_float_inv
-bindsym $mod+Control+b 	exec $XDG_CONFIG_HOME/i3blocks/cycle
 
 # fzf configuration
 

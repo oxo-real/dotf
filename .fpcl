@@ -7,6 +7,7 @@ emacs/custom.el
 emacs/early-init.el
 emacs/init.el
 c fd
+figlet
 fonts
 freecad
 fzf

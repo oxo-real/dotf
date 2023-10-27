@@ -49,26 +49,26 @@ echo $second
 echo
 
 ## color echo text background border
-if [[ $(( second % 2 )) -eq 0 ]]; then
-
-    ## text
-    echo "#999999"
-
-    ## background
-    echo
-
-    ## border
-    echo
-
-else
-
-    ## text
-    echo "#777777"
-
-    ## background
-    echo
-
-    ## border
-    echo
-
-fi
+#if [[ $(( second % 2 )) -eq 0 ]]; then
+#
+#    ## text
+#    echo "#999999"
+#
+#    ## background
+#    echo
+#
+#    ## border
+#    echo
+#
+#else
+#
+#    ## text
+#    echo "#777777"
+#
+#    ## background
+#    echo
+#
+#    ## border
+#    echo
+#
+#fi
