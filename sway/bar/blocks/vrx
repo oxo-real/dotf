@@ -2,11 +2,10 @@
 
 #[TODO] posix compliance: #!/bin/sh does not accept the array
 
-
+## get data
 i=$(ip -o -4 route show to default | awk '{print $5}')
 
-# check for interface
-
+### check for interface
 if [ -z "$i" ]; then
 	exit
 fi
@@ -42,30 +41,50 @@ dt=$(((t1-t0)/1000000000))
 vrx=$(( drx / dt ))
 #vtx=$(( dtx / dt ))
 
+## color
+#var=$vtx
+var=$vrx
+
+## minimum, maximum value and number of threshold (colors)
+min=50
+max=2500
+no_thr=5
+
+## interval size
+int=$(echo "scale=0; ($max - $min) / $no_thr" | bc -l)
+
 ## full text
 printf "%4s\n" "$vrx"
+#printf "%4s\n" "$vtx"
+#echo ${vrx}
 #echo ${vrx}
 
 ## short text
 echo  ## none
 
-## color
-## variable threshold value and interval
-var=$vrx
-min=200
-int=200
-
 ## text
-(( $var > $(( min + 3 * int )) )) && echo "#ffffb6"  ## yellow
-(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo "#000000"  ## black
-(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo "#ffffb6"  ## yellow
-(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo "#999999"  ## grey99
-(( $var < $(( min + 0 * int )) )) && echo "#777777"  ## grey77
+(( $var > $(( min + 5 * int )) )) && echo "#ffffff"  ## white
+(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo "#ffffb6"  ## yellow
+(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo "#ffbf00"  ## amber
+(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo "#96cbfe"  ## blue
+(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo "#999999"  ## grey99
+(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo "#777777"  ## grey77
+(( $var <= $(( min + 0 * int )) )) && echo  ## default
 
 ## background
-(( $var > $(( min + 3 * int )) )) && echo "#ff6c60"  ## red
-(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo "#ffffb6"  ## yellow
-echo  ## none
+(( $var > $(( min + 5 * int )) )) && echo "#ff6c60"  ## red
+(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo  ## default
+(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo  ## default
+(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo  ## default
+(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo  ## default
+(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo  ## default
+(( $var <= $(( min + 0 * int )) )) && echo  ## default
 
 ## border
-echo  ## none
+(( $var > $(( min + 5 * int )) )) && echo "#ffffb6"  ## yellow
+(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo  ## default
+(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo  ## default
+(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo  ## default
+(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo  ## default
+(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo  ## default
+(( $var <= $(( min + 0 * int )) )) && echo  ## default

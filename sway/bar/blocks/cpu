@@ -1,5 +1,6 @@
 #! /usr/bin/env sh
 
+## get data
 user0=$(awk '/cpu / {print $2}' /proc/stat)
 nice0=$(awk '/cpu / {print $3}' /proc/stat)
 system0=$(awk '/cpu / {print $4}' /proc/stat)
@@ -33,30 +34,46 @@ load1=$((total_tick1-idle1))
 cpu_perc=$((100*(load1-load0)/(total_tick1-total_tick0)))
 cpu=$(printf "%02d" $cpu_perc)
 
+## color
+var=$cpu
+
+## minimum, maximum value and number of threshold (colors)
+min=0
+max=100
+no_thr=5
+
+## interval size
+int=$(echo "scale=0; ($max - $min) / $no_thr" | bc -l)
 
 ## full text
-printf "%02d" $cpu_perc
+printf "%02d\n" $cpu_perc
 
 ## short text
 echo  ## none
 
-## color
-## variable threshold value and interval
-var=$cpu
-min=05
-int=15
-
 ## text
-(( $var > $(( min + 3 * int )) )) && echo "#ffffb6"  ## yellow
-(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo "#000000"  ## black
-(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo "#ffffb6"  ## yellow
-(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo "#999999"  ## grey99
-(( $var < $(( min + 0 * int )) )) && echo "#777777"  ## grey77
+(( $var > $(( min + 5 * int )) )) && echo "#ffffff"  ## white
+(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo "#ffffb6"  ## yellow
+(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo "#ffbf00"  ## amber
+(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo "#96cbfe"  ## blue
+(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo "#999999"  ## grey99
+(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo "#777777"  ## grey77
+(( $var <= $(( min + 0 * int )) )) && echo  ## default
 
 ## background
-(( $var > $(( min + 3 * int )) )) && echo "#ff6c60"  ## red
-(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo "#ffffb6"  ## yellow
-echo  ## none
+(( $var > $(( min + 5 * int )) )) && echo "#ff6c60"  ## red
+(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo  ## default
+(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo  ## default
+(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo  ## default
+(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo  ## default
+(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo  ## default
+(( $var <= $(( min + 0 * int )) )) && echo  ## default
 
 ## border
-echo  ## none
+(( $var > $(( min + 5 * int )) )) && echo "#ffffb6"  ## yellow
+(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo  ## default
+(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo  ## default
+(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo  ## default
+(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo  ## default
+(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo  ## default
+(( $var <= $(( min + 0 * int )) )) && echo  ## default

@@ -47,72 +47,116 @@ fi
 batt_perc_numeric=$(( batt_perc ))
 
 ## percentage conversion to hex
-batt_afdec=$(echo "16-6/100*$batt_perc_numeric" | bc -l)
+batt_afdec=$(echo "16 - 6 / 100 * $batt_perc_numeric" | bc -l)
 batt_afd=$(echo $batt_afdec | cut -d '.' -f 1)
-batt_af=$(echo "obase=16; ibase=10; $batt_afd" | bc)
+batt_af=$(echo "obase=16; ibase=10; $batt_afd" | bc -l)
 
-## full text
+## color
+var=$batt_perc
+
+## minimum, maximum value and number of threshold (colors)
+min=88
+max=100
+no_thr=5
+
+### interval size
+int=$(echo "scale=0; ($max - $min) / $no_thr" | bc -l)
+
+# full text
 echo "${batt_af}$flow"
 
 ## short text
 echo  ## none
 
-## color
+## text, background and border
 case $batt_status in
 
     discharging)
 	## text
-	(( $batt_perc < 19 )) && echo "#ffffb6"  ## yellow
-	(( $batt_perc > 19 && $batt_perc <= 39 )) && echo "#000000"  ## black
-	(( $batt_perc > 39 && $batt_perc <= 59 )) && echo "#000000"
-	(( $batt_perc > 59 && $batt_perc <= 79 )) && echo "#000000"
-	(( $batt_perc > 79 && $batt_perc <= 99 )) && echo "#777777"  ## grey77
+	(( $var > $(( min + 5 * int )) )) && echo  ## default
+	(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo "#777777"  ## grey77
+	(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo "#000000"  ## black
+	(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo "#000000"  ## black
+	(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo "#000000"  ## black
+	(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo "#000000"  ## black
+	(( $var <= $(( min + 0 * int )) )) && echo "#ffffff"  ## white
 
 	## background
-	(( $batt_perc < 19 )) && echo "#ff6c60"  ## red
-	(( $batt_perc > 19 && $batt_perc <= 39 )) && echo "#ffbf00"  ## amber
-	(( $batt_perc > 39 && $batt_perc <= 59 )) && echo "#ffffb6"  ## yellow
-	(( $batt_perc > 59 && $batt_perc <= 79 )) && echo "#999999"  ## grey99
-	(( $batt_perc > 79 && $batt_perc <= 99 )) && echo "#000000"
+	(( $var > $(( min + 5 * int )) )) && echo  ## default
+	(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo  ## default
+	(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo "#999999"  ## grey99
+	(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo "#96cbfe"  ## blue
+	(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo "#ffbf00"  ## amber
+	(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo "#ffffb6"  ## yellow
+	(( $var <= $(( min + 0 * int )) )) && echo "#ff6c60"  ## red
 
 	## border
-	(( $batt_perc < 19 )) && echo "#ffffb6"
-	(( $batt_perc > 19 && $batt_perc <= 39 )) && echo "#ffbf00"  ## amber
-	(( $batt_perc > 39 && $batt_perc <= 59 )) && echo  ## none
-	(( $batt_perc > 59 && $batt_perc <= 79 )) && echo  ## none
-	(( $batt_perc > 79 && $batt_perc <= 99 )) && echo  ## none
+	(( $var > $(( min + 5 * int )) )) && echo  ## default
+	(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo  ## default
+	(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo  ## default
+	(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo  ## default
+	(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo  ## default
+	(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo  ## default
+	(( $var <= $(( min + 0 * int )) )) && echo "#ffffb6"  ## yellow
 	;;
 
     charging)
 	## text
-	(( $batt_perc < 19 )) && echo "#ff6c60"  ## red
-	(( $batt_perc > 19 && $batt_perc <= 39 )) && echo "#ffbf00"  ## amber
-	(( $batt_perc > 39 && $batt_perc <= 59 )) && echo "#ffffb6"  ## yellow
-	(( $batt_perc > 59 && $batt_perc <= 79 )) && echo "#999999"  ## grey99
-	(( $batt_perc > 79 && $batt_perc <= 99 )) && echo "#000000"
+	(( $var > $(( min + 5 * int )) )) && echo  ## default
+	(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo "#777777"  ## grey77
+	(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo "#999999"  ## grey99
+	(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo "#96cbfe"  ## blue
+	(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo "#ffbf00"  ## amber
+	(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo "#ffffb6"  ## yellow
+	(( $var <= $(( min + 0 * int )) )) && echo "#ff6c60"  ## red
 
 	## background
-	(( $batt_perc < 19 )) && echo "#000000"  ## black
-	(( $batt_perc > 19 && $batt_perc <= 39 )) && echo "#000000"  ## black
-	(( $batt_perc > 39 && $batt_perc <= 59 )) && echo "#000000"
-	(( $batt_perc > 59 && $batt_perc <= 79 )) && echo "#000000"
-	(( $batt_perc > 79 && $batt_perc <= 99 )) && echo "#000000"
+	(( $var > $(( min + 5 * int )) )) && echo  ## default
+	(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo  ## default
+	(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo  ## default
+	(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo  ## default
+	(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo  ## default
+	(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo  ## default
+	(( $var <= $(( min + 0 * int )) )) && echo  ## default
 
 	## border
-	(( $batt_perc < 19 )) && echo  ## none
-	(( $batt_perc > 19 && $batt_perc <= 39 )) && echo  ## none
-	(( $batt_perc > 39 && $batt_perc <= 59 )) && echo  ## none
-	(( $batt_perc > 59 && $batt_perc <= 79 )) && echo  ## none
-	(( $batt_perc > 79 && $batt_perc <= 99 )) && echo  ## none
+	(( $var > $(( min + 5 * int )) )) && echo  ## default
+	(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo  ## default
+	(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo  ## default
+	(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo  ## default
+	(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo  ## default
+	(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo  ## default
+	(( $var <= $(( min + 0 * int )) )) && echo "#ff6c60"  ## red
 	;;
 
     full | 'not charging')
 	## text
-	(( $batt_perc > 99 )) && echo "#777777"  ## grey77
-	##background
-	(( $batt_perc > 99 )) && echo "#000000"  ## black
+	(( $var > $(( min + 5 * int )) )) && echo  ## default
+	(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo  ## default
+	(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo  ## default
+	(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo  ## default
+	(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo  ## default
+	(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo  ## default
+	(( $var <= $(( min + 0 * int )) )) && echo  ## default
+
+	## background
+	(( $var > $(( min + 5 * int )) )) && echo  ## default
+	(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo  ## default
+	(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo  ## default
+	(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo  ## default
+	(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo  ## default
+	(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo  ## default
+	(( $var <= $(( min + 0 * int )) )) && echo  ## default
+
+
 	## border
-	(( $batt_perc > 99 )) && echo  ## none
+	(( $var > $(( min + 5 * int )) )) && echo  ## default
+	(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo  ## default
+	(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo  ## default
+	(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo  ## default
+	(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo  ## default
+	(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo  ## default
+	(( $var <= $(( min + 0 * int )) )) && echo "#ff6c60"  ## red
 	;;
 
 esac

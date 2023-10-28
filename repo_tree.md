@@ -1885,6 +1885,8 @@
 │       ├── moonlander_oxo_qwerty_NZWR6_bPP0D.zip
 │       ├── moonlander_oxo_qwerty_NZWR6_qRqj4.bin
 │       ├── moonlander_oxo_qwerty_NZWR6_qRqj4.zip
+│       ├── moonlander_oxo_qwerty_NZWR6_XmAN6.bin
+│       ├── moonlander_oxo_qwerty_NZWR6_XmAN6.zip
 │       ├── moonlander_oxo_qwerty_Vjrl5_6YEBn.bin
 │       ├── moonlander_oxo_qwerty_Vjrl5_6YEBn.zip
 │       ├── zsa_oxo_moon_url
@@ -2034,5 +2036,5 @@
     │   └── config
     └── xresources_colors
 
-214 directories, 1820 files
+214 directories, 1822 files
 ```

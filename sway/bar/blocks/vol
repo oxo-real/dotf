@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-source "$XDG_DATA_HOME/c/git/code/source/function/text_appearance"
+## get data
 
 ## with pipewire and wireplumber
 sink_vol=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep --only-matching '[[:digit:]]' | tr -d '\n')
@@ -18,8 +18,7 @@ headphones_jack=$(cat /proc/asound/card1/codec\#0 | grep '0x31')
 #mute=$(amixer get Master | grep off)
 
 
-# volume
-
+## volume
 case $sink_vol in
 
     100)
@@ -34,15 +33,38 @@ case $sink_vol in
 esac
 
 
-# status
-
+## status
 sink_status='<'
 [ -n "$headphones_jack" ] && sink_status='H'
 [ -n "$sink_mute" ] && sink_status='X'
 
+## microphone
+#[ -z "$mic_mute" ] && mic_warning='M!'
 
-# microphone
-[ -z "$mic_mute" ] && mic_warning='M!'
-
-printf "%s%s%s\n" "$sink_vol" "$sink_status" "$mic_warning"
+## full text
+printf "%s%s%s\n" "$sink_vol" "$sink_status"
 #printf "%s%s${RED}%s${NOC}\n" "$sink_vol" "$sink_status" "$mic_warning"
+
+## short text
+echo  ## none
+
+## text, background and border
+if [[ -z "$mic_mute" ]]; then
+
+    ## text
+    echo "#000000"  ## black
+    ## background
+    echo "#ff73fd"  ## magenta
+    ## border
+    echo  ## default
+
+else
+
+    ## text
+    echo  ## default
+    ## background
+    echo  ## default
+    ## border
+    echo  ## default
+
+fi
