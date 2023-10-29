@@ -373,6 +373,18 @@ function precmd()
 
     ## time_exec prettyfied
     t_ex_pretty=$(printf '%s' "$time_exec_ms")
+    t_ex_len=${#time_exec_ms}
+    t_ex_ms=${time_exec_ms: -3}
+
+    if [[ $t_ex_len -gt 3 ]]; then
+
+	t_ex_secs=${time_exec_ms%???}
+
+    else
+
+	t_ex_secs=''
+
+    fi
 
     ## prompt path color
     if [[ -w $PWD ]]; then
@@ -401,15 +413,37 @@ function precmd()
 	#local precmd_right='$t_ex_pretty %(?.%F{#ff6c60}%B$hc%f%b.$hc) %D{%H%M%S}'
 	## see comments above
 	## if block below is workaround
-	if [[ "$exit_code" -eq "0" ]]; then
+	if [[ $exit_code -eq 0 ]]; then
 
-	    ### single quotes; wait with expansion until print
-	    local precmd_right='$t_ex_pretty $hc %D{%H%M%S}'
+	    if [[ -n $t_ex_secs ]]; then
+
+		## we have an exec time > 1000 ms
+		### single quotes; wait with expansion until print
+		local precmd_right='$t_ex_secs%F{#696969}$t_ex_ms%f $hc %D{%H%M%S}'
+
+	    else
+
+		## we have an exec time < 1000 ms
+		### single quotes; wait with expansion until print
+		local precmd_right='$t_ex_ms $hc %D{%H%M%S}'
+
+	    fi
 
 	else
 
-	    ### single quotes; wait with expansion until print
-	    local precmd_right='$t_ex_pretty %F{#ff6c60}%B$hc%f%b %D{%H%M%S}'
+	    if [[ -n $t_ex_secs ]]; then
+
+		## we have a exec time > 1000 ms
+		### single quotes; wait with expansion until print
+		local precmd_right='$t_ex_secs%F{#696969}$t_ex_ms%f %F{#ff6c60}%B$hc%f%b %D{%H%M%S}'
+
+	    else
+
+		## we have an exec time < 1000 ms
+		### single quotes; wait with expansion until print
+		local precmd_right='$t_ex_ms %F{#ff6c60}%B$hc%f%b %D{%H%M%S}'
+
+	    fi
 
 	fi
 
