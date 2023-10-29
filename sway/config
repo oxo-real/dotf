@@ -812,13 +812,13 @@ bindsym $mod+p			exec grim -o $(swaymsg -t get_outputs \
 ## all outputs
 bindsym $mod+Mod1+p		exec grim \
 				$XDG_DATA_HOME/a/media/images/scr_cap/`date "+%Y%m%d_%H%M%S"`.png  && \
-				exec notify-send 'scr_cap all outputs'
+				notify-send 'scr_cap all outputs'
 
 ## selective rectangle
 ### to file
 bindsym --release $mod+Shift+p	exec grim -g "$(slurp)" \
 				$XDG_DATA_HOME/a/media/images/scr_cap/`date "+%Y%m%d_%H%M%S"`.png && \
-				exec notify-send 'scr_cap selective rect'
+				notify-send 'scr_cap selective rect'
 ### to clipboard
 bindsym $mod+Control+p		exec grim -g "$(slurp)" | wl-copy && \
 				notify-send 'scr_cap sel copy'

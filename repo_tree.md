@@ -1912,6 +1912,8 @@
 │   │   ├── _mountr
 │   │   └── _passr
 │   ├── etc_zsh_zshenv
+│   ├── prompt
+│   │   └── two-line-prompt.zsh
 │   └── zzz_deprecated
 │       └── git-prompt.sh
 └── zzz_deprecated
@@ -2036,5 +2038,5 @@
     │   └── config
     └── xresources_colors
 
-214 directories, 1822 files
+215 directories, 1823 files
 ```

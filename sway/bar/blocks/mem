@@ -20,7 +20,7 @@ var=$mem_avail_perc
 
 ## minimum, maximum value and number of threshold (colors)
 min=0
-max=80
+max=100
 no_thr=5
 
 ## interval size

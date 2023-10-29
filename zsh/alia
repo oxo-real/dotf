@@ -31,7 +31,7 @@ alias vi='nvim'
 alias vim='nvim'
 alias view='nvim -R'
 alias vimdiff='nvim -d'
-alias e='emacs $@ &'
+#alias emacs="emacs $@ &"
 alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/.tmuxrc"
 alias lsblk='lsblk --ascii --tree -o name,uuid,fstype,path,size,fsuse%,fsused,label,mountpoint'
 alias cal='env TERM=xterm cal'
@@ -90,16 +90,33 @@ alias mkdir='mkdir --parents --verbose'
 ls()
 {
     args="$*"
+
+    last_arg=$(printf "$args" | awk '{print $NF}')
+
+    if [[ -d $last_arg || -f $last_arg || -l $last_arg ]];then
+
+	## last_arg is a location
+	location="$last_arg"
+
+    else
+
+	## last_arg is not a location
+	flags="$last_arg"
+
+    fi
+
+
     echo
     if [ -n "$args" ]; then
 
 	case $1 in
+
 	    -ilatr)
-		eza -l --inode --all --group-directories-first --sort newest
+		eza -l --inode --all --group-directories-first --sort newest $flag $location
 		;;
 
 	    -ila)
-		eza -l --inode --all --group-directories-first
+		eza -l --inode --all --group-directories-first $last_arg
 		;;
 
 	    *)
@@ -110,7 +127,7 @@ ls()
 
     else
 
-	eza
+	eza $last_arg
 
     fi
 }

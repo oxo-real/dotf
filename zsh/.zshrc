@@ -30,6 +30,7 @@ zsh_syntax_hl='/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlig
 
 hist_cmd_offset=100000
 
+
 # sourcing
 
 ## alia (or aliasses)
@@ -40,6 +41,10 @@ hist_cmd_offset=100000
 [[ -f $zsh_completions ]] && source $zsh_completions
 ## lfcd load function
 #[[ -f $lf_cd ]] && source $lf_cd
+
+#DEV
+#source $XDG_CONFIG_HOME/zsh/prompt/two-line-prompt.zsh
+#TODO also red color pid on exit!=0
 
 
 # shell parameters
@@ -231,6 +236,9 @@ function git_dirty()
     # r renamed
     # ? untracked
 
+    # instead of vcs_info
+    # [zsh: 26 User Contributions](https://zsh.sourceforge.io/Doc/Release/User-Contributions.html#vcs_005finfo-Configuration)
+
     git_status="$(git status 2> /dev/null)"
 
     if echo "${git_status}" | grep -c 'branch is ahead' &> /dev/null; then
@@ -333,7 +341,7 @@ function preexec()
     if [ $len_left -lt $right_start ]; then
 
 	## then we have enough columns and we shift one line up
-        echo -e "\e[1A${pre_exec_right}"
+        echo -e "\e[1A${pre_exec_right}\e[0m"
 
     else
 
@@ -347,7 +355,7 @@ function preexec()
 # precmd
 
 ## runs before each prompt
-## runs after each command execution
+## and thus runs after each command execution
 function precmd()
 {
     # get t1 for $time_exec (ns)
@@ -379,7 +387,22 @@ function precmd()
     if 	[[ -n $t0_exec_ns ]]; then
 
 	# histcounter prettyfied by offset
-	local precmd_right="%B$t_ex_pretty%b %F{#999999}$((HISTCMD -1 +$hist_cmd_offset))%f %B%D{%H%M%S}%b"
+	hc=$(( HISTCMD - 1 + $hist_cmd_offset ))
+	#local precmd_right="%S$t_ex_pretty%s $((HISTCMD -1 +$hist_cmd_offset)) %S%D{%H%M%S}%s"
+
+	#if [[ $exit_code -eq 0 ]]; then
+
+	#    local precmd_right="$t_ex_pretty $hc %D{%H%M%S}"
+
+	#else
+
+	#    local precmd_right='$t_ex_pretty %F{#ff6c60}%B$hc%f%b %D{%H%M%S}'
+
+	#fi
+
+	#local precmd_right="$t_ex_pretty %(?.$hc.%F{#ff6c60}%B$hc%f%b) %D{%H%M%S}"
+	local precmd_right='$t_ex_pretty %(?.%F{#ff6c60}%B$hc%f%b.$hc) %D{%H%M%S}'
+	#local precmd_right="$t_ex_pretty %F{#666666}$(( HISTCMD - 1 + $hist_cmd_offset ))%f %D{%H%M%S}"
 
     else
 
@@ -389,12 +412,13 @@ function precmd()
 
     fi
 
+    # https://developerfacts.com/answer/2267155-what-does-sstringkf1bbkf-mean
     ### position, alignment and correction parameters
     local ppl_corr=0
     local ppr_corr=0
     #local ppr_corr=0
-    local precmd_left_length=$(( ${#${(S%%)precmd_left//(\%([KF1]|)\{*\}|\%[Bbkf])}}+$ppl_corr ))
-    local precmd_right_length=$(( ${#${(S%%)precmd_right//(\%([KF1]|)\{*\}|\%[Bbkf])}}+$ppr_corr ))
+    local precmd_left_length=$(( ${#${(S%%)precmd_left//(\%([KF1]|)\{*\}|\%[Bbkf])}} + $ppl_corr ))
+    local precmd_right_length=$(( ${#${(S%%)precmd_right//(\%([KF1]|)\{*\}|\%[Bbkf])}} + $ppr_corr ))
     local num_filler_spaces=$((COLUMNS - precmd_right_length))
 
     ### print
@@ -415,8 +439,13 @@ zle -N zle-line-finish
 
 setopt PROMPT_SUBST
 
+## workaround to make precmd work (coloring of PID)
+exit_code=$?
+
 ## left prompt
-PS1="%(?..%F{#ff6c60}%B%?%f%b)%# "
+## uses a ternary expression
+## [zsh: 13 Prompt Expansion](https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html#Conditional-Substrings-in-Prompts)
+PS1="%(?..%F{#ff6c60}%B%?%b%f)%# "
 
 ## right prompt
 ## commandID with running time

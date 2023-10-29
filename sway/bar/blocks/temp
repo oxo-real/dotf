@@ -8,8 +8,8 @@ cpu_temp=$(sensors | grep 'CPU' | awk '{print substr($0, 16, 2)}')
 var=$cpu_temp
 
 ## minimum, maximum value and number of threshold (colors)
-min=50
-max=100
+min=40
+max=90
 no_thr=5
 
 ## interval size
