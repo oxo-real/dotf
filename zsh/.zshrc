@@ -354,10 +354,15 @@ function preexec()
 
 # precmd
 
-## runs before each prompt
+## precmd runs before each prompt
 ## and thus runs after each command execution
 function precmd()
 {
+    exit_code=$?
+    ## WARNING exit_code must be retrieved at the beginning of the precmd
+    ## otherwise there is probably interference with the commands
+    ## from within precmd itself
+
     # get t1 for $time_exec (ns)
     t1_exec_ns=$(date +'%s%N')
 
@@ -374,12 +379,14 @@ function precmd()
 
 	### normal state (user write permissions)
 	### [zsh: 13 Prompt Expansion](https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html)
-	local precmd_left="%F{blue}%B%~%f%b $(git_branch "%s") $(git_dirty "%s")"
+	### single quotes; wait with expansion until print
+	local precmd_left='%F{blue}%B%~%f%b $(git_branch "%s") $(git_dirty "%s")'
 
     else
 
 	### no write permission directory color (amber #ffbf00)
-	local precmd_left="%F{#000000}%K{#ffbf00}%B%~%b%k%f $(git_branch "%s") $(git_dirty "%s")"
+	### single quotes; wait with expansion until print
+	local precmd_left='%F{#000000}%K{#ffbf00}%B%~%b%k%f $(git_branch "%s") $(git_dirty "%s")'
 
     fi
 
@@ -390,25 +397,28 @@ function precmd()
 	hc=$(( HISTCMD - 1 + $hist_cmd_offset ))
 	#local precmd_right="%S$t_ex_pretty%s $((HISTCMD -1 +$hist_cmd_offset)) %S%D{%H%M%S}%s"
 
-	#if [[ $exit_code -eq 0 ]]; then
+	## ternary function with which i didn't get the color working
+	#local precmd_right='$t_ex_pretty %(?.%F{#ff6c60}%B$hc%f%b.$hc) %D{%H%M%S}'
+	## see comments above
+	## if block below is workaround
+	if [[ "$exit_code" -eq "0" ]]; then
 
-	#    local precmd_right="$t_ex_pretty $hc %D{%H%M%S}"
+	    ### single quotes; wait with expansion until print
+	    local precmd_right='$t_ex_pretty $hc %D{%H%M%S}'
 
-	#else
+	else
 
-	#    local precmd_right='$t_ex_pretty %F{#ff6c60}%B$hc%f%b %D{%H%M%S}'
+	    ### single quotes; wait with expansion until print
+	    local precmd_right='$t_ex_pretty %F{#ff6c60}%B$hc%f%b %D{%H%M%S}'
 
-	#fi
-
-	#local precmd_right="$t_ex_pretty %(?.$hc.%F{#ff6c60}%B$hc%f%b) %D{%H%M%S}"
-	local precmd_right='$t_ex_pretty %(?.%F{#ff6c60}%B$hc%f%b.$hc) %D{%H%M%S}'
-	#local precmd_right="$t_ex_pretty %F{#666666}$(( HISTCMD - 1 + $hist_cmd_offset ))%f %D{%H%M%S}"
+	fi
 
     else
 
 	# no starttime detected
 	# when starting zsh or enter an empty line
-	local precmd_right="* %D{%H%M%S}"
+	### single quotes; wait with expansion until print
+	local precmd_right='* %D{%H%M%S}'
 
     fi
 
@@ -422,6 +432,7 @@ function precmd()
     local num_filler_spaces=$((COLUMNS - precmd_right_length))
 
     ### print
+    ### double quotes; expansion occurs here
 
     print -Pr "${(l:$num_filler_spaces:)}$precmd_right"
     print -Pr "$precmd_left"
@@ -439,8 +450,6 @@ zle -N zle-line-finish
 
 setopt PROMPT_SUBST
 
-## workaround to make precmd work (coloring of PID)
-exit_code=$?
 
 ## left prompt
 ## uses a ternary expression
