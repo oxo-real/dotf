@@ -893,6 +893,7 @@
 
 (oxo/leader-keys
   "w" '(:ignore t :wk "window")
+  "w d" '(delete-window :wk "remove focused")
   "w w" '(:ignore t :wk "create new")
   "w w l" '(split-window-right :wk "right")
   "w w j" '(split-window-below :wk "below"))
