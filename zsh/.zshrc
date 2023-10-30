@@ -435,13 +435,13 @@ function precmd()
 
 		## we have a exec time > 1000 ms
 		### single quotes; wait with expansion until print
-		local precmd_right='$t_ex_secs%F{#696969}$t_ex_ms%f %F{#ff6c60}%B$hc%f%b %D{%H%M%S}'
+		local precmd_right='$t_ex_secs%F{#696969}$t_ex_ms%f %F{#ff6c60}$hc%f %D{%H%M%S}'
 
 	    else
 
 		## we have an exec time < 1000 ms
 		### single quotes; wait with expansion until print
-		local precmd_right='$t_ex_ms %F{#ff6c60}%B$hc%f%b %D{%H%M%S}'
+		local precmd_right='$t_ex_ms %F{#ff6c60}$hc%f %D{%H%M%S}'
 
 	    fi
 
@@ -488,7 +488,7 @@ setopt PROMPT_SUBST
 ## left prompt
 ## uses a ternary expression
 ## [zsh: 13 Prompt Expansion](https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html#Conditional-Substrings-in-Prompts)
-PS1="%(?..%F{#ff6c60}%B%?%b%f)%# "
+PS1="%(?..%F{#ff6c60}%?%f)%# "
 
 ## right prompt
 ## commandID with running time
