@@ -29,6 +29,7 @@ set $csc		"$XDG_CONFIG_HOME/sway/code"
 
 
 ## general settings ##
+#----------------------------------------------------------------
 
 
 # input profiles
@@ -257,7 +258,7 @@ set $term		alacritty
 
 
 ## workspace settings ##
-
+#----------------------------------------------------------------
 
 # assign workspaces
 ## ws0 named '0' (number) sorts before 1
@@ -416,9 +417,9 @@ focus_follows_mouse	no
 # no mouse warping (when switching focus to a window)
 mouse_warping		none
 
-### ## #
-### ## # navigational keybindings
-### ## #
+
+# navigational keybindings
+#----------------------------------------------------------------
 
 # container (window)
 # output (monitor)
@@ -456,6 +457,7 @@ bindsym $mod+$right		focus right
 
 
 # move focused window
+#----------------------------------------------------------------
 
 ## mouse method
 ## $mod+MouseLeft and manually move container
@@ -518,6 +520,7 @@ bindsym $mod+Mod1+9		floating enable; $smt Z; exec sh $csc/float_max
 
 
 # resize focused window
+#----------------------------------------------------------------
 
 ## mouse method
 ## $mod+MouseRight+mouse_move resizes container
@@ -553,6 +556,7 @@ bindsym $mod+Mod1+q		kill
 
 
 # change container layout
+#----------------------------------------------------------------
 
 ## split horizontal / vertical toggle
 ## next new container below / aside
@@ -565,7 +569,6 @@ bindsym $mod+Shift+backslash	layout toggle splith splitv stacking tabbed; exec $
 
 # enter fullscreen mode for the focused window
 bindsym $mod+f		        fullscreen toggle
-
 
 # focus parent container
 #bindsym $mod+a			focus parent  ## default
@@ -599,15 +602,13 @@ bindsym $mod+Shift+slash	move scratchpad
 bindsym $mod+slash		scratchpad show
 
 
-### ## #
-### ## # other keybindings
-### ## #
+# other keybindings
+#----------------------------------------------------------------
 
 
-# spawn a terminal emulator
-
-## container tile split_auto direction
-## spawns same type as focused container
+## spawn a terminal emulator
+### container tile split_auto direction
+### spawns same type as focused container
 ### cwd $HOME
 bindsym $mod+Return		exec $csc/term_spawn &
 ### cwd $PWD
@@ -618,6 +619,21 @@ bindsym $mod+Mod1+Return	exec $csc/term_spawn $HOME float &
 bindsym $mod+Mod1+Shift+Return	exec $csc/term_spawn pwd float &
 
 
+## fzf_run
+bindsym $mod+d			exec $term --class="float_fzf_run" -e \
+				$csc/fzf_run
+
+## fzf_spicules			(search cmd_catalog)
+bindsym $mod+z			exec $term --class="float_spicules" -e \
+				$csc/fzf_spicules && wl-copy -n < $XDG_CACHE_HOME/cb
+
+## fzf_sway_switch 		(window switcher)
+bindsym $mod+grave		exec $term --class="float_spicules" -e \
+				$csc/fzf_sway_switch
+
+# container definitions
+#----------------------------------------------------------------
+
 ## floating terminal
 for_window [app_id="term_float"]
 {
@@ -627,7 +643,6 @@ for_window [app_id="term_float"]
     opacity set 1.0
     $smt Z
 }
-
 
 ## show me the key
 for_window [title="Floating Window - Show Me The Key"]
@@ -640,7 +655,6 @@ for_window [title="Floating Window - Show Me The Key"]
     $smt NE
 }
 
-
 ## floating invisible
 for_window [app_id="term_float_inv"]
 {
@@ -651,11 +665,11 @@ for_window [app_id="term_float_inv"]
     move position 0 0
 }
 
-#bindsym Control+b 	exec $term --class="term_float_inv" -e \
-#			$XDG_CONFIG_HOME/code/bar_blocks/toggle :
-#			exec $XDG_CONFIG_HOME/sway/code/kill_float_inv
-
-# fzf configuration
+## terminal fullscreen
+for_window [app_id="term_fullscreen"]
+{
+    fullscreen enable
+}
 
 ## fzf_run
 for_window [app_id="float_fzf_run"]
@@ -668,9 +682,6 @@ for_window [app_id="float_fzf_run"]
     exec $term msg config colors.primary.background='"#000020"'
 }
 
-bindsym $mod+d			exec $term --class="float_fzf_run" -e \
-				$csc/fzf_run
-
 ## define spicules window
 for_window [app_id="float_spicules"]
 {
@@ -682,16 +693,9 @@ for_window [app_id="float_spicules"]
     exec $term msg config colors.primary.background='"#000000"'
 }
 
-## fzf_spicules			(search cmd_catalog)
-bindsym $mod+z			exec $term --class="float_spicules" -e \
-				$csc/fzf_spicules && wl-copy -n < $XDG_CACHE_HOME/cb
-
-## fzf_sway_switch 		(window switcher)
-bindsym $mod+grave		exec $term --class="float_spicules" -e \
-				$csc/fzf_sway_switch
-
 
 # fzf clipboard manager
+#----------------------------------------------------------------
 
 ## cache/cb is the active clipboard
 ## cache/cpbd is the clipboard list
@@ -719,6 +723,7 @@ bindsym $mod+Control+Shift+r	exec $term --class="float_spicules" -e \
 
 
 # exit workspace
+#----------------------------------------------------------------
 
 ### define exit window
 for_window [app_id="float_exit"]
@@ -749,10 +754,10 @@ bindsym $mod+Shift+z		exec sh $csc/dimr swaylock
 ### screen off
 #bindsym $mod+Shift+Slash	exec $csc/dimr screen_off
 
-### enable (lock after 2 * idle_time)
+### enable delay (lock after 2 * idle_time)
 bindsym $mod+Control+Shift+e	exec sh $csc/dimr swaylock_enable 10
 
-### disable (no lock after idle_time)
+### disable delay (no lock after idle_time)
 bindsym $mod+Control+Shift+d	exec sh $csc/dimr swaylock_disable
 
 # reload sway configuration
@@ -760,6 +765,7 @@ bindsym $mod+Shift+c		reload
 
 
 # XF86 specific keys
+#----------------------------------------------------------------
 
 ### i3blocks (old): && pkill -RTMIN+1 i3blocks
 ### for OLED (they have no backlight) screens; try icc-backlight (see notes)
@@ -767,6 +773,10 @@ bindsym $mod+Shift+c		reload
 ## screen brightness
 bindsym XF86MonBrightnessDown	exec brightnessctl set 5%-
 bindsym XF86MonBrightnessUp	exec brightnessctl set 5%+
+
+# [GitHub - rileyrg/linux-init: Emacs org-file based suite of Linux config files and scripts](https://github.com/rileyrg/linux-init#swayidle-binswaysway-idle-----sleeplockidle)
+#bindsym --locked XF86MonBrightnessUp exec --no-startup-id light -A 10 && sway-brightness-notify
+#bindsym --locked XF86MonBrightnessDown exec --no-startup-id light -U 10 && sway-brightness-notify
 
 ## audio volume
 ### tpx1c using wireplumber
@@ -800,7 +810,12 @@ bindsym XF86Search 		exec $menu
 bindsym $mod+m			exec $term --class="float_spicules" -e \
 				$csc/music_play
 
+## switch microphone on/off
+bindsym Shift+Control+Mod1+x	exec mic_switch toggle Webcam C310
+
+
 # screencapture
+#----------------------------------------------------------------
 # https://wiki.archlinux.org/index.php/Sway#Screen_capture
 
 ## current output
@@ -829,14 +844,12 @@ bindsym $mod+Mod1+c		exec grim -g "$(slurp -p)" -t ppm - | \
 				wl-copy -n && \
 				notify-send 'color data copy'
 
-# secure copy
+## secure copy
 #bindsym Shift+Control+y	wl-copy -o -n && exec notify-send 'secure copy is in DEV'
 bindsym Shift+Control+0		exec echo -n '' | wl-copy && notify-send 'clipboard cleared'
 
-# switch microphone on/off
-bindsym Shift+Control+Mod1+x	exec mic_switch toggle Webcam C310
-
 # speech-to-text
+#----------------------------------------------------------------
 # Shift+Control+Mod1		= A-C-S		(left)
 # $mod+Shift+Control+Mod1	= M-A-C-S	(right)
 bindsym Shift+Control+Mod1+e	exec vtxt begin en

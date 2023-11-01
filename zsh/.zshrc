@@ -42,10 +42,6 @@ hist_cmd_offset=100000
 ## lfcd load function
 #[[ -f $lf_cd ]] && source $lf_cd
 
-#DEV
-#source $XDG_CONFIG_HOME/zsh/prompt/two-line-prompt.zsh
-#TODO also red color pid on exit!=0
-
 
 # shell parameters
 
@@ -412,7 +408,7 @@ function precmd()
 	## ternary function with which i didn't get the color working
 	#local precmd_right='$t_ex_pretty %(?.%F{#ff6c60}%B$hc%f%b.$hc) %D{%H%M%S}'
 	## see comments above
-	## if block below is workaround
+	## if block below is partly a workaround
 	if [[ $exit_code -eq 0 ]]; then
 
 	    if [[ -n $t_ex_secs ]]; then
@@ -610,13 +606,16 @@ function chpwd()
     local bar_filler_spaces=$((COLUMNS - lb_length - rb_length ))
 
     print -Pr "$left_bar${(l:$bar_filler_spaces:)}$right_bar"
-    echo
+    #echo
 
     ## testing alignment
     #print $COLUMNS $lb_length $bar_filler_spaces $rb_length
     ## end testing alignment
 
-    eza --all --group-directories-first
+    # NOTICE presumes ls alias with eza_wrapper.sh
+    ls
+
+    #eza --all --group-directories-first
     #ls -A
 }
 

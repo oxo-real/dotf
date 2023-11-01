@@ -22,14 +22,18 @@
 ##
 #
 
+option=$1
+idle_time=$2
+
 [[ "$SWAYSOCK" ]] &&
 {
     csc="$XDG_CONFIG_HOME/sway/code"
     dimr="$csc/dimr"
     lock="$csc/lock"
 
-    option=$1
-    idle_time=$2
+    #option=$1
+    #idle_time=$2
+    [[ -z $option ]] && exit 1
     [[ -z $idle_time ]] && idle_time=120
 
 
@@ -96,28 +100,39 @@
     {
 	pkill swayidle
 
+	#TODO
+	# 1 screensaver fullscreen no lock
+	# 2 swaylock
+	# 3 screenoff
+
+	        #swaymsg fullscreen enable && \
+	        #exec $term --class="term_fullscreen" -e \
+
+#	    timeout $(( 1 * idle_time )) \
+#		'swaymsg exec --no-startup-id $(alacritty --class="term_float" --command feh --fullscreen /home/oxo/.cache/temp/lock.png && swaymsg fullscreen enable)'
+#	        resume          'kill -STOP $(pgrep feh)' \
+#		after-resume    'notify-send "resumed"' \
+
+# 1 screensaver
+# this works on the commandline:
+# swaymsg fullscreen enable exec --no-startup-id $(alacritty --class="term_fullscreen" --command feh --fullscreen /home/oxo/.cache/temp/lock.png) &
+
+	# NOTICE swaymsg output dpms is deprecated, use power
+
         swayidle -w \
-	    timeout $(( 1 * idle_time )) \
-	        swaymsg fullscreen enable && \
-	        'swaymsg "output * $(feh --fullscreen /home/oxo/.cache/temp/lock.png)"' \
-	        resume          'kill -STOP $(pgrep feh)' \
-
 	    timeout $(( 2 * idle_time )) \
-		'$($dimr swaylock)' \
-		#'swaymsg "output * power on"; $(dimr swaylock)' \
-
+		'$(dimr swaylock)' \
 	    timeout $(( 3 * idle_time )) \
-		'swaymsg "output * power off"' \
-	        resume	        'swaymsg "output * power on"' \
-	        after-resume    'notify-send "swaylock enabled $idle_time"' \
-
+		    'swaymsg "output * power off"' \
+	        resume 'swaymsg "output * power on"' \
+	        after-resume 'notify-send "swaylock enabled $idle_time"' \
 	    timeout $(( 4 * idle_time )) \
-		'$(sudo systemctl suspend)' \
-	        before-sleep    '$($dimr swaylock)' & \
-	                        'playerctl pause' & \
-				'notify-send "swaylock enabled $idle_time"'
+		'$(systemctl suspend)' \
+	        before-sleep '$($dimr swaylock)' \
+		after-resume 'notify-send "swaylock enabled $idle_time"'
     }
 
+    ## poweroff OR dpms ?!
 
     swaylock_disable()
     {

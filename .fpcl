@@ -6,6 +6,7 @@ emacs/config.org
 emacs/custom.el
 emacs/early-init.el
 emacs/init.el
+eza
 c fd
 figlet
 fonts
@@ -20,6 +21,7 @@ icons/cursors
 c icons/cursors/source
 isync
 c isync/mbsync_config
+kdenlive
 lf
 lo
 lynx

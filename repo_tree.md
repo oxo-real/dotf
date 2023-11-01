@@ -234,6 +234,8 @@
 │   ├── custom.el
 │   ├── early-init.el
 │   └── init.el
+├── eza
+│   └── eza_wrapper.sh
 ├── fd.tar.aes
 ├── fd.tar.hash
 ├── figlet
@@ -852,6 +854,51 @@
 ├── isync
 │   ├── mbsync_config.aes
 │   └── mbsync_config.hash
+├── kdenlive
+│   └── color_scheme
+│       └── Nordic-darker
+│           ├── colors
+│           ├── dialogs
+│           │   └── background.svg
+│           ├── icons
+│           │   ├── audio.svg
+│           │   └── start.svg
+│           ├── LICENSE
+│           │   ├── CC BY-SA 4.0 EN.md
+│           │   └── CC BY-SA 4.0 ES.md
+│           ├── metadata.desktop
+│           ├── preview
+│           │   └── preview.png
+│           ├── README.md
+│           └── widgets
+│               ├── actionbutton.svgz
+│               ├── arrows.svgz
+│               ├── background.svgz
+│               ├── bar_meter_horizontal.svg
+│               ├── bar_meter_vertical.svg
+│               ├── busywidget.svgz
+│               ├── button.svgz
+│               ├── checkmarks.svgz
+│               ├── clock.svg
+│               ├── containment-controls.svgz
+│               ├── frame.svgz
+│               ├── glowbar.svgz
+│               ├── lineedit.svgz
+│               ├── line.svgz
+│               ├── listitem.svgz
+│               ├── pager.svgz
+│               ├── panel-background.svg
+│               ├── plot-background.svgz
+│               ├── scrollbar.svgz
+│               ├── scrollwidget.svgz
+│               ├── slider.svgz
+│               ├── tabbar.svgz
+│               ├── tasks.svgz
+│               ├── timer.svgz
+│               ├── toolbar.svgz
+│               ├── tooltip.svgz
+│               ├── translucentbackground.svgz
+│               └── viewitem.svgz
 ├── lf
 │   ├── lfcd_run
 │   ├── lfrc
@@ -2038,5 +2085,5 @@
     │   └── config
     └── xresources_colors
 
-215 directories, 1823 files
+224 directories, 1861 files
 ```

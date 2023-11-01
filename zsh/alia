@@ -85,54 +85,17 @@ alias rm='trash'
 alias mkdir='mkdir --parents --verbose'
 #alias lf='lfcd'
 
-# colors
+# ls
+if command -v eza >/dev/null; then
 
-ls()
-{
-    args="$*"
+    alias ls="echo; $XDG_CONFIG_HOME/eza/eza_wrapper.sh"
 
-    last_arg=$(printf "$args" | awk '{print $NF}')
+else
 
-    if [[ -d $last_arg || -f $last_arg || -l $last_arg ]];then
+    alias ls="echo; command ls $LS_OPTIONS"
 
-	## last_arg is a location
-	location="$last_arg"
+fi
 
-    else
-
-	## last_arg is not a location
-	flags="$last_arg"
-
-    fi
-
-
-    echo
-    if [ -n "$args" ]; then
-
-	case $1 in
-
-	    -ilatr)
-		eza -l --inode --all --group-directories-first --sort newest $flag $location
-		;;
-
-	    -ila)
-		eza -l --inode --all --group-directories-first $last_arg
-		;;
-
-	    *)
-		eza -l "$args"
-		;;
-
-	esac
-
-    else
-
-	eza $last_arg
-
-    fi
-}
-#alias ls='eza -A --group-directories-first --color=auto'
-#alias ls='ls -A --group-directories-first --color=auto'
 
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
