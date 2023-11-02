@@ -701,7 +701,6 @@ for_window [app_id="float_spicules"]
 # fzf clipboard manager
 #----------------------------------------------------------------
 
-## cache/cb is the active clipboard
 ## cache/cpbd is the clipboard list
 #
 # NO automatic migration (security feature!)

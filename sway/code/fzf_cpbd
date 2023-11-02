@@ -38,32 +38,33 @@ keybinds defined in sway config
 
 arg=$1
 
+cpbd_file="$XDG_CACHE_HOME/cpbd"
 
 remove_empty_lines()
 {
-    sed -i '/^[[:space:]]*$/d' $XDG_CACHE_HOME/cpbd
+    sed -i '/^[[:space:]]*$/d' $cpbd_file
 }
 
 
 remove_duplicates()
 {
-    sort -u $XDG_CACHE_HOME/cpbd > $XDG_CACHE_HOME/cpbd_updated
-    replace_cpbd_file
+    sort -u $cpbd_file > ${cpbd_file}_1
+    update_cpbd_file
 }
 
 
-replace_cpbd_file()
+update_cpbd_file()
 {
-    mv -f $XDG_CACHE_HOME/cpbd_updated $XDG_CACHE_HOME/cpbd
+    mv -f ${cpbd_file}_1 $cpbd_file
 }
 
 
 ## add current wl-clipboard item to cpbd_file (clipboard list)
 add()
 {
-    cp_item=$(wl-paste)
+    cpbd_lines_0=$(cat $cpbd_file | wc -l)
 
-    lines_add=$(echo "$cp_item" | wc -l)
+    cp_item=$(wl-paste)
 
     # do not add empty lines
     case $cp_item in
@@ -73,8 +74,7 @@ add()
 	    ;;
 
 	*)
-	    wl-paste >> $XDG_CACHE_HOME/cpbd
-	    notify-send "cpbd: added $lines_add lines to list"
+	    wl-paste >> $cpbd_file
 	    ;;
 
     esac
@@ -84,19 +84,27 @@ add()
 
     remove_empty_lines
     remove_duplicates
+
+    cpbd_lines_1=$(cat $cpbd_file | wc -l)
+
+    lines_add=$(( cpbd_lines_1 - cpbd_lines_0 ))
+
+    notify-send "cpbd: added $lines_add lines to list"
 }
 
 
 ## put items from cpbd to wl-copy
 put()
 {
-    put_exec=$(cat $XDG_CACHE_HOME/cpbd | fzf -m --prompt='put to wl-copy ' | tr '\n' ' ' | wl-copy)
+    [[ -z $(cat $cpbd_file) ]] && notify-send "cpbd: no list items" && exit
 
-    lines_put=$(echo "$put_exec" | wc -l)
+    put_exec=$(cat $cpbd_file | fzf -m --prompt='put to wl-copy ')
 
-    swaymsg -t command exec $put_exec
+    printf '%s' "$put_exec" | wl-copy
 
-    notify-send "cpdb: put $lines_put lines to wl-copy"
+    lines_put=$(wl-paste | wc -l)
+
+    [[ $lines_put -gt 0 ]] && notify-send "cpdb: put $lines_put lines to wl-copy"
 
     unset put_exec
     unset lines_put
@@ -106,29 +114,34 @@ put()
 ## remove selected item(s) from cpbd
 remove_item()
 {
-    remove_item_exec=$(cat $XDG_CACHE_HOME/cpbd | fzf -m --prompt='remove from list ')
+    cpbd_lines_0=$(cat $cpbd_file | wc -l)
 
-    lines_remove=$(echo "$remove_item_exec" | wc -l)
+    remove_item_exec=$(cat $cpbd_file | fzf -m --prompt='remove from list ')
 
     while IFS= read -r line; do
 
-	grep --invert-match --line-regexp "$line" $XDG_CACHE_HOME/cpbd > $XDG_CACHE_HOME/cpbd_updated
+	grep --invert-match --line-regexp "$line" $cpbd_file > ${cpbd_file}_1
 
-	replace_cpbd_file
+	update_cpbd_file
 
     done <<< "$remove_item_exec"
 
-    notify-send "cpdb: removed $lines_remove lines from list"
-
     unset remove_item_exec
     unset lines_remove
+
+    cpbd_lines_1=$(cat $cpbd_file | wc -l)
+
+    lines_remove=$(( cpbd_lines_0 - cpbd_lines_1 ))
+
+    [[ $lines_remove -ge 1 ]] && notify-send "cpdb: removed $lines_remove lines from list"
+
 }
 
 
 ## remove all item(s) from cpbd
 remove_all()
 {
-    rm $XDG_CACHE_HOME/cpbd
+    rm $cpbd_file
 
     notify-send "cpbd: removed list"
 }
