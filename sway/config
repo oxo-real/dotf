@@ -89,10 +89,10 @@ input $keyboard
 input $keyboard_ext
 {
     xkb_options		compose:ralt
-    #xkb_options		ctrl:nocaps,compose:ralt
+    #xkb_options	ctrl:nocaps,compose:ralt
     repeat_delay	500
     repeat_rate		20
-    #xkb_numlock		enabled
+    #xkb_numlock	enabled
 }
 
 
@@ -352,7 +352,7 @@ bar
 	   focused_background	#00000095
 	   focused_statusline	#777777
 	   focused_separator	#ffffff
-	   focused_workspace	#00000095 #00000095 #cccccc
+	   focused_workspace	#00000095 #33333395 #cccccc
 	   #focused_workspace	#005577   #00557795 #ffffd3
 	   active_workspace	#00000095 #77777795 #000000
 	   inactive_workspace	#1f1f1f95 #00000095 #777777
@@ -631,6 +631,10 @@ bindsym $mod+z			exec $term --class="float_spicules" -e \
 bindsym $mod+grave		exec $term --class="float_spicules" -e \
 				$csc/fzf_sway_switch
 
+## caps lock, in case you need it...
+bindsym Shift_L+Shift_R	       caps
+
+
 # container definitions
 #----------------------------------------------------------------
 
@@ -711,7 +715,8 @@ bindsym Control+Shift+y		exec $XDG_CONFIG_HOME/sway/code/fzf_cpbd add
 
 ## fzf_cpbd put
 bindsym Control+Shift+p		exec $term --class="float_spicules" -e \
-				$csc/fzf_cpbd put && wl-copy -n < $XDG_CACHE_HOME/cb
+				$csc/fzf_cpbd put < $XDG_CACHE_HOME/put
+				#$csc/fzf_cpbd put && wl-copy -n < $XDG_CACHE_HOME/put
 
 ## fzf_cpbd remove_item
 bindsym Control+Shift+r		exec $term --class="float_spicules" -e \

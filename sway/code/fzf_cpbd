@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /usr/bin/env sh
 : '
             _         _
   ___ _ __ | |__   __| |
@@ -10,99 +10,151 @@
 (_)><(_)
 
 cpbd
+clipboard list
 manage multiple copied items
+WARNING not intended for use with sensitive data!
 
 usage:
-    add to cpbd:
-	select item
-	wl-copy		C-S-c
-	cpbd_add	C-S-y
+    add wl-copy to clipboard list:
+	1. select items
+	2. wl-copy	C-S-c
+	3. cpbd_add	C-S-y
 
-    retrieve cpbd:
-	put item	C-S-p
-	fzf select
-	wl-paste	C-S-v
+    put clipboard list to wl-copy:
+	1. put		C-S-p
+	2. fzf select
+	3. wl-paste	C-S-v
 
-    remove cpbd:
-	put item	C-S-p
-	fzf select
+    remove items from clipboard list:
 	cpbd_remove	C-S-r
+	fzf select
 
-    clear cpbd:
+    clear entire clipboard list:
 	cpbd_clear	C-S-M-r
+
+keybinds defined in sway config
 # '
 
 
 arg=$1
 
 
-## add current wl-clipboard item to cpbd_file
+remove_empty_lines()
+{
+    sed -i '/^[[:space:]]*$/d' $XDG_CACHE_HOME/cpbd
+}
+
+
+remove_duplicates()
+{
+    sort -u $XDG_CACHE_HOME/cpbd > $XDG_CACHE_HOME/cpbd_updated
+    replace_cpbd_file
+}
+
+
+replace_cpbd_file()
+{
+    mv -f $XDG_CACHE_HOME/cpbd_updated $XDG_CACHE_HOME/cpbd
+}
+
+
+## add current wl-clipboard item to cpbd_file (clipboard list)
 add()
 {
     cp_item=$(wl-paste)
 
-    # do not add empty strings
+    lines_add=$(echo "$cp_item" | wc -l)
+
+    # do not add empty lines
     case $cp_item in
 
-	'')
+	''|'\n')
 	    :
 	    ;;
 
 	*)
 	    wl-paste >> $XDG_CACHE_HOME/cpbd
-	    notify-send "cpbd add"
+	    notify-send "cpbd: added $lines_add lines to list"
 	    ;;
 
     esac
 
     unset cp_item
-    wl-copy -c
+    unset lines_add
+
+    remove_empty_lines
+    remove_duplicates
 }
 
 
-## copy fzf selected item(s) from cpbd_file to cb_file
+## put items from cpbd to wl-copy
 put()
 {
-    put=$(cat $XDG_CACHE_HOME/cpbd | fzf -m --prompt='to cb ' > $XDG_CACHE_HOME/cb)
-    swaymsg -t command exec $put
+    put_exec=$(cat $XDG_CACHE_HOME/cpbd | fzf -m --prompt='put to wl-copy ' | tr '\n' ' ' | wl-copy)
+
+    lines_put=$(echo "$put_exec" | wc -l)
+
+    swaymsg -t command exec $put_exec
+
+    notify-send "cpdb: put $lines_put lines to wl-copy"
+
+    unset put_exec
+    unset lines_put
 }
 
 
+## remove selected item(s) from cpbd
 remove_item()
 {
-    #[TODO]
-    # for loop on fzf -m selected items
-    remove_item=$(sed -i "/$(cat $XDG_CACHE_HOME/cpbd | fzf -m)/d" $XDG_CACHE_HOME/cpbd)
-    notify-send "cpdb selected line(s) removed"
-    swaymsg -t command exec $remove_item 2&>0
+    remove_item_exec=$(cat $XDG_CACHE_HOME/cpbd | fzf -m --prompt='remove from list ')
+
+    lines_remove=$(echo "$remove_item_exec" | wc -l)
+
+    while IFS= read -r line; do
+
+	grep --invert-match --line-regexp "$line" $XDG_CACHE_HOME/cpbd > $XDG_CACHE_HOME/cpbd_updated
+
+	replace_cpbd_file
+
+    done <<< "$remove_item_exec"
+
+    notify-send "cpdb: removed $lines_remove lines from list"
+
+    unset remove_item_exec
+    unset lines_remove
 }
 
 
+## remove all item(s) from cpbd
 remove_all()
 {
     rm $XDG_CACHE_HOME/cpbd
-    rm $XDG_CACHE_HOME/cb
-    wl-copy -c
-    notify-send "cpbd all lines removed"
+
+    notify-send "cpbd: removed list"
 }
 
 
-case $arg in
+main()
+{
+    case $arg in
 
-    add)
-	add
-	;;
+	add)
+	    add
+	    ;;
 
-    put)
-	put
-	;;
+	put)
+	    put
+	    ;;
 
-    remove_item)
-	remove_item
-	;;
+	remove_item)
+	    remove_item
+	    ;;
 
-    remove_all)
-	remove_all
-	;;
+	remove_all)
+	    remove_all
+	    ;;
 
-esac
+    esac
+}
+
+main
