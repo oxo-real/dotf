@@ -12,25 +12,26 @@
 cpbd
 clipboard list
 manage multiple copied items
+
 WARNING not intended for use with sensitive data!
 
 usage:
     add wl-copy to clipboard list:
 	1. select items
 	2. wl-copy	C-S-c
-	3. cpbd_add	C-S-y
+	3. cpbd_add	C-S-y a
 
     put clipboard list to wl-copy:
-	1. put		C-S-p
+	1. cpbd_put	C-S-y p
 	2. fzf select
 	3. wl-paste	C-S-v
 
     remove items from clipboard list:
-	cpbd_remove	C-S-r
-	fzf select
+	1. cpbd_remove	C-S-y r
+	2. fzf select
 
-    clear entire clipboard list:
-	cpbd_clear	C-S-M-r
+    remove all; clear entire clipboard list:
+	1. cpbd_remove	C-S-y ra
 
 keybinds defined in sway config
 # '
@@ -39,6 +40,33 @@ keybinds defined in sway config
 arg=$1
 
 cpbd_file="$XDG_CACHE_HOME/cpbd"
+
+
+choose_option()
+{
+    option=$(printf '%s\n%s\n%s\n%s' 'add' 'put' 'remove' 'remove_all' | fzf --prompt 'action to perform on cpbd ')
+
+    case $option in
+
+	add)
+	    add
+	    ;;
+
+	put)
+	    put
+	    ;;
+
+	remove)
+	    remove_item
+	    ;;
+
+	remove_all)
+	    remove_all
+	    ;;
+
+    esac
+}
+
 
 remove_empty_lines()
 {
@@ -64,17 +92,16 @@ add()
 {
     cpbd_lines_0=$(cat $cpbd_file | wc -l)
 
-    cp_item=$(wl-paste)
-
     # do not add empty lines
     case $cp_item in
 
-	''|'\n')
-	    :
+	'\n')
+	    exit
 	    ;;
 
 	*)
-	    wl-paste >> $cpbd_file
+	    ## remove any leading spaces
+	    wl-paste | sed 's/^[[:space:]]*//' >> $cpbd_file
 	    ;;
 
     esac
@@ -89,7 +116,8 @@ add()
 
     lines_add=$(( cpbd_lines_1 - cpbd_lines_0 ))
 
-    notify-send "cpbd: added $lines_add lines to list"
+    [[ $lines_add -gt 0 ]] && notify-send "cpbd: added $lines_add lines to list"
+    [[ $lines_add -eq 0 ]] && notify-send "cpbd: no lines added"
 }
 
 
@@ -102,7 +130,7 @@ put()
 
     printf '%s' "$put_exec" | wl-copy
 
-    lines_put=$(wl-paste | wc -l)
+    [[ -n $put_exec ]] && lines_put=$(wl-paste | wc -l)
 
     [[ $lines_put -gt 0 ]] && notify-send "cpdb: put $lines_put lines to wl-copy"
 
@@ -117,7 +145,7 @@ remove_item()
     cpbd_lines_0=$(cat $cpbd_file | wc -l)
 
     remove_item_exec=$(cat $cpbd_file | fzf -m --prompt='remove from list ')
-
+#TODO check this
     while IFS= read -r line; do
 
 	grep --invert-match --line-regexp "$line" $cpbd_file > ${cpbd_file}_1
@@ -126,15 +154,14 @@ remove_item()
 
     done <<< "$remove_item_exec"
 
-    unset remove_item_exec
-    unset lines_remove
-
     cpbd_lines_1=$(cat $cpbd_file | wc -l)
 
-    lines_remove=$(( cpbd_lines_0 - cpbd_lines_1 ))
+    lines_remove=$(( -1 * (cpbd_lines_1 - cpbd_lines_0) ))
 
-    [[ $lines_remove -ge 1 ]] && notify-send "cpdb: removed $lines_remove lines from list"
+    [[ $lines_remove -gt 0 ]] && notify-send "cpbd: removed $lines_remove lines from list"
 
+    unset remove_item_exec
+    unset lines_remove
 }
 
 
@@ -149,25 +176,7 @@ remove_all()
 
 main()
 {
-    case $arg in
-
-	add)
-	    add
-	    ;;
-
-	put)
-	    put
-	    ;;
-
-	remove_item)
-	    remove_item
-	    ;;
-
-	remove_all)
-	    remove_all
-	    ;;
-
-    esac
+    choose_option
 }
 
 main

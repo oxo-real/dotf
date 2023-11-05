@@ -703,27 +703,14 @@ for_window [app_id="float_spicules"]
 
 ## cache/cpbd is the clipboard list
 #
+# WARNING not intended for use with sensitive data!
 # NO automatic migration (security feature!)
-# of active clipboard items to the clipboard list
-# this must be done explicitly (copy then fzf_cpbd add)
-
-## fzf_cpbd add
-bindsym Control+Shift+y		exec $XDG_CONFIG_HOME/sway/code/fzf_cpbd add
 # TODO bindsym Control+Shift+o	secure copy (wl-copy -o)
 
 
-## fzf_cpbd put
-bindsym Control+Shift+p		exec $term --class="float_spicules" -e \
-				$csc/fzf_cpbd put < $XDG_CACHE_HOME/put
-				#$csc/fzf_cpbd put && wl-copy -n < $XDG_CACHE_HOME/put
-
-## fzf_cpbd remove_item
-bindsym Control+Shift+r		exec $term --class="float_spicules" -e \
-				$csc/fzf_cpbd remove_item
-
-## fzf_cpbd remove_all
-bindsym $mod+Control+Shift+r	exec $term --class="float_spicules" -e \
-				$csc/fzf_cpbd remove_all
+## fzf_cpbd
+bindsym Control+Shift+y		exec $term --class="float_spicules" -e \
+				$csc/fzf_cpbd
 
 
 # exit workspace
@@ -759,7 +746,7 @@ bindsym $mod+Shift+z		exec sh $csc/dimr swaylock
 #bindsym $mod+Shift+Slash	exec $csc/dimr screen_off
 
 ### enable delay (lock after 2 * idle_time)
-bindsym $mod+Control+Shift+e	exec sh $csc/dimr swaylock_enable 10
+bindsym $mod+Control+Shift+e	exec sh $csc/dimr swaylock_enable 120
 
 ### disable delay (no lock after idle_time)
 bindsym $mod+Control+Shift+d	exec sh $csc/dimr swaylock_disable

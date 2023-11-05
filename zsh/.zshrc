@@ -613,7 +613,7 @@ function chpwd()
     ## end testing alignment
 
     # NOTICE presumes ls alias with eza_wrapper.sh
-    ls
+    ls -A
 
     #eza --all --group-directories-first
     #ls -A
