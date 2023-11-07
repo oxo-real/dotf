@@ -31,8 +31,6 @@ idle_time=$2
     dimr="$csc/dimr"
     lock="$csc/lock"
 
-    #option=$1
-    #idle_time=$2
     [[ -z $option ]] && exit 1
     [[ -z $idle_time ]] && idle_time=120
 
@@ -53,7 +51,6 @@ idle_time=$2
     swaylock_exec()
     {
 	sh $lock
-	#sh $XDG_CONFIG_HOME/sway/code/lock
     }
 
 
@@ -100,54 +97,33 @@ idle_time=$2
     {
 	pkill swayidle
 
-        swayidle -w \
-	    timeout $(( 2 * idle_time )) \
-		'$(dimr swaylock)' \
-	    timeout $(( 3 * idle_time )) \
-		    'swaymsg "output * power off"' \
-	        resume 'swaymsg "output * power on"' \
-	        after-resume 'notify-send "$option $idle_time"' \
-	    timeout $(( 4 * idle_time )) \
-		'$(systemctl suspend)' \
-	        before-sleep '$($dimr swaylock)' \
-		after-resume 'notify-send "$option $idle_time"'
-
 	notify-send "$option $idle_time"
 
-	#TODO
-	# 1 screensaver fullscreen no lock
-	# 2 swaylock
-	# 3 screenoff
-
-	        #swaymsg fullscreen enable && \
-	        #exec $term --class="term_fullscreen" -e \
-
-#	    timeout $(( 1 * idle_time )) \
-#		'swaymsg exec --no-startup-id $(alacritty --class="term_float" --command feh --fullscreen /home/oxo/.cache/temp/lock.png && swaymsg fullscreen enable)'
-#	        resume          'kill -STOP $(pgrep feh)' \
-#		after-resume    'notify-send "resumed"' \
-
-	# 1 screensaver
-	# this works on the commandline:
-	# swaymsg fullscreen enable exec --no-startup-id $(alacritty --class="term_fullscreen" --command feh --fullscreen /home/oxo/.cache/temp/lock.png) &
-
-	# NOTICE swaymsg output dpms is deprecated, use power
+        swayidle -w \
+	    timeout $(( 1 * idle_time )) \
+		'$(dimr swaylock)' \
+	    timeout $(( 2 * idle_time )) \
+		    'swaymsg "output * power off"' \
+	        resume 'swaymsg "output * power on"' \
+	    timeout $(( 3 * idle_time )) \
+		'$(systemctl suspend)'
+		#after-resume 'notify-send "$option $idle_time"'
+	        #before-sleep '$($dimr swaylock)' \
     }
 
-    ## poweroff OR dpms ?!
 
     swaylock_disable()
     {
 	pkill swayidle
 
+	notify-send "$option"
+
 	swayidle -w \
 	    timeout $(( 1 * idle_time )) \
 	        'swaymsg "output * power off"' \
                 resume		'swaymsg "output * power on"' \
-	        before-sleep	'$($dimr no_swaylock)' & \
-				'notify-send "$option"'
-
-	notify-send "$option"
+	        before-sleep	'$($dimr no_swaylock)' \
+		after-resume	'notify-send "$option"'
     }
 
 
@@ -177,3 +153,33 @@ idle_time=$2
 
     exit 0
 }
+
+
+    test_block()
+    {
+	: '
+	# now:
+	1 swaylock
+	2 screenoff
+	3 suspend
+	#TODO want:
+	1 screensaver fullscreen no lock
+	2 swaylock
+        3 screenoff
+	4 susspend
+
+	       swaymsg fullscreen enable && \
+	       exec $term --class="term_fullscreen" -e \
+
+	    timeout $(( 1 * idle_time )) \
+		'swaymsg exec --no-startup-id $(alacritty --class="term_float" --command feh --fullscreen /home/oxo/.cache/temp/lock.png && swaymsg fullscreen enable)'
+	        resume          'kill -STOP $(pgrep feh)' \
+		after-resume    'notify-send "resumed"' \
+
+	1 screensaver
+	this works on the commandline:
+	swaymsg fullscreen enable exec --no-startup-id $(alacritty --class="term_fullscreen" --command feh --fullscreen /home/oxo/.cache/temp/lock.png) &
+
+	NOTICE swaymsg output dpms is deprecated, use power
+	# '
+    }
