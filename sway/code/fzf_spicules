@@ -1,16 +1,11 @@
-#!/bin/bash
+#! /usr/bin/env sh
 
-#spicules=$(print -z $(cat $XDG_DATA_HOME/c/git/note/linux/shell/command/catalog | fzf | sed 's/  ## .*$//'))
-
-
+## NOTICE sed is used to remove '  ## '-marked comments from the lines
 spicules=$(\
 	cat $XDG_DATA_HOME/c/git/note/linux/shell/command/catalog | \
-	#sort | \
 	fzf --height ~100% | \
 	sed 's/  ## .*$//' \
 	    > $XDG_CACHE_HOME/cb\
 )
 
 swaymsg -t command exec $spicules
-
-# sed is used to remove '  ## '-marked comments from the lines

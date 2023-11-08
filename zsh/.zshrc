@@ -934,6 +934,11 @@ bindkey '^j' lfcd
 #bindkey -s '^j' 'lfcd\n'
 #bindkey -s '^j' "lfcd\n"
 
+function fzf_cd()
+{
+    # C-l opens fzf
+}
+
 
 # syntax highlighting
 #source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

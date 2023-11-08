@@ -1,4 +1,4 @@
-#!/bin/env bash
+#! /usr/bin/env sh
 
 execute=$(\
 	echo -n "$PATH" | \
@@ -6,7 +6,7 @@ execute=$(\
 	find -L {} -maxdepth 1 -mindepth 1 -type f -executable -printf '%P\n' \
 	2>/dev/null | \
 	sort -u | \
-	fzf --height ~100%\
+	fzf --height ~100% --prompt 'run '\
 )
 
 swaymsg -t command exec $execute

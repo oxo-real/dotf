@@ -111,7 +111,7 @@ export GTK_USE_PORTAL=0
 # fzf
 
 ## fzf default options
-export FZF_DEFAULT_OPTS='--cycle --layout=reverse --info=inline --height ~25% --bind ctrl-u:clear-query --preview="tree -L 1 {}" --preview-window=:hidden --color=dark,prompt:#96cbfe,pointer:#ffffb6,spinner:#a8ff60'
+export FZF_DEFAULT_OPTS='--cycle --layout=reverse --info=inline --height ~25% --bind ctrl-u:clear-query --preview="tree -L 1 {}" --preview-window=:hidden --scrollbar='' --color=dark,prompt:#96cbfe,pointer:#ffffb6,spinner:#a8ff60'
 ## fzf completion trigger (default **)
 export FZF_COMPLETION_TRIGGER='~~'
 
@@ -135,6 +135,17 @@ export TESTDIR="$XDG_CACHE_HOME/test"
 export TMPDIR="$XDG_CACHE_HOME/temp"  # for mktemp
 export TRASHDIR="$XDG_CACHE_HOME/trash"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+
+## qt5 fix
+#export QT_QPA_PLATFORMTHEME='qt5ct'
+## qt6 fix
+## solve flashing qutebrowser
+## needed for obs (screencast pipewire)
+export QT_QPA_PLATFORMTHEME='qt6ct'
+
+## wayland fix
+#export QT_QPA_PLATFORM=wayland
+
 
 ## '< $file' behaviour
 ## prevent less writing lesshst to $HOME

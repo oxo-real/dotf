@@ -1,8 +1,9 @@
 #! /usr/bin/env sh
 
-# sway switch to workspace or container via fzf menu
+# sway focus to workspace or container via fzf menu
+## TODO DEV focus workspace focuses/selects all containers
 
-fzf_selection=$(swaymsg --pretty --type get_tree | fzf --height ~100%)
+fzf_selection=$(swaymsg --pretty --type get_tree | fzf --height ~100% --prompt 'focus ')
 
 if [[ $(printf '%s' "$fzf_selection" | grep 'workspace') ]]; then
 

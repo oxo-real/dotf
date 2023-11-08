@@ -11,10 +11,12 @@
 
 specific_point_size=$1
 
-if [ -n $1 ]  ; then
+if [ -n $1 ]; then
 
     alacritty msg config font.size=$specific_point_size
 
 else
 
     alacritty msg config font.size=11
+
+fi
