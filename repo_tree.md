@@ -1821,6 +1821,8 @@
 │   │       ├── batt
 │   │       ├── brightness
 │   │       ├── bt
+│   │       ├── click
+│   │       │   └── time.sh
 │   │       ├── config_bu
 │   │       ├── cpu
 │   │       ├── interface
@@ -2085,5 +2087,5 @@
     │   └── config
     └── xresources_colors
 
-224 directories, 1861 files
+225 directories, 1862 files
 ```

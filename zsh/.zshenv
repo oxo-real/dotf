@@ -43,9 +43,8 @@ fpath=( $fpath $HOME/.config/zsh/completions )
 # sway environment
 ## $XKB_DEFAULT_OPTIONS must been set
 ## before sway has been started
-## for zsa moonlander AltGr key to work
-## as a compose key as expected
-export XKB_DEFAULT_OPTIONS='compose:ralt'
+## for zsa moonlander xkb_options to work
+export XKB_DEFAULT_OPTIONS='compose:ralt,shift:both_capslock'
 
 
 # xdg environment
@@ -140,11 +139,11 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 #export QT_QPA_PLATFORMTHEME='qt5ct'
 ## qt6 fix
 ## solve flashing qutebrowser
-## needed for obs (screencast pipewire)
+## needed for obs (screencast pipewire
 export QT_QPA_PLATFORMTHEME='qt6ct'
 
 ## wayland fix
-#export QT_QPA_PLATFORM=wayland
+export QT_QPA_PLATFORM=wayland
 
 
 ## '< $file' behaviour
@@ -214,7 +213,7 @@ lc=\e[:rm=m:tc=00:sp=00:ma=07:hi=00:du=00:\
 *.mpg=01;35:*.avi=01;35:*.gl=01;37:*.dl=01;37:\
 *.mp4=01;35:*.webm=01;35:*.mkv=01;35:\
 *.mp3=36"
-export ZlS_COLORS
+export ZLS_COLORS
 
 ## ls colors
 LS_COLORS=\

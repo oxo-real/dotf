@@ -63,9 +63,18 @@ input $touchpad_ext
     pointer_accel	1
 }
 
-## keyboard
+## NOTICE
+## $XKB_DEFAULT_OPTIONS must been set
+## before sway has been started
+## for zsa moonlander xkb_options to work
+## (see zshenv XKB_DEFAULT_OPTIONS)
+
+## xkb_options: man 7 xkeyboard-config
+
 ### set caps = esc
 #   xkb_options		caps:escape,compose:ralt
+### set shiftL+shiftR = caps
+#   xkb_options		shift:both_capslock
 ### swap caps and left ctrl
 #   xkb_options		ctrl:swapcaps
 ### set caps = ctrl
@@ -74,12 +83,14 @@ input $touchpad_ext
 #   xkb_options		compose:ralt
 ### multiple options
 #   xkb_options		ctrl:nocaps,compose:ralt
+
+## keyboard
 ### general
 #input type:keyboard
 ### specific
 input $keyboard
 {
-    xkb_options		ctrl:nocaps,compose:ralt
+    xkb_options		compose:ralt,ctrl:nocaps
     repeat_delay	500
     repeat_rate		20
 }
@@ -90,8 +101,7 @@ input $keyboard
 ## specific
 input $keyboard_ext
 {
-    xkb_options		compose:ralt
-    #xkb_options	ctrl:nocaps,compose:ralt
+    xkb_options		compose:ralt,shift:both_capslock
     repeat_delay	500
     repeat_rate		20
     #xkb_numlock	enabled
@@ -360,7 +370,7 @@ bar
 	   focused_statusline	#777777
 	   focused_separator	#ffffff
 	   focused_workspace	#00000095 #33333395 #cccccc
-	   #focused_workspace	#005577   #00557795 #ffffd3
+	   #focused_workspace	#005577   #00557795 #cccccc
 	   active_workspace	#00000095 #77777795 #000000
 	   inactive_workspace	#1f1f1f95 #00000095 #777777
 	   urgent_workspace	#00000095 #77005595 #ffffd3
@@ -817,11 +827,17 @@ bindsym XF86AudioPrev 		exec playerctl previous
 #bindsym XF86AudioStop		exec lmc toggle
 
 bindsym XF86Search 		exec $menu
+
+## play music
 bindsym $mod+m			exec $term --class="float_spicules" -e \
 				$csc/music_play
 
 ## switch microphone on/off
 bindsym Shift+Control+Mod1+x	exec mic_switch toggle Webcam C310
+
+## play video
+bindsym Shift+Control+Mod1+v 	exec $term --class="term_float_inv" -e \
+				mpv $(wl-paste) &
 
 
 #----------------------------------------------------------------
@@ -878,14 +894,18 @@ bindsym Shift+Control+Mod1+d	exec vtxt end
 #exec waybar
 
 # mako notification daemon
-exec mako
+exec mako --config $XDG_CONFIG_HOME/mako/config
 
 # [Home · swaywm/sway Wiki · GitHub]
 # (https://github.com/swaywm/sway/wiki#gtk-applications-take-20-seconds-to-start)
 # Alternatively, set GTK_USE_PORTAL=0 in your environment.
 # More details: https://github.com/swaywm/sway/issues/5732
-#exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+# # #exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
+# [XDG Desktop Portal - ArchWiki](https://wiki.archlinux.org/title/XDG_Desktop_Portal)
 
 # obs
-exec systemctl --userimport-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+# # #exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+# # #exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
