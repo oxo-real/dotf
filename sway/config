@@ -656,10 +656,6 @@ bindsym $mod+d			exec $term --class="float_fzf_run" -e \
 bindsym $mod+z			exec $term --class="float_spicules" -e \
 				$csc/fzf_spicules && wl-copy -n < $XDG_CACHE_HOME/cb
 
-## caps lock, in case you need it...
-bindsym Shift_L+Shift_R		Caps_Lock
-#bindsym Shift_L+Shift_R		caps toggle
-
 
 #----------------------------------------------------------------
 # specific container decorations
@@ -756,7 +752,7 @@ bindsym Control+Shift+y		exec $term --class="float_spicules" -e \
 # exit workspace
 #----------------------------------------------------------------
 
-# fzf_sway_exit		(shutdown menu)
+# fzf_sway_exit			(shutdown menu)
 bindsym $mod+Shift+x		exec $term --class="float_exit" -e \
 				$csc/fzf_sway_exit
 
@@ -900,12 +896,9 @@ exec mako --config $XDG_CONFIG_HOME/mako/config
 # (https://github.com/swaywm/sway/wiki#gtk-applications-take-20-seconds-to-start)
 # Alternatively, set GTK_USE_PORTAL=0 in your environment.
 # More details: https://github.com/swaywm/sway/issues/5732
-# # #exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
-
 # [XDG Desktop Portal - ArchWiki](https://wiki.archlinux.org/title/XDG_Desktop_Portal)
 
 # obs
-# # #exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-# # #exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
+#exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
