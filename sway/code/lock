@@ -14,5 +14,6 @@
 #: '
 csc="$XDG_CONFIG_HOME/sway/code"
 sh $csc/lock_make_bg
+wait
 swaylock --config "$XDG_CONFIG_HOME/sway/lock/config_bg"
 # '

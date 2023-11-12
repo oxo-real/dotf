@@ -500,7 +500,7 @@ bindsym $mod+Shift+$ra		$smt right $move_major_step px or $move_major_step ppt
 
 ## $mod+Shift+nm,.		(minor movement)
 bindsym $mod+Shift+$li		$smt left $move_minor_step px or $move_minor_step ppt
-bindsym $mod+Shift+$di		$smt down $move_minor_step px or $move_minor_step ppt
+indsym $mod+Shift+$di		$smt down $move_minor_step px or $move_minor_step ppt
 bindsym $mod+Shift+$ui		$smt up $move_minor_step px or $move_minor_step ppt
 bindsym $mod+Shift+$ri		$smt right $move_minor_step px or $move_minor_step ppt
 

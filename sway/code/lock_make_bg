@@ -1,7 +1,10 @@
 #! /usr/bin/env sh
 
+## take screenshot, desaturate and displace image
+
 csc="$XDG_CONFIG_HOME/sway/code"
 lock_bg="$XDG_CACHE_HOME/temp/lock_bg.png"
+lock_bg_desat="$XDG_CACHE_HOME/temp/lock_bg_desat.png"
 
 
 # screenshot
@@ -9,11 +12,17 @@ lock_bg="$XDG_CACHE_HOME/temp/lock_bg.png"
 grim -o $(swaymsg -t get_outputs \
 	| jq -r '.[] | select (.focused) | .name') \
 	"$lock_bg"
+wait
 
+# desaturate
+
+image_in="$lock_bg"
+image_out="$image_in"
+convert -modulate 100,25,100 "$image_in" "$image_in"
+wait
 
 # screen blur
 
-image_in="$lock_bg"
 ## overwrite original screenshot
 image_out="$image_in"
 

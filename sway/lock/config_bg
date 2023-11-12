@@ -6,8 +6,8 @@ show-failed-attempts
 daemonize
 indicator-caps-lock
 
-bs-hl-color=222222
-key-hl-color=96cbfe
+bs-hl-color=aaaaaa
+key-hl-color=aaaaaa
 
 font=monospace
 font-size=18
@@ -21,17 +21,17 @@ separator-color=00000000
 inside-color=00000000
 line-color=00000000
 ring-color=08080880
-text-color=ff6c60
+text-color=aaaaaa
 
 inside-clear-color=00000080
 line-clear-color=00000000
 ring-clear-color=00000000
-text-clear-color=ffffb6
+text-clear-color=aaaaaa
 
 inside-ver-color=00000080
 line-ver-color=00000000
 ring-ver-color=00000000
-text-ver-color=ffbf00
+text-ver-color=00000000
 
 inside-wrong-color=00000080
 line-wrong-color=00000000
