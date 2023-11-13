@@ -24,19 +24,23 @@ if [ -d /sys/class/power_supply/BAT0 ]; then
     case $batt_status in
 
         discharging)
-            flow="—"
+            flow='—'
             ;;
 
         charging)
-            flow="+"
+            flow='+'
             ;;
 
-        full | 'not charging')
-            flow="="
+        full)
+            flow='='
+            ;;
+
+        'not charging')
+            flow='\'
             ;;
 
         *)
-            flow="?"
+            flow='?'
             ;;
 
     esac
@@ -52,11 +56,12 @@ batt_afd=$(echo $batt_afdec | cut -d '.' -f 1)
 batt_af=$(echo "obase=16; ibase=10; $batt_afd" | bc -l)
 
 ## color
-var=$batt_perc
+var=$batt_perc   ## higher is better
 
 ## minimum, maximum value and number of threshold (colors)
-min=88
-max=100
+## number of colors = no_thr + 2
+min=5
+max=95  ## don't bother above this level
 no_thr=5
 
 ### interval size
@@ -74,17 +79,17 @@ case $batt_status in
     discharging)
 	## text
 	(( $var > $(( min + 5 * int )) )) && echo  ## default
-	(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo "#777777"  ## grey77
-	(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo "#000000"  ## black
+	(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo "#999999"  ## grey99
+	(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo "#aaaaaa"  ## greyaa
 	(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo "#000000"  ## black
 	(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo "#000000"  ## black
 	(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo "#000000"  ## black
-	(( $var <= $(( min + 0 * int )) )) && echo "#ffffff"  ## white
+	(( $var <= $(( min + 0 * int )) )) && echo "#ffffb6"  ## yellow
 
 	## background
-	(( $var > $(( min + 5 * int )) )) && echo  ## default
-	(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo  ## default
-	(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo "#999999"  ## grey99
+	(( $var > $(( min + 5 * int )) )) && echo "#333333" ## default
+	(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo "#333333"  ## grey33
+	(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo "#333333"  ## grey33
 	(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo "#96cbfe"  ## blue
 	(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo "#ffbf00"  ## amber
 	(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo "#ffffb6"  ## yellow
@@ -97,14 +102,14 @@ case $batt_status in
 	(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo  ## default
 	(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo  ## default
 	(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo  ## default
-	(( $var <= $(( min + 0 * int )) )) && echo "#ffffb6"  ## yellow
+	(( $var <= $(( min + 0 * int )) )) && echo  ## default
 	;;
 
     charging)
 	## text
 	(( $var > $(( min + 5 * int )) )) && echo  ## default
-	(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo "#777777"  ## grey77
-	(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo "#999999"  ## grey99
+	(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo "#999999"  ## grey99
+	(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo "#aaaaaa"  ## greyaa
 	(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo "#96cbfe"  ## blue
 	(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo "#ffbf00"  ## amber
 	(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo "#ffffb6"  ## yellow
@@ -126,7 +131,7 @@ case $batt_status in
 	(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo  ## default
 	(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo  ## default
 	(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo  ## default
-	(( $var <= $(( min + 0 * int )) )) && echo "#ff6c60"  ## red
+	(( $var <= $(( min + 0 * int )) )) && echo  ## default
 	;;
 
     full | 'not charging')
@@ -156,7 +161,7 @@ case $batt_status in
 	(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo  ## default
 	(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo  ## default
 	(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo  ## default
-	(( $var <= $(( min + 0 * int )) )) && echo "#ff6c60"  ## red
+	(( $var <= $(( min + 0 * int )) )) && echo  ## default
 	;;
 
 esac

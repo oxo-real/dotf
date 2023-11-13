@@ -42,10 +42,11 @@ dt=$(((t1-t0)/1000000000))
 vtx=$(( dtx / dt ))
 
 ## color
-#var=$vrx
-var=$vtx
+#var=$vrx  ## inverted values; lower is better
+var=$vtx  ## inverted values; lower is better
 
 ## minimum, maximum value and number of threshold (colors)
+## number of colors = no_thr + 2
 min=50
 max=2500
 no_thr=5
@@ -63,12 +64,12 @@ printf "%4s\n" "$vtx"
 echo  ## none
 
 ## text
-(( $var > $(( min + 5 * int )) )) && echo "#ffffff"  ## white
+(( $var > $(( min + 5 * int )) )) && echo "#ffffb6"  ## yellow
 (( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo "#ffffb6"  ## yellow
 (( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo "#ffbf00"  ## amber
 (( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo "#96cbfe"  ## blue
-(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo "#999999"  ## grey99
-(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo "#777777"  ## grey77
+(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo "#aaaaaa"  ## greyaa
+(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo "#999999"  ## grey99
 (( $var <= $(( min + 0 * int )) )) && echo  ## default
 
 ## background
@@ -81,7 +82,7 @@ echo  ## none
 (( $var <= $(( min + 0 * int )) )) && echo  ## default
 
 ## border
-(( $var > $(( min + 5 * int )) )) && echo "#ffffb6"  ## yellow
+(( $var > $(( min + 5 * int )) )) && echo  ## default
 (( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo  ## default
 (( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo  ## default
 (( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo  ## default
