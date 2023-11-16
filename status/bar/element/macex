@@ -1,0 +1,56 @@
+#!/usr/bin/env sh
+
+if [[ -n $(ip route show) ]]; then
+
+	## get default interface
+	i=$(ip route show to default | awk '{print $5}')
+
+	## get ipv4
+	ipv4=$(ip a show dev $i | grep -w 'inet' | grep $i | awk '{print $2}')
+
+	## get ipv6
+	ipv6=$(ip a show dev $i | grep -w 'inet6' | grep $i | awk '{print $2}')
+
+	ipin=${ipv6:="$ipv4"}
+
+	# 192.168.1.1/$prefix
+	# 192 is the first octet
+	prefix=$(printf $ipv4 | awk -F / '{print $2}')
+
+	case $prefix in
+
+	    32)
+		# subnetmask 255.255.255.255; 1 ip address
+		octets=4
+		;;
+
+	    24)
+		# subnetmask 255.255.255.0; 256 ip addresses
+		octets=3
+		;;
+
+	    16)
+		# subnetmask 255.255.0.0; 65536 ip addresses
+		octets=2
+		;;
+
+	    8)
+		# subnetmask 255.0.0.0; 16777216 ip addresses
+		octets=1
+		;;
+
+	    *)
+		octets=4
+		;;
+
+	esac
+
+	ipv4_search=$(printf $ipv4 | cut -d '.' -f -$octets)
+
+	## external mac
+	mac_full=$(ip neigh show | grep $i | grep $ipv4_search | awk '{print $5}')
+
+	mac_ex=$(echo $mac_full | tail --bytes 6)
+
+	printf '%s\n' "$mac_ex"
+fi

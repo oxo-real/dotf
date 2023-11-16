@@ -170,9 +170,11 @@ export READNULLCMD=lessr
 # color output
 
 ## see notes/cal for italic / inverse
-export TERM='screen-256color'
-## tmux colors
-[ -n "$TMUX" ] && export 'TERM=tmux-256color'
+## ## # NOTICE set TERM from the terminal emulator configuration!
+## ## # i.e. in tmux.conf set TERM=tmux-256color
+## ## export TERM='screen-256color'
+## ## ## tmux colors
+## ## [ -n "$TMUX" ] && export 'TERM=tmux-256color'
 
 
 # audio

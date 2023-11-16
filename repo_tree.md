@@ -843,6 +843,7 @@
 ├── i3blocks
 │   ├── config -> ../sway/bar/blocks/show/config
 │   ├── cycle
+│   ├── element
 │   └── toggle
 ├── icons
 │   └── cursors
@@ -1814,6 +1815,39 @@
 │   ├── vim_diff -> /home/oxo/.config/git/vim_diff
 │   ├── vtxt -> /home/oxo/.local/share/c/git/code/tool/vtxt
 │   └── yank_buffer -> /home/oxo/c/git/code/tool/yank_buffer
+├── status
+│   ├── aaa_whats_here
+│   └── bar
+│       ├── element
+│       │   ├── batt
+│       │   ├── brightness
+│       │   ├── bt
+│       │   ├── cpu
+│       │   ├── dev
+│       │   │   └── audio
+│       │   ├── interface
+│       │   ├── ipex
+│       │   ├── ipin
+│       │   ├── macex
+│       │   ├── macin
+│       │   ├── mem
+│       │   ├── temp
+│       │   ├── time
+│       │   ├── time_seconds
+│       │   ├── vol
+│       │   ├── vrx
+│       │   ├── vtx
+│       │   ├── weather
+│       │   ├── wifi
+│       │   └── window
+│       ├── i3blocks
+│       │   ├── aaa_whats_here
+│       │   ├── click
+│       │   │   └── time.sh
+│       │   └── show
+│       │       └── config
+│       └── tmux
+│           └── right_side
 ├── sway
 │   ├── bar
 │   │   └── blocks
@@ -1891,6 +1925,7 @@
 ├── taskwarrior.tar.aes
 ├── taskwarrior.tar.hash
 ├── tmux
+│   └── tmux.conf
 ├── tty
 │   ├── 1694673229_sttyrc
 │   ├── 1694673596_sttyrc
@@ -2087,5 +2122,5 @@
     │   └── config
     └── xresources_colors
 
-225 directories, 1862 files
+234 directories, 1888 files
 ```

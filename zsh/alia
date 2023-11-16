@@ -32,7 +32,6 @@ alias vim='nvim'
 alias view='nvim -R'
 alias vimdiff='nvim -d'
 #alias emacs="emacs $@ &"
-alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/.tmuxrc"
 alias lsblk='lsblk --ascii --tree -o name,uuid,fstype,path,size,fsuse%,fsused,label,mountpoint'
 alias cal='env TERM=xterm cal'
 alias tree='tree -n --charset=unicode'

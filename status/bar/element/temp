@@ -1,0 +1,51 @@
+#! /usr/bin/env sh
+
+# get data
+cpu_temp=$(sensors | grep 'CPU' | awk '{print substr($0, 16, 2)}')
+#cpu_temp=$(sensors | grep 'Tctl' | awk '{print substr($0, 16, 2)}')
+
+## color
+var=$cpu_temp  ## inverted values; lower is better
+
+## minimum, maximum value and number of threshold (colors)
+## number of colors = no_thr + 2
+min=45
+max=90
+no_thr=5
+
+## interval size
+int=$(echo "scale=0; ($max - $min) / $no_thr" | bc -l)
+
+## full text
+#echo "${cpu_temp}C"
+printf '%02dC\n' $cpu_temp
+
+## short text
+echo  ## none
+
+## text
+(( $var > $(( min + 5 * int )) )) && echo "#ff6c60"  ## red
+(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo "#ffffb6"  ## yellow
+(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo "#ffbf00"  ## amber
+(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo "#96cbfe"  ## blue
+(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo "#aaaaaa"  ## greyaa
+(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo "#999999"  ## grey99
+(( $var <= $(( min + 0 * int )) )) && echo  ## default
+
+## background
+(( $var > $(( min + 5 * int )) )) && echo  ## default
+(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo  ## default
+(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo  ## default
+(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo  ## default
+(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo  ## default
+(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo  ## default
+(( $var <= $(( min + 0 * int )) )) && echo  ## default
+
+## border
+(( $var > $(( min + 5 * int )) )) && echo  ## default
+(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo  ## default
+(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo  ## default
+(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo  ## default
+(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo  ## default
+(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo  ## default
+(( $var <= $(( min + 0 * int )) )) && echo  ## default

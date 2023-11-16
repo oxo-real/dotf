@@ -1,0 +1,70 @@
+#!/usr/bin/env sh
+
+## get data
+
+## with pipewire and wireplumber
+sink_vol=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep --only-matching '[[:digit:]]' | tr -d '\n')
+sink_mute=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -i 'mute')
+
+mic_vol=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep --only-matching '[[:digit:]]' | tr -d '\n')
+mic_mute=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -i 'mute')
+
+## onboard headphones jack tpx1c
+headphones_jack=$(cat /proc/asound/card1/codec\#0 | grep '0x31')
+
+## with alsamixer and pulseaudio
+#volume=$(amixer -D pulse sget Master | grep 'Left: ' | cut -d ' ' -f 7 | tr -d -c "[:digit:]")
+#amixer -D pulse sget Master | grep 'Left: ' | awk -F '[][]' '{printf "%s",$2}'
+#mute=$(amixer get Master | grep off)
+
+
+## volume
+case $sink_vol in
+
+    100)
+	sink_vol='FF'
+	;;
+
+    *)
+	## remove first zero
+	sink_vol=$(printf "$sink_vol" | sed 's/^0//')
+	;;
+
+esac
+
+
+## status
+sink_status='<'
+[ -n "$headphones_jack" ] && sink_status='H'
+[ -n "$sink_mute" ] && sink_status='X'
+
+## microphone
+#[ -z "$mic_mute" ] && mic_warning='M!'
+
+## full text
+printf "%s%s%s\n" "$sink_vol" "$sink_status"
+#printf "%s%s${RED}%s${NOC}\n" "$sink_vol" "$sink_status" "$mic_warning"
+
+## short text
+echo  ## none
+
+## text, background and border
+if [[ -z "$mic_mute" ]]; then
+
+    ## text
+    echo "#000000"  ## black
+    ## background
+    echo "#ff73fd"  ## magenta
+    ## border
+    echo  ## default
+
+else
+
+    ## text
+    echo  ## default
+    ## background
+    echo  ## default
+    ## border
+    echo  ## default
+
+fi
