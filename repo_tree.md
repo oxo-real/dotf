@@ -841,10 +841,10 @@
 ├── greasemonkey.tar.aes
 ├── greasemonkey.tar.hash
 ├── i3blocks
-│   ├── config -> ../sway/bar/blocks/show/config
+│   ├── config -> /home/oxo/.config/i3blocks/show/config
 │   ├── cycle
-│   ├── element
-│   └── toggle
+│   └── show
+│       └── config
 ├── icons
 │   └── cursors
 │       ├── oxo
@@ -1841,42 +1841,9 @@
 │       │   ├── weather
 │       │   ├── wifi
 │       │   └── window
-│       ├── i3blocks
-│       │   ├── aaa_whats_here
-│       │   ├── click
-│       │   │   └── time.sh
-│       │   └── show
-│       │       └── config
 │       └── tmux
 │           └── right_side
 ├── sway
-│   ├── bar
-│   │   └── blocks
-│   │       ├── audio
-│   │       ├── batt
-│   │       ├── brightness
-│   │       ├── bt
-│   │       ├── click
-│   │       │   └── time.sh
-│   │       ├── config_bu
-│   │       ├── cpu
-│   │       ├── interface
-│   │       ├── ipex
-│   │       ├── ipin
-│   │       ├── macex
-│   │       ├── macin
-│   │       ├── mem
-│   │       ├── show
-│   │       │   └── config
-│   │       ├── temp
-│   │       ├── time
-│   │       ├── time_seconds
-│   │       ├── vol
-│   │       ├── vrx
-│   │       ├── vtx
-│   │       ├── weather
-│   │       ├── wifi
-│   │       └── window
 │   ├── code
 │   │   ├── dimr
 │   │   ├── float_divide
@@ -1920,9 +1887,36 @@
 │   │   ├── machine_list.hash
 │   │   ├── select_current_machine
 │   │   └── sway_hw_sel_process
-│   └── lock
-│       ├── config
-│       └── config_bg
+│   ├── lock
+│   │   ├── config
+│   │   └── config_bg
+│   └── zzz_deprecated
+│       └── bar
+│           ├── blocks
+│           │   ├── audio
+│           │   ├── batt
+│           │   ├── brightness
+│           │   ├── bt
+│           │   ├── click
+│           │   │   └── time.sh
+│           │   ├── config_bu
+│           │   ├── cpu
+│           │   ├── interface
+│           │   ├── ipex
+│           │   ├── ipin
+│           │   ├── macex
+│           │   ├── macin
+│           │   ├── mem
+│           │   ├── temp
+│           │   ├── time
+│           │   ├── time_seconds
+│           │   ├── vol
+│           │   ├── vrx
+│           │   ├── vtx
+│           │   ├── weather
+│           │   ├── wifi
+│           │   └── window
+│           └── toggle
 ├── taskwarrior.tar.aes
 ├── taskwarrior.tar.hash
 ├── tmux
@@ -2123,5 +2117,5 @@
     │   └── config
     └── xresources_colors
 
-234 directories, 1889 files
+231 directories, 1886 files
 ```

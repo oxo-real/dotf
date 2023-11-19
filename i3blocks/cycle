@@ -2,7 +2,7 @@
 
 # cycle swaybar i3blocks
 
-blocks_show_dir="$XDG_CONFIG_HOME/sway/bar/blocks/show"
+blocks_show_dir="$XDG_CONFIG_HOME/i3blocks/show"
 
 cd $blocks_show_dir
 
