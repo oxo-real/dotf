@@ -693,6 +693,8 @@
 │   ├── unifont_csur-14.0.01.ttf
 │   ├── unifont_jp-14.0.01.ttf
 │   └── unifont_upper-14.0.01.ttf
+├── foot
+│   └── foot.ini
 ├── freecad
 │   ├── FreeCAD.conf
 │   ├── system.cfg
@@ -2117,5 +2119,5 @@
     │   └── config
     └── xresources_colors
 
-231 directories, 1886 files
+232 directories, 1887 files
 ```
