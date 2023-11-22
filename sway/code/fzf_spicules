@@ -4,8 +4,10 @@
 spicules=$(\
 	cat $XDG_DATA_HOME/c/git/note/linux/shell/command/catalog | \
 	fzf --height ~100% | \
-	sed 's/  ## .*$//' \
-	    > $XDG_CACHE_HOME/cb\
+	sed 's/  ## .*$//' | \
+	#sed 's/  ## .*$//' \
+	wl-copy
+	    #> $XDG_CACHE_HOME/cb\
 )
 
 swaymsg -t command exec $spicules

@@ -12,7 +12,8 @@
 # example: term_spawn $HOME float w 300 h 300
 
 
-terminal_cmd=${TERMINAL:-'alacritty'}
+terminal_cmd=${TERMINAL:-'foot'}
+#terminal_cmd=${TERMINAL:-'alacritty'}
 target_path=$1
 shift
 target_con_float=$1
@@ -137,7 +138,8 @@ spawn_float()
     ## spawn terminal
     ## NOTICE --no-startup-id to prevent
     ## warning: queue 0x7efe7c000ca0 destroyed while proxies still attached
-    swaymsg exec --no-startup-id $($terminal_cmd --working-directory="$focused_pwd" --class="term_float") &
+    swaymsg exec --no-startup-id $($terminal_cmd --working-directory="$focused_pwd" --app-id="term_float") &
+    #swaymsg exec --no-startup-id $($terminal_cmd --working-directory="$focused_pwd" --class="term_float") &
 
     if [[ -n "$target_con_dims" ]]; then
 
