@@ -268,9 +268,10 @@ bindsym $mod+Ctrl+slash		gaps inner current set 0; gaps outer current set 0
 
 
 # set terminal
-set $term		foot
-#exec-once		foot-server
-set $term_pu		alacritty
+set $term		alacritty
+#set $term_bu		alacritty
+#set $term		foot
+set $term_bu		foot
 
 
 #----------------------------------------------------------------
@@ -347,7 +348,7 @@ bindsym $mod+Period		workspace next
 ## fzf_sway_focus 		(focus switcher)
 #bindsym $mod+grave		exec $term --app-id="float_spicules" \
 #				sh -c $csc/fzf_sway_focus
-bindsym $mod+grave		exec $term_pu --class="float_spicules" -e \
+bindsym $mod+grave		exec $term_bu --class="float_spicules" -e \
 				$csc/fzf_sway_focus
 
 
@@ -655,12 +656,20 @@ bindsym $mod+Mod1+Shift+Return	exec $csc/term_spawn pwd float &
 
 
 ## fzf_run
-bindsym $mod+d			exec $term_pu --class="float_fzf_run" -e \
-				$csc/fzf_run
+### foot
+#bindsym $mod+d			exec $term --app-id="float_fzf_run" \
+#				sh -c $csc/fzf_run
+### alacritty
+bindsym $mod+d			exec $term --class="float_fzf_run" \
+				-e $csc/fzf_run
 
 ## fzf_spicules			(search cmd_catalog)
-bindsym $mod+z			exec $term_pu --class="float_spicules" -e \
-				$csc/fzf_spicules && wl-copy -n < $XDG_CACHE_HOME/cb
+### foot
+#bindsym $mod+z			exec $term --app-id="float_spicules" \
+#				sh -c $csc/fzf_spicules && wl-copy -n < $XDG_CACHE_HOME/cb
+### alacritty
+bindsym $mod+z			exec $term --class="float_spicules" \
+				-e $csc/fzf_spicules && wl-copy -n < $XDG_CACHE_HOME/cb
 
 
 #----------------------------------------------------------------
@@ -750,8 +759,12 @@ for_window [title="Floating Window - Show Me The Key"]
 
 
 ## fzf_cpbd
-bindsym Control+Shift+y		exec $term_pu --class="float_spicules" -e \
-				$csc/fzf_cpbd
+### foot
+#bindsym Control+Shift+y	exec $term --app-id="float_spicules" \
+#	 			sh -c $csc/fzf_cpbd
+### alacritty
+bindsym Control+Shift+y		exec $term --class="float_spicules" \
+	 			-e $csc/fzf_cpbd
 
 
 #----------------------------------------------------------------
@@ -759,8 +772,12 @@ bindsym Control+Shift+y		exec $term_pu --class="float_spicules" -e \
 #----------------------------------------------------------------
 
 # fzf_sway_exit			(shutdown menu)
-bindsym $mod+Shift+x		exec $term_pu --class="float_exit" -e \
-				$csc/fzf_sway_exit
+### foot
+#bindsym $mod+Shift+x		exec $term --app-id="float_exit" \
+#				sh -c $csc/fzf_sway_exit
+### alacritty
+bindsym $mod+Shift+x		exec $term --class="float_exit" \
+				-e $csc/fzf_sway_exit
 
 ## swaylock			(Zzz)
 ## configuration: sway/code/lock
@@ -831,15 +848,15 @@ bindsym XF86AudioPrev 		exec playerctl previous
 bindsym XF86Search 		exec $menu
 
 ## play music
-bindsym $mod+m			exec $term --app-id="float_spicules" \
-				sh -c $csc/music_play
+bindsym $mod+m			exec $term --class="float_spicules" \
+				-e $csc/music_play
 
 ## switch microphone on/off
 bindsym Shift+Control+Mod1+x	exec mic_switch toggle Webcam C310
 
 ## play video
-bindsym Shift+Control+Mod1+v 	exec $term --app-id="term_float_inv" \
-				sh -c mpv $(wl-paste) &
+bindsym Shift+Control+Mod1+v 	exec $term --class="term_float_inv" \
+				-e mpv $(wl-paste) &
 
 
 #----------------------------------------------------------------

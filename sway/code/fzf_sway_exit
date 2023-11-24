@@ -1,4 +1,4 @@
-#!/bin/sh
+#! /usr/bin/env sh
 #
 ##
 ###                                      _ _
@@ -7,14 +7,13 @@
 ### \__ \\ V  V / (_| | |_| | |  __/>  <| | |_
 ### |___/ \_/\_/ \__,_|\__, |  \___/_/\_\_|\__|
 ###                    |___/
-###
-###  _ _|_ _ ._    _  _
-### (_\/|_(_)|_)\/(_|(/_
-###   /      |  /  _|
+### # # # # # #
+###      #
+### # # # # # #
 ###
 ### sway exit
 ### terminal cli application that offers a sway fzf exit dialogue
-### (c) 2019 - 2021 cytopyge
+### (c) 2019 - 2023  |  oxo
 ###
 ##
 #
@@ -81,7 +80,7 @@ os_poweroff() {
 case $exit_option in
 
 	*cancel*)
-		exit
+		exit 0
 		;;
 
 	*idle*)
@@ -109,10 +108,10 @@ case $exit_option in
 		;;
 
 	*)
-		exit
+		exit 111
 		;;
 
 esac
 
 
-swaymsg -t command exec $exit_option
+#swaymsg -t command exec $exit_option
