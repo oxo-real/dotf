@@ -1,13 +1,13 @@
 #! /usr/bin/env sh
 
-## NOTICE sed is used to remove '  ## '-marked comments from the lines
-spicules=$(\
-	cat $XDG_DATA_HOME/c/git/note/linux/shell/command/catalog | \
-	fzf --height ~100% | \
-	sed 's/  ## .*$//' | \
-	#sed 's/  ## .*$//' \
-	wl-copy
-	    #> $XDG_CACHE_HOME/cb\
-)
+catalog="$XDG_DATA_HOME/c/git/note/linux/shell/command/catalog"
 
-swaymsg -t command exec $spicules
+## NOTICE sed is used to remove '  ## '-marked comments from the lines
+## add a trailing space by adding '\ ' to the replace part of sed
+
+cat $catalog | \
+    fzf --height ~100% | \
+    sed 's/  ## .*$//' | \
+    wl-copy -n
+
+wl-paste -n

@@ -350,7 +350,7 @@ bindsym $mod+Period		workspace next
 ## fzf_sway_focus 		(focus switcher)
 #bindsym $mod+grave		exec $term --app-id="float_spicules" \
 #				sh -c $csc/fzf_sway_focus
-bindsym $mod+grave		exec $term_bu --class="float_spicules" -e \
+bindsym $mod+grave		exec $term --class="float_spicules" -e \
 				$csc/fzf_sway_focus
 
 
@@ -671,7 +671,7 @@ bindsym $mod+d			exec --no-startup-id $term --class="float_fzf_run" \
 #				sh -c $csc/fzf_spicules && wl-copy -n < $XDG_CACHE_HOME/cb
 ### alacritty
 bindsym $mod+z			exec --no-startup-id $term --class="float_spicules" \
-				-e $csc/fzf_spicules && wl-copy -n < $XDG_CACHE_HOME/cb
+				-e $csc/fzf_spicules #&& wl-copy -n < $XDG_CACHE_HOME/cb
 
 
 #----------------------------------------------------------------
