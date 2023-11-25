@@ -41,10 +41,11 @@ fpath=( $fpath $HOME/.config/zsh/completions )
 
 
 # sway environment
-## $XKB_DEFAULT_OPTIONS must been set
-## before sway has been started
+## $XKB_DEFAULT_OPTIONS and $XDG_CURRENT_DESKTOP
+## must be set before sway has been started
 ## for zsa moonlander xkb_options to work
 export XKB_DEFAULT_OPTIONS='compose:ralt,shift:both_capslock'
+export XDG_CURRENT_DESKTOP='sway'
 
 
 # xdg environment
@@ -97,9 +98,10 @@ export PAGER='/usr/bin/less'
 #export PAGER='/usr/bin/less'
 export READER='/usr/bin/zathura'
 export SHELL='/usr/bin/zsh'
-export TERMINAL='/usr/bin/foot'
-#export TERMINAL='/usr/bin/alacritty'
-export TERM_BU='/usr/bin/alacritty'
+#export TERMINAL='/usr/bin/foot'
+export TERMINAL='/usr/bin/alacritty'
+#export TERM_BU='/usr/bin/alacritty'
+export TERM_BU='/usr/bin/foot'
 export VIDEO='/usr/bin/mpv'
 export VISUAL='emacs'
 #export VISUAL='emacsclient -c -a emacs'

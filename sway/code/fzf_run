@@ -9,5 +9,4 @@ execute=$(\
 	fzf --height ~100% --prompt 'run '\
 )
 
-execute
-#swaymsg -t command exec $execute
+swaymsg -t command exec $execute

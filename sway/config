@@ -247,11 +247,13 @@ mode "nag"
 swaynag_command		swaynagmode
 #DEV generate error 	remove comment
 
+
 # cursor
 # [https://wiki.archlinux.org/title/Sway#Statusbar](https://wiki.archlinux.org/title/Sway#Change_cursor_theme_and_size)
 # seat seat0 xcursor_theme my_cursor_theme my_cursor_size
 
-# fonts
+
+# font
 # font for window titles and bar
 ## NOTICE changing font size defined in terminal emulator
 set $font		"Source Code Pro 10"
@@ -646,13 +648,13 @@ bindsym $mod+slash		scratchpad show
 ### container tile split_auto direction
 ### spawns same type as focused container
 ### cwd $HOME
-bindsym $mod+Return		exec $csc/term_spawn &
+bindsym $mod+Return		exec --no-startup-id $csc/term_spawn &
 ### cwd $PWD
-bindsym $mod+Shift+Return	exec $csc/term_spawn pwd &
+bindsym $mod+Shift+Return	exec --no-startup-id $csc/term_spawn pwd &
 ### cwd float $HOME
-bindsym $mod+Mod1+Return	exec $csc/term_spawn $HOME float &
+bindsym $mod+Mod1+Return	exec --no-startup-id $csc/term_spawn $HOME float &
 ### cwd $PWD
-bindsym $mod+Mod1+Shift+Return	exec $csc/term_spawn pwd float &
+bindsym $mod+Mod1+Shift+Return	exec --no-startup-id $csc/term_spawn pwd float &
 
 
 ## fzf_run
@@ -660,7 +662,7 @@ bindsym $mod+Mod1+Shift+Return	exec $csc/term_spawn pwd float &
 #bindsym $mod+d			exec $term --app-id="float_fzf_run" \
 #				sh -c $csc/fzf_run
 ### alacritty
-bindsym $mod+d			exec $term --class="float_fzf_run" \
+bindsym $mod+d			exec --no-startup-id $term --class="float_fzf_run" \
 				-e $csc/fzf_run
 
 ## fzf_spicules			(search cmd_catalog)
@@ -668,7 +670,7 @@ bindsym $mod+d			exec $term --class="float_fzf_run" \
 #bindsym $mod+z			exec $term --app-id="float_spicules" \
 #				sh -c $csc/fzf_spicules && wl-copy -n < $XDG_CACHE_HOME/cb
 ### alacritty
-bindsym $mod+z			exec $term --class="float_spicules" \
+bindsym $mod+z			exec --no-startup-id $term --class="float_spicules" \
 				-e $csc/fzf_spicules && wl-copy -n < $XDG_CACHE_HOME/cb
 
 
@@ -763,7 +765,7 @@ for_window [title="Floating Window - Show Me The Key"]
 #bindsym Control+Shift+y	exec $term --app-id="float_spicules" \
 #	 			sh -c $csc/fzf_cpbd
 ### alacritty
-bindsym Control+Shift+y		exec $term --class="float_spicules" \
+bindsym Control+Shift+y		exec --no-startup-id $term --class="float_spicules" \
 	 			-e $csc/fzf_cpbd
 
 
@@ -776,7 +778,7 @@ bindsym Control+Shift+y		exec $term --class="float_spicules" \
 #bindsym $mod+Shift+x		exec $term --app-id="float_exit" \
 #				sh -c $csc/fzf_sway_exit
 ### alacritty
-bindsym $mod+Shift+x		exec $term --class="float_exit" \
+bindsym $mod+Shift+x		exec --no-startup-id $term --class="float_exit" \
 				-e $csc/fzf_sway_exit
 
 ## swaylock			(Zzz)
@@ -848,14 +850,14 @@ bindsym XF86AudioPrev 		exec playerctl previous
 bindsym XF86Search 		exec $menu
 
 ## play music
-bindsym $mod+m			exec $term --class="float_spicules" \
+bindsym $mod+m			exec --no-startup-id $term --class="float_spicules" \
 				-e $csc/music_play
 
 ## switch microphone on/off
 bindsym Shift+Control+Mod1+x	exec mic_switch toggle Webcam C310
 
 ## play video
-bindsym Shift+Control+Mod1+v 	exec $term --class="term_float_inv" \
+bindsym Shift+Control+Mod1+v 	exec --no-startup-id $term --class="term_float_inv" \
 				-e mpv $(wl-paste) &
 
 
@@ -922,6 +924,27 @@ exec mako --config $XDG_CONFIG_HOME/mako/config
 # [XDG Desktop Portal - ArchWiki](https://wiki.archlinux.org/title/XDG_Desktop_Portal)
 
 # obs
-exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
-#exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+# exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+# exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
+# #exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
+
+# [Really really fix the XDG_CURRENT_DESKTOP export; upgpkg: 1:1.8.1-3 (2f9c63b0) · Commits · Arch Linux / Packaging / Packages / sway · GitLab]
+# (https://gitlab.archlinux.org/archlinux/packaging/packages/sway/-/commit/2f9c63b0539119acb63d6028c61d41c7faa1cebb)
+
+# sway does not set DISPLAY/WAYLAND_DISPLAY in the systemd user environment
+# See FS#63021
+# Adapted from xorg's 50-systemd-user.sh, which achieves a similar goal.
+
+# Upstream refuses to set XDG_CURRENT_DESKTOP so we have to.
+exec systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
+exec systemctl --user import-environment DISPLAY \
+                                         SWAYSOCK \
+                                         WAYLAND_DISPLAY \
+                                         XDG_CURRENT_DESKTOP
+
+exec hash dbus-update-activation-environment 2>/dev/null && \
+     dbus-update-activation-environment --systemd DISPLAY \
+                                                  SWAYSOCK \
+                                                  WAYLAND_DISPLAY \
+                                                  XDG_CURRENT_DESKTOP=sway
