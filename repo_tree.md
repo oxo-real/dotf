@@ -153,10 +153,10 @@
 │   └── templates
 │       ├── config.yaml
 │       └── default.mustache
+├── blocklist
+│   ├── customize.aes
+│   └── customize.hash
 ├── code
-│   ├── blocklist
-│   │   ├── customize -> /home/oxo/.local/share/c/git/prvt/code/tool/dns/customize_blocklist
-│   │   └── update -> /home/oxo/.local/share/c/git/code/tool/update_dns_hosts_blocklist
 │   └── zzz_deprecated
 │       ├── bar_blocks
 │       │   ├── bar_custom
