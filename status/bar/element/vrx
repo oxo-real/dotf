@@ -64,7 +64,7 @@ printf "%4s\n" "$vrx"
 echo  ## none
 
 ## text
-(( $var > $(( min + 5 * int )) )) && echo "#ffffb6"  ## yellow
+(( $var > $(( min + 5 * int )) )) && echo "#ff6c60"  ## red
 (( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo "#ffffb6"  ## yellow
 (( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo "#ffbf00"  ## amber
 (( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo "#96cbfe"  ## blue
@@ -73,7 +73,7 @@ echo  ## none
 (( $var <= $(( min + 0 * int )) )) && echo  ## default
 
 ## background
-(( $var > $(( min + 5 * int )) )) && echo "#ff6c60"  ## red
+(( $var > $(( min + 5 * int )) )) && echo  ## default
 (( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo  ## default
 (( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo  ## default
 (( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo  ## default

@@ -5,8 +5,10 @@
 ###  | | |_ \| '_ \| |/ _ \ / __| |/ / __|
 ###  | |___) | |_) | | (_) | (__|   <\__ \
 ###  |_|____/|_.__/|_|\___/ \___|_|\_\___/
-###  _    _
-### (_)><(_)
+###
+### # # # # # #
+###      #
+### # # # # # #
 ###
 ### i3blocks ini
 ### i3blocks config file
@@ -115,3 +117,4 @@ separator_block_width=0
 interval=1
 #color=#ffffd3
 separator_block_width=0
+#command=cal -m -w -3 $(date -I)

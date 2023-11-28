@@ -211,7 +211,6 @@ colors:
   #  text: CellBackground
   #  cursor: CellForeground
      cursor: '#ffffb6'
-     #cursor: '#ff73fd'
 
   # Vi mode cursor colors
   #
@@ -222,7 +221,7 @@ colors:
   vi_mode_cursor:
   #  text: CellBackground
   #  cursor: CellForeground
-     cursor: '#ffff76'
+     cursor: '#ffffb6'
 
   # Search colors
   #
@@ -265,9 +264,9 @@ colors:
   # search and vi mode.
   #
   # By default, these will use the opposing primary color.
-  #line_indicator:
-  #  foreground: None
-  #  background: None
+  line_indicator:
+    foreground: '#000000'
+    background: '#ffffb6'
 
   # Selection colors
   #
@@ -275,9 +274,9 @@ colors:
   #
   # Allowed values are CellForeground/CellBackground, which reference the
   # affected cell, or hexadecimal colors like #ff00ff.
-  #selection:
-  #  text: CellBackground
-  #  background: CellForeground
+  selection:
+    text: '#000000'
+    background: '#ffffb6'
 
   # Normal colors
   #normal:
