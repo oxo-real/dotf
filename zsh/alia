@@ -89,7 +89,18 @@ alias rm='trash'
 alias mkdir='mkdir --parents --verbose'
 #alias lf='lfcd'
 
-# ls
+## rsync for copy and move (better for large files)
+function cpr()
+{
+  rsync --archive --partial --verbose --info=progress2,stats2 --human-readable --modify-window=1 "$@"
+}
+
+function mvr()
+{
+  rsync --archive --partial --verbose --info=progress2,stats2 --human-readable --modify-window=1 --remove-source-files "$@"
+}
+
+## ls
 if command -v eza >/dev/null; then
 
     alias ls="echo; $XDG_CONFIG_HOME/eza/eza_wrapper.sh"
@@ -99,7 +110,6 @@ else
     alias ls="echo; command ls $LS_OPTIONS"
 
 fi
-
 
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
