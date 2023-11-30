@@ -19,7 +19,14 @@
 
 ### no commands with output here ###
 
+
+# home
+
+export HOME="/home/$(logname)"
+
+
 # path environment
+
 ### Zsh ties the PATH variable to a path array.
 ### https://zsh.sourceforge.io/Guide/zshguide02.html#l24
 
@@ -31,7 +38,7 @@ typeset -U path PATH
 ### start from scratch
 path=( /usr/bin /usr/local/bin /usr/local/sbin )
 
-## custom shell symlinks
+## add oxo custom shell symlinks
 path+=( "$HOME/.config/shln" )
 
 
@@ -41,6 +48,7 @@ fpath=( $fpath $HOME/.config/zsh/completions )
 
 
 # sway environment
+
 ## $XKB_DEFAULT_OPTIONS and $XDG_CURRENT_DESKTOP
 ## must be set before sway has been started
 ## for zsa moonlander xkb_options to work
