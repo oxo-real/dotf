@@ -1768,6 +1768,9 @@
 ├── nyxt
 │   ├── auto-config.lisp
 │   └── init.lisp
+├── obs
+│   ├── basic.ini
+│   └── Untitled
 ├── qutebrowser
 │   └── config.py
 ├── repo_tree.md
@@ -2119,5 +2122,5 @@
     │   └── config
     └── xresources_colors
 
-232 directories, 1887 files
+233 directories, 1889 files
 ```

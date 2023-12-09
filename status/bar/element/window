@@ -3,10 +3,10 @@
 ## focused container data block
 focused_con_data=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.focused == true)')
 
-pid=$(printf '%s' "$focused_con_data" | jq '.. | .pid' | sed 's/null//')
-name=$(printf '%s' "$focused_con_data" | jq '.. | .name' | sed 's/"//g')
+pid=$(printf '%s' "$focused_con_data" | jq ' .pid' | sed 's/null//')
+name=$(printf '%s' "$focused_con_data" | jq ' .name' | sed 's/"//g')
 
-type=$(printf '%s' "$focused_con_data" | jq '.. | .type')
+type=$(printf '%s' "$focused_con_data" | jq ' .type')
 [[ $type == '"con"' ]] && con_type='=[]' || con_type='=<>'
 
 # NOTICE eol for i3blocks

@@ -43,6 +43,7 @@ c notmuch
 nvim
 c nvim/viminfo
 nyxt
+obs
 qutebrowser/config.py
 c rsync
 shln

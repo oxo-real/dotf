@@ -515,11 +515,16 @@ bindsym $mod+Shift+$ri		$smt right $move_minor_step px or $move_minor_step ppt
 
 ## container float
 ### snap to screen edge; centered
+### $mod+Mod1+j,il
+bindsym $mod+Mod1+j		floating enable; $smt W
+bindsym $mod+Mod1+Comma		floating enable; $smt S
+bindsym $mod+Mod1+i          	floating enable; $smt N
+bindsym $mod+Mod1+l		floating enable; $smt E
 ### $mod+Mod1+hjkl
-bindsym $mod+Mod1+$left		floating enable; $smt W
-bindsym $mod+Mod1+$down        	floating enable; $smt S
-bindsym $mod+Mod1+$up          	floating enable; $smt N
-bindsym $mod+Mod1+$right	floating enable; $smt E
+#bindsym $mod+Mod1+$left	floating enable; $smt W
+#bindsym $mod+Mod1+$down        floating enable; $smt S
+#bindsym $mod+Mod1+$up          floating enable; $smt N
+#bindsym $mod+Mod1+$right	floating enable; $smt E
 
 ## snap to screen corner
 ### $mod+Mod4+uom.
@@ -531,19 +536,23 @@ bindsym $mod+Mod1+Period	floating enable; $smt SE
 
 ## snap to screen center
 ### $mod+Mod1+5
-bindsym $mod+Mod1+5		floating enable; $smt Z
+bindsym $mod+Mod1+k		floating enable; $smt Z
+#bindsym $mod+Mod1+5		floating enable; $smt Z
 
 ## snap to screen edge; filled
 ### $mod+Mod1+78
-bindsym $mod+Mod1+7		floating enable; exec sh $csc/float_h_fill
-bindsym $mod+Mod1+8		floating enable; exec sh $csc/float_v_fill
+bindsym $mod+Mod1+7		floating enable; exec sh $csc/float_v_fill
+bindsym $mod+Mod1+8		floating enable; exec sh $csc/float_h_fill
 
 ## container float; minimize, divide 2,3,4, maximize
-### $mod+Control+0249
+### $mod+Control+012349
 bindsym $mod+Mod1+0		floating enable; $smt Z; exec sh $csc/float_min
+bindsym $mod+Mod1+1		floating enable; exec sh $csc/float_divide 1
+### 2/6, 3/6 or 4/6 width
 bindsym $mod+Mod1+2		floating enable; exec sh $csc/float_divide 2
 bindsym $mod+Mod1+3		floating enable; exec sh $csc/float_divide 3
 bindsym $mod+Mod1+4		floating enable; exec sh $csc/float_divide 4
+
 bindsym $mod+Mod1+9		floating enable; $smt Z; exec sh $csc/float_max
 
 

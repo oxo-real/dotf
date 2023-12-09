@@ -1,6 +1,6 @@
 #! /usr/bin/env sh
 
-divisor=$1
+divisor_arg=$1
 
 set_params()
 {
@@ -44,8 +44,23 @@ set_params()
 
 con_resize()
 {
-    set_width=$(echo "scale=0; $monitor_width"/"$divisor" | bc)
-    set_height=$(echo "scale=0; $monitor_height"/"$divisor" | bc)
+    case $divisor_arg in
+
+	# 2/6, 3/6 and 4/6 width
+	2|3|4)
+	    counter=$divisor_arg
+	    divisor=6
+	    ;;
+
+	*)
+	    counter=1
+	    divisor=$divisor_arg
+	    ;;
+
+    esac
+
+    set_width=$(echo "scale=0; $monitor_width*$counter/$divisor" | bc)
+    set_height=$(echo "scale=0; $monitor_height*$counter/$divisor" | bc)
 
     swaymsg "${criteria}resize set width $set_width px height $set_height px"
 }
