@@ -1,0 +1,103 @@
+[colors.cursor]
+cursor = "#ffffb6"
+
+[colors.hints.end]
+background = "#ffffb6"
+foreground = "#000000"
+
+[colors.hints.start]
+background = "#ffffb6"
+foreground = "#000000"
+
+[colors.line_indicator]
+background = "#ffffb6"
+foreground = "#000000"
+
+[colors.selection]
+background = "#ffffb6"
+text = "#000000"
+
+[colors.vi_mode_cursor]
+cursor = "#ffffb6"
+
+[cursor]
+blink_interval = 800
+thickness = 0.2
+unfocused_hollow = true
+
+[cursor.style]
+blinking = "On"
+shape = "Beam"
+
+[cursor.vi_mode_style]
+shape = "Block"
+
+[font]
+size = 11.0
+
+[font.bold]
+family = "Source Code Pro"
+style = "Bold"
+
+[font.bold_italic]
+family = "Source Code Pro"
+style = "Bold Italic"
+
+[font.italic]
+family = "Source Code Pro"
+style = "Italic"
+
+[font.normal]
+family = "Source Code Pro"
+
+[font.offset]
+x = 0
+y = -1
+
+[hints]
+alphabet = "jfkdls;ahgurieowpqytmv,c.x/znb"
+
+[[hints.enabled]]
+command = "wl-copy"
+post_processing = true
+regex = "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-<>\"\\s{-}\\^⟨⟩`]+"
+
+[hints.enabled.binding]
+key = "U"
+mods = "Control"
+
+[hints.enabled.mouse]
+enabled = true
+mods = "None"
+
+[[keyboard.bindings]]
+action = "ToggleViMode"
+key = "Escape"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "yank_buffer | fzf_word \r"
+key = "B"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "yank_buffer all | fzf_word \r"
+key = "B"
+mods = "Shift|Control"
+
+[[keyboard.bindings]]
+chars = "alacritty msg config font.size=11; sleep 0.1; clear \r"
+key = "Key8"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "alacritty msg config font.size=18; sleep 0.1; clear \r"
+key = "Key9"
+mods = "Control"
+
+[window]
+opacity = 1.0
+
+[window.padding]
+x = 0
+y = 0

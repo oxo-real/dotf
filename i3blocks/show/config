@@ -26,17 +26,6 @@ command="$XDG_CONFIG_HOME/status/bar/element/$BLOCK_NAME"
 color=#777777
 separator=false
 
-[window]
-interval=2
-separator_block_width=8
-align=left
-color=#777777
-#background=#00557795
-background=#33333395
-border=#33333395
-border_left=2
-border_right=2
-
 [wifi]
 interval=10
 separator_block_width=8
@@ -68,6 +57,17 @@ separator_block_width=8
 [vtx]
 interval=2
 separator_block_width=16
+
+[window]
+interval=2
+separator_block_width=8
+align=left
+color=#777777
+background=#33333395
+#background=#00557795
+border=#33333395
+border_left=2
+border_right=2
 
 [mem]
 interval=2

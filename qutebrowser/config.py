@@ -454,11 +454,12 @@ c.colors.tabs.selected.odd.fg = '#aaaaaa'
 c.colors.webpage.preferred_color_scheme = 'dark'
 c.colors.webpage.darkmode.enabled = True
 c.colors.webpage.darkmode.threshold.background = 100
-c.colors.webpage.darkmode.threshold.text = 150
-#c.colors.webpage.darkmode.threshold.text = 256
-c.colors.webpage.darkmode.algorithm = "lightness-cielab"
-c.colors.webpage.darkmode.policy.images = 'smart'
-c.colors.webpage.darkmode.grayscale.images = 0.35
+c.colors.webpage.darkmode.threshold.foreground = 150
+c.colors.webpage.darkmode.algorithm = 'lightness-cielab'
+c.colors.webpage.darkmode.policy.images = 'smart-simple'
+
+### v3.1.0 (2023-12-08) Removed
+#c.colors.webpage.darkmode.grayscale.images = 0.35
 
 config.set('colors.webpage.bg', '#282828')
 ## Number of commands to save in the command history.
@@ -668,7 +669,7 @@ c.content.headers.referer = 'same-domain'
 ## unchanged user agent of QtWebKit/QtWebEngine.  Note that the value
 ## read from JavaScript is always the global value.
 ## Type: FormatString
-c.content.headers.user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Safari/605.1.1'
+c.content.headers.user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.3'
 
 # NOTICE: change ua with chua from tool
 
@@ -1604,7 +1605,7 @@ c.tabs.select_on_remove = 'last-used'
 ##   - never: Always hide the tab bar.
 ##   - multiple: Hide the tab bar if only one tab is open.
 ##   - switching: Show the tab bar when switching tabs.
-c.tabs.show = 'always'
+c.tabs.show = 'multiple'
 
 ## Duration (in milliseconds) to show the tab bar before hiding it when
 ## tabs.show is set to 'switching'.
