@@ -143,6 +143,17 @@ completion style matches multiple regular expressions in any order
 
 #+end_src
 
+*** ediff
+ediff settings
+#+begin_src emacs-lisp
+  (setq ediff-keep-variants nil)
+  (setq ediff-make-buffers-readonly-at-startup nil)
+  (setq ediff-merge-revisions-with-anchestor t)
+  (setq ediff-show-clashes-only t)
+  (setq ediff-split-window-function 'split-window-horizontally)
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+#+end_src
+
 *** evil
 evil is an emacs 'mode' that has 'states'
 #+begin_src emacs-lisp
