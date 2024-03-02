@@ -5,12 +5,14 @@
 ###   |_  / __| '_ \| '__/ __|
 ###  _ / /\__ \ | | | | | (__
 ### (_)___|___/_| |_|_|  \___|
-###  _    _
-### (_)><(_)
+###
+### # # # # # #
+###      #
+### # # # # # #
 ###
 ### .zshrc
 ### zsh runcom configuration
-### 2019 - 2023  |  oxo
+### 2019 - 2024  |  oxo
 ###
 ##
 #
@@ -421,7 +423,7 @@ function precmd()
 
 		## we have an exec time < 1000 ms
 		### single quotes; wait with expansion until print
-		local precmd_right='$t_ex_ms $hc %D{%H%M%S}'
+		local precmd_right='%F{#696969}$t_ex_ms%f $hc %D{%H%M%S}'
 
 	    fi
 
@@ -437,7 +439,7 @@ function precmd()
 
 		## we have an exec time < 1000 ms
 		### single quotes; wait with expansion until print
-		local precmd_right='$t_ex_ms %F{#ff6c60}$hc%f %D{%H%M%S}'
+		local precmd_right='%F{#696969}$t_ex_ms %F{#ff6c60}$hc%f %D{%H%M%S}'
 
 	    fi
 
@@ -687,7 +689,7 @@ function insert_date_time()
 
 zle -N insert_date_time
 bindkey "^@" insert_date_time
-# C-` also works (control backtick)
+# C-` also works (control backtick) #DEV use for wl-copy date_time
 
 
 #>>>>>>>>>>>>>	function insert_epoch

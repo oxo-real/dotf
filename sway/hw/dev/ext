@@ -44,6 +44,10 @@ set $mouse				1133:45074:Logitech_Wireless_Mouse_MX_Master
 #set $touchpad_ext			1133:16641:Logitech_Rechargeable_Touchpad_T650
 
 
+# trackball
+
+##
+
 
 # external output devices
 
@@ -51,12 +55,19 @@ set $mouse				1133:45074:Logitech_Wireless_Mouse_MX_Master
 # display
 
 ## hp_z27n (dp)
-#output DP-1				mode 1060x1440 scale 1.0 pos 0 0
-#output DP-1				mode 1920x1200 scale 1.0 pos 0 0
+### pos set in sway config
+#set $dp_x_res				1920
+#set $dp_y_res				1200
+#output DP-1				mode $dp_x_resx$dp_y_res scale 1.0
 
 ## hp_z27n (dvi)
-#output DVI-I-1				mode 1920x1200 scale 1.0 pos 0 0
+### pos set in sway config
+#set $dvi_x_res				1920
+#set $dvi_y_res				1200
+#output DVI-I-1				mode $dvi_x_resx$dvi_y_res scale 1.0
 
 ## dell_u2715h (hdmi)
 ### pos set in sway config
-output HDMI-A-1				mode 2560x1440 scale 1.0
+set $hdmi_x_res				2560
+set $hdmi_y_res				1440
+output HDMI-A-1				mode $hdmi_x_resx$hdmi_y_res scale 1.0

@@ -176,18 +176,12 @@ output * background	#000000 solid_color
 
 ## lenovo thinkpad x1c
 ### Chimei Innolux Corporation 0x1417 0x00000000
-### 1440 is $y_res_ext > read notive below
-output eDP-1		mode 1920x1200 scale 1.0 pos 0 1440
+### 1440 is $y_res_ext > read important notice below
+output eDP-1		mode 1920x1200 scale 1.0 pos 0 0
+#output eDP-1		mode 1920x1200 scale 1.0 pos 0 1440
 
 
 # external monitors
-
-## hp_z27n (dp)
-#output DP-1		mode 1060x1440 scale 1.0 pos 0 0
-#output DP-1		mode 1920x1200 scale 1.0 pos 0 0
-
-## hp_z27n (dvi)
-#output DVI-I-1		mode 1920x1200 scale 1.0 pos 0 0
 
 ## dell_u2715h (hdmi)
 ## left of main		(-1*$x_res_ext ; 0)
@@ -195,18 +189,19 @@ output eDP-1		mode 1920x1200 scale 1.0 pos 0 1440
 ## above main		(0 ; -1*$y_res_ext)
 ## right of main	($x_res_main ; 0)
 
-# IMPORTANT NOTICE
+## IMPORTANT NOTICE
 ## negative coordinates cause problems with mouse scroll and -clicks on xwayland windows
 ## [Sections of Xwayland windows within negative output coordinates receive incorrectly positioned cursor events
 ## · Issue #958 · swaywm/wlroots · GitHub](https://github.com/swaywm/wlroots/issues/958)
 
-# WORKAROUND
+## WORKAROUND
 ## current workaround when ext is above or left of main (negative x resp y coordinates)
 ## set ext display coordinates to pos 0 0 instead of the main laptop display
 ## then adjust the main display pos to ext display with positive coordinates
 
 ## only pos is set here; mode and scale are defined in: sway/hw/dev/ext
-output HDMI-A-1		pos 0 0
+output HDMI-A-1		pos -2560 0
+#output HDMI-A-1		pos 0 0
 
 ## focus on sway launch
 #focus			output eDP-1
@@ -219,7 +214,9 @@ set $laptop eDP-1
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
 
-## swaynag keyboard control
+
+# swaynag keyboard control
+
 set $nag		exec swaynagmode
 
 mode "nag"
@@ -905,6 +902,9 @@ bindsym $mod+Mod1+c		exec grim -g "$(slurp -p)" -t ppm - | \
 ## secure copy
 #bindsym Shift+Control+y	wl-copy -o -n && exec notify-send 'secure copy is in DEV'
 bindsym Shift+Control+0		exec echo -n '' | wl-copy && notify-send 'clipboard cleared'
+
+## current date_time copy
+bindsym Control+Grave		exec date +'%Y%m%d_%H%M%S_%s' | wl-copy && notify-send 'current date_time copied'
 
 
 #----------------------------------------------------------------
