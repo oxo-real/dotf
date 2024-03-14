@@ -177,7 +177,7 @@ output * background	#000000 solid_color
 ## lenovo thinkpad x1c
 ### Chimei Innolux Corporation 0x1417 0x00000000
 ### 1440 is $y_res_ext > read important notice below
-output eDP-1		mode 1920x1200 scale 1.0 pos 0 0
+#output eDP-1		mode 1920x1200 scale 1.0 pos 0 0
 #output eDP-1		mode 1920x1200 scale 1.0 pos 0 1440
 
 
@@ -189,19 +189,24 @@ output eDP-1		mode 1920x1200 scale 1.0 pos 0 0
 ## above main		(0 ; -1*$y_res_ext)
 ## right of main	($x_res_main ; 0)
 
+## only pos is set here; mode and scale are defined in: sway/hw/dev/ext
+#output HDMI-A-1		pos -2560 0
+
 ## IMPORTANT NOTICE
 ## negative coordinates cause problems with mouse scroll and -clicks on xwayland windows
+## 20240314_180925 oxo : like gimp and emacs had this problem; could not click or scroll
 ## [Sections of Xwayland windows within negative output coordinates receive incorrectly positioned cursor events
 ## · Issue #958 · swaywm/wlroots · GitHub](https://github.com/swaywm/wlroots/issues/958)
 
 ## WORKAROUND
-## current workaround when ext is above or left of main (negative x resp y coordinates)
-## set ext display coordinates to pos 0 0 instead of the main laptop display
-## then adjust the main display pos to ext display with positive coordinates
-
-## only pos is set here; mode and scale are defined in: sway/hw/dev/ext
-output HDMI-A-1		pos -2560 0
-#output HDMI-A-1		pos 0 0
+## when ext is above or left of main (negative x resp y coordinates):
+## set ext display coordinates to pos 0 0 (instead of the main monitor)
+output HDMI-A-1		pos 0 0
+## then adjust the main monitor pos to ext display with positive coordinates
+### ext is above main
+#output eDP-1		pos 0 $hdmi_y_res
+### ext is left of main
+output eDP-1		pos $hdmi_x_res 0
 
 ## focus on sway launch
 #focus			output eDP-1
