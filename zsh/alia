@@ -49,23 +49,32 @@ function emacs()
 
 	failed | inactive)
             systemctl start --user emacs.service
+	    sleep 2
             ;;
 
     esac
 
     case "$1" in
 
-	'-t'|'-nw'|'--tty')
-	    # use current tui
-	    files="$@"
-	    emacsclient -t "$@"
-	    ;;
-
-	*)
+	'--gui')
 	    # new gui
 	    shift
 	    files="$@"
-	    emacsclient --create-frame --alternate-editor="" "$@" &> /dev/null
+	    ## last ampersand to start a separate process
+	    ## brackets to prevent jobs running in current shell (new subshell)
+	    (emacsclient --create-frame --alternate-editor="" "$@" &> /dev/null &)
+	    ;;
+
+	'-t'|'-nw'|'--tty')
+	    # use current tui
+	    files="$@"
+	    emacsclient --tty "$@"
+	    ;;
+
+	*)
+	    # use current tui
+	    files="$@"
+	    emacsclient --tty "$@"
 	    ;;
 
     esac

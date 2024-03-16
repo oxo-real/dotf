@@ -1015,10 +1015,14 @@ CAUTION! may interfere with package doom-modeline
 #ffffb6, nearby: "snow", "honeydew1"
 #+begin_src emacs-lisp
 
-;;  (add-hook 'window-setup-hook #'(lambda ()
-;;                                   (set-cursor-color "#ffffb6")))
-;;  (add-hook 'after-make-frame-functions #'(lambda (f)
-;;                                            (with-selected-frame f (set-cursor-color "#ffffb6"))))
+  ;;  (add-hook 'window-setup-hook #'(lambda ()
+  ;;                                   (set-cursor-color "#ffffb6")))
+  ;;  (add-hook 'after-make-frame-functions #'(lambda (f)
+  ;;                                            (with-selected-frame f (set-cursor-color "#ffffb6"))))
+  (setq evil-normal-state-cursor '(box "yellow")
+        evil-insert-state-cursor '(bar "purple")
+        evil-visual-state-cursor '(hollow "purple"))
+
 
 #+end_src
 

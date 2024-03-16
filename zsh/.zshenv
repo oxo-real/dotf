@@ -213,50 +213,79 @@ export GIT_PS1_HIDE_IF_PWD_IGNORED=1
 
 # colors
 
-## zls colors
-ZLS_COLORS=\
-"no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:\
-bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:\
-lc=\e[:rm=m:tc=00:sp=00:ma=07:hi=00:du=00:\
-*.tar=31:*.tgz=31:\
-*.arj=31:*.taz=31:*.lzh=31:*.zip=31:\
-*.z=31:*.Z=31:*.gz=31:*.deb=31:\
-*.jpg=35:*.gif=35:*.bmp=35:*.ppm=35:\
-*.tga=35:*.xbm=35:*.xpm=35:*.tif=35:\
-*.mpg=01;35:*.avi=01;35:*.gl=01;37:*.dl=01;37:\
-*.mp4=01;35:*.webm=01;35:*.mkv=01;35:\
-*.mp3=36"
-export ZLS_COLORS
-
 ## ls colors
-LS_COLORS=\
-"no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:\
-bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:\
+LS_COLORS="\
+no=00:\
+fi=00:\
+di=01;34:\
+ln=36:\
+pi=33;40:\
+so=01;35:\
+do=01;35:\
+bd=01;33;40:\
+cd=01;33;40:\
+or=31;40:\
+mi=31;40:\
+ex=01;32:\
+su=37;41:\
+sg=30;43:\
+tw=30;42:\
+ow=34;43:\
+st=37;44:\
+ex=35:\
 lc=\e[:\
-*.tar=31:*.tgz=31:\
-*.arj=31:*.taz=31:*.lzh=31:*.zip=31:\
-*.z=31:*.Z=31:*.gz=31:*.deb=31:\
-*.jpg=35:*.gif=35:*.bmp=35:*.ppm=35:\
-*.tga=35:*.xbm=35:*.xpm=35:*.tif=35:\
-*.mpg=01;35:*.avi=01;35:*.gl=01;37:*.dl=01;37:\
-*.mp4=01;35:*.webm=01;35:*.mkv=01;35:\
-*.mp3=36"
+*.tar=31:\
+*.tgz=31:\
+*.arj=31:\
+*.taz=31:\
+*.lzh=31:\
+*.zip=31:\
+*.z=31:\
+*.Z=31:\
+*.gz=31:\
+*.deb=31:\
+*.jpg=35:\
+*.gif=35:\
+*.bmp=35:\
+*.ppm=35:\
+*.tga=35:\
+*.xbm=35:\
+*.xpm=35:\
+*.tif=35:\
+*.mpg=01;35:\
+*.avi=01;35:\
+*.gl=01;37:\
+*.dl=01;37:\
+*.mp4=01;35:\
+*.webm=01;35:\
+*.mkv=01;35:\
+*.mp3=36\
+"
 export LS_COLORS
 
+#lc=\e[:\
+EZA_COLORS="$LS_COLORS"
+export EZA_COLORS
+
+## zls colors
+zls_spec_defs=\
+"rc=m:\
+tc=0:\
+sp=0:\
+ma=07:\
+hi=00:\
+du=00"
+ZLS_COLORS="$LS_COLORS:${zls_spec_defs}"
+export ZLS_COLORS
+
+
 ## grep colors
-### ms matching string
-### mc is matching context
-### sl selected lines
-### cx selected context
-### fn filename (when shown)
-### ln line numbers (when shown)
-### bn byte numbers (when shown)
-### se separator
 GREP_COLORS=\
 'ms=01;34:\
 mc=01;33:\
 sl=:\
-cx=:fn=35:\
+cx=:\
+fn=35:\
 ln=32:\
 bn=32:\
 se=36'
