@@ -56,6 +56,13 @@ function emacs()
 
     case "$1" in
 
+	'-t'|'-nw'|'--tty')
+	    # use current tui
+	    shift
+	    files="$@"
+	    emacsclient --tty "$@"
+	    ;;
+
 	'--gui')
 	    # new gui
 	    shift
@@ -65,16 +72,12 @@ function emacs()
 	    (emacsclient --create-frame --alternate-editor="" "$@" &> /dev/null &)
 	    ;;
 
-	'-t'|'-nw'|'--tty')
-	    # use current tui
-	    files="$@"
-	    emacsclient --tty "$@"
-	    ;;
-
 	*)
-	    # use current tui
+	    # new gui as default
 	    files="$@"
-	    emacsclient --tty "$@"
+	    ## last ampersand to start a separate process
+	    ## brackets to prevent jobs running in current shell (new subshell)
+	    (emacsclient --create-frame --alternate-editor="" "$@" &> /dev/null &)
 	    ;;
 
     esac
@@ -159,9 +162,13 @@ if command -v eza >/dev/null; then
 
 else
 
-    alias ls="echo; command ls $LS_OPTIONS"
+    alias ls="echo; ls --color=auto"
+    #alias ls="echo; command ls $LS_OPTIONS"
 
 fi
+
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
 
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'

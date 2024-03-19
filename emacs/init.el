@@ -779,9 +779,9 @@
 ;;                                   (set-cursor-color "#ffffb6")))
 ;;  (add-hook 'after-make-frame-functions #'(lambda (f)
 ;;                                            (with-selected-frame f (set-cursor-color "#ffffb6"))))
-(setq evil-normal-state-cursor '(box "yellow")
-      evil-insert-state-cursor '(bar "purple")
-      evil-visual-state-cursor '(hollow "purple"))
+(setq evil-normal-state-cursor '(box "#ffffb6")
+      evil-insert-state-cursor '(bar "#ffffb6")
+      evil-visual-state-cursor '(hollow "#ffffb6"))
 
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling

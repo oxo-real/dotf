@@ -46,7 +46,6 @@ hist_cmd_offset=100000
 
 
 # shell parameters
-
 autoload -U colors && colors
 setopt auto_pushd
 
