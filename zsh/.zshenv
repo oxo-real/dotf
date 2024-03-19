@@ -214,28 +214,40 @@ export GIT_PS1_HIDE_IF_PWD_IGNORED=1
 
 # colors
 
-## ls colors
-### color ls command output
+## dircolors default ls colors
+### colors the ls command output
 eval "$(dircolors)"
 #eval "$(dircolors "$XDG_DATA_HOME"/c/git/note/linux/shell/color/etc_DIR_COLORS)"
 
+## oxo added ls color definitions
+defs_oxo='*.pdf=01;35'
+LS_COLORS+="${defs_oxo}"
 
-#lc=\e[:\
-EZA_COLORS="$LS_COLORS"
+
+## eza colors
+## man 5 eza_colors
+## reset disables eza built-in color set entirely
+EZA_COLORS='reset:'"$LS_COLORS"
 export EZA_COLORS
+
+## lf colors
+## [Colors and Icons · gokcehan/lf Wiki · GitHub](https://github.com/gokcehan/lf/wiki/Colors-and-Icons)
+## colors and icons file support replaced configuration method using environmental variables
+#LF_COLORS="$LS_COLORS"
+#export LF_COLORS
 
 ## zls colors
 ### color zsh/complist completion lists
-zls_spec_defs=\
+#lc=\e[:\
+defs_zls=\
 "rc=m:\
 tc=0:\
 sp=0:\
 ma=07:\
 hi=00:\
 du=00"
-ZLS_COLORS="$LS_COLORS${zls_spec_defs}"
+ZLS_COLORS="$LS_COLORS":"${defs_zls}"
 export ZLS_COLORS
-
 
 ## grep colors
 ### color grep command output

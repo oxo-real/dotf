@@ -904,6 +904,10 @@
 │               ├── translucentbackground.svgz
 │               └── viewitem.svgz
 ├── lf
+│   ├── colors
+│   ├── default
+│   │   ├── colors
+│   │   └── icons
 │   ├── lfcd_run
 │   ├── lfrc
 │   ├── lfub
@@ -2123,5 +2127,5 @@
     │   └── config
     └── xresources_colors
 
-233 directories, 1890 files
+234 directories, 1893 files
 ```
