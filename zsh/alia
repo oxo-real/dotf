@@ -34,12 +34,13 @@ function host()
 
 alias vi='nvim'
 alias vim='nvim'
-alias view='nvim -R'
 alias vimdiff='nvim -d'
 
 #alias emacs="emacs $@ &"
-function emacs()
+function emacs_daemon()
 {
+    # if no active daemon, then start service
+
     #daemon_active=$(ls /run/user/1000/emacs >/dev/null 2>&1 | wc -l)
     emacs_active=$(systemctl status --user emacs.service | \
                        grep Active: | \
@@ -48,11 +49,20 @@ function emacs()
     case $emacs_active in
 
 	failed | inactive)
+	    printf "starting emacs.service...\n"
             systemctl start --user emacs.service
 	    sleep 2
             ;;
 
+	*)
+	    ;;
+
     esac
+}
+
+function emacs()
+{
+    emacs_daemon
 
     case "$1" in
 
@@ -60,24 +70,24 @@ function emacs()
 	    # use current tui
 	    shift
 	    files="$@"
-	    emacsclient --tty "$@"
+	    emacsclient --alternate-editor='' --tty "$files"
 	    ;;
 
 	'--gui')
-	    # new gui
+	    # use new gui frame
 	    shift
 	    files="$@"
 	    ## last ampersand to start a separate process
 	    ## brackets to prevent jobs running in current shell (new subshell)
-	    (emacsclient --create-frame --alternate-editor="" "$@" &> /dev/null &)
+	    (emacsclient --alternate-editor='' --create-frame "$files" &> /dev/null &)
 	    ;;
 
 	*)
-	    # new gui as default
+	    # use new gui frame (default)
 	    files="$@"
 	    ## last ampersand to start a separate process
 	    ## brackets to prevent jobs running in current shell (new subshell)
-	    (emacsclient --create-frame --alternate-editor="" "$@" &> /dev/null &)
+	    (emacsclient --alternate-editor='' --create-frame "$files" &> /dev/null &)
 	    ;;
 
     esac
@@ -91,6 +101,44 @@ function emacs()
   #emacsclient -t "$@"
 }
 alias em='emacs'
+
+function view()
+{
+    emacs_daemon
+
+    # nvim readonly
+    #nvim -R $@
+
+    # emacs readonly
+    case "$1" in
+
+	'-t'|'-nw'|'--tty')
+	    # use current tui
+	    shift
+	    files="$@"
+	    emacsclient --alternate-editor='' --tty --eval "(view-file \"$files\")"
+	    ;;
+
+	'--gui')
+	    # use new gui frame
+	    shift
+	    files="$@"
+	    ## last ampersand to start a separate process
+	    ## brackets to prevent jobs running in current shell (new subshell)
+	    (emacsclient --alternate-editor='' --create-frame --eval "(view-file \"$files\")" &> /dev/null &)
+	    ;;
+
+	*)
+	    # use new gui frame (default)
+	    files="$@"
+	    ## last ampersand to start a separate process
+	    ## brackets to prevent jobs running in current shell (new subshell)
+	    (emacsclient --alternate-editor='' --create-frame  --eval "(view-file \"$files\")" &> /dev/null &)
+	    ;;
+
+    esac
+}
+alias ev='view'
 
 alias lsblk='lsblk --ascii --tree -o name,uuid,fstype,path,size,fsuse%,fsused,label,mountpoint'
 # #alias cal='env TERM=xterm cal'
