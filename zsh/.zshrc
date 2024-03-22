@@ -1,33 +1,67 @@
 #
-##
+
 ###            _
 ###    _______| |__  _ __ ___
 ###   |_  / __| '_ \| '__/ __|
 ###  _ / /\__ \ | | | | | (__
 ### (_)___|___/_| |_|_|  \___|
 ###
-### # # # # # #
-###      #
-### # # # # # #
 ###
-### .zshrc
-### zsh runcom configuration
-### 2019 - 2024  |  oxo
+###  # # # # # #
+###       #
+###  # # # # # #
 ###
-##
-#
+
+: '
+.zshrc
+zsh runcom configuration
+copyright (c) 2019 - 2024  |  oxo
+
+GNU GPLv3 GENERAL PUBLIC LICENSE
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+https://www.gnu.org/licenses/gpl-3.0.txt
+
+@oxo@qoto.org
+
+
+# dependencies
+  base16-shell, fd, fzf, git
+  $XDG_CONFIG_HOME/i3blocks
+  $XDG_CONFIG_HOME/sway
+  $XDG_CONFIG_HOME/zsh/alia
+  $XDG_CONFIG_HOME/zsh/completions
+  $XDG_CONFIG_HOME/source/text_appearance
+  /usr/share/zsh/plugins/zsh-syntax-highlighting
+
+# usage
+  n/a
+
+# examples
+  n/a
+
+# '
 
 
 # file pointers
 
-xcfh="$XDG_CONFIG_HOME"
-fzf_tab="$xcfh/fzf-tab/fzf-tab.zsh"
-fzf_zsh="$xcfh/fzf/.fzf.zsh"
-git_prompt="$xcfh/zsh/git-prompt.sh"
-text_appearance="$xcfh/source/text_appearance"
-#lf_cd="$XDG_CONFIG_HOME/lf/lfcd.sh"
-zsh_alia="$xcfh/zsh/alia"
-zsh_completions="$xcfh/zsh/completions/completion.zsh"
+cfg="$XDG_CONFIG_HOME"
+fzf_tab="$cfg/fzf-tab/fzf-tab.zsh"
+fzf_zsh="$cfg/fzf/.fzf.zsh"
+git_prompt="$cfg/zsh/git-prompt.sh"
+text_appearance="$cfg/source/text_appearance"
+zsh_alia="$cfg/zsh/alia"
+zsh_completions="$cfg/zsh/completions/completion.zsh"
 zsh_syntax_hl='/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh'
 
 hist_cmd_offset=100000
@@ -35,14 +69,12 @@ hist_cmd_offset=100000
 
 # sourcing
 
-## alia (or aliasses)
+## alia
 [[ -f $zsh_alia ]] && source $zsh_alia
-## alia (or aliasses)
+## text_appearance
 [[ -f $text_appearance ]] && source $text_appearance
 ## zsh completions
 [[ -f $zsh_completions ]] && source $zsh_completions
-## lfcd load function
-#[[ -f $lf_cd ]] && source $lf_cd
 
 
 # shell parameters
@@ -659,6 +691,7 @@ function chpwd()
 
 function insert_pacmanqq()
 {
+    #TODO escape code error
     LBUFFER+="$(pacman -Qq | fzf)"
 }
 
@@ -671,6 +704,7 @@ bindkey "^A" insert_pacmanqq
 
 function insert_appn()
 {
+    #TODO escape code error
     LBUFFER+="$(ls "$APPNDIR" | fzf)"
 }
 
@@ -887,17 +921,14 @@ bindkey '^Z' foreground
 #>>>>>>>>>>>>>> function lfcd
 # lfcd
 # Control+j
-# function lfcd is by default externally sourced from:
-# lf_cd="$XDG_CONFIG_HOME/lf/lfcd.sh"
 
 function lfcd()
 {
     # provide lfcd function inside a zsh shell environment
     tmp="$(mktemp)"
 
-    # `command` is needed in case `lfcd` is aliased to `lf`
     # -last-dir-path is written into $tmp
-    command lf -last-dir-path="$tmp" "$@"
+    lf -last-dir-path="$tmp" "$@"
 
     if [ -f "$tmp" ]; then
 
@@ -923,11 +954,12 @@ function lfcd()
     fi
 
     echo
-    # TODO DEV
     # `zle reset-prompt` gives error
-    # zle:38: widgets can only be called when ZLE is active
     # when called directly via cli (by typing: `lfcd`)
-    zle reset-prompt
+    # [zsh zle - ZSH on 10.9: widgets can only be called when ZLE is active - Stack Overflow](https://stackoverflow.com/questions/20357441/zsh-on-10-9-widgets-can-only-be-called-when-zle-is-active)
+    # solved with:
+    zle && { zle reset-prompt; zle -R }
+    #zle reset-prompt
 }
 
 zle -N lfcd
