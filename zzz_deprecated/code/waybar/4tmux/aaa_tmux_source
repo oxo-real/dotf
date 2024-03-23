@@ -1,0 +1,3 @@
+these are 'old' i3blockscalls modules that are not used in waybar,
+but are are sources for tmux status line
+[TODO] tmux has no audio source yet (gauges gave errors)

@@ -1,0 +1,39 @@
+#!/bin/sh
+##
+###
+#### search hfcmd
+
+spicules=$(cat ~/_git/notes/linux/shell/hfcmd | \
+	rofi \
+	-dmenu \
+	-monitor 0 \
+	-location 1 \
+	-width 100 \
+	-lines 5 \
+	-columns 3 \
+	-separator-style none \
+	-hide-scrollbar \
+	-font "Source Code Pro 10" \
+	-bw 0 \
+	-i \
+	-cycle true \
+	-matching normal \
+	-disable-history \
+	-fake-transparency \
+	-fake-background \
+	-color-normal "#000000, #999999, #000000, #005577, #ffffff" \
+	-color-active "#222222, #b1b4b3, #222222, #007763, #b1b4b3" \
+	-color-urgent "#222222, #b1b4b3, #222222, #77003d, #b1b4b3" \
+	-color-window "#000000, #999999, #b1b4b3" \
+	-kb-row-select "Tab" \
+	-kb-row-tab "" \
+	-p "hfcmd search" \
+	)
+
+	# no comments inside settings
+	# state: 'bg', 'fg', 'bgalt', 'hlbg', 'hlfg'
+	# 'background', 'border', 'separator'
+
+[ -z $spicules ] && exit
+
+echo -n $spicules | wl-copy

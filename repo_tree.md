@@ -2010,6 +2010,76 @@
     │   ├── backup_20201225_085610
     │   ├── backup_new20201225_085909
     │   └── restore_20201225_085832
+    ├── code
+    │   ├── bar_blocks
+    │   │   ├── bar_custom
+    │   │   ├── click
+    │   │   ├── hide
+    │   │   ├── show
+    │   │   │   ├── audio
+    │   │   │   ├── batt
+    │   │   │   ├── brightness
+    │   │   │   ├── bt
+    │   │   │   ├── cpu
+    │   │   │   ├── interface
+    │   │   │   ├── ipex
+    │   │   │   ├── ipin
+    │   │   │   ├── macex
+    │   │   │   ├── macin
+    │   │   │   ├── mem
+    │   │   │   ├── temp
+    │   │   │   ├── time
+    │   │   │   ├── vol
+    │   │   │   ├── vrx
+    │   │   │   ├── vtx
+    │   │   │   ├── weather
+    │   │   │   ├── wifi
+    │   │   │   └── window
+    │   │   └── toggle
+    │   ├── bemenu
+    │   │   ├── bemenu_run
+    │   │   ├── spicules
+    │   │   └── sway_exit
+    │   ├── pacman
+    │   │   └── hooks
+    │   │       └── dash_relink.hook
+    │   ├── rofi
+    │   │   ├── spicules
+    │   │   └── sway_exit
+    │   ├── waybar
+    │   │   ├── 4tmux
+    │   │   │   ├── aaa_tmux_source
+    │   │   │   ├── batt
+    │   │   │   ├── gauges
+    │   │   │   ├── temp
+    │   │   │   └── vol
+    │   │   ├── audio_source
+    │   │   ├── bar_custom
+    │   │   ├── batt_flow
+    │   │   ├── batt_perc
+    │   │   ├── brightness
+    │   │   ├── bt
+    │   │   ├── cpu
+    │   │   ├── epoch_time
+    │   │   ├── interface
+    │   │   ├── ipex
+    │   │   ├── ipin
+    │   │   ├── knl_release
+    │   │   ├── macex
+    │   │   ├── macin
+    │   │   ├── mem
+    │   │   ├── rnd_pool_alert
+    │   │   ├── rng_pool
+    │   │   ├── storage
+    │   │   ├── temp
+    │   │   ├── time
+    │   │   ├── vol
+    │   │   ├── vrx
+    │   │   ├── vtx
+    │   │   └── wifi
+    │   └── wofi
+    │       ├── style.css
+    │       └── sway_exit
     ├── emacs
     ├── i3blockscalls
     │   ├── bandwidth
@@ -2127,5 +2197,5 @@
     │   └── config
     └── xresources_colors
 
-234 directories, 1893 files
+246 directories, 1951 files
 ```

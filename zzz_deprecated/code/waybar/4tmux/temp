@@ -1,0 +1,12 @@
+#!/bin/sh
+
+#xps9360
+#temp=$(sensors | grep 'id 0' | awk '{print substr($0, 17, 2)}')
+
+#pulse15
+temp=$(sensors | grep 'Tctl' | awk '{print substr($0, 16, 2)}')
+
+
+printf '%sC' "$temp"
+
+[ ${temp} -gt 80 ] && exit 33 || exit 0

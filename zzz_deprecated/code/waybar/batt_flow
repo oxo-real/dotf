@@ -1,0 +1,35 @@
+#!/bin/sh
+
+if [ -d /sys/class/power_supply/BAT0 ]; then
+
+    bat_status="$(cat /sys/class/power_supply/BAT0/status | tr '[:upper:]' '[:lower:]')"
+
+    case $bat_status in
+
+	discharging)
+	   flow="—"
+	   ;;
+
+	charging)
+	    flow="+"
+	    ;;
+
+	full)
+	    flow="="
+	    ;;
+
+	*)
+	    flow="?"
+	    ;;
+
+    esac
+
+else
+
+    # no battery present
+    # presume wall outlet
+    flow="-[="
+
+fi
+
+printf '%s\n' "$flow"
