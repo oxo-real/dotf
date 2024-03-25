@@ -157,77 +157,6 @@
 ├── blocklist
 │   ├── customize.aes
 │   └── customize.hash
-├── code
-│   └── zzz_deprecated
-│       ├── bar_blocks
-│       │   ├── bar_custom
-│       │   ├── click
-│       │   ├── hide
-│       │   ├── show
-│       │   │   ├── audio
-│       │   │   ├── batt
-│       │   │   ├── brightness
-│       │   │   ├── bt
-│       │   │   ├── cpu
-│       │   │   ├── interface
-│       │   │   ├── ipex
-│       │   │   ├── ipin
-│       │   │   ├── macex
-│       │   │   ├── macin
-│       │   │   ├── mem
-│       │   │   ├── temp
-│       │   │   ├── time
-│       │   │   ├── vol
-│       │   │   ├── vrx
-│       │   │   ├── vtx
-│       │   │   ├── weather
-│       │   │   ├── wifi
-│       │   │   └── window
-│       │   └── toggle
-│       ├── bemenu
-│       │   ├── bemenu_run
-│       │   ├── spicules
-│       │   └── sway_exit
-│       ├── pacman
-│       │   └── hooks
-│       │       └── dash_relink.hook
-│       ├── rofi
-│       │   ├── spicules
-│       │   └── sway_exit
-│       ├── waybar
-│       │   ├── 4tmux
-│       │   │   ├── aaa_tmux_source
-│       │   │   ├── batt
-│       │   │   ├── gauges
-│       │   │   ├── temp
-│       │   │   └── vol
-│       │   ├── audio_source
-│       │   ├── bar_custom
-│       │   ├── batt_flow
-│       │   ├── batt_perc
-│       │   ├── brightness
-│       │   ├── bt
-│       │   ├── cpu
-│       │   ├── epoch_time
-│       │   ├── interface
-│       │   ├── ipex
-│       │   ├── ipin
-│       │   ├── knl_release
-│       │   ├── macex
-│       │   ├── macin
-│       │   ├── mem
-│       │   ├── rnd_pool_alert
-│       │   ├── rng_pool
-│       │   ├── storage
-│       │   ├── temp
-│       │   ├── time
-│       │   ├── vol
-│       │   ├── vrx
-│       │   ├── vtx
-│       │   └── wifi
-│       └── wofi
-│           ├── style.css
-│           └── sway_exit
 ├── element.tar.aes
 ├── element.tar.hash
 ├── emacs
@@ -2198,5 +2127,5 @@
     │   └── config
     └── xresources_colors
 
-247 directories, 1951 files
+234 directories, 1893 files
 ```

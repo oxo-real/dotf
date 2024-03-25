@@ -1,6 +1,0 @@
-#!/usr/bin/env sh
-
-cpu_temp=$(sensors | grep 'CPU' | awk '{print substr($0, 16, 2)}')
-#cpu_temp=$(sensors | grep 'Tctl' | awk '{print substr($0, 16, 2)}')
-
-printf '%s\n' "$cpu_temp"

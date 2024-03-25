@@ -1,9 +1,0 @@
-#!/bin/sh
-
-# shows last 8 digits of current epoch time
-
-while true; do
-
-	echo $(date +%s | tail -c 8)
-
-done

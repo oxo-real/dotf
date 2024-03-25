@@ -1,1 +1,0 @@
-curl -s "wttr.in/$WTTR_LOC?format=%c%t" | tr -d '[:blank:]\t\r\n°C'
