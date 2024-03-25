@@ -1854,6 +1854,7 @@
 │       └── tmux
 │           └── right_side
 ├── sway
+│   ├── bar -> ../i3blocks/show/
 │   ├── code
 │   │   ├── dimr
 │   │   ├── float_divide
@@ -2197,5 +2198,5 @@
     │   └── config
     └── xresources_colors
 
-246 directories, 1951 files
+247 directories, 1951 files
 ```
