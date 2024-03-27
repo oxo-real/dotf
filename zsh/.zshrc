@@ -58,7 +58,6 @@ https://www.gnu.org/licenses/gpl-3.0.txt
 cfg="$XDG_CONFIG_HOME"
 fzf_tab="$cfg/fzf-tab/fzf-tab.zsh"
 fzf_zsh="$cfg/fzf/.fzf.zsh"
-#####git_prompt="$cfg/zsh/git-prompt.sh"
 text_appearance="$cfg/source/text_appearance"
 zsh_alia="$cfg/zsh/alia"
 zsh_completions="$cfg/zsh/completions/completion.zsh"
@@ -123,7 +122,7 @@ bindkey "^[[B" down-line-or-beginning-search # down arrow
 # synthesize prompt (precmd, preexec, left and right prompt)
 
 ## define cursor styles
-function __def_cursor()
+function def_cursor()
 {
     local style
 
@@ -181,24 +180,24 @@ zle_highlight=(\
 
 
 ## set cursor styles
-function __set_cursor()
+function set_cursor()
 {
     case $KEYMAP in
 
         main | viins)
-	    __def_cursor vertical-line_blink
+	    def_cursor vertical-line_blink
 	    ;;
 
         vicmd)
-	    __def_cursor block_blink
+	    def_cursor block_blink
 	    ;;
 
         visual)
-	    __def_cursor block_steady
+	    def_cursor block_steady
 	    ;;
 
 	*)
-	    __def_cursor underline_blink
+	    def_cursor underline_blink
 	    ;;
 
     esac
@@ -207,8 +206,8 @@ function __set_cursor()
 
 function zle-keymap-select()
 {
-    #__set_ps1
-    __set_cursor
+    ## set_ps1
+    set_cursor
     zle reset-prompt
 }
 
@@ -216,16 +215,16 @@ function zle-keymap-select()
 function zle-line-init()
 {
     zle -K $DEFAULT_VI_MODE
-    #__set_ps1
-    __set_cursor
+    ## set_ps1
+    set_cursor
     zle reset-prompt
 }
 
 
 function zle-line-finish()
 {
-    #__set_ps1
-    __set_cursor
+    ## set_ps1
+    set_cursor
     zle reset-prompt
 }
 
@@ -234,7 +233,6 @@ function git_branch()
 {
     # Long form
     branch="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
-    #git rev-parse --abbrev-ref HEAD 2> /dev/null
     # Short form
     # git rev-parse --abbrev-ref HEAD 2> /dev/null | sed -e 's/.*\/\(.*\)/\1/'
 
@@ -513,12 +511,11 @@ zle -N zle-line-finish
 
 setopt PROMPT_SUBST
 
-
 ## left prompt
 ## uses ternary expressions
+## for exit code (?) and background jobs (j)
 ## [zsh: 13 Prompt Expansion](https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html#Conditional-Substrings-in-Prompts)
 PS1="%(?..%F{#ff6c60}%?%f)%(1j.%F{#ffffb6}%K{#555555}%j%k%f.)%# "
-#PS1="%(?..%F{#ff6c60}%?%f)%# "
 
 ## right prompt
 ## commandID with running time
@@ -535,8 +532,7 @@ PS1="%(?..%F{#ff6c60}%?%f)%(1j.%F{#ffffb6}%K{#555555}%j%k%f.)%# "
 # history
 
 ## location of the history file
-## set in .zshenv
-#HISTFILE=$XDG_LOGS_HOME/history/history
+## HISTFILE set in .zshenv
 
 ## maximum number of history events to save in the history file
 SAVEHIST=1000000
