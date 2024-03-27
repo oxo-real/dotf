@@ -58,7 +58,7 @@ https://www.gnu.org/licenses/gpl-3.0.txt
 cfg="$XDG_CONFIG_HOME"
 fzf_tab="$cfg/fzf-tab/fzf-tab.zsh"
 fzf_zsh="$cfg/fzf/.fzf.zsh"
-git_prompt="$cfg/zsh/git-prompt.sh"
+#####git_prompt="$cfg/zsh/git-prompt.sh"
 text_appearance="$cfg/source/text_appearance"
 zsh_alia="$cfg/zsh/alia"
 zsh_completions="$cfg/zsh/completions/completion.zsh"
@@ -515,9 +515,10 @@ setopt PROMPT_SUBST
 
 
 ## left prompt
-## uses a ternary expression
+## uses ternary expressions
 ## [zsh: 13 Prompt Expansion](https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html#Conditional-Substrings-in-Prompts)
-PS1="%(?..%F{#ff6c60}%?%f)%# "
+PS1="%(?..%F{#ff6c60}%?%f)%(1j.%F{#ffffb6}%K{#555555}%j%k%f.)%# "
+#PS1="%(?..%F{#ff6c60}%?%f)%# "
 
 ## right prompt
 ## commandID with running time

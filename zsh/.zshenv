@@ -220,6 +220,7 @@ export READNULLCMD=lessr
 export BEEP="$XDG_DATA_HOME/a/media/audio/sound/airbus/da.ogg"
 export MUSICDIR="$XDG_DATA_HOME/a/media/audio/music"
 
+: '
 # git status for __git_ps1
 
 ## unstaged (*), staged (+)
@@ -236,6 +237,7 @@ export GIT_PS1_SHOWCOLORHINTS='true'
 export GIT_PS1_SHOWCOLORHINTS=1
 ## ignored directories
 export GIT_PS1_HIDE_IF_PWD_IGNORED=1
+# '
 
 
 # colors
