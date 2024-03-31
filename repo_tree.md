@@ -1898,30 +1898,9 @@
 │   └── zathurarc
 ├── zsa
 │   └── moonlander
-│       ├── moonlander_oxo_qwerty_LpBZD_GEpxG.bin
-│       ├── moonlander_oxo_qwerty_LpBZD_GEpxG.zip
-│       ├── moonlander_oxo_qwerty_NZWR6_bPP0D.bin
-│       ├── moonlander_oxo_qwerty_NZWR6_bPP0D.zip
-│       ├── moonlander_oxo_qwerty_NZWR6_qRqj4.bin
-│       ├── moonlander_oxo_qwerty_NZWR6_qRqj4.zip
-│       ├── moonlander_oxo_qwerty_NZWR6_XmAN6.bin
-│       ├── moonlander_oxo_qwerty_NZWR6_XmAN6.zip
-│       ├── moonlander_oxo_qwerty_Vjrl5_6YEBn.bin
-│       ├── moonlander_oxo_qwerty_Vjrl5_6YEBn.zip
-│       ├── zsa_oxo_moon_url
-│       └── zzz_deprecated
-│           ├── moonlander_oxo_qwerty_NZWR6_AGEeG.bin
-│           ├── moonlander_oxo_qwerty_NZWR6_AGEeG.zip
-│           ├── moonlander_oxo_qwerty_NZWR6_JLml7.bin
-│           ├── moonlander_oxo_qwerty_NZWR6_JLml7.zip
-│           ├── moonlander_oxo_qwerty_NZWR6_LxE0R.bin
-│           ├── moonlander_oxo_qwerty_NZWR6_LxE0R.zip
-│           ├── moonlander_oxo_qwerty_NZWR6_p5dvW.bin
-│           ├── moonlander_oxo_qwerty_NZWR6_p5dvW.zip
-│           ├── moonlander_oxo_qwerty_NZWR6_pnGRW.bin
-│           ├── moonlander_oxo_qwerty_NZWR6_pnGRW.zip
-│           ├── moonlander_oxo_qwerty_NZWR6_yQmD0.bin
-│           └── moonlander_oxo_qwerty_NZWR6_yQmD0.zip
+│       ├── moonlander_oxo_qwerty_NZWR6_RzQyN.bin
+│       ├── moonlander_oxo_qwerty_NZWR6_RzQyN.zip
+│       └── zsa_oxo_moon_url
 ├── zsh
 │   ├── alia
 │   ├── completions
@@ -2127,5 +2106,5 @@
     │   └── config
     └── xresources_colors
 
-234 directories, 1893 files
+233 directories, 1873 files
 ```
