@@ -886,20 +886,45 @@ function sudo_toggle()
 
     if [[ $BUFFER == sudo\ * ]]; then
 
-	#already sudo; remove sudo
+	# already sudo; remove sudo
 	BUFFER="${BUFFER#sudo }"
 
     else
 
-	BUFFER="sudo $BUFFER" #add sudo
+	BUFFER="sudo $BUFFER"  ## add sudo
 
     fi
 
-    zle -R $BUFFER #refresh
+    zle -R $BUFFER  ## refresh
 }
 
-zle -N sudo_toggle #create widget
+zle -N sudo_toggle  ## create widget
 bindkey -M vicmd 's' sudo_toggle
+
+
+#>>>>>>>>>>>>>> function sh-x_toggle
+# sh-x_toggle (vicmd q)
+
+function sh-x_toggle()
+{
+    [[ -z $BUFFER ]] && zle up-history
+
+    if [[ $BUFFER == sh\ -x\ * ]]; then
+
+	# already sudo; remove sh -x
+	BUFFER="${BUFFER#sh -x }"
+
+    else
+
+	BUFFER="sh -x $BUFFER"  ## add sh-x
+
+    fi
+
+    zle -R $BUFFER  ## refresh
+}
+
+zle -N sh-x_toggle  ## create widget
+bindkey -M vicmd 'q' sh-x_toggle
 
 
 #>>>>>>>>>>>>>> function foreground
@@ -976,6 +1001,8 @@ BASE16_SHELL="$XDG_CONFIG_HOME/base16-shell/"
 [ -n "$PS1" ] && \
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
     eval "$("$BASE16_SHELL/profile_helper.sh")"
+## set volorscheme
+base16_irblack
 
 
 # fzf
