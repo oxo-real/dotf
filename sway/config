@@ -475,7 +475,8 @@ focus_follows_mouse	no
 
 
 # no mouse warping (when switching focus to a window)
-mouse_warping		none
+## set to container: keyboard mousewheel works
+mouse_warping		container
 
 
 #----------------------------------------------------------------
