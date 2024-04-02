@@ -768,6 +768,9 @@
 │       └── ztst.zsh
 ├── git.tar.aes
 ├── git.tar.hash
+├── gnupg
+│   ├── identity_backup.tar.aes
+│   └── identity_backup.tar.hash
 ├── gnupg.tar.aes
 ├── gnupg.tar.hash
 ├── greasemonkey.tar.aes
@@ -2106,5 +2109,5 @@
     │   └── config
     └── xresources_colors
 
-233 directories, 1873 files
+234 directories, 1875 files
 ```

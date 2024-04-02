@@ -15,7 +15,7 @@ freecad
 fzf
 fzf-tab
 c git
-c gnupg
+c gnupg/identity_backup
 c greasemonkey
 i3blocks
 icons/cursors
