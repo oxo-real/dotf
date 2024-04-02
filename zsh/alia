@@ -101,6 +101,7 @@ function emacs_daemon()
             ;;
 
 	*)
+	    :
 	    ;;
 
     esac
@@ -126,6 +127,12 @@ function emacs()
 	    ## last ampersand to start a separate process
 	    ## brackets to prevent jobs running in current shell (new subshell)
 	    (emacsclient --alternate-editor='' --create-frame "$files" &> /dev/null &)
+	    ;;
+
+	'')
+	    # start emacs 'desktop', not via emacsclient
+	    command emacs
+	    #/bin/emacs
 	    ;;
 
 	*)
