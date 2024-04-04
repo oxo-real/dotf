@@ -946,12 +946,15 @@ bindkey '^Z' foreground
 
 function lfcd()
 {
-    printf "${fg_black}${bg_black}lfcd${st_dev}\n"
-    #printf "${st_inv}lfcd${st_dev}\n"
+    # for precmd:
+    # get t0 for $time_exec (ns)
+    t0_exec_ns=$(date +'%s%N')
 
-    # `command` is needed in case `lfcd` is aliased to `lf`
+    printf "${st_inv}lfcd${st_dev}\n"
+
     cd "$(command lf -print-last-dir "$@")"
-    echo
+
+    precmd
 
     # `zle reset-prompt` gives error
     # when called directly via cli (by typing: `lfcd`)

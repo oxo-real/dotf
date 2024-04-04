@@ -243,7 +243,7 @@ alias mv='mv --interactive --verbose'
 #alias mv='rsync -aAXv --info=ALL --human-readable && rm -rf $1'
 alias rm='trash'
 alias mkdir='mkdir --parents --verbose'
-#alias lf='lfcd'
+alias lf='lfcd'
 
 ## rsync for copy and move (better for large files)
 function cpr()
