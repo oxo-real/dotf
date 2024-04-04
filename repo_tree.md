@@ -797,7 +797,7 @@
 │   ├── default
 │   │   ├── colors
 │   │   └── icons
-│   ├── lfcd_run
+│   ├── DELlfcd_run
 │   ├── lfrc
 │   ├── lfub
 │   └── scope

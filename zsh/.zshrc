@@ -946,36 +946,13 @@ bindkey '^Z' foreground
 
 function lfcd()
 {
-    # provide lfcd function inside a zsh shell environment
-    tmp="$(mktemp)"
+    printf "${fg_black}${bg_black}lfcd${st_dev}\n"
+    #printf "${st_inv}lfcd${st_dev}\n"
 
-    # -last-dir-path is written into $tmp
-    lf -last-dir-path="$tmp" "$@"
-
-    if [ -f "$tmp" ]; then
-
-	# read last dir
-	dir="$(command cat "$tmp")"
-	# cleanup
-        rm -f "$tmp"
-
-	if [ -d "$dir" ]; then
-
-	    if [ "$dir" != "$(pwd)" ]; then
-
-		# inverted text to indicate widget call
-		printf '\e[7m lfcd \e[27m %s\n' "$dir"
-
-		#printf 'lfcd %s\n' "$dir"
-		cd "$dir"
-
-	    fi
-
-        fi
-
-    fi
-
+    # `command` is needed in case `lfcd` is aliased to `lf`
+    cd "$(command lf -print-last-dir "$@")"
     echo
+
     # `zle reset-prompt` gives error
     # when called directly via cli (by typing: `lfcd`)
     # [zsh zle - ZSH on 10.9: widgets can only be called when ZLE is active - Stack Overflow](https://stackoverflow.com/questions/20357441/zsh-on-10-9-widgets-can-only-be-called-when-zle-is-active)
