@@ -797,7 +797,6 @@
 │   ├── default
 │   │   ├── colors
 │   │   └── icons
-│   ├── DELlfcd_run
 │   ├── lfrc
 │   ├── lfub
 │   └── scope
@@ -2066,5 +2065,5 @@
     │   └── config
     └── xresources_colors
 
-226 directories, 1840 files
+226 directories, 1839 files
 ```
