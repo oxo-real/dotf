@@ -515,7 +515,7 @@ setopt PROMPT_SUBST
 ## uses ternary expressions
 ## for exit code (?) and background jobs (j)
 ## [zsh: 13 Prompt Expansion](https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html#Conditional-Substrings-in-Prompts)
-PS1="%(?..%F{#ff6c60}%?%f)%(1j.%F{#ffffb6}%K{#555555}%j%k%f.)%(!.%F{#ffbf00}%B#%b%f.%%) "
+PS1="%(?..%F{#ff6c60}%?%f)%(1j.%F{#4aa5fd}%K{#333333}%B%j%b%k%f.)%(!.%F{#ffbf00}%B#%b%f.%%) "
 
 ## right prompt
 ## commandID with running time

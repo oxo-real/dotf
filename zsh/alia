@@ -126,12 +126,12 @@ function emacs()
 	    files="$@"
 	    ## last ampersand to start a separate process
 	    ## brackets to prevent jobs running in current shell (new subshell)
-	    (emacsclient --alternate-editor='' --create-frame "$files" &> /dev/null &)
+	    (emacsclient --alternate-editor='' --create-frame "$files" > /dev/null 2>&1 &)
 	    ;;
 
 	'')
 	    # start emacs 'desktop', not via emacsclient
-	    command emacs
+	    command emacs > /dev/null 2>&1 &
 	    #/bin/emacs
 	    ;;
 
@@ -140,7 +140,7 @@ function emacs()
 	    files="$@"
 	    ## last ampersand to start a separate process
 	    ## brackets to prevent jobs running in current shell (new subshell)
-	    (emacsclient --alternate-editor='' --create-frame "$files" &> /dev/null &)
+	    (emacsclient --alternate-editor='' --create-frame "$files" > /dev/null 2>&1 &)
 	    ;;
 
     esac
