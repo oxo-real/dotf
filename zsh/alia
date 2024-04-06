@@ -131,8 +131,10 @@ function emacs()
 
 	'')
 	    # start emacs 'desktop', not via emacsclient
-	    command emacs > /dev/null 2>&1 &
+	    ## brackets to prevent jobs running in current shell (new subshell)
+	    (command emacs > /dev/null 2>&1 &)
 	    #/bin/emacs
+	    #disown  ## possible instead of brackets
 	    ;;
 
 	*)
