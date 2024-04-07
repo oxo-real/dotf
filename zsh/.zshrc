@@ -386,7 +386,7 @@ function preexec()
 function precmd()
 {
     exit_code=$?
-    ## WARNING exit_code must be retrieved at the beginning of the precmd
+    ## WARNING exit_code must be obtained at the start of the precmd
     ## otherwise there is probably interference with the commands
     ## from within precmd itself
 
@@ -507,27 +507,65 @@ zle -N zle-keymap-select
 zle -N zle-line-finish
 
 
-# left and right prompt
+# prompt
 
 setopt PROMPT_SUBST
 
-## left prompt
+## left prompt (PS1)
 ## uses ternary expressions
 ## for exit code (?) and background jobs (j)
 ## [zsh: 13 Prompt Expansion](https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html#Conditional-Substrings-in-Prompts)
 PS1="%(?..%F{#ff6c60}%?%f)%(1j.%F{#4aa5fd}%K{#333333}%B%j%b%k%f.)%(!.%F{#ffbf00}%B#%b%f.%%) "
 
-## right prompt
-## commandID with running time
-## TRAPALRM breaks fzf and zsh completion
-#RPS1="%! %D{%H%M%S}"
-#TMOUT=1
-#TRAPALRM() {
-#    zle reset-prompt
-#}
+## right prompt (RPS1)
+## show running time without breaking menus (like fzf of zsh completion)
 
-## debug prompt
-# PS4 set in zshenv
+## no indentation right of RPS1
+ZLE_RPROMPT_INDENT=0
+
+## define what to display in RPS1
+calc_epoch()
+{
+    epoch=$(date +'%s')
+    ep_l=$(printf "$epoch" | cut -c 1-4)
+    ep_r=$(printf "$epoch" | cut -c 5-)
+}
+
+calc_epoch
+rp='%F{#696969}$ep_l $ep_r%f %D{%H%M%S}'
+#rp='%D{%H%M%S}'
+
+## define rp_filler_spaces
+## so that RPS1 hides when start typing
+rppr_corr=1
+local ps1_length=$(( ${#${(S%%)PS1//(\%([KF1]|)\{*\}|\%[Bbkf])}} ))
+local rp_length=$(( ${#${(S%%)rp//(\%([KF1]|)\{*\}|\%[Bbkf])}} ))
+local rp_filler_spaces=$((COLUMNS - ps1_length - rp_length - $rppr_corr ))
+
+RPS1="${(l:$rp_filler_spaces:)}$rp"
+
+rp_redisplay()
+{
+    if [[ -z "$BUFFER" ]]; then
+
+	## only when nothing is typed in buffer
+	calc_epoch
+	zle reset-prompt
+
+    fi
+}
+
+## TMOUT is used as RPS1 refresh rate (seconds)
+TMOUT=3
+
+TRAPALRM()
+{
+    rp_redisplay
+}
+
+## debug prompt (PS4)
+## is set in zshenv
+
 
 # history
 
