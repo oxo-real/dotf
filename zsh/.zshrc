@@ -582,7 +582,8 @@ TRAPALRM()
     rp_redisplay
 }
 
-## TMOUT is used as RPS1 refresh rate (seconds)
+## TMOUT triggers the TRAPALRM
+## RPS1 refresh rate (seconds)
 TMOUT=3
 
 ## initial activation
