@@ -386,6 +386,7 @@ function preexec()
 function precmd()
 {
     exit_code=$?
+
     ## WARNING exit_code must be obtained at the start of the precmd
     ## otherwise there is probably interference with the commands
     ## from within precmd itself
@@ -485,17 +486,16 @@ function precmd()
 
     # https://developerfacts.com/answer/2267155-what-does-sstringkf1bbkf-mean
     ### position, alignment and correction parameters
-    local ppl_corr=0
-    local ppr_corr=0
+    local l_precmd_corr=0
     #local ppr_corr=0
-    local precmd_left_length=$(( ${#${(S%%)precmd_left//(\%([KF1]|)\{*\}|\%[Bbkf])}} + $ppl_corr ))
-    local precmd_right_length=$(( ${#${(S%%)precmd_right//(\%([KF1]|)\{*\}|\%[Bbkf])}} + $ppr_corr ))
-    local num_filler_spaces=$((COLUMNS - precmd_right_length))
+    local l_precmd_l=$(( ${#${(S%%)precmd_left//(\%([KF1]|)\{*\}|\%[Bbkf])}} ))
+    local l_precmd_r=$(( ${#${(S%%)precmd_right//(\%([KF1]|)\{*\}|\%[Bbkf])}} ))
+    local l_precmd_pad=$(( COLUMNS - l_precmd_r - l_precmd_corr ))
 
     ### print
     ### double quotes; expansion occurs here
 
-    print -Pr "${(l:$num_filler_spaces:)}$precmd_right"
+    print -Pr "${(l:$l_precmd_pad:)}$precmd_right"
     print -Pr "$precmd_left"
 
     unset t0_exec_ns
@@ -511,16 +511,16 @@ zle -N zle-line-finish
 
 setopt PROMPT_SUBST
 
-## left prompt (PS1)
+## set left prompt (PS1)
 ## uses ternary expressions
 ## for exit code (?) and background jobs (j)
 ## [zsh: 13 Prompt Expansion](https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html#Conditional-Substrings-in-Prompts)
 PS1="%(?..%F{#ff6c60}%?%f)%(1j.%F{#4aa5fd}%K{#333333}%B%j%b%k%f.)%(!.%F{#ffbf00}%B#%b%f.%%) "
 
 ## right prompt (RPS1)
-## show running time without breaking menus (like fzf of zsh completion)
+## shows running time without breaking menus (like fzf of zsh completion)
 
-## no indentation right of RPS1
+## no indentation RPS1
 ZLE_RPROMPT_INDENT=0
 
 ## define what to display in RPS1
@@ -531,43 +531,65 @@ calc_epoch()
     ep_r=$(printf "$epoch" | cut -c 5-)
 }
 
-calc_epoch
+calc_rps1()
+{
+    if [[ "$exit_code" -gt '0' ]]; then
 
-day_num=$(date +'%d')
-rp='$day_num%F{#696969}$ep_l $ep_r%f %D{%H%M%S}'
-#rp='%D{%H%M%S}'
+	l_exit=$(printf "$exit_code" | wc -c)
 
-## define RPS1 space padding
-## so that RPS1 hides when start typing
-local l_corr=1
-local l_ps1=$(( ${#${(S%%)PS1//(\%([KF1]|)\{*\}|\%[Bbkf])}} ))
-local l_rp=$(( ${#${(S%%)rp//(\%([KF1]|)\{*\}|\%[Bbkf])}} ))
-local rp_padding=$(( COLUMNS - l_ps1 - l_rp - l_corr ))
+    else
 
-## define right prompt
-RPS1="${(l:$rp_padding:)}$rp"
+	l_exit='0'
+
+    fi
+
+    l_jobs=$(jobs | wc -l)
+
+    calc_epoch
+
+    day_num=$(date +'%d')
+    rp='$day_num%F{#696969}$ep_l $ep_r%f %D{%H%M%S}'
+
+    ## define RPS1 space padding
+    ## so that RPS1 hides when start typing
+    l_corr=1
+    l_j=$(( ${#${(S%%)j//(\%([KF1]|)\{*\}|\%[Bbkf])}} ))
+    l_ps1=$(( ${#${(S%%)PS1//(\%([KF1]|)\{*\}|\%[Bbkf])}} ))
+    l_rp=$(( ${#${(S%%)rp//(\%([KF1]|)\{*\}|\%[Bbkf])}} ))
+    rp_padding=$(( COLUMNS - l_ps1 - l_rp - l_exit - l_jobs - l_corr ))
+
+    ## set right prompt
+    RPS1="${(l:$rp_padding:)}$rp"
+}
 
 rp_redisplay()
 {
     if [[ -z "$BUFFER" ]]; then
 
 	## only when nothing is typed in buffer
-	calc_epoch
-	zle reset-prompt
+	calc_rps1
+
+	## prevent error on initial activation
+	## when zle is not yet active
+	zle && { zle reset-prompt; zle -R }
+	#zle reset-prompt
 
     fi
 }
-
-## TMOUT is used as RPS1 refresh rate (seconds)
-TMOUT=3
 
 TRAPALRM()
 {
     rp_redisplay
 }
 
+## TMOUT is used as RPS1 refresh rate (seconds)
+TMOUT=3
+
+## initial activation
+rp_redisplay
+
 ## debug prompt (PS4)
-## is set in zshenv
+## set in zshenv
 
 
 # history
