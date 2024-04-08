@@ -532,7 +532,9 @@ calc_epoch()
 }
 
 calc_epoch
-rp='%F{#696969}$ep_l $ep_r%f %D{%H%M%S}'
+
+day_num=$(date +'%d')
+rp='$day_num%F{#696969}$ep_l $ep_r%f %D{%H%M%S}'
 #rp='%D{%H%M%S}'
 
 ## define rp_filler_spaces
