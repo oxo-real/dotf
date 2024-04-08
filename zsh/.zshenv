@@ -47,6 +47,10 @@ https://www.gnu.org/licenses/gpl-3.0.txt
 # '
 
 
+# host
+export HOSTNAME="$(head -n 1 /etc/hostname)"
+
+
 # home
 
 export HOME="/home/$(logname)"

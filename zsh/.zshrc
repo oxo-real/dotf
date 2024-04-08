@@ -509,13 +509,17 @@ zle -N zle-line-finish
 
 # prompt
 
+## see: note zsh oxo_prompt for explanation of all the prompt items
+
 setopt PROMPT_SUBST
 
 ## set left prompt (PS1)
 ## uses ternary expressions
 ## for exit code (?) and background jobs (j)
 ## [zsh: 13 Prompt Expansion](https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html#Conditional-Substrings-in-Prompts)
-PS1="%(?..%F{#ff6c60}%?%f)%(1j.%F{#4aa5fd}%K{#333333}%B%j%b%k%f.)%(!.%F{#ffbf00}%B#%b%f.%%) "
+[[ $(host) != "$HOSTNAME" ]] && \
+    PS1="%(?..%F{#ff6c60}%?%f)%(1j.%F{#4aa5fd}%K{#333333}%B%j%b%k%f.)%F{#000000}%K{#cccccc}%n@%m%k%f%(!.%F{#ffbf00}%B#%b%f.%%) " || \
+    PS1="%(?..%F{#ff6c60}%?%f)%(1j.%F{#4aa5fd}%K{#333333}%B%j%b%k%f.)%(!.%F{#ffbf00}%B#%b%f.%%) "
 
 ## right prompt (RPS1)
 ## shows running time without breaking menus (like fzf of zsh completion)
@@ -533,6 +537,7 @@ calc_epoch()
 
 calc_rps1()
 {
+    ## length exit code in PS1
     if [[ "$exit_code" -gt '0' ]]; then
 
 	l_exit=$(printf "$exit_code" | wc -c)
@@ -543,6 +548,7 @@ calc_rps1()
 
     fi
 
+    ## length jobs in PS1
     l_jobs=$(jobs | wc -l)
 
     calc_epoch
