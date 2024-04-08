@@ -537,14 +537,15 @@ day_num=$(date +'%d')
 rp='$day_num%F{#696969}$ep_l $ep_r%f %D{%H%M%S}'
 #rp='%D{%H%M%S}'
 
-## define rp_filler_spaces
+## define RPS1 space padding
 ## so that RPS1 hides when start typing
-rppr_corr=1
-local ps1_length=$(( ${#${(S%%)PS1//(\%([KF1]|)\{*\}|\%[Bbkf])}} ))
-local rp_length=$(( ${#${(S%%)rp//(\%([KF1]|)\{*\}|\%[Bbkf])}} ))
-local rp_filler_spaces=$((COLUMNS - ps1_length - rp_length - $rppr_corr ))
+local l_corr=1
+local l_ps1=$(( ${#${(S%%)PS1//(\%([KF1]|)\{*\}|\%[Bbkf])}} ))
+local l_rp=$(( ${#${(S%%)rp//(\%([KF1]|)\{*\}|\%[Bbkf])}} ))
+local rp_padding=$(( COLUMNS - l_ps1 - l_rp - l_corr ))
 
-RPS1="${(l:$rp_filler_spaces:)}$rp"
+## define right prompt
+RPS1="${(l:$rp_padding:)}$rp"
 
 rp_redisplay()
 {
