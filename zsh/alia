@@ -56,6 +56,7 @@ https://www.gnu.org/licenses/gpl-3.0.txt
 ## therefore also 'sudo $cmd' lets $cmd expand to alias
 alias sudo='sudo '
 
+
 function sudo()
 {
     ## sudo -k cannot be aliased
@@ -73,16 +74,39 @@ function sudo()
     esac
 }
 
+
 function host()
 {
     command cat /etc/hostname
 }
 
+alias env='env | sort'
+
+
+function lessr()
+{
+    ## '< $file' behaviour
+    ## prevent less writing lesshst to $HOME
+    ## use verbose long prompt (-M)
+    ## quit if file fits on screen (-F)
+    ## display status column (-J)
+    ## display raw control chars (-R)
+    ## prevent clearing screen on exit (-X)
+    ## define colors for error (Emk), search (Swk) & prompt (Pkw)
+    command less -MFJRX -P '%f %l %L %PX' --mouse --use-color --color='Emk' --color='SWk' --color='Pkw' $@
+}
+
+
+alias less='lessr'
+## man is handled by bat via $MANPAGER
+alias man='env TERM=xterm man --pager='less''
+
+
 alias vi='nvim'
 alias vim='nvim'
 alias vimdiff='nvim -d'
 
-#alias emacs="emacs $@ &"
+
 function emacs_daemon()
 {
     # if no active daemon, then start service
@@ -106,6 +130,7 @@ function emacs_daemon()
 
     esac
 }
+
 
 function emacs()
 {
@@ -147,24 +172,28 @@ function emacs()
 
     esac
 
-  # gui emacs
-  ## -c (--create-frame) starts always in new window because it is gui
-  ## </dev/null no output in current terminal window
-  ## &>/dev/null start in new detached terminal window
+    # gui emacs
+    ## -c (--create-frame) starts always in new window because it is gui
+    ## </dev/null no output in current terminal window
+    ## &>/dev/null start in new detached terminal window
 
-  # tui emacs
-  #emacsclient -t "$@"
+    # tui emacs
+    #emacsclient -t "$@"
 }
+
+
+#alias emacs="emacs $@ &"
 alias em='emacs'
+
 
 function view()
 {
-    emacs_daemon
-
     # nvim readonly
     #nvim -R $@
 
     # emacs readonly
+    emacs_daemon
+
     case "$1" in
 
 	'-t'|'-nw'|'--tty')
@@ -180,7 +209,7 @@ function view()
 	    files="$@"
 	    ## last ampersand to start a separate process
 	    ## brackets to prevent jobs running in current shell (new subshell)
-	    (emacsclient --alternate-editor='' --create-frame --eval "(view-file \"$files\")" &> /dev/null &)
+	    (emacsclient --alternate-editor='' --create-frame --eval "(view-file \"$files\")" > /dev/null 2>&1 &)
 	    ;;
 
 	*)
@@ -188,12 +217,15 @@ function view()
 	    files="$@"
 	    ## last ampersand to start a separate process
 	    ## brackets to prevent jobs running in current shell (new subshell)
-	    (emacsclient --alternate-editor='' --create-frame  --eval "(view-file \"$files\")" &> /dev/null &)
+	    (emacsclient --alternate-editor='' --create-frame  --eval "(view-file \"$files\")" > /dev/null 2>&1 &)
 	    ;;
 
     esac
 }
+
+
 alias ev='view'
+
 
 alias lsblk='lsblk --ascii --tree -o name,uuid,fstype,path,size,fsuse%,fsused,label,mountpoint'
 # #alias cal='env TERM=xterm cal'
@@ -204,7 +236,8 @@ alias mpv='mpv --audio-display=no'
 alias rmln='unlink'
 alias figlet="figlet -d $XDG_CONFIG_HOME/figlet"
 
-if command -v qrinv &> /dev/null; then
+
+if command -v qrinv > /dev/null 2>&1; then
 
    function qr()
    {
@@ -227,11 +260,6 @@ fi
 alias cat='bat'
 alias bat='bat --style=numbers'
 
-# lessr is defined in zshrc
-alias less='lessr'
-## man is handled by bat via $MANPAGER
-#alias man='env TERM=xterm man --pager='less''
-
 alias sr="sr -browser=$BROWSERCLI"
 alias surfraw="surfraw -browser=$BROWSER"
 
@@ -239,7 +267,6 @@ alias surfraw="surfraw -browser=$BROWSER"
 # file operations
 
 alias cp='cp --archive --interactive --verbose'
-#alias cp='cp -prv'
 #alias cp='rsync -aAXv --info=ALL --human-readable'
 alias mv='mv --interactive --verbose'
 #alias mv='rsync -aAXv --info=ALL --human-readable && rm -rf $1'
@@ -247,19 +274,21 @@ alias rm='trash'
 alias mkdir='mkdir --parents --verbose'
 alias lf='lfcd'
 
-## rsync for copy and move (better for large files)
+
 function cpr()
 {
-  rsync --archive --partial --verbose --info=progress2,stats2 --human-readable --modify-window=1 "$@"
+    ## rsync for copy and move (better for large files)
+    rsync --archive --partial --verbose --info=progress2,stats2 --human-readable --modify-window=1 "$@"
 }
+
 
 function mvr()
 {
-  rsync --archive --partial --verbose --info=progress2,stats2 --human-readable --modify-window=1 --remove-source-files "$@"
+    rsync --archive --partial --verbose --info=progress2,stats2 --human-readable --modify-window=1 --remove-source-files "$@"
 }
 
 ## ls
-if command -v eza >/dev/null; then
+if command -v eza > /dev/null; then
 
     alias ls="echo; $XDG_CONFIG_HOME/eza/eza_wrapper.sh"
 
@@ -284,6 +313,7 @@ alias fgrep='fgrep --color=auto'
 alias beep="pw-play $BEEP"
 # pulseaudio
 #alias beep="paplay $BEEP"
+
 
 function say()
 {

@@ -187,27 +187,13 @@ export QT_QPA_PLATFORMTHEME='qt6ct'
 ## wayland fix
 export QT_QPA_PLATFORM=wayland
 
-
-## '< $file' behaviour
-## prevent less writing lesshst to $HOME
-## use verbose long prompt (-M)
-## quit if file fits on screen (-F)
-## display status column (-J)
-## display raw control chars (-R)
-## prevent clearing screen on exit (-X)
-## define colors for error (Emk), search (Swk) & prompt (Pkw)
-function lessr()
-{
-   less -MFJRX -P '%f %l %L %PX' --mouse --use-color --color='Emk' --color='SWk' --color='Pkw' $1
-}
-
+## lessr
 export READNULLCMD=lessr
-
 
 ## same pager for man
 #export MANPAGER=lessr
 # with MANPAGER man gives error 3
-# therefore done via alia alias
+# therefore done via alias
 
 # color output
 
@@ -223,25 +209,6 @@ export READNULLCMD=lessr
 
 export BEEP="$XDG_DATA_HOME/a/media/audio/sound/airbus/da.ogg"
 export MUSICDIR="$XDG_DATA_HOME/a/media/audio/music"
-
-: '
-# git status for __git_ps1
-
-## unstaged (*), staged (+)
-export GIT_PS1_SHOWDIRTYSTATE=1
-## stashed ($)
-export GIT_PS1_SHOWSTASHSTATE=1
-## untracked (%)
-export GIT_PS1_SHOWUNTRACKEDFILES=1
-## behind (<), ahead (>), equal (=) to upstream
-export GIT_PS1_SHOWUPSTREAM='auto'
-export GIT_PS1_SHOWUPSTREAM=1
-## color
-export GIT_PS1_SHOWCOLORHINTS='true'
-export GIT_PS1_SHOWCOLORHINTS=1
-## ignored directories
-export GIT_PS1_HIDE_IF_PWD_IGNORED=1
-# '
 
 
 # colors
@@ -280,16 +247,3 @@ hi=00:\
 du=00"
 ZLS_COLORS="$LS_COLORS":"${defs_zls}"
 export ZLS_COLORS
-
-## grep colors
-### color grep command output
-GREP_COLORS=\
-'ms=01;34:\
-mc=01;33:\
-sl=:\
-cx=:\
-fn=35:\
-ln=32:\
-bn=32:\
-se=36'
-export GREP_COLORS
