@@ -99,7 +99,7 @@ function lessr()
 
 alias less='lessr'
 ## man is handled by bat via $MANPAGER
-alias man='env TERM=xterm man --pager='less''
+alias man='command env TERM=xterm man --pager='less''
 
 
 alias vi='nvim'
