@@ -83,23 +83,25 @@ function host()
 alias env='env | sort'
 
 
-function lessr()
-{
     ## '< $file' behaviour
     ## prevent less writing lesshst to $HOME
     ## use verbose long prompt (-M)
     ## quit if file fits on screen (-F)
     ## display status column (-J)
     ## display raw control chars (-R)
-    ## prevent clearing screen on exit (-X)
+## prevent clearing screen on exit (-X)
+
     ## define colors for error (Emk), search (Swk) & prompt (Pkw)
-    command less -MFJRX -P '%f %l %L %PX' --mouse --use-color --color='Emk' --color='SWk' --color='Pkw' $@
-}
+    ## https://en.wikipedia.org/wiki/ANSI_escape_code#SGR
+alias less='less --mouse --quit-if-one-screen --status-column --long-prompt -P m"\ ?f%f:stdin ?Pt%Pt\%?lt%lt\-?lb%lb?L[%L]:?e[EOF] " --use-color --color Emk --color SkW --color P15.0 -- "$@"'
+#alias less='less --mouse --quit-if-one-screen --status-column --long-prompt -P m"\ ?f%f:stdin\ ?Pt%Pt\%\ ?lt%lt\-?lb%lb\ ?L%L:?e(EOF) " --use-color --color Emk --color SkW --color P15.0 -- "$@"'
+#alias less='less --mouse --quit-if-one-screen --status-column --long-prompt -PM="?f%f\ ?pt%pt\%\ ?lt%lt?L(%L):.?e(END)" --use-color --color Emk --color SkW --color PWk -- "$@"'
+    #command less -MFJRX -P '%f %l %L %PX' --mouse --use-color --color='Emk' --color='SWk' --color='Pkw' $@
 
 
-alias less='lessr'
-## man is handled by bat via $MANPAGER
-alias man='command env TERM=xterm man --pager='less''
+
+## man is handled via $MANPAGER in zshenv
+alias man='man --no-hyphenation --no-justification --prompt="$MANLESS"'
 
 
 alias vi='nvim'

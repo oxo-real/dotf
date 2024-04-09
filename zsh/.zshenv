@@ -117,34 +117,32 @@ cgcsft="$XDG_DATA_HOME/c/git/code/source/function/text_appearance"
 export DEFAULT_VI_MODE=viins
 export KEYTIMEOUT=1
 
-## debug prompt (used by sh -x)
+## debug prompt (when using sh -x)
 export PS4=':${BASH_SOURCE[0]:-$0} $(printf '%4d%s' "${LINENO}") ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 
 ## default applications
 export COLORTERM='truecolor'
 export BAT_THEME='base16-256'
-export BROWSER='/usr/bin/qutebrowser'
-export BROWSERCLI='/usr/bin/w3m'
+export BROWSER='qutebrowser'
+export BROWSERCLI='w3m'
 ## [Environment variables - delta](https://dandavison.github.io/delta/environment-variables.html)
 export DELTA_FEATURES='+side-by-side'
-#export EDITOR='/usr/bin/nvim'
 export EDITOR="emacs"
-#export EDITOR="emacsclient -c"
-export OPENER='/usr/bin/xdg-open'
-export MANPAGER="sh -c 'col --no-backspaces --spaces | env TERM=xterm bat --language man --style plain'"
+export OPENER='xdg-open'
+export LESSHISTFILE='/dev/null'
+export MANLESS='\ \$MAN_PN\ ?pt%pt\%?lt%lt-?lb%lb?L[%L]:?e[EOF '
+#export MANPAGER='less'
+#export MANPAGER="nvim -c 'set ft=man' -"
+#export MANPAGER="sh -c 'col --no-backspaces --spaces | bat --language man --style plain'"
 export MANROFFOPT="-c"
-export PAGER='/usr/bin/less'
-#export PAGER='/usr/bin/less'
-export READER='/usr/bin/zathura'
-export SHELL='/usr/bin/zsh'
-#export TERMINAL='/usr/bin/foot'
-export TERMINAL='/usr/bin/alacritty'
-#export TERM_BU='/usr/bin/alacritty'
-export TERM_BU='/usr/bin/foot'
-export VIDEO='/usr/bin/mpv'
+export PAGER='less'
+export READER='zathura'
+export SHELL='zsh'
+export TERM='xterm-256color'
+export TERMINAL='alacritty'
+export TERM_BU='foot'
+export VIDEO='mpv'
 export VISUAL='emacs'
-#export VISUAL='emacsclient -c -a emacs'
-#export VISUAL='/usr/bin/nvim'
 
 export GTK_USE_PORTAL=0
 
@@ -159,9 +157,8 @@ export FZF_COMPLETION_TRIGGER='~~'
 
 ## signposts to config
 export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
-export GPG_AGENT_INFO="1"	# https://wiki.archlinux.org/title/GnuPG#mutt
+export GPG_AGENT_INFO='1'	# https://wiki.archlinux.org/title/GnuPG#mutt
 export GPG_TTY="$(tty)"
-export LESSHISTFILE="$XDG_CONFIG_HOME/less/.lesshst"
 export NOTMUCH_CONFIG="$XDG_CONFIG_HOME/notmuch/notmuch_config"
 #export SYSMAILCAP="$XDG_CONFIG_HOME/neomutt/mailcap"
 #export TMSU_DB="$XDG_DATA_HOME/c/tag/.tmsu/db"
@@ -213,7 +210,7 @@ export MUSICDIR="$XDG_DATA_HOME/a/media/audio/music"
 
 # colors
 
-## dircolors default ls colors
+## dircolors creates and export default LS_COLORS
 ### colors the ls command output
 eval "$(dircolors)"
 #eval "$(dircolors "$XDG_DATA_HOME"/c/git/note/linux/shell/color/etc_DIR_COLORS)"
