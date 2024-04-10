@@ -80,23 +80,38 @@ function host()
     command cat /etc/hostname
 }
 
+## always ort env variable list
 alias env='env | sort'
 
 
-## less
-## '< $file' behaviour
+# less and less related
+
 ## define colors for error (Emk), search (Swk) & prompt (P15.0)
 ## https://en.wikipedia.org/wiki/ANSI_escape_code#SGR
 alias less='less --mouse --quit-if-one-screen --status-column --long-prompt -P m"\ ?f%f:stdin .?L∑%L\ .?pt%pt\%\ .[?lt%lt-?lb%lb]\ ..?e[EOF]\ ." --use-color --color Emk --color SkW --color P15.0 -- "$@"'
+
+## readnullcommand (READNULLCMD)
+## command to assume if a single input redirection is specified with no command
+## see zshenv for related READNULLCMD setting
+## '< $file' behaviour
+function read0cmd()
+{
+    less
+}
 
 ## manpages
 alias man='man --no-hyphenation --no-justification --prompt="$MANLESS"'
 #alias eman='emacs -e '(man "$1")''
 
+
+# vim
+
 alias vi='nvim'
 alias vim='nvim'
 alias vimdiff='nvim -d'
 
+
+# emacs
 
 function emacs_daemon()
 {

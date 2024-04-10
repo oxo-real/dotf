@@ -182,24 +182,10 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export QT_QPA_PLATFORMTHEME='qt6ct'
 
 ## wayland fix
-export QT_QPA_PLATFORM=wayland
+export QT_QPA_PLATFORM='wayland'
 
 ## lessr
-export READNULLCMD=lessr
-
-## same pager for man
-#export MANPAGER=lessr
-# with MANPAGER man gives error 3
-# therefore done via alias
-
-# color output
-
-## see notes/cal for italic / inverse
-## ## # NOTICE set TERM from the terminal emulator configuration!
-## ## # i.e. in tmux.conf set TERM=tmux-256color
-## ## export TERM='screen-256color'
-## ## ## tmux colors
-## ## [ -n "$TMUX" ] && export 'TERM=tmux-256color'
+export READNULLCMD='read0cmd'
 
 
 # audio
