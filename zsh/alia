@@ -87,11 +87,11 @@ alias env='env | sort'
 ## '< $file' behaviour
 ## define colors for error (Emk), search (Swk) & prompt (P15.0)
 ## https://en.wikipedia.org/wiki/ANSI_escape_code#SGR
-alias less='less --mouse --quit-if-one-screen --status-column --long-prompt -P m"\ ?f%f:stdin ?Pt%Pt\%?lt%lt\-?lb%lb?L[%L]:?e[EOF] " --use-color --color Emk --color SkW --color P15.0 -- "$@"'
+alias less='less --mouse --quit-if-one-screen --status-column --long-prompt -P m"\ ?f%f:stdin .?L∑%L\ .?pt%pt\%\ .[?lt%lt-?lb%lb]\ ..?e[EOF]\ ." --use-color --color Emk --color SkW --color P15.0 -- "$@"'
 
 ## manpages
 alias man='man --no-hyphenation --no-justification --prompt="$MANLESS"'
-
+#alias eman='emacs -e '(man "$1")''
 
 alias vi='nvim'
 alias vim='nvim'
@@ -330,6 +330,7 @@ alias stime='date +%R'
 ## w3m -config is right, not --config as expected
 alias w3m="w3m -config $XDG_CONFIG_HOME/w3m/config"
 alias fim='fim --no-history'
+alias zathura='zathura --fork'
 
 
 # network

@@ -130,7 +130,7 @@ export DELTA_FEATURES='+side-by-side'
 export EDITOR="emacs"
 export OPENER='xdg-open'
 export LESSHISTFILE='/dev/null'
-export MANLESS='\ \$MAN_PN\ ?pt%pt\%?lt%lt-?lb%lb?L[%L]:?e[EOF '
+export MANLESS='\ \$MAN_PN\ ?L∑%L\ .?pt%pt\%\ .[?lt%lt-?lb%lb]\ ..?e[EOF]\ .'
 #export MANPAGER='less'
 #export MANPAGER="nvim -c 'set ft=man' -"
 #export MANPAGER="sh -c 'col --no-backspaces --spaces | bat --language man --style plain'"
