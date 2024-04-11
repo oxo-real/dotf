@@ -331,17 +331,22 @@ function git_dirty()
 # strlen
 ## called by preexec
 
-function Xstrlen()
+function strlen()
 {
     # calculate string length
     ## original
     arg=$1
-    #local excl_pttrn='%([KF1]|)([BSUbfksu]|([FB]|){*})'
-    local excl_pttrn='%([BSUbfksu]|([FK]|){*})'
+    #local excl_pttrn='%([KF1]|)([BSUbfksu]|([FB]|){*})' ## errors
+    #local excl_pttrn='%([BSUbfksu]|([FK]|){*})'
+    local excl_pttrn='%([KF1]|)({*\}|[Bbkf])}'
+    #local excl_pattrn='%([BSUbfksu]|([FB]|){*})'
+    ## ~excl_pttrn ensures that excl_pttrn,
+    ##  is treated as a pattern rather than as a plain string
+    ## ${(S%%)arg//$~excl_pttrn/} matches ${arg//pattern/repl}
+    ## S makes matching non-greedy shortest possible match
+    ## repl is empty, basically removing the shorteest possible match
     local length=${#${(S%%)arg//$~excl_pttrn/}}
     echo $length
-    #local excl_pttrn='%([KF1]|)([BSUbfksu]|([FB]|){*})'
-    #sl=$(( ${#${(S%%)PS1//(\%([KF1]|)\{*\}|\%[Bbkf])}} ))
 }
 
 ## alternative strlen fuction
@@ -357,7 +362,7 @@ it finds the length of the string.
 
 
 # '
-function strlen()
+function Xstrlen()
 {
     # calculate $1 string length
     ## alternative
@@ -395,9 +400,11 @@ function strlen()
     echo $x
 }
 
+
 # preexec
 
 ## runs before each command execution
+## execution start time right side aligned (> 154550)
 function preexec()
 {
     # get t0 for $time_exec (ns)
@@ -416,7 +423,7 @@ function preexec()
     local right_start=$(( $COLUMNS - $len_right ))
 
     local len_cmd=$(strlen "$@")
-    local len_prompt=$(strlen "$PROMPT")
+    local len_prompt=$(strlen "$PS1")
     local len_left=$(( $len_cmd + $len_prompt ))
 
     pre_exec_right="\e[${right_start}C ${start_time}"
@@ -506,9 +513,6 @@ function precmd()
 		### single quotes; wait with expansion until print
 		local precmd_right='$t_ex_secs%F{#696969}$t_ex_ms%f $hc %D{%H%M%S}'
 
-		#TODO DEV why this difference?
-		local l_precmd_corr=-8
-
 	    else
 
 		## we have an exec time < 1000 ms
@@ -516,9 +520,6 @@ function precmd()
 		local precmd_right='%F{#696969}$t_ex_ms%f $hc %D{%H%M%S}'
 
 	    fi
-
-	    #TODO DEV why this difference?
-	    local l_precmd_corr=-3
 
 	else
 
@@ -529,19 +530,11 @@ function precmd()
 		### single quotes; wait with expansion until print
 		local precmd_right='$t_ex_secs%F{#696969}$t_ex_ms%f %F{#ff6c60}$hc%f %D{%H%M%S}'
 
-		#TODO DEV why this difference?
-		local l_precmd_corr=-11
-
 	    else
 
 		## we have an exec time < 1000 ms
 		### single quotes; wait with expansion until print
 		local precmd_right='%F{#696969}$t_ex_ms %F{#ff6c60}$hc%f %D{%H%M%S}'
-
-		## original strlen then set l_precmd_corr to 2
-		## alternative strlen then set l_precmd_corr to -3
-		#TODO DEV why this difference?
-		local l_precmd_corr=-3
 
 	    fi
 
@@ -554,22 +547,19 @@ function precmd()
 	### single quotes; wait with expansion until print
 	local precmd_right='* %D{%H%M%S}'
 
-	## original strlen then set l_precmd_corr to 2
-	## alternative strlen then set l_precmd_corr to 0
-	#TODO DEV why this difference?
-	local l_precmd_corr=0
-
     fi
 
-    # https://developerfacts.com/answer/2267155-what-does-sstringkf1bbkf-mean
-    ### position, alignment and correction parameters
-    local l_precmd_l=$(strlen $precmd_left)
-    local l_precmd_r=$(strlen $precmd_right)
+    ## https://developerfacts.com/answer/2267155-what-does-sstringkf1bbkf-mean
+    ## position, alignment and optional correction parameters
+    local l_precmd_r=${#${(S%%)precmd_right//(\%([KF1]|)\{*\}|\%[Bbkf])}}  ## errors with other excl_pttrn
+    #local l_precmd_r=$(strlen $precmd_right)
+
+    local l_precmd_corr=0
 
     local l_precmd_pad=$(( COLUMNS - l_precmd_r - l_precmd_corr ))
 
-    ### print
-    ### double quotes; expansion occurs here
+    ## print
+    ## double quotes; expansion occurs here
 
     print -Pr "${(l:$l_precmd_pad:)}$precmd_right"
     print -Pr "$precmd_left"
@@ -585,12 +575,14 @@ zle -N zle-line-finish
 
 # prompt
 
+## prompt is PS1 (left) and RPS1 (right)
 ## see: note zsh oxo_prompt for explanation of all the prompt items
-
 setopt PROMPT_SUBST
 
 ## set left prompt (PS1)
-## uses ternary expressions
+## defaults to just a % sign
+
+## ternary expressions %(expr.true.false)
 ## for exit code (?) and background jobs (j)
 ## [zsh: 13 Prompt Expansion](https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html#Conditional-Substrings-in-Prompts)
 [[ $(host) != "$HOSTNAME" ]] && \
@@ -600,7 +592,7 @@ setopt PROMPT_SUBST
 ## right prompt (RPS1)
 ## shows running time without breaking menus (like fzf of zsh completion)
 
-## no indentation RPS1
+## no indentation for RPS1
 ZLE_RPROMPT_INDENT=0
 
 ## define what to display in RPS1
@@ -636,7 +628,8 @@ calc_rps1()
     l_ps1=$(strlen $PS1)
 
     ## length rp
-    l_rp=$(strlen $rp)
+    l_rp=${#${(S%%)rp//(\%([KF1]|)\{*\}|\%[Bbkf])}}  ## errors with other excl_pttrn
+    #l_rp=$(strlen $rp)
 
     ## correction factor
     #TODO DEV why and why 1?
@@ -647,11 +640,13 @@ calc_rps1()
     rp_padding=$(( COLUMNS - l_exit - l_jobs - l_ps1 - l_rp - l_corr ))
 
     ## set right prompt
+    ## prints daynum epoch and time right side aligned
     RPS1="${(l:$rp_padding:)}$rp"
 }
 
 rp_redisplay()
 {
+    ## updates RPS1 via TRAPALRM every TMOUT seconds
     if [[ -z "$BUFFER" ]]; then
 
 	## only when nothing is typed in buffer

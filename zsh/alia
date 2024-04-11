@@ -346,6 +346,7 @@ alias stime='date +%R'
 alias w3m="w3m -config $XDG_CONFIG_HOME/w3m/config"
 alias fim='fim --no-history'
 alias zathura='zathura --fork'
+alias calc='qalc'
 
 
 # network
