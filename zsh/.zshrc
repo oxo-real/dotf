@@ -499,12 +499,8 @@ function precmd()
 
 	# histcounter prettyfied by offset
 	hc=$(( HISTCMD - 1 + $hist_cmd_offset ))
-	#local precmd_right="%S$t_ex_pretty%s $((HISTCMD -1 +$hist_cmd_offset)) %S%D{%H%M%S}%s"
 
-	## ternary function with which i didn't get the color working
-	#local precmd_right='$t_ex_pretty %(?.%F{#ff6c60}%B$hc%f%b.$hc) %D{%H%M%S}'
-	## see comments above
-	## if block below is in part a workaround
+	## set precmd_right based on exec_time and exit_code
 	if [[ $exit_code -eq 0 ]]; then
 
 	    if [[ -n $t_ex_secs ]]; then
