@@ -329,17 +329,71 @@ function git_dirty()
 
 
 # strlen
-
 ## called by preexec
-function strlen()
+
+function Xstrlen()
 {
     # calculate string length
+    ## original
     arg=$1
-    local zero='%([BSUbfksu]|([FB]|){*})'
-    local length=${#${(S%%)arg//$~zero/}}
+    #local excl_pttrn='%([KF1]|)([BSUbfksu]|([FB]|){*})'
+    local excl_pttrn='%([BSUbfksu]|([FK]|){*})'
+    local length=${#${(S%%)arg//$~excl_pttrn/}}
     echo $length
+    #local excl_pttrn='%([KF1]|)([BSUbfksu]|([FB]|){*})'
+    #sl=$(( ${#${(S%%)PS1//(\%([KF1]|)\{*\}|\%[Bbkf])}} ))
 }
 
+## alternative strlen fuction
+## https://github.com/romkatv/powerlevel10k/blob/master/internal/p10k.zsh
+: '
+This function, strlen, calculates the length of a given string in bash.
+It uses a loop to double the size of a variable y, until it is larger
+than the length of the string.
+Then it repeatedly halves y and checks if the substring of the
+input string from 0 to y is equal to y.
+If it is, it sets x to y and repeats the process until
+it finds the length of the string.
+
+
+# '
+function strlen()
+{
+    # calculate $1 string length
+    ## alternative
+
+    ## initialize variables
+    ## y is the length of $1
+    local -i x y=${#1} m
+
+    if (( y )); then
+
+	# loop until y is larger than the length of the string
+	## the condition is checking if the first argument passed
+	## to the command is less than or equal to 1, and if it is not, the loop will exit
+	while (( ${${(%):-$1%$y(l.1.0)}[-1]} )); do
+
+            # double the size of y
+	    x=y
+	    (( y *= 2 ))
+
+	done
+
+        # binary search to find the length of the string
+	while (( y > x + 1 )); do
+
+	    ## calculate the midpoint of the range x to y
+	    (( m = x + (y - x) / 2 ))
+	    ## check if the length of the string is equal to the
+	    ## midpoint m. If it is, then the length of the string is m
+	    (( ${${(%):-$1%$m(l.x.y)}[-1]} = m ))
+
+	done
+
+    fi
+
+    echo $x
+}
 
 # preexec
 
@@ -356,7 +410,9 @@ function preexec()
     start_time=$(printf '> %s' "$start_time_hms")
 
     local len_right_wo_corr=$(strlen "$start_time")
-    local len_right=$(( $len_right_wo_corr + 1 ))
+    local corr=1
+    #local len_right=$(( $len_right_wo_corr ))
+    local len_right=$(( $len_right_wo_corr + $corr ))
     local right_start=$(( $COLUMNS - $len_right ))
 
     local len_cmd=$(strlen "$@")
@@ -441,7 +497,7 @@ function precmd()
 	## ternary function with which i didn't get the color working
 	#local precmd_right='$t_ex_pretty %(?.%F{#ff6c60}%B$hc%f%b.$hc) %D{%H%M%S}'
 	## see comments above
-	## if block below is partly a workaround
+	## if block below is in part a workaround
 	if [[ $exit_code -eq 0 ]]; then
 
 	    if [[ -n $t_ex_secs ]]; then
@@ -449,6 +505,9 @@ function precmd()
 		## we have an exec time > 1000 ms
 		### single quotes; wait with expansion until print
 		local precmd_right='$t_ex_secs%F{#696969}$t_ex_ms%f $hc %D{%H%M%S}'
+
+		#TODO DEV why this difference?
+		local l_precmd_corr=-8
 
 	    else
 
@@ -458,19 +517,31 @@ function precmd()
 
 	    fi
 
+	    #TODO DEV why this difference?
+	    local l_precmd_corr=-3
+
 	else
 
+	    ## exit code
 	    if [[ -n $t_ex_secs ]]; then
 
 		## we have a exec time > 1000 ms
 		### single quotes; wait with expansion until print
 		local precmd_right='$t_ex_secs%F{#696969}$t_ex_ms%f %F{#ff6c60}$hc%f %D{%H%M%S}'
 
+		#TODO DEV why this difference?
+		local l_precmd_corr=-11
+
 	    else
 
 		## we have an exec time < 1000 ms
 		### single quotes; wait with expansion until print
 		local precmd_right='%F{#696969}$t_ex_ms %F{#ff6c60}$hc%f %D{%H%M%S}'
+
+		## original strlen then set l_precmd_corr to 2
+		## alternative strlen then set l_precmd_corr to -3
+		#TODO DEV why this difference?
+		local l_precmd_corr=-3
 
 	    fi
 
@@ -483,14 +554,18 @@ function precmd()
 	### single quotes; wait with expansion until print
 	local precmd_right='* %D{%H%M%S}'
 
+	## original strlen then set l_precmd_corr to 2
+	## alternative strlen then set l_precmd_corr to 0
+	#TODO DEV why this difference?
+	local l_precmd_corr=0
+
     fi
 
     # https://developerfacts.com/answer/2267155-what-does-sstringkf1bbkf-mean
     ### position, alignment and correction parameters
-    local l_precmd_corr=0
-    #local ppr_corr=0
-    local l_precmd_l=$(( ${#${(S%%)precmd_left//(\%([KF1]|)\{*\}|\%[Bbkf])}} ))
-    local l_precmd_r=$(( ${#${(S%%)precmd_right//(\%([KF1]|)\{*\}|\%[Bbkf])}} ))
+    local l_precmd_l=$(strlen $precmd_left)
+    local l_precmd_r=$(strlen $precmd_right)
+
     local l_precmd_pad=$(( COLUMNS - l_precmd_r - l_precmd_corr ))
 
     ### print
@@ -538,6 +613,11 @@ calc_epoch()
 
 calc_rps1()
 {
+    calc_epoch
+
+    day_num=$(date +'%d')
+    rp='$day_num%F{#696969}$ep_l $ep_r%f %D{%H%M%S}'
+
     ## length exit code in PS1
     if [[ "$exit_code" -gt '0' ]]; then
 
@@ -549,21 +629,22 @@ calc_rps1()
 
     fi
 
-    ## length jobs in PS1
+    ## length jobsnumber in PS1
     l_jobs=$(jobs | wc -l)
 
-    calc_epoch
+    ## length PS1
+    l_ps1=$(strlen $PS1)
 
-    day_num=$(date +'%d')
-    rp='$day_num%F{#696969}$ep_l $ep_r%f %D{%H%M%S}'
+    ## length rp
+    l_rp=$(strlen $rp)
+
+    ## correction factor
+    #TODO DEV why and why 1?
+    l_corr=1
 
     ## define RPS1 space padding
     ## so that RPS1 hides when start typing
-    l_corr=1
-    l_j=$(( ${#${(S%%)j//(\%([KF1]|)\{*\}|\%[Bbkf])}} ))
-    l_ps1=$(( ${#${(S%%)PS1//(\%([KF1]|)\{*\}|\%[Bbkf])}} ))
-    l_rp=$(( ${#${(S%%)rp//(\%([KF1]|)\{*\}|\%[Bbkf])}} ))
-    rp_padding=$(( COLUMNS - l_ps1 - l_rp - l_exit - l_jobs - l_corr ))
+    rp_padding=$(( COLUMNS - l_exit - l_jobs - l_ps1 - l_rp - l_corr ))
 
     ## set right prompt
     RPS1="${(l:$rp_padding:)}$rp"
