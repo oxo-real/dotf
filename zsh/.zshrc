@@ -645,13 +645,24 @@ rp_redisplay()
     ## updates RPS1 via TRAPALRM every TMOUT seconds
     if [[ -z "$BUFFER" ]]; then
 
-	## only when nothing is typed in buffer
-	calc_rps1
+	## prevent interference with fzf
+#	pgrep fzf
 
-	## prevent error on initial activation
-	## when zle is not yet active
-	zle && { zle reset-prompt; zle -R }
-	#zle reset-prompt
+#	if [[ $? -ne 0 ]]; then
+
+#	    return
+
+#	else
+
+	   ## only when nothing is typed in buffer
+	   calc_rps1
+
+	   ## prevent error on initial activation
+	   ## when zle is not yet active
+	   zle && { zle reset-prompt; zle -R }
+	   #zle reset-prompt
+
+#	fi
 
     fi
 }

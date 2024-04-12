@@ -11,18 +11,21 @@ on:
 permissions:
   contents: read
 
+env:
+  LANG: C.UTF-8
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
     - name: Set up Go
-      uses: actions/setup-go@v4
+      uses: actions/setup-go@v5
       with:
-        go-version: 1.19
+        go-version: "1.20"
 
     - name: Setup Ruby
       uses: ruby/setup-ruby@v1
@@ -42,4 +45,7 @@ jobs:
       run: make test
 
     - name: Integration test
-      run: make install && ./install --all && LC_ALL=C tmux new-session -d && ruby test/test_go.rb --verbose
+      run: make install && ./install --all && tmux new-session -d && ruby test/test_go.rb --verbose
+
+    - name: Integration test (tcell)
+      run: TAGS=tcell make clean install && ruby test/test_go.rb --verbose

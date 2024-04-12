@@ -1,3 +1,21 @@
+<div align="center">
+<sup>Special thanks to:</sup>
+<br>
+<br>
+<a href="https://warp.dev/?utm_source=github&utm_medium=referral&utm_campaign=fzf_20240209">
+  <div>
+    <img src="https://raw.githubusercontent.com/junegunn/i/master/warp.png" width="300" alt="Warp">
+  </div>
+  <b>Warp is a modern, Rust-based terminal with AI built in so you and your team can build great software, faster.</b>
+  <div>
+    <sup>Visit warp.dev to learn more.</sup>
+  </div>
+</a>
+<br>
+<hr>
+</div>
+<br>
+
 <img src="https://raw.githubusercontent.com/junegunn/i/master/fzf.png" height="170" alt="fzf - a command-line fuzzy finder"> [![github-actions](https://github.com/junegunn/fzf/workflows/Test%20fzf%20on%20Linux/badge.svg)](https://github.com/junegunn/fzf/actions)
 ===
 
@@ -26,7 +44,7 @@ I would like to thank all the sponsors of this project who make it possible for 
 
 If you'd like to sponsor this project, please visit https://github.com/sponsors/junegunn.
 
-<!-- sponsors --><a href="https://github.com/miyanokomiya"><img src="https://github.com/miyanokomiya.png" width="60px" alt="miyanokomiya" /></a><a href="https://github.com/jonhoo"><img src="https://github.com/jonhoo.png" width="60px" alt="Jon Gjengset" /></a><a href="https://github.com/AceofSpades5757"><img src="https://github.com/AceofSpades5757.png" width="60px" alt="Kyle L. Davis" /></a><a href="https://github.com/Frederick888"><img src="https://github.com/Frederick888.png" width="60px" alt="Frederick Zhang" /></a><a href="https://github.com/moritzdietz"><img src="https://github.com/moritzdietz.png" width="60px" alt="Moritz Dietz" /></a><a href="https://github.com/mikker"><img src="https://github.com/mikker.png" width="60px" alt="Mikkel Malmberg" /></a><a href="https://github.com/pldubouilh"><img src="https://github.com/pldubouilh.png" width="60px" alt="Pierre Dubouilh" /></a><a href="https://github.com/rcorre"><img src="https://github.com/rcorre.png" width="60px" alt="Ryan Roden-Corrent" /></a><a href="https://github.com/blissdev"><img src="https://github.com/blissdev.png" width="60px" alt="Jordan Arentsen" /></a><a href="https://github.com/mislav"><img src="https://github.com/mislav.png" width="60px" alt="Mislav Marohnić" /></a><a href="https://github.com/aexvir"><img src="https://github.com/aexvir.png" width="60px" alt="Alex Viscreanu" /></a><a href="https://github.com/dbalatero"><img src="https://github.com/dbalatero.png" width="60px" alt="David Balatero" /></a><a href="https://github.com/comatory"><img src="https://github.com/comatory.png" width="60px" alt="Ondrej Synacek" /></a><a href="https://github.com/moobar"><img src="https://github.com/moobar.png" width="60px" alt="" /></a><a href="https://github.com/carlfriedrich"><img src="https://github.com/carlfriedrich.png" width="60px" alt="Tim" /></a><a href="https://github.com/majjoha"><img src="https://github.com/majjoha.png" width="60px" alt="Mathias Jean Johansen" /></a><a href="https://github.com/benelan"><img src="https://github.com/benelan.png" width="60px" alt="Ben Elan" /></a><a href="https://github.com/jryom"><img src="https://github.com/jryom.png" width="60px" alt="Jesper" /></a><a href="https://github.com/nmrnv"><img src="https://github.com/nmrnv.png" width="60px" alt="Nikolay Marinov" /></a><a href="https://github.com/pawelduda"><img src="https://github.com/pawelduda.png" width="60px" alt="Paweł Duda" /></a><a href="https://github.com/slezica"><img src="https://github.com/slezica.png" width="60px" alt="Santiago Lezica" /></a><a href="https://github.com/pbwn"><img src="https://github.com/pbwn.png" width="60px" alt="" /></a><a href="https://github.com/timgluz"><img src="https://github.com/timgluz.png" width="60px" alt="Timo Sulg" /></a><a href="https://github.com/seanmorton"><img src="https://github.com/seanmorton.png" width="60px" alt="Sean Morton" /></a><a href="https://github.com/pyrho"><img src="https://github.com/pyrho.png" width="60px" alt="Damien Rajon" /></a><a href="https://github.com/ArtBIT"><img src="https://github.com/ArtBIT.png" width="60px" alt="ArtBIT" /></a><a href="https://github.com/da-moon"><img src="https://github.com/da-moon.png" width="60px" alt="" /></a><a href="https://github.com/hovissimo"><img src="https://github.com/hovissimo.png" width="60px" alt="Hovis" /></a><a href="https://github.com/dariusjonda"><img src="https://github.com/dariusjonda.png" width="60px" alt="Darius Jonda" /></a><a href="https://github.com/cristiand391"><img src="https://github.com/cristiand391.png" width="60px" alt="Cristian Dominguez" /></a><a href="https://github.com/eliangcs"><img src="https://github.com/eliangcs.png" width="60px" alt="Chang-Hung Liang" /></a><a href="https://github.com/raveensrk"><img src="https://github.com/raveensrk.png" width="60px" alt="Raveen Kumar" /></a><a href="https://github.com/asphaltbuffet"><img src="https://github.com/asphaltbuffet.png" width="60px" alt="Ben Lechlitner" /></a><a href="https://github.com/yash1th"><img src="https://github.com/yash1th.png" width="60px" alt="yash" /></a><a href="https://github.com/looshch"><img src="https://github.com/looshch.png" width="60px" alt="george looshch" /></a><a href="https://github.com/kg8m"><img src="https://github.com/kg8m.png" width="60px" alt="Takumi KAGIYAMA" /></a><a href="https://github.com/polm"><img src="https://github.com/polm.png" width="60px" alt="Paul O'Leary McCann" /></a><a href="https://github.com/rbeeger"><img src="https://github.com/rbeeger.png" width="60px" alt="Robert Beeger" /></a><a href="https://github.com/veebch"><img src="https://github.com/veebch.png" width="60px" alt="VEEB Projects" /></a><a href="https://github.com/y3ro"><img src="https://github.com/y3ro.png" width="60px" alt="Yerai" /></a><a href="https://github.com/khuedoan"><img src="https://github.com/khuedoan.png" width="60px" alt="Khue Doan" /></a><a href="https://github.com/yowayb"><img src="https://github.com/yowayb.png" width="60px" alt="Yoway Buorn" /></a><a href="https://github.com/td0m"><img src="https://github.com/td0m.png" width="60px" alt="Dominik Tarnowski" /></a><a href="https://github.com/yutao-li"><img src="https://github.com/yutao-li.png" width="60px" alt="master_lee" /></a><a href="https://github.com/scalisi"><img src="https://github.com/scalisi.png" width="60px" alt="Josh Scalisi" /></a><a href="https://github.com/alecbcs"><img src="https://github.com/alecbcs.png" width="60px" alt="Alec Scott" /></a><a href="https://github.com/the-shank"><img src="https://github.com/the-shank.png" width="60px" alt="theshank" /></a><a href="https://github.com/thnxdev"><img src="https://github.com/thnxdev.png" width="60px" alt="thanks.dev" /></a><a href="https://github.com/hasefumi23"><img src="https://github.com/hasefumi23.png" width="60px" alt="" /></a><!-- sponsors -->
+<!-- sponsors --><a href="https://github.com/miyanokomiya"><img src="https://github.com/miyanokomiya.png" width="60px" alt="miyanokomiya" /></a><a href="https://github.com/jonhoo"><img src="https://github.com/jonhoo.png" width="60px" alt="Jon Gjengset" /></a><a href="https://github.com/AceofSpades5757"><img src="https://github.com/AceofSpades5757.png" width="60px" alt="Kyle L. Davis" /></a><a href="https://github.com/Frederick888"><img src="https://github.com/Frederick888.png" width="60px" alt="Frederick Zhang" /></a><a href="https://github.com/moritzdietz"><img src="https://github.com/moritzdietz.png" width="60px" alt="Moritz Dietz" /></a><a href="https://github.com/mikker"><img src="https://github.com/mikker.png" width="60px" alt="Mikkel Malmberg" /></a><a href="https://github.com/pldubouilh"><img src="https://github.com/pldubouilh.png" width="60px" alt="Pierre Dubouilh" /></a><a href="https://github.com/rcorre"><img src="https://github.com/rcorre.png" width="60px" alt="Ryan Roden-Corrent" /></a><a href="https://github.com/blissdev"><img src="https://github.com/blissdev.png" width="60px" alt="Jordan Arentsen" /></a><a href="https://github.com/mislav"><img src="https://github.com/mislav.png" width="60px" alt="Mislav Marohnić" /></a><a href="https://github.com/aexvir"><img src="https://github.com/aexvir.png" width="60px" alt="Alex Viscreanu" /></a><a href="https://github.com/dbalatero"><img src="https://github.com/dbalatero.png" width="60px" alt="David Balatero" /></a><a href="https://github.com/comatory"><img src="https://github.com/comatory.png" width="60px" alt="Ondrej Synacek" /></a><a href="https://github.com/moobar"><img src="https://github.com/moobar.png" width="60px" alt="" /></a><a href="https://github.com/majjoha"><img src="https://github.com/majjoha.png" width="60px" alt="Mathias Jean Johansen" /></a><a href="https://github.com/benelan"><img src="https://github.com/benelan.png" width="60px" alt="Ben Elan" /></a><a href="https://github.com/pawelduda"><img src="https://github.com/pawelduda.png" width="60px" alt="Paweł Duda" /></a><a href="https://github.com/slezica"><img src="https://github.com/slezica.png" width="60px" alt="Santiago Lezica" /></a><a href="https://github.com/pbwn"><img src="https://github.com/pbwn.png" width="60px" alt="" /></a><a href="https://github.com/timgluz"><img src="https://github.com/timgluz.png" width="60px" alt="Timo Sulg" /></a><a href="https://github.com/pyrho"><img src="https://github.com/pyrho.png" width="60px" alt="Damien Rajon" /></a><a href="https://github.com/ArtBIT"><img src="https://github.com/ArtBIT.png" width="60px" alt="ArtBIT" /></a><a href="https://github.com/da-moon"><img src="https://github.com/da-moon.png" width="60px" alt="" /></a><a href="https://github.com/hovissimo"><img src="https://github.com/hovissimo.png" width="60px" alt="Hovis" /></a><a href="https://github.com/dariusjonda"><img src="https://github.com/dariusjonda.png" width="60px" alt="Darius Jonda" /></a><a href="https://github.com/cristiand391"><img src="https://github.com/cristiand391.png" width="60px" alt="Cristian Dominguez" /></a><a href="https://github.com/eliangcs"><img src="https://github.com/eliangcs.png" width="60px" alt="Chang-Hung Liang" /></a><a href="https://github.com/asphaltbuffet"><img src="https://github.com/asphaltbuffet.png" width="60px" alt="Ben Lechlitner" /></a><a href="https://github.com/yash1th"><img src="https://github.com/yash1th.png" width="60px" alt="yash" /></a><a href="https://github.com/looshch"><img src="https://github.com/looshch.png" width="60px" alt="george looshch" /></a><a href="https://github.com/kg8m"><img src="https://github.com/kg8m.png" width="60px" alt="Takumi KAGIYAMA" /></a><a href="https://github.com/polm"><img src="https://github.com/polm.png" width="60px" alt="Paul O'Leary McCann" /></a><a href="https://github.com/rbeeger"><img src="https://github.com/rbeeger.png" width="60px" alt="Robert Beeger" /></a><a href="https://github.com/veebch"><img src="https://github.com/veebch.png" width="60px" alt="VEEB Projects" /></a><a href="https://github.com/khuedoan"><img src="https://github.com/khuedoan.png" width="60px" alt="Khue Doan" /></a><a href="https://github.com/yowayb"><img src="https://github.com/yowayb.png" width="60px" alt="Yoway Buorn" /></a><a href="https://github.com/scalisi"><img src="https://github.com/scalisi.png" width="60px" alt="Josh Scalisi" /></a><a href="https://github.com/alecbcs"><img src="https://github.com/alecbcs.png" width="60px" alt="Alec Scott" /></a><a href="https://github.com/thnxdev"><img src="https://github.com/thnxdev.png" width="60px" alt="thanks.dev" /></a><a href="https://github.com/artursapek"><img src="https://github.com/artursapek.png" width="60px" alt="Artur Sapek" /></a><a href="https://github.com/ramnes"><img src="https://github.com/ramnes.png" width="60px" alt="Guillaume Gelin" /></a><a href="https://github.com/jyc"><img src="https://github.com/jyc.png" width="60px" alt="" /></a><a href="https://github.com/mrcnski"><img src="https://github.com/mrcnski.png" width="60px" alt="Marcin S." /></a><a href="https://github.com/roblevy"><img src="https://github.com/roblevy.png" width="60px" alt="Rob Levy" /></a><a href="https://github.com/glozow"><img src="https://github.com/glozow.png" width="60px" alt="Gloria Zhao" /></a><a href="https://github.com/wjt"><img src="https://github.com/wjt.png" width="60px" alt="Will Thompson" /></a><a href="https://github.com/mrhenry"><img src="https://github.com/mrhenry.png" width="60px" alt="Mr. Henry" /></a><a href="https://github.com/mauricelam"><img src="https://github.com/mauricelam.png" width="60px" alt="Maurice Lam" /></a><a href="https://github.com/toupeira"><img src="https://github.com/toupeira.png" width="60px" alt="Markus Koller" /></a><a href="https://github.com/rkpatel33"><img src="https://github.com/rkpatel33.png" width="60px" alt="" /></a><a href="https://github.com/jamesob"><img src="https://github.com/jamesob.png" width="60px" alt="James O'Beirne" /></a><!-- sponsors -->
 
 Table of Contents
 -----------------
@@ -38,6 +56,7 @@ Table of Contents
     * [Using git](#using-git)
     * [Using Linux package managers](#using-linux-package-managers)
     * [Windows](#windows)
+    * [Setting up shell integration](#setting-up-shell-integration)
     * [As Vim plugin](#as-vim-plugin)
 * [Upgrading fzf](#upgrading-fzf)
 * [Building fzf](#building-fzf)
@@ -73,6 +92,7 @@ Table of Contents
 * [Tips](#tips)
     * [Respecting `.gitignore`](#respecting-gitignore)
     * [Fish shell](#fish-shell)
+    * [fzf Theme Playground](#fzf-theme-playground)
 * [Related projects](#related-projects)
 * [License](#license)
 
@@ -85,9 +105,9 @@ fzf project consists of the following components:
 
 - `fzf` executable
 - `fzf-tmux` script for launching fzf in a tmux pane
-- Shell extensions
+- Shell integration
     - Key bindings (`CTRL-T`, `CTRL-R`, and `ALT-C`) (bash, zsh, fish)
-    - Fuzzy auto-completion (bash, zsh)
+    - Fuzzy completion (bash, zsh)
 - Vim/Neovim plugin
 
 You can [download fzf executable][bin] alone if you don't need the extra
@@ -102,10 +122,11 @@ to install fzf.
 
 ```sh
 brew install fzf
-
-# To install useful key bindings and fuzzy completion:
-$(brew --prefix)/opt/fzf/install
 ```
+
+> [!IMPORTANT]
+> To set up shell integration (key bindings and fuzzy completion),
+> see [the instructions below](#setting-up-shell-integration).
 
 fzf is also available [via MacPorts][portfile]: `sudo port install fzf`
 
@@ -121,10 +142,13 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 ```
 
+The install script will add lines to your shell configuration file to modify
+`$PATH` and set up shell integration.
+
 ### Using Linux package managers
 
 | Package Manager | Linux Distribution      | Command                            |
-| ---             | ---                     | ---                                |
+| --------------- | ----------------------- | ---------------------------------- |
 | APK             | Alpine Linux            | `sudo apk add fzf`                 |
 | APT             | Debian 9+/Ubuntu 19.10+ | `sudo apt install fzf`             |
 | Conda           |                         | `conda install -c conda-forge fzf` |
@@ -135,35 +159,76 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 | pkgin           | NetBSD                  | `pkgin install fzf`                |
 | pkg_add         | OpenBSD                 | `pkg_add fzf`                      |
 | Portage         | Gentoo                  | `emerge --ask app-shells/fzf`      |
+| Spack           |                         | `spack install fzf`                |
 | XBPS            | Void Linux              | `sudo xbps-install -S fzf`         |
 | Zypper          | openSUSE                | `sudo zypper install fzf`          |
 
-> :warning: **Key bindings (CTRL-T / CTRL-R / ALT-C) and fuzzy auto-completion
-> may not be enabled by default.**
->
-> Refer to the package documentation for more information. (e.g. `apt show fzf`)
+> [!IMPORTANT]
+> To set up shell integration (key bindings and fuzzy completion),
+> see [the instructions below](#setting-up-shell-integration).
 
 [![Packaging status](https://repology.org/badge/vertical-allrepos/fzf.svg)](https://repology.org/project/fzf/versions)
 
 ### Windows
 
 Pre-built binaries for Windows can be downloaded [here][bin]. fzf is also
-available via [Chocolatey][choco], [Scoop][scoop], and [Winget][winget]:
+available via [Chocolatey][choco], [Scoop][scoop], [Winget][winget], and [MSYS2][msys2]:
 
-| Package manager | Command              |
-| ---             | ---                  |
-| Chocolatey      | `choco install fzf`  |
-| Scoop           | `scoop install fzf`  |
-| Winget          | `winget install fzf` |
+| Package manager | Command                               |
+| --------------- | ------------------------------------- |
+| Chocolatey      | `choco install fzf`                   |
+| Scoop           | `scoop install fzf`                   |
+| Winget          | `winget install fzf`                  |
+| MSYS2 (pacman)  | `pacman -S $MINGW_PACKAGE_PREFIX-fzf` |
 
 [choco]: https://chocolatey.org/packages/fzf
 [scoop]: https://github.com/ScoopInstaller/Main/blob/master/bucket/fzf.json
 [winget]: https://github.com/microsoft/winget-pkgs/tree/master/manifests/j/junegunn/fzf
+[msys2]: https://packages.msys2.org/base/mingw-w64-fzf
 
 Known issues and limitations on Windows can be found on [the wiki
 page][windows-wiki].
 
 [windows-wiki]: https://github.com/junegunn/fzf/wiki/Windows
+
+### Setting up shell integration
+
+Add the following line to your shell configuration file.
+
+* bash
+  ```sh
+  # Set up fzf key bindings and fuzzy completion
+  eval "$(fzf --bash)"
+  ```
+* zsh
+  ```sh
+  # Set up fzf key bindings and fuzzy completion
+  eval "$(fzf --zsh)"
+  ```
+* fish
+  ```fish
+  # Set up fzf key bindings
+  fzf --fish | source
+  ```
+
+> [!NOTE]
+> `--bash`, `--zsh`, and `--fish` options are only available in fzf 0.48.0 or
+> later. If you have an older version of fzf, or want finer control, you can
+> source individual script files in the [/shell](/shell) directory. The
+> location of the files may vary depending on the package manager you use.
+> Please refer to the package documentation for more information.
+> (e.g. `apt show fzf`)
+
+> [!TIP]
+> You can disable CTRL-T or ALT-C binding by setting `FZF_CTRL_T_COMMAND` or
+> `FZF_ALT_C_COMMAND` to an empty string when sourcing the script.
+> For example, to disable ALT-C binding:
+>
+> * bash: `FZF_ALT_C_COMMAND= eval "$(fzf --bash)"`
+> * zsh: `FZF_ALT_C_COMMAND= eval "$(fzf --zsh)"`
+> * fish: `fzf --fish | FZF_ALT_C_COMMAND= source`
+>
+> Setting the variables after sourcing the script will have no effect.
 
 ### As Vim plugin
 
@@ -208,22 +273,27 @@ selected item to STDOUT.
 find * -type f | fzf > selected
 ```
 
-Without STDIN pipe, fzf will use find command to fetch the list of
-files excluding hidden ones. (You can override the default command with
-`FZF_DEFAULT_COMMAND`)
+Without STDIN pipe, fzf will traverse the file system under the current
+directory to get the list of files.
 
 ```sh
 vim $(fzf)
 ```
 
-> *:bulb: A more robust solution would be to use `xargs` but we've presented
-> the above as it's easier to grasp*
+> [!NOTE]
+> You can override the default behavior
+> * Either by setting `$FZF_DEFAULT_COMMAND` to a command that generates the desired list
+> * Or by setting `--walker`, `--walker-root`, and `--walker-skip` options in `$FZF_DEFAULT_OPTS`
+
+> [!WARNING]
+> A more robust solution would be to use `xargs` but we've presented
+> the above as it's easier to grasp
 > ```sh
 > fzf --print0 | xargs -0 -o vim
 > ```
 
->
-> *:bulb: fzf also has the ability to turn itself into a different process.*
+> [!TIP]
+> fzf also has the ability to turn itself into a different process.
 >
 > ```sh
 > fzf --bind 'enter:become(vim {})'
@@ -297,16 +367,24 @@ or `py`.
 - `FZF_DEFAULT_COMMAND`
     - Default command to use when input is tty
     - e.g. `export FZF_DEFAULT_COMMAND='fd --type f'`
-    - > :warning: This variable is not used by shell extensions due to the
-      > slight difference in requirements.
-      >
-      > (e.g. `CTRL-T` runs `$FZF_CTRL_T_COMMAND` instead, `vim **<tab>` runs
-      > `_fzf_compgen_path()`, and `cd **<tab>` runs `_fzf_compgen_dir()`)
-      >
-      > The available options are described later in this document.
 - `FZF_DEFAULT_OPTS`
     - Default options
     - e.g. `export FZF_DEFAULT_OPTS="--layout=reverse --inline-info"`
+- `FZF_DEFAULT_OPTS_FILE`
+    - If you prefer to manage default options in a file, set this variable to
+      point to the location of the file
+    - e.g. `export FZF_DEFAULT_OPTS_FILE=~/.fzfrc`
+
+> [!WARNING]
+> `FZF_DEFAULT_COMMAND` is not used by shell integration due to the
+> slight difference in requirements.
+>
+> * `CTRL-T` runs `$FZF_CTRL_T_COMMAND` to get a list of files and directories
+> * `ALT-C` runs `$FZF_ALT_C_COMMAND` to get a list of directories
+> * `vim ~/**<tab>` runs `fzf_compgen_path()` with the prefix (`~/`) as the first argument
+> * `cd foo**<tab>` runs `fzf_compgen_dir()` with the prefix (`foo`) as the first argument
+>
+> The available options are described later in this document.
 
 ### Options
 
@@ -362,14 +440,19 @@ The install script will setup the following key bindings for bash, zsh, and
 fish.
 
 - `CTRL-T` - Paste the selected files and directories onto the command-line
-    - Set `FZF_CTRL_T_COMMAND` to override the default command
+    - The list is generated using `--walker file,dir,follow,hidden` option
+        - You can override the behavior by setting `FZF_CTRL_T_COMMAND` to a custom command that generates the desired list
+        - Or you can set `--walker*` options in `FZF_CTRL_T_OPTS`
     - Set `FZF_CTRL_T_OPTS` to pass additional options to fzf
       ```sh
       # Preview file content using bat (https://github.com/sharkdp/bat)
       export FZF_CTRL_T_OPTS="
+        --walker-skip .git,node_modules,target
         --preview 'bat -n --color=always {}'
         --bind 'ctrl-/:change-preview-window(down|hidden|)'"
       ```
+    - Can be disabled by setting `FZF_CTRL_T_COMMAND` to an empty string when
+      sourcing the script
 - `CTRL-R` - Paste the selected command from history onto the command-line
     - If you want to see the commands in chronological order, press `CTRL-R`
       again which toggles sorting by relevance
@@ -385,12 +468,18 @@ fish.
         --header 'Press CTRL-Y to copy command into clipboard'"
       ```
 - `ALT-C` - cd into the selected directory
+    - The list is generated using `--walker dir,follow,hidden` option
     - Set `FZF_ALT_C_COMMAND` to override the default command
+        - Or you can set `--walker-*` options in `FZF_ALT_C_OPTS`
     - Set `FZF_ALT_C_OPTS` to pass additional options to fzf
       ```sh
       # Print tree structure in the preview window
-      export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
+      export FZF_ALT_C_OPTS="
+        --walker-skip .git,node_modules,target
+        --preview 'tree -C {}'"
       ```
+    - Can be disabled by setting `FZF_ALT_C_COMMAND` to an empty string when
+      sourcing the script
 
 If you're on a tmux session, you can start fzf in a tmux split-pane or in
 a tmux popup window by setting `FZF_TMUX_OPTS` (e.g. `export FZF_TMUX_OPTS='-p80%,60%'`).
@@ -466,8 +555,7 @@ export FZF_COMPLETION_TRIGGER='~~'
 # Options to fzf command
 export FZF_COMPLETION_OPTS='--border --info=inline'
 
-# Use fd (https://github.com/sharkdp/fd) instead of the default find
-# command for listing path candidates.
+# Use fd (https://github.com/sharkdp/fd) for listing path candidates.
 # - The first argument to the function ($1) is the base path to start traversal
 # - See the source code (completion.{bash,zsh}) for the details.
 _fzf_compgen_path() {
@@ -693,7 +781,7 @@ fzf --preview 'cat {}'
 Preview window supports ANSI colors, so you can use any program that
 syntax-highlights the content of a file, such as
 [Bat](https://github.com/sharkdp/bat) or
-[Highlight](http://www.andre-simon.de/doku/highlight/en/highlight.php):
+[Highlight](https://gitlab.com/saalen/highlight):
 
 ```bash
 fzf --preview 'bat --color=always {}' --preview-window '~3'
@@ -714,37 +802,34 @@ See the man page (`man fzf`) for the full list of options.
 
 More advanced examples can be found [here](https://github.com/junegunn/fzf/blob/master/ADVANCED.md).
 
-----
-
-Since fzf is a general-purpose text filter rather than a file finder, **it is
-not a good idea to add `--preview` option to your `$FZF_DEFAULT_OPTS`**.
-
-```sh
-# *********************
-# ** DO NOT DO THIS! **
-# *********************
-export FZF_DEFAULT_OPTS='--preview "bat --style=numbers --color=always --line-range :500 {}"'
-
-# bat doesn't work with any input other than the list of files
-ps -ef | fzf
-seq 100 | fzf
-history | fzf
-```
+> [!WARNING]
+> Since fzf is a general-purpose text filter rather than a file finder, **it is
+> not a good idea to add `--preview` option to your `$FZF_DEFAULT_OPTS`**.
+>
+> ```sh
+> # *********************
+> # ** DO NOT DO THIS! **
+> # *********************
+> export FZF_DEFAULT_OPTS='--preview "bat --style=numbers --color=always --line-range :500 {}"'
+>
+> # bat doesn't work with any input other than the list of files
+> ps -ef | fzf
+> seq 100 | fzf
+> history | fzf
+> ```
 
 ### Previewing an image
 
-Since 0.43.0, fzf has experimental support for [Kitty graphics
-protocol](https://sw.kovidgoyal.net/kitty/graphics-protocol/), so if you use
-Kitty, you can make fzf display an image in the preview window.
+fzf can display images in the preview window using one of the following protocols:
+
+* [Kitty graphics protocol](https://sw.kovidgoyal.net/kitty/graphics-protocol/)
+* [iTerm2 inline images protocol](https://iterm2.com/documentation-images.html)
+* [Sixel](https://en.wikipedia.org/wiki/Sixel)
+
+See [bin/fzf-preview.sh](bin/fzf-preview.sh) script for more information.
 
 ```sh
-fzf --preview='
-  if file --mime-type {} | grep -qF image/; then
-    kitty icat --clear --transfer-mode=memory --stdin=no --place=${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0 {} | sed \$d
-  else
-    bat --color=always {}
-  fi
-'
+fzf --preview 'fzf-preview.sh {}'
 ```
 
 Tips
@@ -754,9 +839,8 @@ Tips
 
 You can use [fd](https://github.com/sharkdp/fd),
 [ripgrep](https://github.com/BurntSushi/ripgrep), or [the silver
-searcher](https://github.com/ggreer/the_silver_searcher) instead of the
-default find command to traverse the file system while respecting
-`.gitignore`.
+searcher](https://github.com/ggreer/the_silver_searcher) to traverse the file
+system while respecting `.gitignore`.
 
 ```sh
 # Feed the output of fd into fzf
@@ -765,7 +849,7 @@ fd --type f --strip-cwd-prefix | fzf
 # Setting fd as the default source for fzf
 export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
 
-# Now fzf (w/o pipe) will use fd instead of find
+# Now fzf (w/o pipe) will use the fd command to generate the list
 fzf
 
 # To apply the command to CTRL-T as well
@@ -799,6 +883,12 @@ valid directory. Example:
 set -g FZF_CTRL_T_COMMAND "command find -L \$dir -type f 2> /dev/null | sed '1d; s#^\./##'"
 ```
 
+### fzf Theme Playground
+
+[fzf Theme Playground](https://vitormv.github.io/fzf-themes/) created by
+[Vitor Mello](https://github.com/vitormv) is a webpage where you can
+interactively create fzf themes.
+
 Related projects
 ----------------
 
@@ -809,4 +899,4 @@ https://github.com/junegunn/fzf/wiki/Related-projects
 
 The MIT License (MIT)
 
-Copyright (c) 2013-2023 Junegunn Choi
+Copyright (c) 2013-2024 Junegunn Choi

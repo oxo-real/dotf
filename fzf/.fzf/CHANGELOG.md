@@ -1,21 +1,236 @@
 CHANGELOG
 =========
 
+0.49.0
+------
+- Ingestion performance improved by around 40% (more or less depending on options)
+- `--info=hidden` and `--info=inline-right` will no longer hide the horizontal separator by default. This gives you more flexibility in customizing the layout.
+    ```sh
+    fzf --border --info=inline-right
+    fzf --border --info=inline-right --separator ═
+    fzf --border --info=inline-right --no-separator
+    fzf --border --info=hidden
+    fzf --border --info=hidden --separator ━
+    fzf --border --info=hidden --no-separator
+    ```
+- Added two environment variables exported to the child processes
+    - `FZF_PREVIEW_LABEL`
+    - `FZF_BORDER_LABEL`
+    ```sh
+    # Use the current value of $FZF_PREVIEW_LABEL to determine which actions to perform
+    git ls-files |
+      fzf --header 'Press CTRL-P to change preview mode' \
+          --bind='ctrl-p:transform:[[ $FZF_PREVIEW_LABEL =~ cat ]] \
+          && echo "change-preview(git log --color=always \{})+change-preview-label([[ log ]])" \
+          || echo "change-preview(bat --color=always \{})+change-preview-label([[ cat ]])"'
+    ```
+- Renamed `track` action to `track-current` to highlight the difference between the global tracking state set by `--track` and a one-off tracking action
+    - `track` is still available as an alias
+- Added `untrack-current` and `toggle-track-current` actions
+    - `*-current` actions are no-op when the global tracking state is set
+- Bug fixes and minor improvements
+
+0.48.1
+------
+- CTRL-T and ALT-C bindings can be disabled by setting `FZF_CTRL_T_COMMAND` and `FZF_ALT_C_COMMAND` to empty strings respectively when sourcing the script
+    ```sh
+    # bash
+    FZF_CTRL_T_COMMAND= FZF_ALT_C_COMMAND= eval "$(fzf --bash)"
+
+    # zsh
+    FZF_CTRL_T_COMMAND= FZF_ALT_C_COMMAND= eval "$(fzf --zsh)"
+
+    # fish
+    fzf --fish | FZF_CTRL_T_COMMAND= FZF_ALT_C_COMMAND= source
+    ```
+    - Setting the variables after sourcing the script will have no effect
+- Bug fixes
+
+0.48.0
+------
+- Shell integration scripts are now embedded in the fzf binary. This simplifies the distribution, and the users are less likely to have problems caused by using incompatible scripts and binaries.
+    - bash
+      ```sh
+      # Set up fzf key bindings and fuzzy completion
+      eval "$(fzf --bash)"
+      ```
+    - zsh
+      ```sh
+      # Set up fzf key bindings and fuzzy completion
+      eval "$(fzf --zsh)"
+      ```
+    - fish
+      ```fish
+      # Set up fzf key bindings
+      fzf --fish | source
+      ```
+- Added options for customizing the behavior of the built-in walker
+    | Option               | Description                                       | Default              |
+    | ---                  | ---                                               | ---                  |
+    | `--walker=OPTS`      | Walker options (`[file][,dir][,follow][,hidden]`) | `file,follow,hidden` |
+    | `--walker-root=DIR`  | Root directory from which to start walker         | `.`                  |
+    | `--walker-skip=DIRS` | Comma-separated list of directory names to skip   | `.git,node_modules`  |
+    - Examples
+        ```sh
+        # Built-in walker is only used by standalone fzf when $FZF_DEFAULT_COMMAND is not set
+        unset FZF_DEFAULT_COMMAND
+
+        fzf # default: --walker=file,follow,hidden --walker-root=. --walker-skip=.git,node_modules
+        fzf --walker=file,dir,hidden,follow --walker-skip=.git,node_modules,target
+
+        # Walker options in $FZF_DEFAULT_OPTS
+        export FZF_DEFAULT_OPTS="--walker=file,dir,hidden,follow --walker-skip=.git,node_modules,target"
+        fzf
+
+        # Reading from STDIN; --walker is ignored
+        seq 100 | fzf --walker=dir
+
+        # Reading from $FZF_DEFAULT_COMMAND; --walker is ignored
+        export FZF_DEFAULT_COMMAND='seq 100'
+        fzf --walker=dir
+        ```
+- Shell integration scripts have been updated to use the built-in walker with these new options and they are now much faster out of the box.
+
+0.47.0
+------
+- Replaced ["the default find command"][find] with a built-in directory walker to simplify the code and to achieve better performance and consistent behavior across platforms.
+  This doesn't affect you if you have `$FZF_DEFAULT_COMMAND` set.
+    - Breaking changes:
+        - Unlike [the previous "find" command][find], the new traversal code will list hidden files, but hidden directories will still be ignored
+        - No filtering of `devtmpfs` or `proc` types
+        - Traversal is parallelized, so the order of the entries will be different each time
+    - You may wonder why fzf implements directory walker anyway when it's a filter program following the [Unix philosophy][unix].
+      But fzf has had [the walker code for years][walker] to tackle the performance problem on Windows. And I decided to use the same approach on different platforms as well for the benefits listed above.
+    - Built-in walker is using the excellent [charlievieth/fastwalk][fastwalk] library, which easily outperforms its competitors and supports safely following symlinks.
+- Added `$FZF_DEFAULT_OPTS_FILE` to allow managing default options in a file
+    - See [#3618](https://github.com/junegunn/fzf/pull/3618)
+    - Option precedence from lower to higher
+        1. Options read from `$FZF_DEFAULT_OPTS_FILE`
+        1. Options from `$FZF_DEFAULT_OPTS`
+        1. Options from command-line arguments
+- Bug fixes and improvements
+
+[find]: https://github.com/junegunn/fzf/blob/0.46.1/src/constants.go#L60-L64
+[walker]: https://github.com/junegunn/fzf/pull/1847
+[fastwalk]: https://github.com/charlievieth/fastwalk
+[unix]: https://en.wikipedia.org/wiki/Unix_philosophy
+
+0.46.1
+------
+- Bug fixes and improvements
+- Fixed Windows binaries
+- Downgraded Go version to 1.20 to support older versions of Windows
+    - https://tip.golang.org/doc/go1.21#windows
+- Updated [rivo/uniseg](https://github.com/rivo/uniseg) dependency to v0.4.6
+
+0.46.0
+------
+- Added two new events
+    - `result` - triggered when the filtering for the current query is complete and the result list is ready
+    - `resize` - triggered when the terminal size is changed
+- fzf now exports the following environment variables to the child processes
+  | Variable           | Description                                                 |
+  | ---                | ---                                                         |
+  | `FZF_LINES`        | Number of lines fzf takes up excluding padding and margin   |
+  | `FZF_COLUMNS`      | Number of columns fzf takes up excluding padding and margin |
+  | `FZF_TOTAL_COUNT`  | Total number of items                                       |
+  | `FZF_MATCH_COUNT`  | Number of matched items                                     |
+  | `FZF_SELECT_COUNT` | Number of selected items                                    |
+  | `FZF_QUERY`        | Current query string                                        |
+  | `FZF_PROMPT`       | Prompt string                                               |
+  | `FZF_ACTION`       | The name of the last action performed                       |
+  - This allows you to write sophisticated transformations like so
+    ```sh
+    # Script to dynamically resize the preview window
+    transformer='
+      # 1 line for info, another for prompt, and 2 more lines for preview window border
+      lines=$(( FZF_LINES - FZF_MATCH_COUNT - 4 ))
+      if [[ $FZF_MATCH_COUNT -eq 0 ]]; then
+        echo "change-preview-window:hidden"
+      elif [[ $lines -gt 3 ]]; then
+        echo "change-preview-window:$lines"
+      elif [[ $FZF_PREVIEW_LINES -ne 3 ]]; then
+        echo "change-preview-window:3"
+      fi
+    '
+    seq 10000 | fzf --preview 'seq {} 10000' --preview-window up \
+                    --bind "result:transform:$transformer" \
+                    --bind "resize:transform:$transformer"
+    ```
+  - And we're phasing out `{fzf:prompt}` and `{fzf:action}`
+- Changed [mattn/go-runewidth](https://github.com/mattn/go-runewidth) dependency to [rivo/uniseg](https://github.com/rivo/uniseg) for accurate results
+    - Set `--ambidouble` if your terminal displays ambiguous width characters (e.g. box-drawing characters for borders) as 2 columns
+    - `RUNEWIDTH_EASTASIAN=1` is still respected for backward compatibility, but it's recommended that you use this new option instead
+- Bug fixes
+
+0.45.0
+------
+- Added `transform` action to conditionally perform a series of actions
+  ```sh
+  # Disallow selecting an empty line
+  echo -e "1. Hello\n2. Goodbye\n\n3. Exit" |
+    fzf --height '~100%' --reverse --header 'Select one' \
+        --bind 'enter:transform:[[ -n {} ]] && echo accept || echo "change-header:Invalid selection"'
+
+  # Move cursor past the empty line
+  echo -e "1. Hello\n2. Goodbye\n\n3. Exit" |
+    fzf --height '~100%' --reverse --header 'Select one' \
+        --bind 'enter:transform:[[ -n {} ]] && echo accept || echo "change-header:Invalid selection"' \
+        --bind 'focus:transform:[[ -n {} ]] && exit; [[ {fzf:action} =~ up$ ]] && echo up || echo down'
+
+  # A single key binding to toggle between modes
+  fd --type file |
+    fzf --prompt 'Files> ' \
+        --header 'CTRL-T: Switch between Files/Directories' \
+        --bind 'ctrl-t:transform:[[ ! {fzf:prompt} =~ Files ]] &&
+                  echo "change-prompt(Files> )+reload(fd --type file)" ||
+                  echo "change-prompt(Directories> )+reload(fd --type directory)"'
+  ```
+- Added placeholder expressions
+    - `{fzf:action}` - The name of the last action performed
+    - `{fzf:prompt}` - Prompt string (including ANSI color codes)
+    - `{fzf:query}` - Synonym for `{q}`
+- Added support for negative height
+  ```sh
+  # Terminal height minus 1, so you can still see the command line
+  fzf --height=-1
+  ```
+  - This handles a terminal resize better than `--height=$(($(tput lines) - 1))`
+- Added `accept-or-print-query` action that acts like `accept` but prints the
+  current query when there's no match for the query
+  ```sh
+  # You can make CTRL-R paste the current query when there's no match
+  export FZF_CTRL_R_OPTS='--bind enter:accept-or-print-query'
+  ```
+  - Note that there are alternative ways to implement the same strategy
+    ```sh
+    # 'become' is apparently more versatile but it's not available on Windows.
+    export FZF_CTRL_R_OPTS='--bind "enter:become:if [ -z {} ]; then echo {q}; else echo {}; fi"'
+
+    # Using the new 'transform' action
+    export FZF_CTRL_R_OPTS='--bind "enter:transform:[ -z {} ] && echo print-query || echo accept"'
+    ```
+- Added `show-header` and `hide-header` actions
+- Bug fixes
+
+0.44.1
+------
+- Fixed crash when preview window is hidden on `focus` event
+
 0.44.0
 ------
-- (Experimental) Sixel image support in preview window
+- (Experimental) Sixel image support in preview window (not available on Windows)
     - [bin/fzf-preview.sh](bin/fzf-preview.sh) is added to demonstrate how to
       display an image using Kitty image protocol or Sixel. You can use it
       like so:
       ```sh
       fzf --preview='fzf-preview.sh {}'
       ```
-- (Experimental) iTerm2 inline image protocol support in preview window
+- (Experimental) iTerm2 inline image protocol support in preview window (not available on Windows)
   ```sh
   # Using https://iterm2.com/utilities/imgcat
   fzf --preview 'imgcat -W $FZF_PREVIEW_COLUMNS -H $FZF_PREVIEW_LINES {}'
   ```
-- (Experimental) Sixel, Kitty, and iTerm2 image support now also available on Windows
 - HTTP server can be configured to accept remote connections
   ```sh
   # FZF_API_KEY is required for a non-localhost listen address
@@ -39,7 +254,7 @@ CHANGELOG
       # --transfer-mode=memory is the fastest option but if you want fzf to be able
       # to redraw the image on terminal resize or on 'change-preview-window',
       # you need to use --transfer-mode=stream.
-      kitty icat --clear --transfer-mode=memory --stdin=no --place=${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0 {} | sed \$d
+      kitty icat --clear --transfer-mode=memory --unicode-placeholder --stdin=no --place=${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0 {} | sed \$d
     else
       bat --color=always {}
     fi

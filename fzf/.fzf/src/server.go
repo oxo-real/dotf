@@ -30,7 +30,10 @@ const (
 	httpOk           = "HTTP/1.1 200 OK" + crlf
 	httpBadRequest   = "HTTP/1.1 400 Bad Request" + crlf
 	httpUnauthorized = "HTTP/1.1 401 Unauthorized" + crlf
+	httpUnavailable  = "HTTP/1.1 503 Service Unavailable" + crlf
 	httpReadTimeout  = 10 * time.Second
+	channelTimeout   = 2 * time.Second
+	jsonContentType  = "Content-Type: application/json" + crlf
 	maxContentLength = 1024 * 1024
 )
 
@@ -51,47 +54,47 @@ func (addr listenAddress) IsLocal() bool {
 
 var defaultListenAddr = listenAddress{"localhost", 0}
 
-func parseListenAddress(address string) (error, listenAddress) {
+func parseListenAddress(address string) (listenAddress, error) {
 	parts := strings.SplitN(address, ":", 3)
 	if len(parts) == 1 {
 		parts = []string{"localhost", parts[0]}
 	}
 	if len(parts) != 2 {
-		return fmt.Errorf("invalid listen address: %s", address), defaultListenAddr
+		return defaultListenAddr, fmt.Errorf("invalid listen address: %s", address)
 	}
 	portStr := parts[len(parts)-1]
 	port, err := strconv.Atoi(portStr)
 	if err != nil || port < 0 || port > 65535 {
-		return fmt.Errorf("invalid listen port: %s", portStr), defaultListenAddr
+		return defaultListenAddr, fmt.Errorf("invalid listen port: %s", portStr)
 	}
 	if len(parts[0]) == 0 {
 		parts[0] = "localhost"
 	}
-	return nil, listenAddress{parts[0], port}
+	return listenAddress{parts[0], port}, nil
 }
 
-func startHttpServer(address listenAddress, actionChannel chan []*action, responseChannel chan string) (error, int) {
+func startHttpServer(address listenAddress, actionChannel chan []*action, responseChannel chan string) (int, error) {
 	host := address.host
 	port := address.port
 	apiKey := os.Getenv("FZF_API_KEY")
 	if !address.IsLocal() && len(apiKey) == 0 {
-		return fmt.Errorf("FZF_API_KEY is required to allow remote access"), port
+		return port, fmt.Errorf("FZF_API_KEY is required to allow remote access")
 	}
 	addrStr := fmt.Sprintf("%s:%d", host, port)
 	listener, err := net.Listen("tcp", addrStr)
 	if err != nil {
-		return fmt.Errorf("failed to listen on %s", addrStr), port
+		return port, fmt.Errorf("failed to listen on %s", addrStr)
 	}
 	if port == 0 {
 		addr := listener.Addr().String()
 		parts := strings.Split(addr, ":")
 		if len(parts) < 2 {
-			return fmt.Errorf("cannot extract port: %s", addr), port
+			return port, fmt.Errorf("cannot extract port: %s", addr)
 		}
 		var err error
 		port, err = strconv.Atoi(parts[len(parts)-1])
 		if err != nil {
-			return err, port
+			return port, err
 		}
 	}
 
@@ -117,7 +120,7 @@ func startHttpServer(address listenAddress, actionChannel chan []*action, respon
 		listener.Close()
 	}()
 
-	return nil, port
+	return port, nil
 }
 
 // Here we are writing a simplistic HTTP server without using net/http
@@ -141,7 +144,7 @@ func (server *httpServer) handleHttpRequest(conn net.Conn) string {
 		return answer(httpBadRequest, message)
 	}
 	good := func(message string) string {
-		return answer(httpOk+"Content-Type: application/json"+crlf, message)
+		return answer(httpOk+jsonContentType, message)
 	}
 	conn.SetReadDeadline(time.Now().Add(httpReadTimeout))
 	scanner := bufio.NewScanner(conn)
@@ -165,8 +168,16 @@ func (server *httpServer) handleHttpRequest(conn net.Conn) string {
 			getMatch := getRegex.FindStringSubmatch(text)
 			if len(getMatch) > 0 {
 				server.actionChannel <- []*action{{t: actResponse, a: getMatch[1]}}
-				response := <-server.responseChannel
-				return good(response)
+				select {
+				case response := <-server.responseChannel:
+					return good(response)
+				case <-time.After(channelTimeout):
+					go func() {
+						// Drain the channel
+						<-server.responseChannel
+					}()
+					return answer(httpUnavailable+jsonContentType, `{"error":"timeout"}`)
+				}
 			} else if !strings.HasPrefix(text, "POST / HTTP") {
 				return bad("invalid request method")
 			}
@@ -217,8 +228,12 @@ func (server *httpServer) handleHttpRequest(conn net.Conn) string {
 		return bad("no action specified")
 	}
 
-	server.actionChannel <- actions
-	return httpOk
+	select {
+	case server.actionChannel <- actions:
+	case <-time.After(channelTimeout):
+		return httpUnavailable + crlf
+	}
+	return httpOk + crlf
 }
 
 func parseGetParams(query string) getParams {
@@ -227,15 +242,13 @@ func parseGetParams(query string) getParams {
 		parts := strings.SplitN(pair, "=", 2)
 		if len(parts) == 2 {
 			switch parts[0] {
-			case "limit":
-				val, err := strconv.Atoi(parts[1])
-				if err == nil {
-					params.limit = val
-				}
-			case "offset":
-				val, err := strconv.Atoi(parts[1])
-				if err == nil {
-					params.offset = val
+			case "limit", "offset":
+				if val, err := strconv.Atoi(parts[1]); err == nil {
+					if parts[0] == "limit" {
+						params.limit = val
+					} else {
+						params.offset = val
+					}
 				}
 			}
 		}
