@@ -88,7 +88,7 @@ alias env='env | sort'
 
 ## define colors for error (Emk), search (Swk) & prompt (P15.0)
 ## https://en.wikipedia.org/wiki/ANSI_escape_code#SGR
-alias less='less --mouse --quit-if-one-screen --status-column --long-prompt -P m"\ ?f%f:stdin .?L∑%L\ .?pt%pt\%\ .[?lt%lt-?lb%lb]\ ..?e[EOF]\ ." --use-color --color Emk --color SkW --color P15.0 -- "$@"'
+alias less='less --mouse --no-init --quit-if-one-screen --status-column --long-prompt -P m"\ ?f%f:stdin .?L∑%L\ .?pt%pt\%\ .[?lt%lt-?lb%lb]\ ..?e[EOF]\ ." --use-color --color Emk --color SkW --color P15.0 -- "$@"'
 
 ## readnullcommand (READNULLCMD)
 ## command to assume if a single input redirection is specified with no command
