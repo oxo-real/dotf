@@ -777,7 +777,6 @@
 ├── greasemonkey.tar.aes
 ├── greasemonkey.tar.hash
 ├── i3blocks
-│   ├── config -> /home/oxo/.config/i3blocks/show/config
 │   ├── cycle
 │   └── show
 │       └── config
@@ -1681,7 +1680,6 @@
 │   ├── dimr -> /home/oxo/.config/sway/code/dimr
 │   ├── dividir -> /home/oxo/.local/share/c/git/code/tool/dividir
 │   ├── dotfbu -> /home/oxo/.local/share/c/git/code/tool/dotfbu
-│   ├── ec -> /home/oxo/.local/share/c/git/code/tool/emacs_start
 │   ├── fzf_word -> /home/oxo/c/git/code/tool/fzf_word
 │   ├── gacp_all -> /home/oxo/.config/git/gacp_all
 │   ├── get_newest_file -> /home/oxo/.local/share/c/git/code/tool/get_newest_file
@@ -1848,8 +1846,7 @@
 ├── waybar
 │   ├── config
 │   ├── config_default
-│   ├── style.css
-│   └── waybar_code -> /home/oxo/.config/code/waybar
+│   └── style.css
 ├── wttr.tar.aes
 ├── wttr.tar.hash
 ├── yk.tar.aes
@@ -2066,5 +2063,5 @@
     │   └── config
     └── xresources_colors
 
-224 directories, 1842 files
+224 directories, 1839 files
 ```
