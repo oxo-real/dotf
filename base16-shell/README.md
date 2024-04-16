@@ -1,10 +1,10 @@
 # Base16 Shell
-See the [Base16 repository](https://github.com/chriskempson/base16) for more information.  
+See the [Base16 repository](https://github.com/chriskempson/base16) for more information.
 These scripts were built with [Base16 Builder PHP](https://github.com/chriskempson/base16-builder-php).
 
 A shell script to change your shell's default ANSI colors but most importantly, colors 17 to 21 of your shell's 256 colorspace (if supported by your terminal). This script makes it possible to honor the original bright colors of your shell (e.g. bright green is still green and so on) while providing additional base16 colors to applications such as Vim.
 
-![Base16 Shell](https://raw.github.com/chriskempson/base16-shell/master/base16-shell.png)
+![Base16 Shell](base16-shell.png)
 
 ## Use Cases
 
@@ -20,6 +20,11 @@ git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shel
 
 ## Configuration
 
+We're going to use the example theme of `base16_default` for the following instructions.
+Replace with your desired theme.
+
+Once you have got base16 setup you can try applying themes in your shell by typing `base16_`, letting autocomplete show you the options, then executing the theme you want to try.
+
 ### Bash/ZSH
 
 Add following lines to `~/.bashrc` or `~/.zshrc`:
@@ -29,10 +34,24 @@ Add following lines to `~/.bashrc` or `~/.zshrc`:
 BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-        eval "$("$BASE16_SHELL/profile_helper.sh")"
+        source "$BASE16_SHELL/profile_helper.sh"
+        
+base16_default
 ```
 
-Open a new shell and type `base16` followed by a tab to perform tab completion.
+#### If you're using ZSH + plug
+
+You won't need to do the `git clone` above.
+Add the below commands to your `~/.zshrc` instead.
+(This will likely work for other plugin managers too).
+
+```
+# before `zplug load`
+zplug chriskempson/base16-shell, from:github
+
+# after `zplug load`
+base16_materia
+```
 
 ### Fish
 
@@ -44,24 +63,34 @@ if status --is-interactive
     set BASE16_SHELL "$HOME/.config/base16-shell/"
     source "$BASE16_SHELL/profile_helper.fish"
 end
-```
 
-Open a new shell and type `base16` followed by a tab to perform tab completion.
+base16_materia
+```
 
 ### Base16-Vim Users
 
-the profile_helper will update a ~/.vimrc_background file that will have your current the colorscheme, you just need to source this file in your vimrc: i.e. (remove the base16colorspace line if not needed)
+the BASE16_THEME environment variable will set to your current colorscheme, you just need to add the following to your vimrc: i.e. (remove the base16colorspace line if not needed)
 
-    if filereadable(expand("~/.vimrc_background"))
-      let base16colorspace=256
-      source ~/.vimrc_background
+    if exists('$BASE16_THEME')
+          \ && (!exists('g:colors_name') || g:colors_name != 'base16-$BASE16_THEME')
+        let base16colorspace=256
+        colorscheme base16-$BASE16_THEME
     endif
+
+### tmux users
+
+Add the following line to `~/.tmux.config` to passthrough color escape sequences.
+(As of version 3.3 the passthrough of escape sequences is turned off by default)
+
+```tmux
+set -g allow-passthrough 1
+```
 
 ## Troubleshooting
 
 Run the included **colortest** script and check that your colour assignments appear correct. If your teminal does not support the setting of colours in within the 256 colorspace (e.g. Apple Terminal), colours 17 to 21 will appear blue.
 
-![setting 256 colourspace not supported](https://raw.github.com/chriskempson/base16-shell/master/setting-256-colourspace-not-supported.png)
+![setting 256 colourspace not supported](setting-256-colourspace-not-supported.png)
 
 If **colortest** is run without any arguments e.g. `./colortest` the hex values shown will correspond to the default scheme. If you'd like to see the hex values for a particular scheme pass the file name of the theme as the arguement e.g. `./colortest base16-ocean.sh`.
 

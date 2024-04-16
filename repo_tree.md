@@ -11,16 +11,6 @@
 │   ├── profile_helper.fish
 │   ├── profile_helper.sh
 │   ├── README.md
-│   ├── realpath
-│   │   ├── LICENSE.txt
-│   │   ├── Makefile
-│   │   ├── README.md
-│   │   ├── realpath.sh
-│   │   └── t
-│   │       ├── test_canonicalize_path
-│   │       ├── test_readlink_emulation
-│   │       ├── test_realpath_integration
-│   │       └── test_resolve_symlinks
 │   ├── scripts
 │   │   ├── base16-3024.sh
 │   │   ├── base16-apathy.sh
@@ -71,13 +61,19 @@
 │   │   ├── base16-cupcake.sh
 │   │   ├── base16-cupertino.sh
 │   │   ├── base16-darktooth.sh
+│   │   ├── base16-decaf.sh
 │   │   ├── base16-default-dark.sh
 │   │   ├── base16-default-light.sh
 │   │   ├── base16-dracula.sh
+│   │   ├── base16-edge-dark.sh
+│   │   ├── base16-edge-light.sh
 │   │   ├── base16-eighties.sh
 │   │   ├── base16-embers.sh
+│   │   ├── base16-espresso.sh
 │   │   ├── base16-flat.sh
+│   │   ├── base16-framer.sh
 │   │   ├── base16-fruit-soda.sh
+│   │   ├── base16-gigavolt.sh
 │   │   ├── base16-github.sh
 │   │   ├── base16-google-dark.sh
 │   │   ├── base16-google-light.sh
@@ -98,6 +94,9 @@
 │   │   ├── base16-helios.sh
 │   │   ├── base16-hopscotch.sh
 │   │   ├── base16-horizon-dark.sh
+│   │   ├── base16-horizon-light.sh
+│   │   ├── base16-horizon-terminal-dark.sh
+│   │   ├── base16-horizon-terminal-light.sh
 │   │   ├── base16-ia-dark.sh
 │   │   ├── base16-ia-light.sh
 │   │   ├── base16-icy.sh
@@ -116,6 +115,7 @@
 │   │   ├── base16-mocha.sh
 │   │   ├── base16-monokai.sh
 │   │   ├── base16-nord.sh
+│   │   ├── base16-nova.sh
 │   │   ├── base16-oceanicnext.sh
 │   │   ├── base16-ocean.sh
 │   │   ├── base16-onedark.sh
@@ -130,6 +130,7 @@
 │   │   ├── base16-porple.sh
 │   │   ├── base16-railscasts.sh
 │   │   ├── base16-rebecca.sh
+│   │   ├── base16-sandcastle.sh
 │   │   ├── base16-seti.sh
 │   │   ├── base16-shapeshifter.sh
 │   │   ├── base16-snazzy.sh
@@ -2065,5 +2066,5 @@
     │   └── config
     └── xresources_colors
 
-226 directories, 1839 files
+224 directories, 1842 files
 ```

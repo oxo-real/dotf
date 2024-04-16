@@ -127,15 +127,16 @@ export BROWSER='qutebrowser'
 export BROWSERCLI='w3m'
 ## [Environment variables - delta](https://dandavison.github.io/delta/environment-variables.html)
 export DELTA_FEATURES='+side-by-side'
-export EDITOR="emacs"
+export EDITOR='emacs'
 export OPENER='xdg-open'
 export LESSHISTFILE='/dev/null'
 export MANLESS='\ \$MAN_PN\ ?L∑%L\ .?pt%pt\%\ .[?lt%lt-?lb%lb]\ ..?e[EOF]\ .'
 #export MANPAGER='less'
 #export MANPAGER="nvim -c 'set ft=man' -"
 #export MANPAGER="sh -c 'col --no-backspaces --spaces | bat --language man --style plain'"
-export MANROFFOPT="-c"
+export MANROFFOPT='-c'
 export PAGER='less'
+export GIT_PAGER="$PAGER"
 export READER='zathura'
 export SHELL='zsh'
 export TERM='xterm-256color'

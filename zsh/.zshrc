@@ -1131,15 +1131,19 @@ bindkey '^j' lfcd
 
 # base16-shell colorscheme
 ## https://github.com/chriskempson/base16-shell
+
+## source profile_helper
 BASE16_SHELL="$XDG_CONFIG_HOME/base16-shell/"
 [ -n "$PS1" ] && \
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-    eval "$("$BASE16_SHELL/profile_helper.sh")"
-## set volorscheme
+    source "$BASE16_SHELL/profile_helper.sh"
+
+## set base16_shell colorscheme
 base16_irblack
 
 
 # fzf
+
 ## https://github.com/junegunn/fzf#installation
 [[ -f $fzf_zsh ]] && source $fzf_zsh
 
