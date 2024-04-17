@@ -2,9 +2,9 @@
 -------------------------------------------------------------------------------
 
        DoToo, the awesome TODO management system inspired by Org-Mode.
-                                Version 0.13.3.1
+                               Version 0.14.3.2
 
-                Author: Dhruva Sagar (http://dhruvasagar.com)
+                Author: Dhruva Sagar (https://dhruvasagar.dev)
               License: MIT (http://opensource.org/licenses/MIT)
 
 -------------------------------------------------------------------------------
@@ -50,21 +50,31 @@ GETTING STARTED                                           *dotoo-getting-started
 
          A few helpful |:iabbrev| :
               :date:      Enter the current date
-              :time:      Enter the current date and time
+              :time:      Enter the current time
+              :datetime:  Enter the current date and time
 
          Link structure available:
               * [[LINK][DESCRIPTION]]
               * [[LINK]]
          Possible values for LINK:
-              * [[#MY-CUSTOM-ID]] - Finds headline that has `:CUSTOM_ID: MY-CUSTOM-ID` property defined
-              * [[*Go to dentist]] - Finds headline that matches title "Go to dentist" (case insensitive)
-              * [[https://google.com]] - Opens url in browser (requires http(s):// schema and |netrw| plugin to be loaded)
-              * [[file:/path/to/my/file]] - Opens given file path, no matter if it exists or not.
-                File path may be relative to the current file. eg) [[file:./relative/to/file]]
-              * [[/path/to/my/existing/file]] - Opens given file path, only if file is readable
-              * [[My link to something]] - At first it tries to find a headline with title or content that
-                matches "dedicated target" `<<My link to something>>`. If nothing is found, it falls back
-                to finding headline by title "My link to something" (both case insensitive)
+              * [[#MY-CUSTOM-ID]] - Finds headline that has `:CUSTOM_ID:
+                MY-CUSTOM-ID` property defined
+              * [[*Go to dentist]] - Finds headline that matches title "Go to
+                dentist" (case insensitive)
+              * [[https://google.com]] - Opens url in browser (requires
+                http(s):// schema and |netrw| plugin to be loaded)
+              * [[file:/path/to/my/file]] - Opens given file path, no matter if
+                it exists or not. File path may be relative to the current file.
+                eg) [[file:./relative/to/file]]
+                `NOTE: This format is deprecated in favor of following format`
+              * [[/path/to/my/existing/file]] - Opens given file path, new
+                buffer with file if it doesn't exist.
+              * [[My link to something]] - At first it tries to find a headline
+                with title or content that matches "dedicated target"
+                `<<My link to something>>`. If nothing is found, it falls back to
+                finding headline by title "My link to something" (both case
+                insensitive). If that also fails, it will create a `page` with
+                the title as the name of the file at |g:dotoo#link#default_path|
 
             For more detailed explanation check these links:
               * https://orgmode.org/manual/Internal-Links.html#Internal-Links
@@ -81,7 +91,7 @@ GETTING STARTED                                           *dotoo-getting-started
          names / file blobs.
 
          These are the agenda view mappings common to all :
-               `q`:     quit agenda buffer
+               `gq`:    quit agenda buffer
                `r`:     refresh agenda buffer (force reload / parse agenda files)
                `c`:     change TODO of headline under cursor
                `u`:     undo change in file of headline under the cursor
@@ -126,6 +136,13 @@ GETTING STARTED                                           *dotoo-getting-started
                                                              *dotoo-search-view*
          6. Search : This lists all headlines that match an input search
             term.
+
+                                                               *dotoo-wiki-view*
+         7. Wiki : This lists all headlines that have `notes` in the path,
+            assuming you manage notes in a notes folder that is under the agenda
+            files path. This is better than Notes view since it does not require
+            the presence of `:NOTE:` tag. If you just want to see everything in
+            your knowledge base at a quick glance this is useful.
 
                                                                  *dotoo-capture*
       3. Capture: This launches the capture menu that you can use to quickly
@@ -247,14 +264,22 @@ OPTIONS                                                          *dotoo-options*
                       \     'DEADLINE: [%(strftime(g:dotoo#time#datetime_format))]'
                       \   ],
                       \  'target': 'refile'
+                      \  'clock': 1,
                       \ },
                       \ 'n': {
                       \   'description': 'Note',
                       \   'lines': ['* %? :NOTE:'],
                       \ },
+                      \ 'j': {
+                      \   'description': 'Journal Entry',
+                      \   'lines': [ '* %?' ],
+                      \   'target': 'notes/diary/$(strftime(g:dotoo#time#date_format)).dotoo',
+                      \   'append': 1,
+                      \ },
                       \ 'm': {
                       \   'description': 'Meeting',
                       \   'lines': ['* MEETING with %? :MEETING:'],
+                      \   'clock': 1,
                       \ },
                       \ 'p': {
                       \   'description': 'Phone call',
@@ -291,6 +316,7 @@ OPTIONS                                                          *dotoo-options*
 
             For easier customization this allows you to be able to add new or
             override the provided templates easily. >
+                " Override an existing template
                 let g:dotoo#capture#templates = {
                       \ 't': {
                       \   'target': 'refile-personal:Todos'
@@ -315,6 +341,17 @@ OPTIONS                                                          *dotoo-options*
                       \   'lines': ['* eXtra %? :EXTRA:'],
                       \ }
                       \}
+                " Or remove an existing template
+                let g:dotoo#capture#templates = {
+                      \ 't': {}
+                      \}
+<
+                                                           *g:dotoo_capture_cmd*
+      |g:dotoo#capture#cmd|
+            This setting defines the capture command to be used for the capture
+            window. Set this to `edit`, `split`, `vert split`, or `tabe` to open
+            the capture window in same, split, vertical split, or new tab. >
+              let g:dotoo#capture#cmd = 'split'
 <
                                                       *g:dotoo_disable_mappings*
       |g:dotoo_disable_mappings|
@@ -345,6 +382,20 @@ OPTIONS                                                          *dotoo-options*
             This setting defines the default span of the agenda agenda view.
             This can be one of `day` (default), `week` or `month`. >
                 let g:dotoo#agenda_views#agenda#span = 'day'
+<
+                                                                *g:dotoo#home*
+      |g:dotoo#home|
+            This setting defines the home directory for all dotoo files. >
+                let g:dotoo#home = expand('~/Documents/dotoo-files')
+<
+                                                   *g:dotoo#link#default_path*
+      |g:dotoo#link#default_path|
+            This setting defines the default path for files to be created as
+            pages for a wiki.
+
+            Eg.) A link [[My Test]] will create a new file `My Test.dotoo` in
+            the path defined by this setting. >
+                let g:dotoo#link#default_path = printf('%s/%s', g:dotoo#home, 'pages')
 <
 -------------------------------------------------------------------------------
 MAPPINGS                                                        *dotoo-mappings*

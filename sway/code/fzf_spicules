@@ -1,6 +1,6 @@
 #! /usr/bin/env sh
 
-catalog="$XDG_DATA_HOME/c/git/note/linux/shell/command/catalog"
+catalog="$XDG_DATA_HOME/c/git/note/linux/shell/command/catalog/bash"
 
 ## NOTICE sed is used to remove '  ## '-marked comments from the lines
 ## add a trailing space by adding '\ ' to the replace part of sed

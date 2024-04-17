@@ -777,6 +777,7 @@
 ├── greasemonkey.tar.aes
 ├── greasemonkey.tar.hash
 ├── i3blocks
+│   ├── config -> /home/oxo/.config/i3blocks/show/config
 │   ├── cycle
 │   └── show
 │       └── config
@@ -921,13 +922,19 @@
 │   │   │   │   ├── base16-cupcake.vim
 │   │   │   │   ├── base16-cupertino.vim
 │   │   │   │   ├── base16-darktooth.vim
+│   │   │   │   ├── base16-decaf.vim
 │   │   │   │   ├── base16-default-dark.vim
 │   │   │   │   ├── base16-default-light.vim
 │   │   │   │   ├── base16-dracula.vim
+│   │   │   │   ├── base16-edge-dark.vim
+│   │   │   │   ├── base16-edge-light.vim
 │   │   │   │   ├── base16-eighties.vim
 │   │   │   │   ├── base16-embers.vim
+│   │   │   │   ├── base16-espresso.vim
 │   │   │   │   ├── base16-flat.vim
+│   │   │   │   ├── base16-framer.vim
 │   │   │   │   ├── base16-fruit-soda.vim
+│   │   │   │   ├── base16-gigavolt.vim
 │   │   │   │   ├── base16-github.vim
 │   │   │   │   ├── base16-google-dark.vim
 │   │   │   │   ├── base16-google-light.vim
@@ -948,6 +955,9 @@
 │   │   │   │   ├── base16-helios.vim
 │   │   │   │   ├── base16-hopscotch.vim
 │   │   │   │   ├── base16-horizon-dark.vim
+│   │   │   │   ├── base16-horizon-light.vim
+│   │   │   │   ├── base16-horizon-terminal-dark.vim
+│   │   │   │   ├── base16-horizon-terminal-light.vim
 │   │   │   │   ├── base16-ia-dark.vim
 │   │   │   │   ├── base16-ia-light.vim
 │   │   │   │   ├── base16-icy.vim
@@ -966,6 +976,7 @@
 │   │   │   │   ├── base16-mocha.vim
 │   │   │   │   ├── base16-monokai.vim
 │   │   │   │   ├── base16-nord.vim
+│   │   │   │   ├── base16-nova.vim
 │   │   │   │   ├── base16-oceanicnext.vim
 │   │   │   │   ├── base16-ocean.vim
 │   │   │   │   ├── base16-onedark.vim
@@ -980,6 +991,7 @@
 │   │   │   │   ├── base16-porple.vim
 │   │   │   │   ├── base16-railscasts.vim
 │   │   │   │   ├── base16-rebecca.vim
+│   │   │   │   ├── base16-sandcastle.vim
 │   │   │   │   ├── base16-seti.vim
 │   │   │   │   ├── base16-shapeshifter.vim
 │   │   │   │   ├── base16-snazzy.vim
@@ -1036,7 +1048,8 @@
 │   │   │   ├── autoload
 │   │   │   │   └── fzf
 │   │   │   │       ├── vim
-│   │   │   │       │   └── complete.vim
+│   │   │   │       │   ├── complete.vim
+│   │   │   │       │   └── listproc.vim
 │   │   │   │       └── vim.vim
 │   │   │   ├── bin
 │   │   │   │   ├── preview.rb
@@ -1327,7 +1340,8 @@
 │   │   │   │   │   │   ├── refiles.vim
 │   │   │   │   │   │   ├── search.vim
 │   │   │   │   │   │   ├── tagged.vim
-│   │   │   │   │   │   └── todos.vim
+│   │   │   │   │   │   ├── todos.vim
+│   │   │   │   │   │   └── wikis.vim
 │   │   │   │   │   ├── agenda.vim
 │   │   │   │   │   ├── autocompletion.vim
 │   │   │   │   │   ├── capture.vim
@@ -1528,6 +1542,7 @@
 │   │   │   │       │   └── textobj.vim
 │   │   │   │       └── sandwich.vim
 │   │   │   ├── doc
+│   │   │   │   ├── compound-sandwich
 │   │   │   │   ├── operator-sandwich.jax
 │   │   │   │   ├── operator-sandwich.txt
 │   │   │   │   ├── sandwich.jax
@@ -2063,5 +2078,5 @@
     │   └── config
     └── xresources_colors
 
-224 directories, 1839 files
+224 directories, 1854 files
 ```
