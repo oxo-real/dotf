@@ -142,13 +142,14 @@ function emacs()
 {
     emacs_daemon
 
+    #DEV145 #TODO --create-frame instead of default --reuse-frame
     case "$1" in
 
 	'-t'|'-nw'|'--tty')
 	    # use current tui
 	    shift
 	    files="$@"
-	    emacsclient --alternate-editor='' --tty "$files"
+	    emacsclient --alternate-editor='' --reuse-frame --tty "$files"
 	    ;;
 
 	'--gui')
@@ -157,7 +158,7 @@ function emacs()
 	    files="$@"
 	    ## last ampersand to start a separate process
 	    ## brackets to prevent jobs running in current shell (new subshell)
-	    (emacsclient --alternate-editor='' --create-frame "$files" > /dev/null 2>&1 &)
+	    (emacsclient --alternate-editor='' --reuse-frame "$files" > /dev/null 2>&1 &)
 	    ;;
 
 	'')
@@ -173,7 +174,7 @@ function emacs()
 	    files="$@"
 	    ## last ampersand to start a separate process
 	    ## brackets to prevent jobs running in current shell (new subshell)
-	    (emacsclient --alternate-editor='' --create-frame "$files" > /dev/null 2>&1 &)
+	    (emacsclient --alternate-editor='' --reuse-frame "$files" > /dev/null 2>&1 &)
 	    ;;
 
     esac
