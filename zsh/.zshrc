@@ -617,7 +617,7 @@ calc_rps1()
 
     fi
 
-    ## length jobsnumber in PS1
+    ## length jobnumber in PS1 (1-9=1, 10-99=2, ...)
     l_jobs=$(jobs | wc -l)
 
     ## length PS1

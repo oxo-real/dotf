@@ -1,13 +1,21 @@
 #! /usr/bin/env sh
 
-catalog="$XDG_DATA_HOME/c/git/note/linux/shell/command/catalog/bash"
 
-## NOTICE sed is used to remove '  ## '-marked comments from the lines
+sh "$XDG_DATA_HOME/c/git/note/linux/terminal/catalog/generate"
+
+
+catalog="$XDG_DATA_HOME/c/git/note/linux/terminal/catalog/list"
+
+
+## NOTICE
+## sed removes first word and remaining leading spaces
+## second sed removes '  ## '-marked comments
 ## add a trailing space by adding '\ ' to the replace part of sed
-
 cat $catalog | \
     fzf --height ~100% | \
+    sed 's/[^ ]* *//' | \
     sed 's/  ## .*$//' | \
     wl-copy -n
 
-wl-paste -n
+#TODO paste into buffer without further user interaction
+## problem is subshell
