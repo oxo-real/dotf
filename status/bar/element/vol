@@ -3,11 +3,11 @@
 ## get data
 
 ## with pipewire and wireplumber
-sink_vol=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep --only-matching '[[:digit:]]' | tr -d '\n')
-sink_mute=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -i 'mute')
+sink_vol=$(wpctl get-volume @DEFAULT_SINK@ | grep --only-matching '[[:digit:]]' | tr -d '\n')
+sink_mute=$(wpctl get-volume @DEFAULT_SINK@ | grep -i 'mute')
 
-mic_vol=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep --only-matching '[[:digit:]]' | tr -d '\n')
-mic_mute=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -i 'mute')
+mic_vol=$(wpctl get-volume @DEFAULT_SOURCE@ | grep --only-matching '[[:digit:]]' | tr -d '\n')
+mic_mute=$(wpctl get-volume @DEFAULT_SOURCE@ | grep -i 'mute')
 
 ## onboard headphones jack tpx1c
 headphones_jack=$(cat /proc/asound/card1/codec\#0 | grep '0x31')
@@ -17,6 +17,8 @@ headphones_jack=$(cat /proc/asound/card1/codec\#0 | grep '0x31')
 #amixer -D pulse sget Master | grep 'Left: ' | awk -F '[][]' '{printf "%s",$2}'
 #mute=$(amixer get Master | grep off)
 
+#TODO DEV headphones
+## https://www.baeldung.com/linux/detect-headphone-connection-disconnection
 
 ## volume
 case $sink_vol in
