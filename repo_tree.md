@@ -1708,6 +1708,7 @@
 │   ├── monitor -> /home/oxo/.config/git/monitor
 │   ├── mountr -> /home/oxo/.local/share/c/git/code/tool/mountr
 │   ├── netconn -> /home/oxo/.local/share/c/git/code/netconn/netconn
+│   ├── netflow -> /home/oxo/.local/share/c/git/code/tool/netflow
 │   ├── netistat -> /home/oxo/.local/share/c/git/code/tool/netistat
 │   ├── netkill -> /home/oxo/.local/share/c/git/code/netconn/netkill
 │   ├── nmconn -> /home/oxo/.local/share/c/git/code/tool/nmconn
@@ -2080,5 +2081,5 @@
     │   └── config
     └── xresources_colors
 
-224 directories, 1856 files
+224 directories, 1857 files
 ```
