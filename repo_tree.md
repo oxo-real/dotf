@@ -1703,6 +1703,7 @@
 │   ├── hledger-web -> /opt/hledger/hledger-web
 │   ├── isolatest -> /home/oxo/.local/share/c/git/code/isolatest/isolatest
 │   ├── kill_float -> /home/oxo/.local/share/c/git/code/tool/kill_float
+│   ├── make_recov -> /home/oxo/c/git/code/tool/make_recov
 │   ├── metar -> /home/oxo/.local/share/c/git/code/tool/metar
 │   ├── mic_switch -> /home/oxo/c/git/code/tool/mic_switch
 │   ├── monitor -> /home/oxo/.config/git/monitor
@@ -2081,5 +2082,5 @@
     │   └── config
     └── xresources_colors
 
-224 directories, 1857 files
+224 directories, 1858 files
 ```
