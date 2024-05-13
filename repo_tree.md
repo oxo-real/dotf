@@ -1874,8 +1874,8 @@
 │   └── moonlander
 │       ├── moonlander_oxo_qwerty_llMPa_eNXrR.bin
 │       ├── moonlander_oxo_qwerty_llMPa_eNXrR.zip
-│       ├── moonlander_oxo_qwerty_NZWR6_RzQyN.bin
-│       ├── moonlander_oxo_qwerty_NZWR6_RzQyN.zip
+│       ├── moonlander_oxo_qwerty_NZWR6_QWMKB.bin
+│       ├── moonlander_oxo_qwerty_NZWR6_QWMKB.zip
 │       └── zsa_oxo_moon_url
 ├── zsh
 │   ├── alia

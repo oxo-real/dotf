@@ -21,6 +21,11 @@ headphones_jack=$(cat /proc/asound/card1/codec\#0 | grep '0x31')
 ## https://www.baeldung.com/linux/detect-headphone-connection-disconnection
 
 ## volume
+
+## remove first zero
+sink_vol_calc=$(printf "$sink_vol" | sed 's/^0//')
+
+## sink_vol for presentation
 case $sink_vol in
 
     100)
@@ -28,12 +33,10 @@ case $sink_vol in
 	;;
 
     *)
-	## remove first zero
-	sink_vol=$(printf "$sink_vol" | sed 's/^0//')
+	sink_vol=$sink_vol_calc
 	;;
 
 esac
-
 
 ## status
 sink_status='<'
@@ -43,6 +46,19 @@ sink_status='<'
 ## microphone
 #[ -z "$mic_mute" ] && mic_warning='M!'
 
+## color
+var=$sink_vol_calc
+
+## minimum, maximum value and number of threshold (colors)
+## number of colors = 2 + no_thr
+min=20
+max=90
+no_thr=5
+
+## interval size
+int=$(echo "scale=0; ($max - $min) / $no_thr" | bc -l)
+
+
 ## full text
 printf "%s%s\n" "$sink_vol" "$sink_status"
 #printf "%s%s${RED}%s${NOC}\n" "$sink_vol" "$sink_status" "$mic_warning"
@@ -51,22 +67,65 @@ printf "%s%s\n" "$sink_vol" "$sink_status"
 echo  ## none
 
 ## text, background and border
-if [[ -z "$mic_mute" ]]; then
+case $mic_mute in
 
-    ## text
-    echo "#000000"  ## black
-    ## background
-    echo "#ff73fd"  ## magenta
-    ## border
-    echo  ## default
+    '')
+	## text
+	(( $var > $(( min + 5 * int )) )) && echo "#ff6c60"  ## red
+	(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo "#ffffb6"  ## yellow
+	(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo "#ffbf00"  ## amber
+	(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo "#96cbfe"  ## blue
+	(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo "#aaaaaa"  ## greyaa
+	(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo "#999999"  ## grey99
+	(( $var <= $(( min + 0 * int )) )) && echo  ## default
 
-else
+	## background
+	(( $var > $(( min + 5 * int )) )) && echo  ## default
+	(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo  ## default
+	(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo  ## default
+	(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo  ## default
+	(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo  ## default
+	(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo  ## default
+	(( $var <= $(( min + 0 * int )) )) && echo  ## default
 
-    ## text
-    echo  ## default
-    ## background
-    echo  ## default
-    ## border
-    echo  ## default
+	## border
+	(( $var > $(( min + 5 * int )) )) && echo  ## default
+	(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo  ## default
+	(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo  ## default
+	(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo  ## default
+	(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo  ## default
+	(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo  ## default
+	(( $var <= $(( min + 0 * int )) )) && echo  ## default
+	;;
 
-fi
+    *)
+	## text
+	(( $var > $(( min + 5 * int )) )) && echo "#ff6c60"  ## red
+	(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo "#ffffb6"  ## yellow
+	(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo "#ffbf00"  ## amber
+	(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo "#96cbfe"  ## blue
+	(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo "#aaaaaa"  ## greyaa
+	(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo "#999999"  ## grey99
+	(( $var <= $(( min + 0 * int )) )) && echo  ## default
+
+	## background
+	echo "#ff73fd"  ## magenta
+	## (( $var > $(( min + 5 * int )) )) && echo  ## default
+	## (( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo  ## default
+	## (( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo  ## default
+	## (( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo  ## default
+	## (( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo  ## default
+	## (( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo  ## default
+	## (( $var <= $(( min + 0 * int )) )) && echo  ## default
+
+	## border
+	(( $var > $(( min + 5 * int )) )) && echo  ## default
+	(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo  ## default
+	(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo  ## default
+	(( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo  ## default
+	(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo  ## default
+	(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo  ## default
+	(( $var <= $(( min + 0 * int )) )) && echo  ## default
+	;;
+
+esac
