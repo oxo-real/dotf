@@ -1708,10 +1708,10 @@
 │   ├── mic_switch -> /home/oxo/c/git/code/tool/mic_switch
 │   ├── monitor -> /home/oxo/.config/git/monitor
 │   ├── mountr -> /home/oxo/.local/share/c/git/code/tool/mountr
-│   ├── netconn -> /home/oxo/.local/share/c/git/code/netconn/netconn
+│   ├── netconn -> /home/oxo/.local/share/c/git/code/network/netconn
 │   ├── netflow -> /home/oxo/.local/share/c/git/code/tool/netflow
 │   ├── netistat -> /home/oxo/.local/share/c/git/code/tool/netistat
-│   ├── netkill -> /home/oxo/.local/share/c/git/code/netconn/netkill
+│   ├── netkill -> /home/oxo/.local/share/c/git/code/network/netkill
 │   ├── nmconn -> /home/oxo/.local/share/c/git/code/tool/nmconn
 │   ├── passexp -> /home/oxo/.local/share/c/git/code/tool/passexp
 │   ├── passr -> /home/oxo/.local/share/c/git/code/tool/passr
