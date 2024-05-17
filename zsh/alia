@@ -142,27 +142,28 @@ function emacs()
 {
     emacs_daemon
 
-    #DEV145 #TODO --create-frame instead of default --reuse-frame
     case "$1" in
 
-	'-t'|'-nw'|'--tty')
+	'-t'|'--tty')
 	    # use current tui
 	    shift
 	    files="$@"
 	    emacsclient --alternate-editor='' --reuse-frame --tty "$files"
 	    ;;
 
-	'--gui')
+	'-n'|'--gui')
 	    # use new gui frame
 	    shift
 	    files="$@"
+
 	    ## last ampersand to start a separate process
 	    ## brackets to prevent jobs running in current shell (new subshell)
-	    (emacsclient --alternate-editor='' --reuse-frame "$files" > /dev/null 2>&1 &)
+	    (emacsclient --alternate-editor='' --create-frame "$files" > /dev/null 2>&1 &)
+	    #(emacsclient --alternate-editor='' --createreuse-frame "$files" > /dev/null 2>&1 &)
 	    ;;
 
 	'')
-	    # start emacs 'desktop', not via emacsclient
+	    # start emacs 'desktop', no emacsclient
 	    ## brackets to prevent jobs running in current shell (new subshell)
 	    (command emacs > /dev/null 2>&1 &)
 	    #/bin/emacs
@@ -170,7 +171,7 @@ function emacs()
 	    ;;
 
 	*)
-	    # use new gui frame (default)
+	    # use existing gui frame (default)
 	    files="$@"
 	    ## last ampersand to start a separate process
 	    ## brackets to prevent jobs running in current shell (new subshell)
@@ -180,7 +181,7 @@ function emacs()
     esac
 
     # gui emacs
-    ## -c (--create-frame) starts always in new window because it is gui
+    ## -c (--create-frame) starts always in new window
     ## </dev/null no output in current terminal window
     ## &>/dev/null start in new detached terminal window
 
