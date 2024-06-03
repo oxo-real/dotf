@@ -151,7 +151,7 @@ export GTK_USE_PORTAL=0
 # fzf
 
 ## fzf default options
-export FZF_DEFAULT_OPTS='--cycle --layout=reverse --info=inline --height ~25% --bind ctrl-u:clear-query --preview="tree -L 1 {}" --preview-window=:hidden --scrollbar='' --color=dark,prompt:#96cbfe,pointer:#ffffb6,spinner:#a8ff60'
+export FZF_DEFAULT_OPTS='--cycle --layout=reverse --info=inline:∑= --height ~25% --bind ctrl-u:clear-query --preview="tree -L 1 {}" --preview-window=:hidden --scrollbar='' --color=dark,fg:#999999,info:#96cbfe,prompt:#96cbfe,pointer:#ffffd3,query:#999999,marker:#a8ff60,separator:#000000,spinner:#000000'
 ## fzf completion trigger (default **)
 export FZF_COMPLETION_TRIGGER='~~'
 

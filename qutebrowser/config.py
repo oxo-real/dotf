@@ -669,7 +669,7 @@ c.content.headers.referer = 'same-domain'
 ## unchanged user agent of QtWebKit/QtWebEngine.  Note that the value
 ## read from JavaScript is always the global value.
 ## Type: FormatString
-c.content.headers.user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.3'
+c.content.headers.user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.3'
 
 # NOTICE: change ua with chua from tool
 
