@@ -642,27 +642,53 @@ calc_rps1()
 
 rp_redisplay()
 {
-    ## updates RPS1 via TRAPALRM every TMOUT seconds
+    # updates RPS1 via TRAPALRM every TMOUT seconds
+
+    fzf_active_tpgids=''
+    curr_term_ppid=''
+    fzf_active_ppid=''
+    fzf_active_curr_term=''
+
+    ## fzf active somewhere
+    ## this gets all tpgid('s) of processes with fzf active
+    fzf_active_tpgids=$(ps -C fzf -o tpgid=)
+    #fzf_asw=$(ps -C fzf -o tpgid=)
+
+    if [[ -n "$fzf_active_tpgids" ]]; then
+
+	return
+	### prevent interference with fzf in currently active terminal
+	#curr_term_ppid=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.focused==true) | .pid')
+
+	#IFS=$'\n'
+	#for tpgid in $fzf_active_tpgids; do
+
+	#    ## get ppid of current tpgid
+	#    fzf_active_ppid=$(ps -g $tpgid -o ppid --no-headers | sort | head -n -1)
+
+	#    ## current active terminal ppid is the same
+	#    fzf_active_curr_term=$(printf '%s\n' "$fzf_active_ppid" | grep "$curr_term_ppid")
+
+	#    if [[ -n "$fzf_active_curr_term" ]]; then
+
+	#	## don't refresh rps1
+	#	return
+
+	#    fi
+
+	#done
+
+    fi
+
+    ## only when nothing is typed in buffer
     if [[ -z "$BUFFER" ]]; then
 
-	## prevent interference with fzf
-#	pgrep fzf
-
-#	if [[ $? -ne 0 ]]; then
-
-#	    return
-
-#	else
-
-	   ## only when nothing is typed in buffer
 	   calc_rps1
 
 	   ## prevent error on initial activation
 	   ## when zle is not yet active
 	   zle && { zle reset-prompt; zle -R }
 	   #zle reset-prompt
-
-#	fi
 
     fi
 }
