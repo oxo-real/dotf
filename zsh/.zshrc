@@ -644,24 +644,24 @@ rp_redisplay()
 {
     # updates RPS1 via TRAPALRM every TMOUT seconds
 
-    fzf_active_tpgids=''
+    fzf_active_tpgid=''
     curr_term_ppid=''
     fzf_active_ppid=''
     fzf_active_curr_term=''
 
     ## fzf active somewhere
     ## this gets all tpgid('s) of processes with fzf active
-    fzf_active_tpgids=$(ps -C fzf -o tpgid=)
+    fzf_active_tpgid=$(ps -C fzf -o tpgid=)
     #fzf_asw=$(ps -C fzf -o tpgid=)
 
-    if [[ -n "$fzf_active_tpgids" ]]; then
+    if [[ -n "$fzf_active_tpgid" ]]; then
 
 	return
 	### prevent interference with fzf in currently active terminal
 	#curr_term_ppid=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.focused==true) | .pid')
 
 	#IFS=$'\n'
-	#for tpgid in $fzf_active_tpgids; do
+	#for tpgid in $fzf_active_tpgid; do
 
 	#    ## get ppid of current tpgid
 	#    fzf_active_ppid=$(ps -g $tpgid -o ppid --no-headers | sort | head -n -1)

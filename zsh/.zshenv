@@ -147,6 +147,8 @@ export VISUAL='emacs'
 
 export GTK_USE_PORTAL=0
 
+export ASCII=$(for (( i=32; i<127; i++ )) do; printf "\\$(printf %03o "$i")"; done)
+
 
 # fzf
 
