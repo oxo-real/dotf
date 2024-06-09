@@ -1091,12 +1091,20 @@ function sh-x_toggle()
 
     if [[ $BUFFER == sh\ -x\ * ]]; then
 
-	# already sudo; remove sh -x
-	BUFFER="${BUFFER#sh -x }"
+	## replace sh -x with sh
+	BUFFER="${BUFFER/sh -x /sh }"
+	# remove sh -x
+	#BUFFER="${BUFFER#sh -x }"
+
+    elif [[ $BUFFER == sh\ * ]]; then
+
+	## add -x to sh
+	BUFFER="${BUFFER/sh /sh -x }"
 
     else
 
-	BUFFER="sh -x $BUFFER"  ## add sh-x
+	## add sh -x
+	BUFFER="sh -x $BUFFER"
 
     fi
 
