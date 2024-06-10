@@ -128,7 +128,8 @@ autocmd BufNewFile,BufRead * set encoding=utf-8
 autocmd BufNewFile,BufRead * endtry
 
 "# clean $HOME
-set viminfo+=n$XDG_CONFIG_HOME/nvim/viminfo
+set viminfo=""
+"#set viminfo+=n$XDG_CONFIG_HOME/nvim/viminfo
 "#set runtimepath+=$XDG_CONFIG_HOME/nvim,$XDG_CONFIG_HOME/nvim/after
 "# }}}
 
