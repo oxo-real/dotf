@@ -77,7 +77,7 @@ hist_cmd_offset=100000
 
 
 # shell parameters
-autoload -U colors && colors
+autoload -U colors; colors
 setopt auto_pushd
 
 
@@ -95,28 +95,24 @@ bindkey -a "^[[3~" delete-char
 ### -M select keymap
 bindkey -M viins "^[[3~" delete-char
 
-## vi keys
+## select viins keymap and bind it to main
 bindkey -v
-## [zle - Backspace in zsh stuck - Unix & Linux Stack Exchange]
-## (https://unix.stackexchange.com/questions/290392/backspace-in-zsh-stuck/290403#290403)
+
+## add backspace (key sequence "^?") to main keymap
 bindkey -v "^?" backward-delete-char
-#bindkey -v "^H" backward-delete-char
 
 # CAUTION! bindkey ^V is occupied -> find zsh keycodes with C-v $key;
 
-
-# up-to-cursor match dependent $HISTFILE search
-
-## man zshzle
-## [zsh: 18 Zsh Line Editor](https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html#History-Control)
-## man zshcontrib
-## [zsh: 26 User Contributions](https://zsh.sourceforge.io/Doc/Release/User-Contributions.html#User-Contributions)
+## inline history search
+# NOTICE works also from vicmd with j and k (recommended)
+### up arrow
 autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
+bindkey "^[[A" up-line-or-beginning-search
+### down arrow
+autoload -U down-line-or-beginning-search
 zle -N down-line-or-beginning-search
-bindkey "^[[A" up-line-or-beginning-search # up arrow
-bindkey "^[[B" down-line-or-beginning-search # down arrow
+bindkey "^[[B" down-line-or-beginning-search
 
 
 # synthesize prompt (precmd, preexec, left and right prompt)
@@ -362,7 +358,7 @@ it finds the length of the string.
 
 
 # '
-function Xstrlen()
+function xstrlen()
 {
     # calculate $1 string length
     ## alternative
@@ -1154,8 +1150,6 @@ function lfcd()
 
 zle -N lfcd
 bindkey '^j' lfcd
-#bindkey -s '^j' 'lfcd\n'
-#bindkey -s '^j' "lfcd\n"
 
 
 # syntax highlighting
@@ -1201,4 +1195,7 @@ base16_irblack
 ## https://github.com/lincheney/fzf-tab-completion
 #source $XDG_CONFIG_HOME/fzf-tab-completion/zsh/fzf-zsh-completion.sh
 
-# clear current line (oxo bindkey note)  ## via vicmd; M > cc
+: '
+# additional notes on keybindings (oxo spicules)
+bindkey -M vicmd 'cc'  ## change current line (clear > viins)
+# '

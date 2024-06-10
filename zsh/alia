@@ -96,7 +96,8 @@ alias less='less --mouse --no-init --quit-if-one-screen --status-column --long-p
 ## '< $file' behaviour
 function read0cmd()
 {
-    less
+    cat
+    #less
 }
 
 ## manpages
@@ -125,7 +126,7 @@ function emacs_daemon()
     case $emacs_active in
 
 	failed | inactive)
-	    printf "starting emacs.service...\n"
+	    printf '%s\n' 'starting emacs.service...'
             systemctl start --user emacs.service
 	    sleep 2
             ;;
@@ -149,7 +150,7 @@ function emacs()
 	    shift
 	    files="$@"
 	    emacsclient --alternate-editor='' --reuse-frame --tty "$files"
-	    ;;
+    ;;
 
 	'-n'|'--gui')
 	    # use new gui frame
