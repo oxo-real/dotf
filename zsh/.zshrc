@@ -101,7 +101,6 @@ bindkey -v
 ## add backspace (key sequence "^?") to main keymap
 bindkey -v "^?" backward-delete-char
 
-# CAUTION! bindkey ^V is occupied -> find zsh keycodes with C-v $key;
 
 ## inline history search
 # NOTICE works also from vicmd with j and k (recommended)
@@ -1198,4 +1197,5 @@ base16_irblack
 : '
 # additional notes on keybindings (oxo spicules)
 bindkey -M vicmd 'cc'  ## change current line (clear > viins)
+bindkey escape sequence: C-v $key (C-v ESC -> ^[)
 # '
