@@ -101,9 +101,8 @@ bindkey -v
 ## add backspace (key sequence "^?") to main keymap
 bindkey -v "^?" backward-delete-char
 
-
 ## inline history search
-# NOTICE works also from vicmd with j and k (recommended)
+## NOTICE works also from vicmd with j and k (recommended)
 ### up arrow
 autoload -U up-line-or-beginning-search
 zle -N up-line-or-beginning-search
@@ -565,12 +564,12 @@ zle -N zle-line-finish
 
 # prompt
 
-## prompt is PS1 (left) and RPS1 (right)
+## prompt is PS1 (left side) and RPS1 (right side)
 ## see: note zsh oxo_prompt for explanation of all the prompt items
 setopt PROMPT_SUBST
 
-## set left prompt (PS1)
-## defaults to just a % sign
+## left side prompt (PS1)
+## defaults to only '%' (lights out phylosophy)
 
 ## ternary expressions %(expr.true.false)
 ## for exit code (?) and background jobs (j)
@@ -579,8 +578,8 @@ setopt PROMPT_SUBST
     PS1="%(?..%F{#ff6c60}%?%f)%(1j.%F{#4aa5fd}%K{#333333}%B%j%b%k%f.)%F{#000000}%K{#cccccc}%n@%m%k%f%(!.%F{#ffbf00}%B#%b%f.%%) " || \
     PS1="%(?..%F{#ff6c60}%?%f)%(1j.%F{#4aa5fd}%K{#333333}%B%j%b%k%f.)%(!.%F{#ffbf00}%B#%b%f.%%) "
 
-## right prompt (RPS1)
-## shows running time without breaking menus (like fzf of zsh completion)
+## right side prompt (RPS1)
+## shows running time without breaking menus (like fzf or zsh completion)
 
 ## no indentation for RPS1
 ZLE_RPROMPT_INDENT=0

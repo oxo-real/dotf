@@ -1,7 +1,7 @@
 #compdef passr
 
-_passr() {
-
+_passr()
+{
     typeset -A opt_args
 
     _arguments -C \
@@ -54,7 +54,7 @@ _passr() {
 	    element=(
 		'url:element -- target location'
 		'userid:element -- userid'
-		'password:element -- password of userid'
+		'password:element -- password for userid'
 		'otp:element -- one time pass code'
 		'unlock:element -- symmetric unlock code'
 		'peacto:element -- personal access token'
@@ -73,10 +73,9 @@ _passr() {
 }
 
 
-main() {
-
+main()
+{
     _passr
-
 }
 
 

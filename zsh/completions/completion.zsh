@@ -3,8 +3,11 @@
 
 ## initialize completion
 ### load compinit
+### U TODO
+### z TODO
 autoload -Uz compinit
-### call compinit
+### initialize compinit
+### i ignores insecure files and directories
 compinit -i
 
 zmodload zsh/complist
@@ -12,11 +15,10 @@ zstyle ':completion:*' menu select
 #zstyle ':completion:*' verbose yes
 
 ## include dotfiles
-autoload -Uz compinit promptinit
+autoload -Uz compinit promptinit  ## DEV TODO again?
 _comp_options+=(globdots)
 promptinit
 CASE_SENSITIVE='true'
-
 
 ## completion style based of 'default' zls_colors
 ## see zsh manual:
