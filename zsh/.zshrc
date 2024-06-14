@@ -355,7 +355,6 @@ input string from 0 to y is equal to y.
 If it is, it sets x to y and repeats the process until
 it finds the length of the string.
 
-
 # '
 function xstrlen()
 {
@@ -633,11 +632,18 @@ calc_rps1()
     ## set right prompt
     ## prints daynum epoch and time right side aligned
     RPS1="${(l:$rp_padding:)}$rp"
+
+    ## control visability of RPS1
+    [[ $RPS1_VIS != 'on' ]] && RPS1=''
 }
 
 rp_redisplay()
 {
-    # updates RPS1 via TRAPALRM every TMOUT seconds
+    ## updates RPS1 via TRAPALRM every TMOUT seconds
+    ## disable from cli with: export RP_REDISPLAY='off'
+
+    ## control auto redisplay of $RPS1
+    [[ -z $RPS1_TRAP || $RPS1_TRAP == 'off' ]] && return
 
     fzf_active_tpgid=''
     curr_term_ppid=''
@@ -675,7 +681,7 @@ rp_redisplay()
 
     fi
 
-    ## only when nothing is typed in buffer
+    ## only when $RPS1 exists and nothing is typed in buffer
     if [[ -z "$BUFFER" ]]; then
 
 	   calc_rps1

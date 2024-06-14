@@ -117,6 +117,12 @@ cgcsft="$XDG_DATA_HOME/c/git/code/source/function/text_appearance"
 export DEFAULT_VI_MODE=viins
 export KEYTIMEOUT=1
 
+## RPS1 (right prompt)
+### RPS1 visibility
+export RPS1_VIS=on
+### RPS1 auto redisplay
+export RPS1_TRAP=on
+
 ## debug prompt (when using sh -x)
 export PS4=':${BASH_SOURCE[0]:-$0} $(printf '%4d%s' "${LINENO}") ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 
@@ -158,7 +164,8 @@ export FZF_DEFAULT_OPTS='--cycle --layout reverse --tiebreak chunk,length,begin,
 export FZF_COMPLETION_TRIGGER='~~'
 
 
-## signposts to config
+# other signposts to config
+
 export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
 export GPG_AGENT_INFO='1'	# https://wiki.archlinux.org/title/GnuPG#mutt
 export GPG_TTY="$(tty)"
@@ -208,7 +215,6 @@ eval "$(dircolors)"
 defs_oxo='*.pdf=01;35'
 LS_COLORS+="${defs_oxo}"
 
-
 ## eza colors
 ## man 5 eza_colors
 ## reset disables eza built-in color set entirely
@@ -236,6 +242,7 @@ export ZLS_COLORS
 
 
 # zle settings
+
 ## prevent zsh from eating space before | or & after tab completion
 ## default ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;&|'
 export ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;'
