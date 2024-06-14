@@ -233,3 +233,9 @@ hi=00:\
 du=00"
 ZLS_COLORS="$LS_COLORS":"${defs_zls}"
 export ZLS_COLORS
+
+
+# zle settings
+## prevent zsh from eating space before | or & after tab completion
+## default ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;&|'
+export ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;'
