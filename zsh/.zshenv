@@ -153,8 +153,10 @@ export VISUAL='emacs'
 
 export GTK_USE_PORTAL=0
 
+## ascii string
 export ASCII=$(for (( i=32; i<127; i++ )) do; printf "\\$(printf %03o "$i")"; done)
-
+## disable pwgn permnently (vault)
+#export PWGN_OFF=1
 
 # fzf
 
@@ -198,7 +200,7 @@ export QT_QPA_PLATFORM='wayland'
 export READNULLCMD='read0cmd'
 
 
-# audio
+# audio and sound
 
 export BEEP="$XDG_DATA_HOME/a/media/audio/sound/airbus/da.ogg"
 export MUSICDIR="$XDG_DATA_HOME/a/media/audio/music"
