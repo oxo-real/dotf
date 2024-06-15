@@ -234,8 +234,8 @@ function git_branch()
 
     if echo "${git_status}" | grep -c 'working tree clean' > /dev/null 2>&1; then
 
-	## up-to-date branch (white)
-	print "%F{#ffffff}$branch%f"
+	## up-to-date branch (default grey)
+	print "%F{#bbbbbb}$branch%f"
 
     else
 
