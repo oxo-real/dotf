@@ -131,10 +131,6 @@ function emacs_daemon()
 	    sleep 2
             ;;
 
-	*)
-	    :
-	    ;;
-
     esac
 }
 
@@ -145,34 +141,51 @@ function emacs()
 
     case "$1" in
 
-	'-t'|'--tty')
+	'-t'|'-nw'|'--tty' )
 	    # use current tui
-	    shift
-	    files="$@"
-	    emacsclient --alternate-editor='' --reuse-frame --tty "$files"
-    ;;
 
-	'-n'|'--gui')
+	    ## get file(s)
+	    [[ "$#" -gt 1 ]] && shift && files="$@"
+
+	    ## last ampersand to start a separate process
+	    emacsclient --tty --alternate-editor='' "$files"
+	    ;;
+
+	'-n'|'--gui' )
 	    # use new gui frame
-	    shift
-	    files="$@"
+
+	    ## get file(s)
+	    [[ "$#" -gt 1 ]] && shift && files="$@"
 
 	    ## last ampersand to start a separate process
 	    ## brackets to prevent jobs running in current shell (new subshell)
 	    (emacsclient --alternate-editor='' --create-frame "$files" > /dev/null 2>&1 &)
 	    ;;
 
-	'')
+	'-nc' | '-dt' )
 	    # start emacs 'desktop', no emacsclient
+
+	    ## get file(s)
+	    [[ "$#" -gt 1 ]] && shift && files="$@"
+
 	    ## brackets to prevent jobs running in current shell (new subshell)
-	    (command emacs > /dev/null 2>&1 &)
-	    #/bin/emacs
+	    (/bin/emacs "$files" > /dev/null 2>&1 &)
+	    # ? command emacs
 	    #disown  ## possible instead of brackets
 	    ;;
 
-	*)
+	'' )
+	    # use existing gui frame (default)
+
+	    ## last ampersand to start a separate process
+	    ## brackets to prevent jobs running in current shell (new subshell)
+	    (emacsclient --alternate-editor='' --reuse-frame > /dev/null 2>&1 &)
+	    ;;
+
+	* )
 	    # use existing gui frame (default)
 	    files="$@"
+
 	    ## last ampersand to start a separate process
 	    ## brackets to prevent jobs running in current shell (new subshell)
 	    (emacsclient --alternate-editor='' --reuse-frame "$files" > /dev/null 2>&1 &)
