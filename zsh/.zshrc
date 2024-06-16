@@ -873,7 +873,7 @@ function insert_pacmanqq()
 }
 
 zle -N insert_pacmanqq
-bindkey "^A" insert_pacmanqq
+#bindkey "^A" insert_pacmanqq
 
 
 #>>>>>>>>>>>>>	function insert_application
@@ -1028,7 +1028,10 @@ function fzf_ins_pwd()
 }
 
 zle -N fzf_ins_pwd
-bindkey "^o" fzf_ins_pwd
+bindkey "^l" fzf_ins_pwd
+
+## default C-l was clear-screen (form feed); is now C-o
+bindkey "^o" clear-screen
 
 
 #>>>>>>>>>>>>>> function fzf_ins_home
@@ -1153,7 +1156,7 @@ function lfcd()
 }
 
 zle -N lfcd
-bindkey '^j' lfcd
+bindkey "^j" lfcd
 
 
 # syntax highlighting
