@@ -147,7 +147,6 @@ function emacs()
 	    ## get file(s)
 	    [[ "$#" -gt 1 ]] && shift && files="$@"
 
-	    ## last ampersand to start a separate process
 	    emacsclient --tty --alternate-editor='' "$files"
 	    ;;
 
@@ -170,8 +169,6 @@ function emacs()
 
 	    ## brackets to prevent jobs running in current shell (new subshell)
 	    (/bin/emacs "$files" > /dev/null 2>&1 &)
-	    # ? command emacs
-	    #disown  ## possible instead of brackets
 	    ;;
 
 	'' )
@@ -203,10 +200,6 @@ function emacs()
 }
 
 
-#alias emacs="emacs $@ &"
-alias em='emacs'
-
-
 function view()
 {
     # nvim readonly
@@ -217,34 +210,51 @@ function view()
 
     case "$1" in
 
-	'-t'|'-nw'|'--tty')
+	'-t'|'-nw'|'--tty' )
 	    # use current tui
-	    shift
-	    files="$@"
-	    emacsclient --alternate-editor='' --tty --eval "(view-file \"$files\")"
+
+	    ## get file(s)
+	    [[ "$#" -gt 1 ]] && shift && files="$@"
+
+	    emacsclient --tty --alternate-editor='' --eval "(view-file \"$files\")"
 	    ;;
 
-	'--gui')
+	'\n'|'--gui' )
 	    # use new gui frame
-	    shift
-	    files="$@"
+
+	    ## get file(s)
+	    [[ "$#" -gt 1 ]] && shift && files="$@"
+
 	    ## last ampersand to start a separate process
 	    ## brackets to prevent jobs running in current shell (new subshell)
 	    (emacsclient --alternate-editor='' --create-frame --eval "(view-file \"$files\")" > /dev/null 2>&1 &)
 	    ;;
 
+	'-nc' | '-dt' )
+	    # start emacs 'desktop', no emacsclient
+
+	    ## get file(s)
+	    [[ "$#" -gt 1 ]] && shift && files="$@"
+
+	    ## brackets to prevent jobs running in current shell (new subshell)
+	    (/bin/emacs --eval "view-file \"$files\")" > /dev/null 2>&1 &)
+	    ;;
+
 	*)
-	    # use new gui frame (default)
+	    # use existing gui frame (default)
 	    files="$@"
+
 	    ## last ampersand to start a separate process
 	    ## brackets to prevent jobs running in current shell (new subshell)
-	    (emacsclient --alternate-editor='' --create-frame  --eval "(view-file \"$files\")" > /dev/null 2>&1 &)
+	    (emacsclient --alternate-editor='' --reuse-frame  --eval "(view-file \"$files\")" > /dev/null 2>&1 &)
 	    ;;
 
     esac
 }
 
 
+#alias emacs="emacs $@ &"
+alias em='emacs'
 alias ev='view'
 
 

@@ -470,12 +470,12 @@ bindsym $mod+Shift+space    input $touchpad \
 			    events toggle enabled disabled
 
 
-# focus doesn't follow mouse
+# focus follows mouse
 focus_follows_mouse	no
 
 
-# no mouse warping (when switching focus to a window)
-## set to container: keyboard mousewheel works
+# mouse warping (mouse follows focus)
+## set to container: moonlander keyboard mousewheel works
 mouse_warping		container
 
 
