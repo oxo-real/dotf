@@ -1695,17 +1695,17 @@
 │   ├── dimr -> /home/oxo/.config/sway/code/dimr
 │   ├── dividir -> /home/oxo/.local/share/c/git/code/tool/dividir
 │   ├── dotfbu -> /home/oxo/.local/share/c/git/code/tool/dotfbu
-│   ├── fzf_word -> /home/oxo/c/git/code/tool/fzf_word
+│   ├── fzf-word -> /home/oxo/.local/share/c/git/code/tool/fzf-word
 │   ├── gacp_all -> /home/oxo/.config/git/gacp_all
-│   ├── get_newest_file -> /home/oxo/.local/share/c/git/code/tool/get_newest_file
+│   ├── get-newest-file -> /home/oxo/.local/share/c/git/code/tool/get-newest-file
 │   ├── histdel -> /home/oxo/.local/share/c/git/code/tool/histdel
 │   ├── hledger -> /opt/hledger/hledger
 │   ├── hledger-web -> /opt/hledger/hledger-web
 │   ├── isolatest -> /home/oxo/.local/share/c/git/code/isolatest/isolatest
-│   ├── kill_float -> /home/oxo/.local/share/c/git/code/tool/kill_float
-│   ├── make_recov -> /home/oxo/c/git/code/tool/make_recov
+│   ├── kill-float -> /home/oxo/.local/share/c/git/code/tool/kill-float
+│   ├── make-recov -> /home/oxo/.local/share/c/git/code/tool/make-recov
 │   ├── metar -> /home/oxo/.local/share/c/git/code/tool/metar
-│   ├── mic_switch -> /home/oxo/c/git/code/tool/mic_switch
+│   ├── mic-switch -> /home/oxo/.local/share/c/git/code/tool/mic-switch
 │   ├── monitor -> /home/oxo/.config/git/monitor
 │   ├── mountr -> /home/oxo/.local/share/c/git/code/tool/mountr
 │   ├── netconn -> /home/oxo/.local/share/c/git/code/network/netconn
@@ -1716,7 +1716,7 @@
 │   ├── otp95 -> /home/oxo/.local/share/c/git/code/tool/otp95
 │   ├── passexp -> /home/oxo/.local/share/c/git/code/tool/passexp
 │   ├── passr -> /home/oxo/.local/share/c/git/code/tool/passr
-│   ├── proc_kill -> /home/oxo/.local/share/c/git/code/tool/proc_kill
+│   ├── proc-kill -> /home/oxo/.local/share/c/git/code/tool/proc-kill
 │   ├── pwgn -> /home/oxo/.local/share/c/git/code/tool/pwgn
 │   ├── qbns -> /home/oxo/.config/qutebrowser/new_session
 │   ├── qrinv -> /home/oxo/c/git/code/tool/qrinv
@@ -1730,7 +1730,7 @@
 │   ├── vim_diff -> /home/oxo/.config/git/vim_diff
 │   ├── vtxt -> /home/oxo/.local/share/c/git/code/tool/vtxt
 │   ├── wtime -> /home/oxo/c/git/code/tool/wtime
-│   └── yank_buffer -> /home/oxo/c/git/code/tool/yank_buffer
+│   └── yank_buffer -> /home/oxo/.local/share/c/git/code/tool/yank-buffer
 ├── status
 │   ├── aaa_whats_here
 │   └── bar

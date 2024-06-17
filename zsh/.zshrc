@@ -1015,7 +1015,7 @@ function fzf-ins-dir()
     #zle put-replace-selection
 
     unset CUTBUFFER
-    unset fzf-input
+    unset fzf_input
     unset input
 }
 
