@@ -116,7 +116,7 @@ bindkey "^[[B" down-line-or-beginning-search
 # synthesize prompt (precmd, preexec, left and right prompt)
 
 ## define cursor styles
-function def_cursor()
+function def-cursor()
 {
     local style
 
@@ -174,24 +174,24 @@ zle_highlight=(\
 
 
 ## set cursor styles
-function set_cursor()
+function set-cursor()
 {
     case $KEYMAP in
 
         main | viins)
-	    def_cursor vertical-line_blink
+	    def-cursor vertical-line_blink
 	    ;;
 
         vicmd)
-	    def_cursor block_blink
+	    def-cursor block_blink
 	    ;;
 
         visual)
-	    def_cursor block_steady
+	    def-cursor block_steady
 	    ;;
 
 	*)
-	    def_cursor underline_blink
+	    def-cursor underline_blink
 	    ;;
 
     esac
@@ -201,7 +201,7 @@ function set_cursor()
 function zle-keymap-select()
 {
     ## set_ps1
-    set_cursor
+    set-cursor
     zle reset-prompt
 }
 
@@ -210,7 +210,7 @@ function zle-line-init()
 {
     zle -K $DEFAULT_VI_MODE
     ## set_ps1
-    set_cursor
+    set-cursor
     zle reset-prompt
 }
 
@@ -218,12 +218,12 @@ function zle-line-init()
 function zle-line-finish()
 {
     ## set_ps1
-    set_cursor
+    set-cursor
     zle reset-prompt
 }
 
 
-function git_branch()
+function git-branch()
 {
     # Long form
     branch="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
@@ -246,7 +246,7 @@ function git_branch()
 }
 
 
-function git_dirty()
+function git-dirty()
 {
     ## [Git - git-status Documentation](https://git-scm.com/docs/git-status#_short_format)
     # a ahead
@@ -477,13 +477,13 @@ function precmd()
 	### normal state (user write permissions)
 	### [zsh: 13 Prompt Expansion](https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html)
 	### single quotes; wait with expansion until print
-	local precmd_left='%F{blue}%B%~%f%b $(git_branch "%s") $(git_dirty "%s")'
+	local precmd_left='%F{blue}%B%~%f%b $(git-branch "%s") $(git-dirty "%s")'
 
     else
 
 	### no write permission directory color (amber #ffbf00)
 	### single quotes; wait with expansion until print
-	local precmd_left='%F{#000000}%K{#ffbf00}%B%~%b%k%f $(git_branch "%s") $(git_dirty "%s")'
+	local precmd_left='%F{#000000}%K{#ffbf00}%B%~%b%k%f $(git-branch "%s") $(git-dirty "%s")'
 
     fi
 
@@ -585,16 +585,16 @@ setopt PROMPT_SUBST
 ZLE_RPROMPT_INDENT=0
 
 ## define what to display in RPS1
-calc_epoch()
+calc-epoch()
 {
     epoch=$(date +'%s')
     ep_l=$(printf "$epoch" | cut -c 1-4)
     ep_r=$(printf "$epoch" | cut -c 5-)
 }
 
-calc_rps1()
+calc-rps1()
 {
-    calc_epoch
+    calc-epoch
 
     day_num=$(date +'%d')
     rp='$day_num%F{#696969}$ep_l $ep_r%f %D{%H%M%S}'
@@ -636,7 +636,7 @@ calc_rps1()
     [[ $RPS1_VIS != 'on' ]] && RPS1=''
 }
 
-rp_redisplay()
+rp-redisplay()
 {
     ## updates RPS1 via TRAPALRM every TMOUT seconds
     ## disable from cli with: export RP_REDISPLAY='off'
@@ -683,7 +683,7 @@ rp_redisplay()
     ## only when $RPS1 exists and nothing is typed in buffer
     if [[ -z "$BUFFER" ]]; then
 
-	   calc_rps1
+	   calc-rps1
 
 	   ## prevent error on initial activation
 	   ## when zle is not yet active
@@ -695,7 +695,7 @@ rp_redisplay()
 
 TRAPALRM()
 {
-    rp_redisplay
+    rp-redisplay
 }
 
 ## TMOUT triggers the TRAPALRM
@@ -703,7 +703,7 @@ TRAPALRM()
 TMOUT=3
 
 ## initial activation
-rp_redisplay
+rp-redisplay
 
 ## debug prompt (PS4)
 ## set in zshenv
@@ -863,101 +863,103 @@ function chpwd()
 ## --> see sway config
 
 
+: '
 #>>>>>>>>>>>>>	function insert_application
 # add (+=) application to cursor position (^A) (ctrl-shift-A)
 
-function insert_pacmanqq()
+function insert-pacmanqq()
 {
     #TODO escape code error
     LBUFFER+="$(pacman -Qq | fzf)"
 }
 
-zle -N insert_pacmanqq
-#bindkey "^A" insert_pacmanqq
+zle -N insert-pacmanqq
+#bindkey "^A" insert-pacmanqq
+# '
 
 
 #>>>>>>>>>>>>>	function insert_application
 # add (+=) application to cursor position (^a) (ctrl a)
 
-function insert_appn()
+function insert-appn()
 {
     #TODO escape code error
     LBUFFER+="$(ls "$APPNDIR" | fzf)"
 }
 
-zle -N insert_appn
-bindkey "^a" insert_appn
+zle -N insert-appn
+bindkey "^a" insert-appn
 
 
 #>>>>>>>>>>>>>	function insert_date_time
 # add (+=) current date and time to cursor position (^@) (ctrl @)
 # compact readable form of iso8601
-function insert_date_time()
+function insert-date-time()
 {
     LBUFFER+="$(date +%Y%m%d_%H%M%S)"
 }
 
-zle -N insert_date_time
-bindkey "^@" insert_date_time
+zle -N insert-date-time
+bindkey "^@" insert-date-time
 # C-` also works (control backtick) #DEV use for wl-copy date_time
 
 
 #>>>>>>>>>>>>>	function insert_epoch
 # add (+=) epoch to cursor position (^#) (ctrl #)
 
-function insert_epoch()
+function insert-epoch()
 {
     LBUFFER+="$(date +%s)"
 }
 
-zle -N insert_epoch
-bindkey "^e" insert_epoch
+zle -N insert-epoch
+bindkey "^e" insert-epoch
 
 
 #>>>>>>>>>>>>>	function git_add_commit
 # git add & commit shortcut (^q) (ctrl q)
 
-function git_add_commit()
+function git-add-commit()
 {
     BUFFER="git add . && git commit --gpg-sign=7f462acc -a -m '`date +%Y%m%d_%H%M%S` (local_update)'"
 }
 
-zle -N git_add_commit
-bindkey "^q" git_add_commit
+zle -N git-add-commit
+bindkey "^q" git-add-commit
 
 
 #>>>>>>>>>>>>>> function up_dir
 # updir shortcut (^k) (ctrl k)
 
-function up_dir()
+function up-dir()
 {
     BUFFER="cd .."
     zle accept-line
 }
 
-zle -N up_dir
-bindkey "^k" up_dir
+zle -N up-dir
+bindkey "^k" up-dir
 
 
 #>>>>>>>>>>>>>> function last_dir
 # last_dir shortcut (^h) (ctrl h)
 ## bash: 'cd -'
 
-function last_dir()
+function last-dir()
 {
     BUFFER="cd $OLDPWD"
     zle accept-line
 }
 
-zle -N last_dir
-bindkey "^h" last_dir
+zle -N last-dir
+bindkey "^h" last-dir
 
 
 #>>>>>>>>>>>>>> function ins_pwd
 # insert $PWD inline
 # Control+p
 
-function ins_pwd()
+function ins-pwd()
 {
     # select & kill
     zle select-in-blank-word
@@ -970,15 +972,15 @@ function ins_pwd()
     unset CUTBUFFER
 }
 
-zle -N ins_pwd
-bindkey '^p' ins_pwd
+zle -N ins-pwd
+bindkey '^p' ins-pwd
 
 
 #>>>>>>>>>>>>>> function fzf_ins_dir
 # fzf insert file or directory
 # ^o pwd, ^f $HOME, ^g /
 
-function fzf_ins_dir()
+function fzf-ins-dir()
 {
     root_dir="$1"
 
@@ -1013,7 +1015,7 @@ function fzf_ins_dir()
     #zle put-replace-selection
 
     unset CUTBUFFER
-    unset fzf_input
+    unset fzf-input
     unset input
 }
 
@@ -1022,13 +1024,13 @@ function fzf_ins_dir()
 # fzf insert file or directory (^f) (ctrl f)
 # search from current directory and below
 
-function fzf_ins_pwd()
+function fzf-ins-pwd()
 {
-    fzf_ins_dir "$PWD"
+    fzf-ins-dir "$PWD"
 }
 
-zle -N fzf_ins_pwd
-bindkey "^l" fzf_ins_pwd
+zle -N fzf-ins-pwd
+bindkey "^l" fzf-ins-pwd
 
 ## default C-l was clear-screen (form feed); is now C-o
 bindkey "^o" clear-screen
@@ -1038,32 +1040,32 @@ bindkey "^o" clear-screen
 # fzf insert file or directory (^f) (ctrl f)
 # search from home
 
-function fzf_ins_home()
+function fzf-ins-home()
 {
-    fzf_ins_dir "$HOME"
+    fzf-ins-dir "$HOME"
 }
 
-zle -N fzf_ins_home
-bindkey "^f" fzf_ins_home
+zle -N fzf-ins-home
+bindkey "^f" fzf-ins-home
 
 
 #>>>>>>>>>>>>>> function fzf_ins_root
 # fzf insert file or directory (^g) (ctrl g)
 # search from root
 
-function fzf_ins_root()
+function fzf-ins-root()
 {
-    fzf_ins_dir '/'
+    fzf-ins-dir '/'
 }
 
-zle -N fzf_ins_root
-bindkey "^g" fzf_ins_root
+zle -N fzf-ins-root
+bindkey "^g" fzf-ins-root
 
 
 #>>>>>>>>>>>>>> function sudo_toggle
 # sudo-toggle (vicmd s)
 
-function sudo_toggle()
+function sudo-toggle()
 {
     [[ -z $BUFFER ]] && zle up-history
 
@@ -1081,14 +1083,14 @@ function sudo_toggle()
     zle -R $BUFFER  ## refresh
 }
 
-zle -N sudo_toggle  ## create widget
-bindkey -M vicmd 's' sudo_toggle
+zle -N sudo-toggle  ## create widget
+bindkey -M vicmd 's' sudo-toggle
 
 
 #>>>>>>>>>>>>>> function sh-x_toggle
 # sh-x_toggle (vicmd q)
 
-function sh-x_toggle()
+function sh-x-toggle()
 {
     [[ -z $BUFFER ]] && zle up-history
 
@@ -1114,8 +1116,8 @@ function sh-x_toggle()
     zle -R $BUFFER  ## refresh
 }
 
-zle -N sh-x_toggle  ## create widget
-bindkey -M vicmd 'q' sh-x_toggle
+zle -N sh-x-toggle  ## create widget
+bindkey -M vicmd 'q' sh-x-toggle
 
 
 #>>>>>>>>>>>>>> function foreground
