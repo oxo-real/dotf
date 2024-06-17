@@ -383,9 +383,9 @@ bindsym $mod+Period		workspace next
 
 ## fzf_sway_focus 		(focus switcher)
 #bindsym $mod+grave		exec $term --app-id="float_spicules" \
-#				sh -c $csc/fzf_sway_focus
+#				sh -c $csc/fzf-sway-focus
 bindsym $mod+grave		exec $term --class="float_spicules" -e \
-				$csc/fzf_sway_focus
+				$csc/fzf-sway-focus
 
 
 # display workspace bar ##
@@ -525,7 +525,7 @@ bindsym $mod+$right		focus right
 ## mouse method
 ## $mod+MouseLeft and manually move container
 
-set $smt			exec sh $csc/snap_move_to
+set $smt			exec sh $csc/snap-move-to
 set $move_major_step		100
 set $move_regular_step		20
 set $move_minor_step		10
@@ -576,19 +576,19 @@ bindsym $mod+Mod1+k		floating enable; $smt Z
 
 ## snap to screen edge; filled
 ### $mod+Mod1+78
-bindsym $mod+Mod1+7		floating enable; exec sh $csc/float_v_fill
-bindsym $mod+Mod1+8		floating enable; exec sh $csc/float_h_fill
+bindsym $mod+Mod1+7		floating enable; exec sh $csc/float-v-fill
+bindsym $mod+Mod1+8		floating enable; exec sh $csc/float-h-fill
 
 ## container float; minimize, divide 2,3,4, maximize
 ### $mod+Control+012349
-bindsym $mod+Mod1+0		floating enable; $smt Z; exec sh $csc/float_min
-bindsym $mod+Mod1+1		floating enable; exec sh $csc/float_divide 1
+bindsym $mod+Mod1+0		floating enable; $smt Z; exec sh $csc/float-min
+bindsym $mod+Mod1+1		floating enable; exec sh $csc/float-divide 1
 ### 2/6, 3/6 or 4/6 width
-bindsym $mod+Mod1+2		floating enable; exec sh $csc/float_divide 2
-bindsym $mod+Mod1+3		floating enable; exec sh $csc/float_divide 3
-bindsym $mod+Mod1+4		floating enable; exec sh $csc/float_divide 4
+bindsym $mod+Mod1+2		floating enable; exec sh $csc/float-divide 2
+bindsym $mod+Mod1+3		floating enable; exec sh $csc/float-divide 3
+bindsym $mod+Mod1+4		floating enable; exec sh $csc/float-divide 4
 
-bindsym $mod+Mod1+9		floating enable; $smt Z; exec sh $csc/float_max
+bindsym $mod+Mod1+9		floating enable; $smt Z; exec sh $csc/float-max
 
 
 #----------------------------------------------------------------
@@ -634,10 +634,10 @@ bindsym $mod+Mod1+q		kill
 
 ## split horizontal / vertical toggle
 ## next new container below / aside
-bindsym $mod+backslash		layout toggle split; exec $csc/layout_ntfy_send
+bindsym $mod+backslash		layout toggle split; exec $csc/layout-ntfy-send
 
 ## cycle through all layouts
-bindsym $mod+Shift+backslash	layout toggle splith splitv stacking tabbed; exec $csc/layout_ntfy_send
+bindsym $mod+Shift+backslash	layout toggle splith splitv stacking tabbed; exec $csc/layout-ntfy-send
 
 
 
@@ -692,30 +692,30 @@ bindsym $mod+slash		scratchpad show
 ### container tile split_auto direction
 ### spawns same type as focused container
 ### cwd $HOME
-bindsym $mod+Return		exec --no-startup-id $csc/term_spawn &
+bindsym $mod+Return		exec --no-startup-id $csc/term-spawn &
 ### cwd $PWD
-bindsym $mod+Shift+Return	exec --no-startup-id $csc/term_spawn pwd &
+bindsym $mod+Shift+Return	exec --no-startup-id $csc/term-spawn pwd &
 ### cwd float $HOME
-bindsym $mod+Mod1+Return	exec --no-startup-id $csc/term_spawn $HOME float &
+bindsym $mod+Mod1+Return	exec --no-startup-id $csc/term-spawn $HOME float &
 ### cwd $PWD
-bindsym $mod+Mod1+Shift+Return	exec --no-startup-id $csc/term_spawn pwd float &
+bindsym $mod+Mod1+Shift+Return	exec --no-startup-id $csc/term-spawn pwd float &
 
 
 ## fzf_run
 ### foot
 #bindsym $mod+d			exec $term --app-id="float_fzf_run" \
-#				sh -c $csc/fzf_run
+#				sh -c $csc/fzf-run
 ### alacritty
 bindsym $mod+d			exec --no-startup-id $term --class="float_fzf_run" \
-				-e $csc/fzf_run
+				-e $csc/fzf-run
 
 ## fzf_spicules			(search cmd_catalog)
 ### foot
 #bindsym $mod+z			exec $term --app-id="float_spicules" \
-#				sh -c $csc/fzf_spicules && wl-copy -n < $XDG_CACHE_HOME/cb
+#				sh -c $csc/fzf-spicules && wl-copy -n < $XDG_CACHE_HOME/cb
 ### alacritty
 bindsym $mod+z			exec --no-startup-id $term --class="float_spicules" \
-				-e $csc/fzf_spicules #&& wl-copy -n < $XDG_CACHE_HOME/cb
+				-e $csc/fzf-spicules #&& wl-copy -n < $XDG_CACHE_HOME/cb
 
 
 #----------------------------------------------------------------
@@ -767,7 +767,7 @@ for_window [app_id="float_spicules"]
     resize set width 1000
     resize set height 500
     opacity set 0.95
-    exec $csc/float_h_fill
+    exec $csc/float-h-fill
     exec $term msg config colors.primary.background='"#000020"'
 }
 
@@ -807,10 +807,10 @@ for_window [title="Floating Window - Show Me The Key"]
 ## fzf_cpbd
 ### foot
 #bindsym Control+Shift+y	exec $term --app-id="float_spicules" \
-#	 			sh -c $csc/fzf_cpbd
+#	 			sh -c $csc/fzf-cpbd
 ### alacritty
 bindsym Control+Shift+y		exec --no-startup-id $term --class="float_spicules" \
-	 			-e $csc/fzf_cpbd
+	 			-e $csc/fzf-cpbd
 
 
 #----------------------------------------------------------------
@@ -820,10 +820,10 @@ bindsym Control+Shift+y		exec --no-startup-id $term --class="float_spicules" \
 # fzf_sway_exit			(shutdown menu)
 ### foot
 #bindsym $mod+Shift+x		exec $term --app-id="float_exit" \
-#				sh -c $csc/fzf_sway_exit
+#				sh -c $csc/fzf-sway-exit
 ### alacritty
 bindsym $mod+Shift+x		exec --no-startup-id $term --class="float_exit" \
-				-e $csc/fzf_sway_exit
+				-e $csc/fzf-sway-exit
 
 ## swaylock			(Zzz)
 ## configuration: sway/code/lock
@@ -896,10 +896,10 @@ bindsym XF86Search 		exec $menu
 
 ## play music
 bindsym $mod+m			exec --no-startup-id $term --class="float_spicules" \
-				-e $csc/music_play
+				-e $csc/music-play
 
 ## switch microphone on/off
-bindsym Shift+Control+Mod1+x	exec mic_switch toggle Webcam C310
+bindsym Shift+Control+Mod1+x	exec mic-switch toggle Webcam C310
 
 ## play video
 bindsym Shift+Control+Mod1+v 	exec --no-startup-id $term --class="term_float_inv" \

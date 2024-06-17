@@ -5,7 +5,7 @@
 
 # after: [Sway - ArchWiki](https://wiki.archlinux.org/title/Sway#Backlight_toggle)
 
-scr_onf_stat_file="$XDG_CACHE_HOME/temp/screen_onf_status"
+scr_onf_stat_file="$XDG_CACHE_HOME/temp/screen-onf-status"
 
 [ ! -f $scr_onf_stat_file ] && echo 0 > $scr_onf_stat_file
 

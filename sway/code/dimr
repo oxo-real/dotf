@@ -4,17 +4,17 @@
 ### dimr
 ###	creates options for swaylock
 ###
-### (c) 2019 - 2023  |  oxo
+### (c) 2019 - 2024  |  oxo
 ###
 ### usage:
 ###
-###	% dimr swaylock_enable
+###	% dimr swaylock-enable
 ###	enables swaylock timer to lock system after 2 * idle_time
 ###
-###	% dimr swaylock_disable
+###	% dimr swaylock-disable
 ###	disables swaylock timer function
 ###
-###	% dimr screen_off [idle_time]
+###	% dimr screen-off [idle_time]
 ###	immediate screen_off
 ###
 ###	% dimr swaylock [idle_time]
@@ -64,7 +64,7 @@ idle_time=$2
 	#	 before-sleep 'playerctl pause' \
 	#	 before-sleep 'swaylock'
 
-	if [[ "$swaylock_status" == "no_swaylock" ]]; then
+	if [[ "$swaylock_status" == "no-swaylock" ]]; then
 
 	    pkill swayidle
 

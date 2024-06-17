@@ -1762,28 +1762,28 @@
 │   ├── bar -> ../i3blocks/show/
 │   ├── code
 │   │   ├── dimr
-│   │   ├── float_divide
-│   │   ├── float_h_fill
-│   │   ├── float_max
-│   │   ├── float_min
-│   │   ├── float_v_fill
-│   │   ├── fzf_cpbd
-│   │   ├── fzf_run
-│   │   ├── fzf_spicules
-│   │   ├── fzf_sway_exit
-│   │   ├── fzf_sway_focus
+│   │   ├── float-divide
+│   │   ├── float-h-fill
+│   │   ├── float-max
+│   │   ├── float-min
+│   │   ├── float-v-fill
+│   │   ├── fzf-cpbd
+│   │   ├── fzf-run
+│   │   ├── fzf-spicules
+│   │   ├── fzf-sway-exit
+│   │   ├── fzf-sway-focus
 │   │   ├── fzf_sway_move
 │   │   ├── kill_float_inv
-│   │   ├── layout_ntfy_send
+│   │   ├── layout-ntfy-send
 │   │   ├── lock
 │   │   ├── lock_make_bg
 │   │   ├── lock_scr_eff
-│   │   ├── music_play
+│   │   ├── music-play
 │   │   ├── screen_onf
-│   │   ├── snap_move_to
+│   │   ├── snap-move-to
 │   │   ├── split_auto
 │   │   ├── term_font_size
-│   │   └── term_spawn
+│   │   └── term-spawn
 │   ├── config
 │   ├── current -> /home/oxo/.config/sway/hw/dev/ltx1c
 │   ├── env

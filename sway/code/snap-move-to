@@ -117,27 +117,27 @@ snap_or_move()
 			    ;;
 
 			N)
-			    new_x=$(( ( monitor_width -  window_width ) / 2))
+			    new_x=$(( ( monitor_width - window_width ) / 2))
 			    new_y=0
 			    ;;
 
 			NE)
-			    new_x=$(( monitor_width -  window_width ))
+			    new_x=$(( monitor_width - window_width ))
 			    new_y=0
 			    ;;
 
 			E)
-			    new_x=$(( monitor_width -  window_width ))
+			    new_x=$(( monitor_width - window_width ))
 			    new_y=$(( ( monitor_height - window_height - decor_height ) / 2))
 			    ;;
 
 			SE)
-			    new_x=$(( monitor_width -  window_width ))
+			    new_x=$(( monitor_width - window_width ))
 			    new_y=$(( monitor_height - window_height - decor_height ))
 			    ;;
 
 			S)
-			    new_x=$(( ( monitor_width -  window_width ) / 2 ))
+			    new_x=$(( ( monitor_width - window_width ) / 2 ))
 			    new_y=$(( monitor_height - window_height - decor_height ))
 			    ;;
 
@@ -152,7 +152,7 @@ snap_or_move()
 			    ;;
 
 			Z)
-			    new_x=$(( ( monitor_width -  window_width ) / 2 ))
+			    new_x=$(( ( monitor_width - window_width ) / 2 ))
 			    new_y=$(( ( monitor_height - window_height - decor_height ) / 2 ))
 			    ;;
 
@@ -170,7 +170,7 @@ snap_or_move()
 			    ;;
 
 			right)
-			    new_x=$(( monitor_width -  window_width ))
+			    new_x=$(( monitor_width - window_width ))
 			    new_y=$(( new_y - decor_height ))
 			    ;;
 

@@ -12,13 +12,16 @@
 # example: term_spawn $HOME float w 300 h 300
 
 
+args="$@"
+
+
+initialize()
+{
 #terminal_cmd=${TERMINAL:-'foot'}
 terminal_cmd=${TERMINAL:-'alacritty'}
 target_path=$1
-shift
-target_con_float=$1
-shift
-target_con_dims="$@"
+[[ $# -gt 1 ]] && shift target_con_float=$1 && shift && target_con_dims="$@"
+}
 
 
 get_curr_con_data()
@@ -177,6 +180,7 @@ spawn_terminal()
 
 main()
 {
+    initialize "$args"
     get_curr_con_data
     process_target_path
     spawn_terminal

@@ -103,7 +103,7 @@ horizontal_fill()
     fi
 
     swaymsg "${criteria}resize set width $monitor_width px height $set_height px"
-    sh $csc/snap_move_to $snap_toggle
+    sh $csc/snap-move-to $snap_toggle
 }
 
 

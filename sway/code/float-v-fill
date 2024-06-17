@@ -77,7 +77,7 @@ vertical_fill()
     esac
 
     swaymsg "${criteria}resize set width $set_width px height $monitor_height px"
-    sh $csc/snap_move_to $snap_toggle
+    sh $csc/snap-move-to $snap_toggle
 }
 
 

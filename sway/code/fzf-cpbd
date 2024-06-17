@@ -140,7 +140,7 @@ put()
 
 
 ## remove selected item(s) from cpbd
-remove_item()
+remove-item()
 {
     cpbd_lines_0=$(cat $cpbd_file | wc -l)
 
@@ -150,7 +150,7 @@ remove_item()
 
 	grep --invert-match --line-regexp "$line" $cpbd_file > ${cpbd_file}_1
 
-	update_cpbd_file
+	update-cpbd-file
 
     done <<< "$remove_item_exec"
 
