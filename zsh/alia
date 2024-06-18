@@ -106,7 +106,8 @@ function read0cmd()
 ## NOTICE combine with fzf-ins-pwd C-l for current directory
 function c()
 {
-    cat "$@"
+    bat --pager less "$@"
+    #cat "$@"
 }
 
 
@@ -299,7 +300,7 @@ fi
 ## protect against shell command injection
 ### https://security.stackexchange.com/questions/56307/can-cat-ing-a-file-be-a-potential-security-risk/56323#56323
 #alias cat='cat --show-ends --show-nonprinting'
-alias cat='bat'
+alias cat='bat --pager less'
 alias bat='bat --style=numbers'
 
 alias sr="sr -browser=$BROWSERCLI"

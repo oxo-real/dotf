@@ -1182,6 +1182,7 @@ base16_irblack
 # fzf
 
 ## https://github.com/junegunn/fzf#installation
+## WARNING path is modified here
 [[ -f $fzf_zsh ]] && source $fzf_zsh
 
 # $fzf_zsh
@@ -1198,6 +1199,7 @@ base16_irblack
 
 ## fzf-tab
 ## https://github.com/Aloxaf/fzf-tab
+## WARNING fpath is modified here
 [[ -f $fzf_tab ]] && source $fzf_tab
 
 ## fzf-tab-completions

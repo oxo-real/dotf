@@ -1690,6 +1690,7 @@
 │   ├── askpass -> /home/oxo/.local/share/c/git/code/tool/askpass
 │   ├── atis -> /home/oxo/.local/share/c/git/code/tool/atis
 │   ├── c2b -> /home/oxo/.local/share/c/git/code/tool/c2b
+│   ├── check-sum -> /home/oxo/.local/share/c/git/code/tool/check-sum
 │   ├── chua -> /home/oxo/.local/share/c/git/code/tool/chua
 │   ├── cryptr -> /home/oxo/.local/share/c/git/code/tool/cryptr
 │   ├── diffdir -> /home/oxo/.local/share/c/git/code/tool/diffdir
@@ -2084,5 +2085,5 @@
     │   └── config
     └── xresources_colors
 
-224 directories, 1860 files
+224 directories, 1861 files
 ```

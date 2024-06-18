@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"io"
+	"io/fs"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -18,20 +19,22 @@ import (
 // Reader reads from command or standard input
 type Reader struct {
 	pusher   func([]byte) bool
+	executor *util.Executor
 	eventBox *util.EventBox
 	delimNil bool
 	event    int32
 	finChan  chan bool
 	mutex    sync.Mutex
 	exec     *exec.Cmd
+	execOut  io.ReadCloser
 	command  *string
 	killed   bool
 	wait     bool
 }
 
 // NewReader returns new Reader object
-func NewReader(pusher func([]byte) bool, eventBox *util.EventBox, delimNil bool, wait bool) *Reader {
-	return &Reader{pusher, eventBox, delimNil, int32(EvtReady), make(chan bool, 1), sync.Mutex{}, nil, nil, false, wait}
+func NewReader(pusher func([]byte) bool, eventBox *util.EventBox, executor *util.Executor, delimNil bool, wait bool) *Reader {
+	return &Reader{pusher, executor, eventBox, delimNil, int32(EvtReady), make(chan bool, 1), sync.Mutex{}, nil, nil, nil, false, wait}
 }
 
 func (r *Reader) startEventPoller() {
@@ -78,6 +81,7 @@ func (r *Reader) terminate() {
 	r.mutex.Lock()
 	r.killed = true
 	if r.exec != nil && r.exec.Process != nil {
+		r.execOut.Close()
 		util.KillCommand(r.exec)
 	} else {
 		os.Stdin.Close()
@@ -85,18 +89,34 @@ func (r *Reader) terminate() {
 	r.mutex.Unlock()
 }
 
-func (r *Reader) restart(command string, environ []string) {
+func (r *Reader) restart(command commandSpec, environ []string) {
 	r.event = int32(EvtReady)
 	r.startEventPoller()
-	success := r.readFromCommand(command, environ)
+	success := r.readFromCommand(command.command, environ)
 	r.fin(success)
+	removeFiles(command.tempFiles)
+}
+
+func (r *Reader) readChannel(inputChan chan string) bool {
+	for {
+		item, more := <-inputChan
+		if !more {
+			break
+		}
+		if r.pusher([]byte(item)) {
+			atomic.StoreInt32(&r.event, int32(EvtReadNew))
+		}
+	}
+	return true
 }
 
 // ReadSource reads data from the default command or from standard input
-func (r *Reader) ReadSource(root string, opts walkerOpts, ignores []string) {
+func (r *Reader) ReadSource(inputChan chan string, root string, opts walkerOpts, ignores []string) {
 	r.startEventPoller()
 	var success bool
-	if util.IsTty() {
+	if inputChan != nil {
+		success = r.readChannel(inputChan)
+	} else if util.IsTty(os.Stdin) {
 		cmd := os.Getenv("FZF_DEFAULT_COMMAND")
 		if len(cmd) == 0 {
 			success = r.readFiles(root, opts, ignores)
@@ -147,7 +167,7 @@ func (r *Reader) feed(src io.Reader) {
 		}
 
 		// We're not making any progress after 100 tries. Stop.
-		if n == 0 && err == nil {
+		if n == 0 {
 			break
 		}
 
@@ -173,6 +193,12 @@ func (r *Reader) feed(src io.Reader) {
 				}
 			} else {
 				// Could not find the delimiter in the buffer
+				//   NOTE: We can further optimize this by keeping track of the cursor
+				//   position in the slab so that a straddling item that doesn't go
+				//   beyond the boundary of a slab doesn't need to be copied to
+				//   another buffer. However, the performance gain is negligible in
+				//   practice (< 0.1%) and is not
+				//   worth the added complexity.
 				leftover = append(leftover, buf...)
 				break
 			}
@@ -197,6 +223,16 @@ func (r *Reader) readFromStdin() bool {
 	return true
 }
 
+func isSymlinkToDir(path string, de os.DirEntry) bool {
+	if de.Type()&fs.ModeSymlink == 0 {
+		return false
+	}
+	if s, err := os.Stat(path); err == nil {
+		return s.IsDir()
+	}
+	return false
+}
+
 func (r *Reader) readFiles(root string, opts walkerOpts, ignores []string) bool {
 	r.killed = false
 	conf := fastwalk.Config{Follow: opts.follow}
@@ -207,7 +243,7 @@ func (r *Reader) readFiles(root string, opts walkerOpts, ignores []string) bool 
 		path = filepath.Clean(path)
 		if path != "." {
 			isDir := de.IsDir()
-			if isDir {
+			if isDir || opts.follow && isSymlinkToDir(path, de) {
 				base := filepath.Base(path)
 				if !opts.hidden && base[0] == '.' {
 					return filepath.SkipDir
@@ -236,20 +272,27 @@ func (r *Reader) readFromCommand(command string, environ []string) bool {
 	r.mutex.Lock()
 	r.killed = false
 	r.command = &command
-	r.exec = util.ExecCommand(command, true)
+	r.exec = r.executor.ExecCommand(command, true)
 	if environ != nil {
 		r.exec.Env = environ
 	}
-	out, err := r.exec.StdoutPipe()
+
+	var err error
+	r.execOut, err = r.exec.StdoutPipe()
 	if err != nil {
+		r.exec = nil
 		r.mutex.Unlock()
 		return false
 	}
+
 	err = r.exec.Start()
-	r.mutex.Unlock()
 	if err != nil {
+		r.exec = nil
+		r.mutex.Unlock()
 		return false
 	}
-	r.feed(out)
+
+	r.mutex.Unlock()
+	r.feed(r.execOut)
 	return r.exec.Wait() == nil
 }

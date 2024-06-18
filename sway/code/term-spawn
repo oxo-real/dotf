@@ -1,15 +1,50 @@
 #! /usr/bin/env sh
 
-# dependencies:	jq, alacritty
+###  _
+### | |_ ___ _ __ _ __ ___      ___ _ __   __ ___      ___ __
+### | __/ _ \ '__| '_ ` _ \    / __| '_ \ / _` \ \ /\ / / '_ \
+### | ||  __/ |  | | | | | |   \__ \ |_) | (_| |\ V  V /| | | |
+###  \__\___|_|  |_| |_| |_|___|___/ .__/ \__,_| \_/\_/ |_| |_|
+###                       |_____|  |_|
+###
+###  # # # # # #
+###       #
+###  # # # # # #
+###
 
-# spawn a new terminal window
+: '
+term_spawn
+spawn a new terminal window
+(c) 2019 - 2024  |  oxo
 
-# NOTICE status experimental
-# TODO DEV
+GNU GPLv3 GENERAL PUBLIC LICENSE
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-# usage: term_spawn $directory [float [w $con_width h $con_height]]
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-# example: term_spawn $HOME float w 300 h 300
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+https://www.gnu.org/licenses/gpl-3.0.txt
+
+@oxo@qoto.org
+
+
+# dependencies
+  jq, alacritty
+
+# usage
+  % term-spawn $directory [float [w $con_width h $con_height]]
+
+# examples
+  % term-spawn $HOME float w 300 h 300
+
+# '
 
 
 args="$@"
@@ -19,7 +54,13 @@ initialize()
 {
 #terminal_cmd=${TERMINAL:-'foot'}
 terminal_cmd=${TERMINAL:-'alacritty'}
-target_path=$1
+}
+
+
+process_args()
+{
+    # while $1 true; do
+	target_path=$1
 [[ $# -gt 1 ]] && shift target_con_float=$1 && shift && target_con_dims="$@"
 }
 
@@ -113,10 +154,11 @@ process_dim_args()
 		target_con_width=$1
 		;;
 
-	    h)
+	    'h')
 		shift
 		target_con_height=$1
 		;;
+
 	esac
 
 	shift
@@ -142,7 +184,8 @@ spawn_float()
     ## NOTICE --no-startup-id to prevent
     ## warning: queue 0x7efe7c000ca0 destroyed while proxies still attached
     #swaymsg exec --no-startup-id $($terminal_cmd --working-directory="$focused_pwd" --app-id="term_float") &
-    swaymsg exec --no-startup-id $($terminal_cmd --working-directory="$focused_pwd" --class="term_float") &
+    #swaymsg exec --no-startup-id $($terminal_cmd --working-directory="$focused_pwd" --class="term_float") &
+    swaymsg exec "$terminal_cmd --working-directory="$focused_pwd" --class='term_float'"
 
     if [[ -n "$target_con_dims" ]]; then
 
@@ -168,7 +211,7 @@ spawn_terminal()
 {
     if [[ "$target_con_float" == 'float' ]]; then
 
-	spawn_float
+	spawn_float "$target_con_dims"
 
     else
 
@@ -180,7 +223,8 @@ spawn_terminal()
 
 main()
 {
-    initialize "$args"
+    initialize
+    process_args "$args"
     get_curr_con_data
     process_target_path
     spawn_terminal
