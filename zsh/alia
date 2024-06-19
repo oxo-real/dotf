@@ -90,6 +90,14 @@ alias env='env | sort'
 ## https://en.wikipedia.org/wiki/ANSI_escape_code#SGR
 alias less='less --mouse --no-init --quit-if-one-screen --status-column --long-prompt -P m"\ ?f%f:stdin .?L∑%L\ .?pt%pt\%\ .[?lt%lt-?lb%lb]\ ..?e[EOF]\ ." --use-color --color Emk --color SkW --color P15.0 -- "$@"'
 
+
+## protect against shell command injection
+### https://security.stackexchange.com/questions/56307/can-cat-ing-a-file-be-a-potential-security-risk/56323#56323
+#alias cat='cat --show-ends --show-nonprinting'
+alias bat='bat --style plain "$@"'
+alias cat='bat'
+
+
 ## readnullcommand (READNULLCMD)
 ## command to assume if a single input redirection is specified with no command
 ## see zshenv for related READNULLCMD setting
@@ -102,12 +110,11 @@ function read0cmd()
 
 
 ## c (see) a file
-## < seems not to activate file completion and c is easier to type than <
+## as < seems not to activate file completion and c is easier to type than <
 ## NOTICE combine with fzf-ins-pwd C-l for current directory
 function c()
 {
-    bat --pager less "$@"
-    #cat "$@"
+    cat
 }
 
 
@@ -297,12 +304,7 @@ if command -v qrinv > /dev/null 2>&1; then
 fi
 
 
-## protect against shell command injection
-### https://security.stackexchange.com/questions/56307/can-cat-ing-a-file-be-a-potential-security-risk/56323#56323
-#alias cat='cat --show-ends --show-nonprinting'
-alias cat='bat --pager less'
-alias bat='bat --style=numbers'
-
+## cli browsing
 alias sr="sr -browser=$BROWSERCLI"
 alias surfraw="surfraw -browser=$BROWSER"
 
