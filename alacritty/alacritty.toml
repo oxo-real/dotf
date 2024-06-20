@@ -76,12 +76,12 @@ key = "Escape"
 mods = "Control"
 
 [[keyboard.bindings]]
-chars = "yank_buffer | fzf_word \r"
+chars = "yank-buffer | fzf-word \r"
 key = "B"
 mods = "Control"
 
 [[keyboard.bindings]]
-chars = "yank_buffer all | fzf_word \r"
+chars = "yank-buffer all | fzf-word \r"
 key = "B"
 mods = "Shift|Control"
 

@@ -1,5 +1,6 @@
 ```
 /home/oxo/.local/share/c/git/dotf
+├── 000
 ├── alacritty
 │   ├── alacritty.toml
 │   └── alacritty.yml
@@ -1730,10 +1731,10 @@
 │   ├── tzoner -> /home/oxo/.local/share/c/git/code/tool/tzoner
 │   ├── upgrader -> /home/oxo/.local/share/c/git/code/tool/upgrader
 │   ├── vault -> /home/oxo/.local/share/c/git/code/tool/vault
-│   ├── vim_diff -> /home/oxo/.config/git/vim_diff
+│   ├── vim-diff -> /home/oxo/.config/git/vim_diff
 │   ├── vtxt -> /home/oxo/.local/share/c/git/code/tool/vtxt
 │   ├── wtime -> /home/oxo/c/git/code/tool/wtime
-│   └── yank_buffer -> /home/oxo/.local/share/c/git/code/tool/yank-buffer
+│   └── yank-buffer -> /home/oxo/.local/share/c/git/code/tool/yank-buffer
 ├── status
 │   ├── aaa_whats_here
 │   └── bar
@@ -2086,5 +2087,5 @@
     │   └── config
     └── xresources_colors
 
-224 directories, 1862 files
+224 directories, 1863 files
 ```
