@@ -1,6 +1,5 @@
 ```
 /home/oxo/.local/share/c/git/dotf
-├── 000
 ├── alacritty
 │   ├── alacritty.toml
 │   └── alacritty.yml
@@ -2087,5 +2086,5 @@
     │   └── config
     └── xresources_colors
 
-224 directories, 1863 files
+224 directories, 1862 files
 ```
