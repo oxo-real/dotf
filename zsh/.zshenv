@@ -162,7 +162,7 @@ export ASCII=$(for (( i=32; i<127; i++ )) do; printf "\\$(printf %03o "$i")"; do
 # fzf
 
 ## fzf default options
-export FZF_DEFAULT_OPTS='--cycle --layout reverse --tiebreak chunk,length,begin,index --info inline:'∑=' --height ~25% --bind ctrl-u:clear-query --preview "tree -L 1 {}" --preview-window :hidden --scrollbar '' --no-unicode --color dark,fg:#999999,hl:#ffffff,hl+:#ffffff,bg+:#333333,info:#96cbfe,prompt:#96cbfe,pointer:#ffffd3,query:#999999,marker:#a8ff60,separator:#111111,spinner:#000000'
+export FZF_DEFAULT_OPTS='--cycle --layout reverse --tiebreak length,index --info inline:'∑=' --height ~25% --bind ctrl-u:clear-query --preview "tree -L 1 {}" --preview-window :hidden --scrollbar '' --no-unicode --color dark,fg:#999999,hl:#ffffff,hl+:#ffffff,bg+:#333333,info:#96cbfe,prompt:#96cbfe,pointer:#ffffd3,query:#999999,marker:#a8ff60,separator:#111111,spinner:#000000'
 #export FZF_DEFAULT_OPTS='--cycle --layout reverse --tiebreak chunk,length,begin,index --info inline:∑= --height ~25% --bind ctrl-u:clear-query --preview "tree -L 1 {}" --preview-window :hidden --scrollbar '' --color dark,fg:#999999,info:#96cbfe,prompt:#96cbfe,pointer:#ffffd3,query:#999999,marker:#a8ff60,separator:#000000,spinner:#000000'
 ## fzf completion trigger (default **)
 export FZF_COMPLETION_TRIGGER='~~'

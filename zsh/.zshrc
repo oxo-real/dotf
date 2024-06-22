@@ -996,10 +996,13 @@ function fzf-ins-dir()
     ## follow symlinks
     ## ignore from $XDG_CONFIG_HOME/fd/ignore
     ## include hidden files
-    ## awk creates space separated results
+    ## tr for multiple fzf entries replace \n by ' '
+    ## sed remove trailing space
     fzf_output="$(fd --follow --ignore --hidden \
       --ignore-file "$XDG_CONFIG_HOME/fd/ignore" . "$root_dir" | \
-      fzf -m --query=`printf "$fzf_input"` --height=20% | awk NF=1 OFS=' ' ORS=' ')"
+      fzf -m --query=`printf "$fzf_input"` --height=20% | \
+      tr '\n' ' ' | \
+      sed 's/[ \t]$//')"
 
     ## invalidate the current zle display in preparation for output
     ## prevent loosing visibility of entered characters before fzf started
