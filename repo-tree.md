@@ -1737,6 +1737,7 @@
 ├── status
 │   ├── aaa_whats_here
 │   └── bar
+│       ├── bar_custom
 │       ├── element
 │       │   ├── batt
 │       │   ├── brightness
@@ -2086,5 +2087,5 @@
     │   └── config
     └── xresources_colors
 
-224 directories, 1862 files
+224 directories, 1863 files
 ```
