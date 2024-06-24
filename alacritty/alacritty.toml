@@ -91,7 +91,7 @@ key = "Key8"
 mods = "Control"
 
 [[keyboard.bindings]]
-chars = "alacritty msg config font.size=18; sleep 0.1; clear \r"
+chars = "alacritty msg config font.size=20 sleep 0.1; clear \r"
 key = "Key9"
 mods = "Control"
 

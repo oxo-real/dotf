@@ -281,7 +281,6 @@ alias lsblk='lsblk --ascii --tree -o name,uuid,fstype,path,size,fsuse%,fsused,la
 alias tree='tree -n --charset=unicode'
 #alias tree='env TERM=xterm-256color tree'
 #alias zsh="env ZDOTDIR="$XDG_CONFIG_HOME/zsh" zsh"
-alias mpv='mpv --audio-display=no'
 alias rmln='unlink'
 alias figlet="figlet -d $XDG_CONFIG_HOME/figlet"
 
@@ -317,6 +316,7 @@ alias mv='mv --interactive --verbose'
 #alias mv='rsync -aAXv --info=ALL --human-readable && rm -rf $1'
 alias rm='trash'
 alias mkdir='mkdir --parents --verbose'
+
 alias lf='lfcd'
 
 
@@ -354,9 +354,14 @@ alias fgrep='fgrep --color=auto'
 
 # audio
 
-# pipewire
+## mpv
+alias mpv='mpv --audio-display=no'
+
+## pipewire
 alias beep="pw-play $BEEP"
-# pulseaudio
+alias play='pw-play'
+
+## pulseaudio
 #alias beep="paplay $BEEP"
 
 

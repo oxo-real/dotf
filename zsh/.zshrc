@@ -116,7 +116,7 @@ bindkey "^[[B" down-line-or-beginning-search
 # synthesize prompt (precmd, preexec, left and right prompt)
 
 ## define cursor styles
-function def-cursor()
+function def-cursor ()
 {
     local style
 
@@ -174,7 +174,7 @@ zle_highlight=(\
 
 
 ## set cursor styles
-function set-cursor()
+function set-cursor ()
 {
     case $KEYMAP in
 
@@ -198,7 +198,7 @@ function set-cursor()
 }
 
 
-function zle-keymap-select()
+function zle-keymap-select ()
 {
     ## set_ps1
     set-cursor
@@ -206,7 +206,7 @@ function zle-keymap-select()
 }
 
 
-function zle-line-init()
+function zle-line-init ()
 {
     zle -K $DEFAULT_VI_MODE
     ## set_ps1
@@ -215,7 +215,7 @@ function zle-line-init()
 }
 
 
-function zle-line-finish()
+function zle-line-finish ()
 {
     ## set_ps1
     set-cursor
@@ -223,7 +223,7 @@ function zle-line-finish()
 }
 
 
-function git-branch()
+function git-branch ()
 {
     # Long form
     branch="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
@@ -246,7 +246,7 @@ function git-branch()
 }
 
 
-function git-dirty()
+function git-dirty ()
 {
     ## [Git - git-status Documentation](https://git-scm.com/docs/git-status#_short_format)
     # a ahead
@@ -325,7 +325,7 @@ function git-dirty()
 # strlen
 ## called by preexec
 
-function strlen()
+function strlen ()
 {
     # calculate string length
     ## original
@@ -355,7 +355,7 @@ If it is, it sets x to y and repeats the process until
 it finds the length of the string.
 
 # '
-function xstrlen()
+function xstrlen ()
 {
     # calculate $1 string length
     ## alternative
@@ -398,7 +398,7 @@ function xstrlen()
 
 ## runs before each command execution
 ## execution start time right side aligned (> 154550)
-function preexec()
+function preexec ()
 {
     # get t0 for $time_exec (ns)
     # not equal to (pretty) start_time!!
@@ -440,7 +440,7 @@ function preexec()
 
 ## precmd runs before each prompt
 ## and thus runs after each command execution
-function precmd()
+function precmd ()
 {
     exit_code=$?
 
@@ -483,7 +483,7 @@ function precmd()
 
 	### no write permission directory color (amber #ffbf00)
 	### single quotes; wait with expansion until print
-	local precmd_left='%F{#000000}%K{#ffbf00}%B%~%b%k%f $(git-branch "%s") $(git-dirty "%s")'
+	local precmd_left='%F{#000000}%K{#ffbf00}%B %~ %b%k%f $(git-branch "%s") $(git-dirty "%s")'
 
     fi
 
@@ -585,14 +585,14 @@ setopt PROMPT_SUBST
 ZLE_RPROMPT_INDENT=0
 
 ## define what to display in RPS1
-calc-epoch()
+calc-epoch ()
 {
     epoch=$(date +'%s')
     ep_l=$(printf "$epoch" | cut -c 1-4)
     ep_r=$(printf "$epoch" | cut -c 5-)
 }
 
-calc-rps1()
+calc-rps1 ()
 {
     calc-epoch
 
@@ -636,7 +636,7 @@ calc-rps1()
     [[ $RPS1_VIS != 'on' ]] && RPS1=''
 }
 
-rp-redisplay()
+rp-redisplay ()
 {
     ## updates RPS1 via TRAPALRM every TMOUT seconds
     ## disable from cli with: export RP_REDISPLAY='off'
@@ -693,7 +693,7 @@ rp-redisplay()
     fi
 }
 
-TRAPALRM()
+TRAPALRM ()
 {
     rp-redisplay
 }
@@ -709,16 +709,8 @@ rp-redisplay
 ## set in zshenv
 
 
-# history
-
-## location of the history file
-## HISTFILE set in .zshenv
-
-## maximum number of history events to save in the history file
-SAVEHIST=1000000
-
-## maximum number of events stored in the internal history list
-HISTSIZE=1000000
+# history shell options
+## see man zshoptions (history)
 
 ## when trimming history file, first trim from duplicate entries
 setopt HIST_EXPIRE_DUPS_FIRST
@@ -729,32 +721,15 @@ setopt HIST_IGNORE_SPACE
 ## remove superfluous blanks
 setopt HIST_REDUCE_BLANKS
 
-## This option both imports new commands from the history file,
-## and also causes your typed commands to be appended to the history file.
-## The latter is like specifying INC_APPEND_HISTORY,
-## which should be turned off if this option is in effect.
-## The history lines are also output with timestamps ala EXTENDED_HISTORY.
-setopt SHARE_HISTORY
-
-## (multiple parallel) zsh sessions will (all) append their history to the
-## history file
-#setopt APPEND_HISTORY
-
-## add commands to history file in realtime, instead of when shell exits
-## comment out if SHARE_HISTORY is active
+## writing options
+## WARNING these three options are mutually exclusive
+#setopt SHARE_HISTORY
 #setopt INC_APPEND_HISTORY
-
-## command execution time is written after command is finished
-## therefore history entry is available no sooner than after command execution
-#setopt INC_APPEND_HISTORY_TIME
-
-## add epoch time and execution time data in history
-## comment out if SHARE_HISTORY is active
-###setopt EXTENDED_HISTORY
+setopt INC_APPEND_HISTORY_TIME
 
 
 # pwd, statistics and ls when cwd changes
-function chpwd()
+function chpwd ()
 {
     ## prompt path color
     if [[ -w $PWD ]]; then
@@ -764,7 +739,7 @@ function chpwd()
     else
 
 	# no write permission directory color #ffbf00
-	local left_bar="%F{#000000}%K{#ffbf00}%B%~%b%k%f"
+	local left_bar="%F{#000000}%K{#ffbf00}%B %~ %b%k%f"
 
     fi
 
@@ -773,24 +748,24 @@ function chpwd()
     ## hidden directory count
     dh_cnt=$(find . -maxdepth 1 -type d -name '.*' | tail -n +2 | wc -l)
     ## visible directory count
-    dv_cnt=$((d_cnt-dh_cnt))
+    dv_cnt=$(( d_cnt - dh_cnt ))
 
     ## file count
     f_cnt=$(find . -maxdepth 1 -type f | wc -l)
     ## hidden file count
     fh_cnt=$(find . -maxdepth 1 -type f -name '.*' | wc -l)
     ## visible file count
-    fv_cnt=$((f_cnt-fh_cnt))
+    fv_cnt=$(( f_cnt - fh_cnt ))
 
     ## symlink count
     l_cnt=$(find . -maxdepth 1 -type l | wc -l)
     ## hidden symlink count
     lh_cnt=$(find . -maxdepth 1 -type l -name '.*' | wc -l)
     ## visible symlink count
-    lv_cnt=$((l_cnt-lh_cnt))
+    lv_cnt=$(( l_cnt - lh_cnt ))
 
     ## total item count
-    ti_cnt=$((d_cnt+f_cnt+l_cnt))
+    ti_cnt=$(( d_cnt + f_cnt + l_cnt ))
 
     ## right bar
     ### sigma
@@ -811,12 +786,12 @@ function chpwd()
     ### alacritty
     local lb_corr=0
     local rb_corr=-66
-    local lb_length=$(( ${#${(S%%)left_bar//(\%([KF1]|)\{*\}|\%[Bbkf])}}+$lb_corr ))
-    local rb_length=$(( ${#${(S%%)right_bar//(\%([KF1]|)\{*\}|\%[Bbkf])}}+rb_corr ))
-    local bar_filler_spaces=$((COLUMNS - lb_length - rb_length ))
+    local lb_length=$(( ${#${(S%%)left_bar//(\%([KF1]|)\{*\}|\%[Bbkf])}} + lb_corr ))
+    local rb_length=$(( ${#${(S%%)right_bar//(\%([KF1]|)\{*\}|\%[Bbkf])}} + rb_corr ))
+    local bar_filler_spaces=$(( COLUMNS - lb_length - rb_length ))
 
-    print -Pr "$left_bar${(l:$bar_filler_spaces:)}$right_bar"
-    #echo
+    print -Pr "$left_bar  $right_bar"
+    #print -Pr "$left_bar${(l:$bar_filler_spaces:)}$right_bar"
 
     ## testing alignment
     #print $COLUMNS $lb_length $bar_filler_spaces $rb_length
@@ -846,11 +821,12 @@ function chpwd()
 ## C-@  insert_date_time
 ## C-e  insert_epoch
 ## C-q  git_add_commit
-## C-k  up_dir
-## C-h  last_dir
-## C-p  ins_pwd
 ## C-f  fzf_ins_home
 ## C-g  fzf_ins_root
+## C-h  cd-hist-stack
+## C-k  up_dir
+## C-j  fzf-ins-pwd
+## C-l  lfcd
 ## C-a  insert application
 ## C-z  foreground
 ## C-/  mountr_widget
@@ -865,9 +841,9 @@ function chpwd()
 
 : '
 #>>>>>>>>>>>>>	function insert_application
-# add (+=) application to cursor position (^A) (ctrl-shift-A)
+# add (+=) application to cursor position (C-S-a)
 
-function insert-pacmanqq()
+function insert-pacmanqq ()
 {
     #TODO escape code error
     LBUFFER+="$(pacman -Qq | fzf)"
@@ -879,9 +855,9 @@ zle -N insert-pacmanqq
 
 
 #>>>>>>>>>>>>>	function insert_application
-# add (+=) application to cursor position (^a) (ctrl a)
+# add (+=) application to cursor position (C-a)
 
-function insert-appn()
+function insert-appn ()
 {
     #TODO escape code error
     LBUFFER+="$(ls "$APPNDIR" | fzf)"
@@ -892,9 +868,9 @@ bindkey "^a" insert-appn
 
 
 #>>>>>>>>>>>>>	function insert_date_time
-# add (+=) current date and time to cursor position (^@) (ctrl @)
+# add (+=) current date and time to cursor position (C-@)
 # compact readable form of iso8601
-function insert-date-time()
+function insert-date-time ()
 {
     LBUFFER+="$(date +%Y%m%d_%H%M%S)"
 }
@@ -905,9 +881,9 @@ bindkey "^@" insert-date-time
 
 
 #>>>>>>>>>>>>>	function insert_epoch
-# add (+=) epoch to cursor position (^#) (ctrl #)
+# add (+=) epoch to cursor position (C-#)
 
-function insert-epoch()
+function insert-epoch ()
 {
     LBUFFER+="$(date +%s)"
 }
@@ -917,10 +893,12 @@ bindkey "^e" insert-epoch
 
 
 #>>>>>>>>>>>>>	function git_add_commit
-# git add & commit shortcut (^q) (ctrl q)
+# git add & commit shortcut (C-q)
 
-function git-add-commit()
+function git-add-commit ()
 {
+    #nowdate="$(date +'%Y%m%d_%H%M%S')"
+    #BUFFER="git add . && git commit --gpg-sign=7f462acc -a -m $nowdate (local_update)"
     BUFFER="git add . && git commit --gpg-sign=7f462acc -a -m '`date +%Y%m%d_%H%M%S` (local_update)'"
 }
 
@@ -929,9 +907,9 @@ bindkey "^q" git-add-commit
 
 
 #>>>>>>>>>>>>>> function up_dir
-# updir shortcut (^k) (ctrl k)
+# updir shortcut (C-k)
 
-function up-dir()
+function up-dir ()
 {
     BUFFER="cd .."
     zle accept-line
@@ -941,25 +919,68 @@ zle -N up-dir
 bindkey "^k" up-dir
 
 
-#>>>>>>>>>>>>>> function last_dir
-# last_dir shortcut (^h) (ctrl h)
-## bash: 'cd -'
+#>>>>>>>>>>>>>> function cd-hist
+# cd-hist shortcut (C-h)
+## improved version of bash: 'cd -'
 
-function last-dir()
+function cd-hist ()
 {
-    BUFFER="cd $OLDPWD"
-    zle accept-line
+    dir_hist=$(fc -l -d -t %Y%m%d_%H%M%S -D -m 'cd *' 1 | \
+		   sort --reverse --numeric-sort --key 1 | \
+		   sort --unique --key 4 | \
+		   sort --reverse --numeric-sort --key 1 | \
+		   tr -s ' ' | \
+		   cut -d ' ' -f 6- | \
+		   grep --invert-match --line-regexp $PWD/ \
+	    )
+
+    dir_select_fzf=$(printf '%s' "$dir_hist" | fzf)
+
+    if [[ -d $dir_select_fzf ]]; then
+
+	## dir_select_fzf is a directory
+	BUFFER="cd $dir_select_fzf"
+	zle accept-line
+
+    elif [[ -n $dir_select_fzf ]]; then
+
+	## first try find matching dirs in $HOME
+	dir_home=$(fd --follow --hidden --ignore-file "$XDG_CONFIG_HOME/fd/ignore" $dir_select_fzf $HOME)
+	dir_home_select=$(printf '%s' "$dir_home" | fzf --query "$dir_select_fzf")
+
+	if [[ -d $dir_home_select ]]; then
+
+	    ## dir_home_select is a directory
+	    BUFFER="cd $dir_home_select"
+	    zle accept-line
+
+	else
+
+	    ## then try find matching dirs in /
+	    dir_root=$(fd --follow --hidden --ignore-file "$XDG_CONFIG_HOME/fd/ignore" $dir_select_fzf /)
+	    dir_root_select=$(printf '%s' "$dir_root" | fzf --prompt '/' --query "$dir_select_fzf")
+
+	    if [[ -d $dir_root_select ]]; then
+
+		## dir_home_select is a directory
+		BUFFER="cd $dir_root_select"
+		zle accept-line
+
+	    fi
+
+	fi
+
+    fi
 }
 
-zle -N last-dir
-bindkey "^h" last-dir
+zle -N cd-hist
+bindkey "^h" cd-hist
 
 
 #>>>>>>>>>>>>>> function ins_pwd
-# insert $PWD inline
-# Control+p
+# insert $PWD inline (C-p)
 
-function ins-pwd()
+function ins-pwd ()
 {
     # select & kill
     zle select-in-blank-word
@@ -978,9 +999,8 @@ bindkey '^p' ins-pwd
 
 #>>>>>>>>>>>>>> function fzf_ins_dir
 # fzf insert file or directory
-# ^o pwd, ^f $HOME, ^g /
 
-function fzf-ins-dir()
+function fzf-ins-dir ()
 {
     root_dir="$1"
 
@@ -993,12 +1013,12 @@ function fzf-ins-dir()
 	    fzf_input="$root_dir"
 
     # fzf query
-    ## follow symlinks
+    ## follow symlinks include hidden
     ## ignore from $XDG_CONFIG_HOME/fd/ignore
     ## include hidden files
     ## tr for multiple fzf entries replace \n by ' '
     ## sed remove trailing space
-    fzf_output="$(fd --follow --ignore --hidden \
+    fzf_output="$(fd --follow --hidden \
       --ignore-file "$XDG_CONFIG_HOME/fd/ignore" . "$root_dir" | \
       fzf -m --query=`printf "$fzf_input"` --height=20% | \
       tr '\n' ' ' | \
@@ -1024,26 +1044,26 @@ function fzf-ins-dir()
 
 
 #>>>>>>>>>>>>>> function fzf_ins_pwd
-# fzf insert file or directory (^f) (ctrl f)
+# fzf insert file or directory (C-j)
 # search from current directory and below
 
-function fzf-ins-pwd()
+function fzf-ins-pwd ()
 {
     fzf-ins-dir "$PWD"
 }
 
 zle -N fzf-ins-pwd
-bindkey "^l" fzf-ins-pwd
+bindkey "^j" fzf-ins-pwd
 
 ## default C-l was clear-screen (form feed); is now C-o
 bindkey "^o" clear-screen
 
 
 #>>>>>>>>>>>>>> function fzf_ins_home
-# fzf insert file or directory (^f) (ctrl f)
+# fzf insert file or directory (C-f)
 # search from home
 
-function fzf-ins-home()
+function fzf-ins-home ()
 {
     fzf-ins-dir "$HOME"
 }
@@ -1053,10 +1073,10 @@ bindkey "^f" fzf-ins-home
 
 
 #>>>>>>>>>>>>>> function fzf_ins_root
-# fzf insert file or directory (^g) (ctrl g)
+# fzf insert file or directory (C-g)
 # search from root
 
-function fzf-ins-root()
+function fzf-ins-root ()
 {
     fzf-ins-dir '/'
 }
@@ -1068,7 +1088,7 @@ bindkey "^g" fzf-ins-root
 #>>>>>>>>>>>>>> function sudo_toggle
 # sudo-toggle (vicmd s)
 
-function sudo-toggle()
+function sudo-toggle ()
 {
     [[ -z $BUFFER ]] && zle up-history
 
@@ -1093,7 +1113,7 @@ bindkey -M vicmd 's' sudo-toggle
 #>>>>>>>>>>>>>> function sh-x_toggle
 # sh-x_toggle (vicmd q)
 
-function sh-x-toggle()
+function sh-x-toggle ()
 {
     [[ -z $BUFFER ]] && zle up-history
 
@@ -1124,12 +1144,11 @@ bindkey -M vicmd 'q' sh-x-toggle
 
 
 #>>>>>>>>>>>>>> function foreground
-# foreground
-# Control+backspace
+# foreground (C-z)
 
-function foreground()
+function foreground ()
 {
-    fg;
+    fg
 }
 
 zle -N foreground
@@ -1137,10 +1156,9 @@ bindkey '^Z' foreground
 
 
 #>>>>>>>>>>>>>> function lfcd
-# lfcd
-# Control+j
+# lfcd (C-l)
 
-function lfcd()
+function lfcd ()
 {
     # for precmd:
     # get t0 for $time_exec (ns)
@@ -1161,7 +1179,7 @@ function lfcd()
 }
 
 zle -N lfcd
-bindkey "^j" lfcd
+bindkey "^l" lfcd
 
 
 # syntax highlighting

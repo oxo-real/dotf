@@ -57,6 +57,19 @@ export HOSTNAME="$(head -n 1 /etc/hostname)"
 export HOME="/home/$(logname)"
 
 
+# hist
+## for history shell options (setopt) see zshrc
+
+## location of the history file
+export HISTFILE="$XDG_LOGS_HOME/history/history"
+
+## maximum number of history events to save in the history file
+export SAVEHIST=1000000
+
+## maximum number of events stored in the internal history list
+export HISTSIZE=1000000
+
+
 # path environment
 
 ### Zsh ties the PATH variable to a path array.
@@ -86,6 +99,7 @@ fpath=( $fpath $HOME/.config/zsh/completions )
 ## for zsa moonlander xkb_options to work
 export XKB_DEFAULT_OPTIONS='compose:ralt,shift:both_capslock'
 export XDG_CURRENT_DESKTOP='sway'
+export XCURSOR_SIZE=20
 
 
 # xdg environment
@@ -102,9 +116,6 @@ export XDG_LOGS_HOME="$HOME/.logs"
 
 ## cache
 export XDG_CACHE_HOME="$HOME/.cache"
-
-# location of the history file
-export HISTFILE="$XDG_LOGS_HOME/history/history"
 
 
 # z shell environment
