@@ -83,34 +83,33 @@ setopt auto_pushd
 
 # fix the workings of important keys
 
-## get SIGTERM string via `cat` and
+## get terminal escape sequence (SIGTERM) string via `cat` and
 ## pressing the targeted key there
 
+### -M selects keymap
 ## backspace key in vicmd
-### -a select vicmd keymap
-bindkey -a "^?" backward-delete-char
+bindkey -M vicmd '^?' backward-delete-char
 ## delete key in vicmd
-bindkey -a "^[[3~" delete-char
+bindkey -M vicmd '^[[3~' delete-char
 ## delete key in viins
-### -M select keymap
-bindkey -M viins "^[[3~" delete-char
+bindkey -M viins '^[[3~' delete-char
 
 ## select viins keymap and bind it to main
 bindkey -v
 
-## add backspace (key sequence "^?") to main keymap
-bindkey -v "^?" backward-delete-char
+## add backspace (key sequence '^?') to main keymap
+bindkey -v '^?' backward-delete-char
 
 ## inline history search
 ## NOTICE works also from vicmd with j and k (recommended)
 ### up arrow
 autoload -U up-line-or-beginning-search
 zle -N up-line-or-beginning-search
-bindkey "^[[A" up-line-or-beginning-search
+bindkey '^[[A' up-line-or-beginning-search
 ### down arrow
 autoload -U down-line-or-beginning-search
 zle -N down-line-or-beginning-search
-bindkey "^[[B" down-line-or-beginning-search
+bindkey '^[[B' down-line-or-beginning-search
 
 
 # synthesize prompt (precmd, preexec, left and right prompt)
@@ -850,7 +849,7 @@ function insert-pacmanqq ()
 }
 
 zle -N insert-pacmanqq
-#bindkey "^A" insert-pacmanqq
+#bindkey '^A' insert-pacmanqq
 # '
 
 
@@ -864,7 +863,7 @@ function insert-appn ()
 }
 
 zle -N insert-appn
-bindkey "^a" insert-appn
+bindkey '^a' insert-appn
 
 
 #>>>>>>>>>>>>>	function insert_date_time
@@ -876,7 +875,7 @@ function insert-date-time ()
 }
 
 zle -N insert-date-time
-bindkey "^@" insert-date-time
+bindkey '^@' insert-date-time
 # C-` also works (control backtick) #DEV use for wl-copy date_time
 
 
@@ -889,7 +888,7 @@ function insert-epoch ()
 }
 
 zle -N insert-epoch
-bindkey "^e" insert-epoch
+bindkey '^e' insert-epoch
 
 
 #>>>>>>>>>>>>>	function git_add_commit
@@ -903,7 +902,7 @@ function git-add-commit ()
 }
 
 zle -N git-add-commit
-bindkey "^q" git-add-commit
+bindkey '^q' git-add-commit
 
 
 #>>>>>>>>>>>>>> function up_dir
@@ -917,7 +916,7 @@ function up-dir ()
 }
 
 zle -N up-dir
-bindkey "^k" up-dir
+bindkey '^k' up-dir
 
 
 #>>>>>>>>>>>>>> function prev_dir
@@ -930,7 +929,7 @@ function prev-dir ()
 }
 
 zle -N prev-dir
-bindkey -M viins "^h" prev-dir
+bindkey -M viins '^h' prev-dir
 
 
 #>>>>>>>>>>>>>> function cd-hist
@@ -994,7 +993,7 @@ function cd-hist ()
 }
 
 zle -N cd-hist
-bindkey -M vicmd "^h" cd-hist
+bindkey -M vicmd '^h' cd-hist
 
 
 #>>>>>>>>>>>>>> function ins_pwd
@@ -1073,10 +1072,10 @@ function fzf-ins-pwd ()
 }
 
 zle -N fzf-ins-pwd
-bindkey "^j" fzf-ins-pwd
+bindkey '^j' fzf-ins-pwd
 
 ## default C-l was clear-screen (form feed); is now C-o
-bindkey "^o" clear-screen
+bindkey '^o' clear-screen
 
 
 #>>>>>>>>>>>>>> function fzf_ins_home
@@ -1089,7 +1088,7 @@ function fzf-ins-home ()
 }
 
 zle -N fzf-ins-home
-bindkey "^f" fzf-ins-home
+bindkey '^f' fzf-ins-home
 
 
 #>>>>>>>>>>>>>> function fzf_ins_root
@@ -1102,7 +1101,7 @@ function fzf-ins-root ()
 }
 
 zle -N fzf-ins-root
-bindkey "^g" fzf-ins-root
+bindkey '^g' fzf-ins-root
 
 
 #>>>>>>>>>>>>>> function sudo_toggle
@@ -1199,7 +1198,7 @@ function lfcd ()
 }
 
 zle -N lfcd
-bindkey "^l" lfcd
+bindkey '^l' lfcd
 
 
 # syntax highlighting
