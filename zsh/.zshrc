@@ -119,9 +119,9 @@ bindkey '^o' clear-screen               ## C-o
 
 # synthesize prompt (precmd, preexec, left and right prompt)
 
-## define cursor styles
 function def-cursor ()
 {
+    ## define cursor styles
     local style
 
     case $1 in
@@ -177,9 +177,9 @@ zle_highlight=(\
 )
 
 
-## set cursor styles
 function set-cursor ()
 {
+    ## set cursor styles
     case $KEYMAP in
 
         main | viins)
@@ -326,12 +326,10 @@ function git-dirty ()
 }
 
 
-# strlen
-## called by preexec
-
 function strlen ()
 {
     # calculate string length
+    ## called by preexec
     ## original
     arg=$1
     #local excl_pttrn='%([KF1]|)([BSUbfksu]|([FB]|){*})' ## errors
@@ -347,9 +345,12 @@ function strlen ()
     echo $length
 }
 
-## alternative strlen fuction
-## https://github.com/romkatv/powerlevel10k/blob/master/internal/p10k.zsh
-: '
+
+function xstrlen ()
+{
+    ## alternative strlen fuction
+    ## https://github.com/romkatv/powerlevel10k/blob/master/internal/p10k.zsh
+    : '
 This function, strlen, calculates the length of a given string in bash.
 It uses a loop to double the size of a variable y, until it is larger
 than the length of the string.
@@ -358,9 +359,7 @@ input string from 0 to y is equal to y.
 If it is, it sets x to y and repeats the process until
 it finds the length of the string.
 
-# '
-function xstrlen ()
-{
+    # '
     # calculate $1 string length
     ## alternative
 
@@ -398,12 +397,11 @@ function xstrlen ()
 }
 
 
-# preexec
-
-## runs before each command execution
-## execution start time right side aligned (> 154550)
 function preexec ()
 {
+    ## runs before each command execution
+    ## execution start time right side aligned (> 154550)
+
     # get t0 for $time_exec (ns)
     # not equal to (pretty) start_time!!
     t0_exec_ns=$(date +'%s%N')
@@ -440,12 +438,11 @@ function preexec ()
 }
 
 
-# precmd
-
-## precmd runs before each prompt
-## and thus runs after each command execution
 function precmd ()
 {
+    ## precmd runs before each prompt
+    ## and thus runs after each command execution
+
     exit_code=$?
 
     ## WARNING exit_code must be obtained at the start of the precmd
@@ -588,15 +585,19 @@ setopt PROMPT_SUBST
 ## no indentation for RPS1
 ZLE_RPROMPT_INDENT=0
 
+
 ## define what to display in RPS1
-calc-epoch ()
+
+
+function calc-epoch ()
 {
     epoch=$(date +'%s')
     ep_l=$(printf "$epoch" | cut -c 1-4)
     ep_r=$(printf "$epoch" | cut -c 5-)
 }
 
-calc-rps1 ()
+
+function calc-rps1 ()
 {
     calc-epoch
 
@@ -640,7 +641,8 @@ calc-rps1 ()
     [[ $RPS1_VIS != 'on' ]] && RPS1=''
 }
 
-rp-redisplay ()
+
+function rp-redisplay ()
 {
     ## updates RPS1 via TRAPALRM every TMOUT seconds
     ## disable from cli with: export RP_REDISPLAY='off'
@@ -697,7 +699,8 @@ rp-redisplay ()
     fi
 }
 
-TRAPALRM ()
+
+function TRAPALRM ()
 {
     rp-redisplay
 }
@@ -708,6 +711,7 @@ TMOUT=3
 
 ## initial activation
 rp-redisplay
+
 
 ## debug prompt (PS4)
 ## set in zshenv
@@ -819,29 +823,13 @@ function chpwd ()
 # bindkey -M <keymap>
 # man zshzle
 # zsh -f /usr/share/zsh/functions/Misc/zkbd
-# find keycode in zsh terminal with ctrl-v and then the combo
-
-
-## C-@  insert_date_time
-## C-e  insert_epoch
-## C-q  git_add_commit
-## C-f  fzf_ins_home
-## C-g  fzf_ins_root
-## C-h  cd-hist-stack
-## C-k  up_dir
-## C-j  fzf-ins-pwd
-## C-l  lfcd
-## C-z  foreground
-## C-/  mountr_widget
-## C-_  mountr_widget
-## vicmd s  sudo_toggle
-
+# find keycode in zsh terminal with cat
+# bindkey  now to clipboard             ## C-`
 
 # spawn terminal into cwd
 ## M-S-Return
 ## --> see sway config
 
-# bindkey  now to clipboard             ## C-`
 
 function insert-date-time ()
 {
