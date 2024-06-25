@@ -112,6 +112,11 @@ zle -N down-line-or-beginning-search
 bindkey '^[[B' down-line-or-beginning-search
 
 
+# fOrm-feed (default C-l)
+bindkey '^o' clear-screen               ## C-o
+
+
+
 # synthesize prompt (precmd, preexec, left and right prompt)
 
 ## define cursor styles
@@ -826,7 +831,6 @@ function chpwd ()
 ## C-k  up_dir
 ## C-j  fzf-ins-pwd
 ## C-l  lfcd
-## C-a  insert application
 ## C-z  foreground
 ## C-/  mountr_widget
 ## C-_  mountr_widget
@@ -837,62 +841,27 @@ function chpwd ()
 ## M-S-Return
 ## --> see sway config
 
+# bindkey  now to clipboard             ## C-`
 
-: '
-#>>>>>>>>>>>>>	function insert_application
-# add (+=) application to cursor position (C-S-a)
-
-function insert-pacmanqq ()
-{
-    #TODO escape code error
-    LBUFFER+="$(pacman -Qq | fzf)"
-}
-
-zle -N insert-pacmanqq
-#bindkey '^A' insert-pacmanqq
-# '
-
-
-#>>>>>>>>>>>>>	function insert_application
-# add (+=) application to cursor position (C-a)
-
-function insert-appn ()
-{
-    #TODO escape code error
-    LBUFFER+="$(ls "$APPNDIR" | fzf)"
-}
-
-zle -N insert-appn
-bindkey '^a' insert-appn
-
-
-#>>>>>>>>>>>>>	function insert_date_time
-# add (+=) current date and time to cursor position (C-@)
-# compact readable form of iso8601
 function insert-date-time ()
 {
-    LBUFFER+="$(date +%Y%m%d_%H%M%S)"
+    # add (+=) current date and time to cursor position (C-2)
+    # compact readable form of iso8601
+    LBUFFER+="$(date +'%Y%m%d_%H%M%S')"
 }
 
 zle -N insert-date-time
-bindkey '^@' insert-date-time
-# C-` also works (control backtick) #DEV use for wl-copy date_time
+bindkey '^@' insert-date-time           ## C-2
 
-
-#>>>>>>>>>>>>>	function insert_epoch
-# add (+=) epoch to cursor position (C-#)
 
 function insert-epoch ()
 {
-    LBUFFER+="$(date +%s)"
+    LBUFFER+="$(date +'%s')"
 }
 
 zle -N insert-epoch
-bindkey '^e' insert-epoch
+bindkey '^[' insert-epoch               ## C-3
 
-
-#>>>>>>>>>>>>>	function git_add_commit
-# git add & commit shortcut (C-q)
 
 function git-add-commit ()
 {
@@ -902,43 +871,13 @@ function git-add-commit ()
 }
 
 zle -N git-add-commit
-bindkey '^q' git-add-commit
+bindkey '^A' git-add-commit             ## C-a
 
 
-#>>>>>>>>>>>>>> function up_dir
-# updir shortcut (C-k)
-## go to parent directory
-
-function up-dir ()
+function dirstack-cd ()
 {
-    BUFFER="cd .."
-    zle accept-line
-}
-
-zle -N up-dir
-bindkey '^k' up-dir
-
-
-#>>>>>>>>>>>>>> function prev_dir
-# previous dir shortcut (C-h)
-
-function prev-dir ()
-{
-    BUFFER="cd -"
-    zle accept-line
-}
-
-zle -N prev-dir
-bindkey -M viins '^h' prev-dir
-
-
-#>>>>>>>>>>>>>> function cd-hist
-# cd-hist shortcut (C-h)
-## improved version of bash: 'cd -'
-
-function cd-hist ()
-{
-    dir_hist=$(fc -l -d -t %Y%m%d_%H%M%S -D -m 'cd *' 1 | \
+    ## change dirstack directory
+    dir_stack=$(fc -l -d -t %Y%m%d_%H%M%S -D -m 'cd *' 1 | \
 		   sort --reverse --numeric-sort --key 1 | \
 		   sort --unique --key 4 | \
 		   sort --reverse --numeric-sort --key 1 | \
@@ -947,7 +886,7 @@ function cd-hist ()
 		   grep --invert-match --line-regexp $PWD/ \
 	    )
 
-    dir_select_fzf=$(printf '%s' "$dir_hist" | fzf)
+    dir_select_fzf=$(printf '%s' "$dir_stack" | fzf)
 
     if [[ -z $dir_select_fzf ]]; then
 
@@ -992,35 +931,13 @@ function cd-hist ()
     zle -K viins
 }
 
-zle -N cd-hist
-bindkey -M vicmd '^h' cd-hist
+zle -N dirstack-cd
+bindkey -M viins '^h' dirstack-cd       ## C-h
 
 
-#>>>>>>>>>>>>>> function ins_pwd
-# insert $PWD inline (C-p)
-
-function ins-pwd ()
+function fzf-ins-item ()
 {
-    # select & kill
-    zle select-in-blank-word
-    zle kill-region
-
-    CUTBUFFER="$PWD"
-    zle vi-put-before
-    #zle put-replace-selection
-
-    unset CUTBUFFER
-}
-
-zle -N ins-pwd
-bindkey '^p' ins-pwd
-
-
-#>>>>>>>>>>>>>> function fzf_ins_dir
-# fzf insert file or directory
-
-function fzf-ins-dir ()
-{
+    ## fzf insert file or directory
     root_dir="$1"
 
     # select & kill
@@ -1062,50 +979,90 @@ function fzf-ins-dir ()
 }
 
 
-#>>>>>>>>>>>>>> function fzf_ins_pwd
-# fzf insert file or directory (C-j)
-# search from current directory and below
-
-function fzf-ins-pwd ()
+function insert-child-item ()
 {
+    ## search and select from current directory and deeper
     fzf-ins-dir "$PWD"
 }
 
-zle -N fzf-ins-pwd
-bindkey '^j' fzf-ins-pwd
-
-## default C-l was clear-screen (form feed); is now C-o
-bindkey '^o' clear-screen
+zle -N insert-child-item
+bindkey '^j' insert-child-item          ## C-j
 
 
-#>>>>>>>>>>>>>> function fzf_ins_home
-# fzf insert file or directory (C-f)
-# search from home
+function up-dir ()
+{
+    ## go to parent directory
+    BUFFER="cd .."
+    zle accept-line
+}
+
+zle -N up-dir
+bindkey '^k' up-dir                     ## C-k
+
+
+function lfcd ()
+{
+    ## go to active directory when lf exits
+
+    # for precmd:
+    # get t0 for $time_exec (ns)
+    t0_exec_ns=$(date +'%s%N')
+
+    printf "${st_inv}lfcd${st_dev}\n"
+
+    cd "$(command lf -print-last-dir "$@")"
+
+    precmd
+
+    # `zle reset-prompt` gives error
+    # when called directly via cli (by typing: `lfcd`)
+    # [zsh zle - ZSH on 10.9: widgets can only be called when ZLE is active - Stack Overflow](https://stackoverflow.com/questions/20357441/zsh-on-10-9-widgets-can-only-be-called-when-zle-is-active)
+    # solved with:
+    zle && { zle reset-prompt; zle -R }
+    #zle reset-prompt
+}
+
+zle -N lfcd
+bindkey '^l' lfcd                       ## C-l
+
 
 function fzf-ins-home ()
 {
-    fzf-ins-dir "$HOME"
+    ## search item from home
+    fzf-ins-item "$HOME"
 }
 
 zle -N fzf-ins-home
-bindkey '^f' fzf-ins-home
+bindkey '^f' fzf-ins-home               ## C-f
 
-
-#>>>>>>>>>>>>>> function fzf_ins_root
-# fzf insert file or directory (C-g)
-# search from root
 
 function fzf-ins-root ()
 {
-    fzf-ins-dir '/'
+    ## search item from root
+    fzf-ins-item '/'
 }
 
 zle -N fzf-ins-root
-bindkey '^g' fzf-ins-root
+bindkey '^g' fzf-ins-root               ## C-g
 
 
-#>>>>>>>>>>>>>> function sudo_toggle
-# sudo-toggle (vicmd s)
+function ins-pwd ()
+{
+    ## insert $PWD inline
+    ## select & kill
+    zle select-in-blank-word
+    zle kill-region
+
+    CUTBUFFER="$PWD"
+    zle vi-put-before
+
+    unset CUTBUFFER
+}
+
+zle -N ins-pwd
+bindkey '^p' ins-pwd                    ## C-p
+
+
 
 function sudo-toggle ()
 {
@@ -1113,24 +1070,23 @@ function sudo-toggle ()
 
     if [[ $BUFFER == sudo\ * ]]; then
 
-	# already sudo; remove sudo
+	## already sudo; remove sudo
 	BUFFER="${BUFFER#sudo }"
 
     else
 
-	BUFFER="sudo $BUFFER"  ## add sudo
+	## add sudo
+	BUFFER="sudo $BUFFER"
 
     fi
 
-    zle -R $BUFFER  ## refresh
+    ## refresh
+    zle -R $BUFFER
 }
 
-zle -N sudo-toggle  ## create widget
-bindkey -M vicmd 's' sudo-toggle
+zle -N sudo-toggle
+bindkey -M vicmd 's' sudo-toggle        ## [vicmd] s
 
-
-#>>>>>>>>>>>>>> function sh-x_toggle
-# sh-x_toggle (vicmd q)
 
 function sh-x-toggle ()
 {
@@ -1158,47 +1114,18 @@ function sh-x-toggle ()
     zle -R $BUFFER  ## refresh
 }
 
-zle -N sh-x-toggle  ## create widget
-bindkey -M vicmd 'q' sh-x-toggle
+zle -N sh-x-toggle
+bindkey -M vicmd 'q' sh-x-toggle        ## [vicmd] q
 
-
-#>>>>>>>>>>>>>> function foreground
-# foreground (C-z)
 
 function foreground ()
 {
+    ## bring background jobs to the foreground
     fg
 }
 
 zle -N foreground
-bindkey '^Z' foreground
-
-
-#>>>>>>>>>>>>>> function lfcd
-# lfcd (C-l)
-
-function lfcd ()
-{
-    # for precmd:
-    # get t0 for $time_exec (ns)
-    t0_exec_ns=$(date +'%s%N')
-
-    printf "${st_inv}lfcd${st_dev}\n"
-
-    cd "$(command lf -print-last-dir "$@")"
-
-    precmd
-
-    # `zle reset-prompt` gives error
-    # when called directly via cli (by typing: `lfcd`)
-    # [zsh zle - ZSH on 10.9: widgets can only be called when ZLE is active - Stack Overflow](https://stackoverflow.com/questions/20357441/zsh-on-10-9-widgets-can-only-be-called-when-zle-is-active)
-    # solved with:
-    zle && { zle reset-prompt; zle -R }
-    #zle reset-prompt
-}
-
-zle -N lfcd
-bindkey '^l' lfcd
+bindkey '^Z' foreground                 ## C-z
 
 
 # syntax highlighting
