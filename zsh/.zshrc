@@ -908,6 +908,7 @@ bindkey "^q" git-add-commit
 
 #>>>>>>>>>>>>>> function up_dir
 # updir shortcut (C-k)
+## go to parent directory
 
 function up-dir ()
 {
@@ -917,6 +918,19 @@ function up-dir ()
 
 zle -N up-dir
 bindkey "^k" up-dir
+
+
+#>>>>>>>>>>>>>> function prev_dir
+# previous dir shortcut (C-h)
+
+function prev-dir ()
+{
+    BUFFER="cd -"
+    zle accept-line
+}
+
+zle -N prev-dir
+bindkey -M viins "^h" prev-dir
 
 
 #>>>>>>>>>>>>>> function cd-hist
@@ -936,7 +950,11 @@ function cd-hist ()
 
     dir_select_fzf=$(printf '%s' "$dir_hist" | fzf)
 
-    if [[ -d $dir_select_fzf ]]; then
+    if [[ -z $dir_select_fzf ]]; then
+
+	:
+
+    elif [[ -d $dir_select_fzf ]]; then
 
 	## dir_select_fzf is a directory
 	BUFFER="cd $dir_select_fzf"
@@ -971,10 +989,12 @@ function cd-hist ()
 	fi
 
     fi
+
+    zle -K viins
 }
 
 zle -N cd-hist
-bindkey "^h" cd-hist
+bindkey -M vicmd "^h" cd-hist
 
 
 #>>>>>>>>>>>>>> function ins_pwd
