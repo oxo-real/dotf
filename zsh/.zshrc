@@ -848,7 +848,7 @@ function insert-epoch ()
 }
 
 zle -N insert-epoch
-bindkey '^[' insert-epoch               ## C-3
+bindkey '^E' insert-epoch               ## C-e
 
 
 function git-add-commit ()
@@ -865,12 +865,14 @@ bindkey '^A' git-add-commit             ## C-a
 function dirstack-cd ()
 {
     ## change dirstack directory
+    basename_cwd=$(basename $PWD)
     dir_stack=$(fc -l -d -t %Y%m%d_%H%M%S -D -m 'cd *' 1 | \
 		   sort --reverse --numeric-sort --key 1 | \
 		   sort --unique --key 4 | \
 		   sort --reverse --numeric-sort --key 1 | \
 		   tr -s ' ' | \
 		   cut -d ' ' -f 6- | \
+		   grep --invert-match --line-regexp $basename_cwd | \
 		   grep --invert-match --line-regexp $PWD/ \
 	    )
 
@@ -882,7 +884,8 @@ function dirstack-cd ()
 
     elif [[ -d $dir_select_fzf ]]; then
 
-	## dir_select_fzf is a directory
+	## dir_select_fzf is an absolute directory
+	## or child of the cwd
 	BUFFER="cd $dir_select_fzf"
 	zle accept-line
 

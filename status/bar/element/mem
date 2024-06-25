@@ -53,3 +53,4 @@ int=$(echo "scale=0; ($max - $min) / $no_thr" | bc -l)
 (( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo  ## default
 (( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo  ## default
 (( $var <= $(( min + 0 * int )) )) && echo  ## default
+echo

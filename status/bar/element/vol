@@ -109,7 +109,6 @@ case $mic_mute in
 	(( $var <= $(( min + 0 * int )) )) && echo  ## default
 
 	## background
-	echo "#ff73fd"  ## magenta
 	## (( $var > $(( min + 5 * int )) )) && echo  ## default
 	## (( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo  ## default
 	## (( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo  ## default
@@ -117,6 +116,7 @@ case $mic_mute in
 	## (( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo  ## default
 	## (( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo  ## default
 	## (( $var <= $(( min + 0 * int )) )) && echo  ## default
+	echo "#ffbf00"  ## amber
 
 	## border
 	(( $var > $(( min + 5 * int )) )) && echo  ## default
@@ -129,3 +129,4 @@ case $mic_mute in
 	;;
 
 esac
+echo
