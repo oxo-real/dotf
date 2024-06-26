@@ -821,7 +821,7 @@ function chpwd ()
 # showkey --scancodes
 # bindkey -l (zsh keymaps)
 # bindkey -M <keymap>
-# man zshzle
+
 # zsh -f /usr/share/zsh/functions/Misc/zkbd
 # find keycode in zsh terminal with cat
 # bindkey  now to clipboard             ## C-`
@@ -973,7 +973,7 @@ function fzf-ins-item ()
 function insert-child-item ()
 {
     ## search and select from current directory and deeper
-    fzf-ins-dir "$PWD"
+    fzf-ins-item "$PWD"
 }
 
 zle -N insert-child-item
@@ -995,22 +995,14 @@ function lfcd ()
 {
     ## go to active directory when lf exits
 
-    # for precmd:
-    # get t0 for $time_exec (ns)
+    ## for precmd:
+    ## get t0 for $time_exec (ns)
     t0_exec_ns=$(date +'%s%N')
 
-    printf "${st_inv}lfcd${st_dev}\n"
-
-    cd "$(command lf -print-last-dir "$@")"
+    printf 'lfcd\n'
+    cd $(command lf -print-last-dir "$@")
 
     precmd
-
-    # `zle reset-prompt` gives error
-    # when called directly via cli (by typing: `lfcd`)
-    # [zsh zle - ZSH on 10.9: widgets can only be called when ZLE is active - Stack Overflow](https://stackoverflow.com/questions/20357441/zsh-on-10-9-widgets-can-only-be-called-when-zle-is-active)
-    # solved with:
-    zle && { zle reset-prompt; zle -R }
-    #zle reset-prompt
 }
 
 zle -N lfcd
