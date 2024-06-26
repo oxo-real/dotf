@@ -864,7 +864,7 @@ bindkey '^A' git-add-commit             ## C-a
 
 function dirstack-cd ()
 {
-    ## change dirstack directory
+    ## change directory; select from dirstack
     basename_cwd=$(basename $PWD)
     dir_stack=$(fc -l -d -t %Y%m%d_%H%M%S -D -m 'cd *' 1 | \
 		   sort --reverse --numeric-sort --key 1 | \
@@ -891,8 +891,8 @@ function dirstack-cd ()
 
     elif [[ -n $dir_select_fzf ]]; then
 
-	## first try find matching dirs in $HOME
-	dir_home=$(fd --follow --hidden --ignore-file "$XDG_CONFIG_HOME/fd/ignore" $dir_select_fzf $HOME)
+	## change directory; select from $HOME
+	dir_home=$(fd --type d --hidden --ignore-file "$XDG_CONFIG_HOME/fd/ignore" $dir_select_fzf $HOME)
 	dir_home_select=$(printf '%s' "$dir_home" | fzf --query "$dir_select_fzf")
 
 	if [[ -d $dir_home_select ]]; then
@@ -903,8 +903,8 @@ function dirstack-cd ()
 
 	else
 
-	    ## then try find matching dirs in /
-	    dir_root=$(fd --follow --hidden --ignore-file "$XDG_CONFIG_HOME/fd/ignore" $dir_select_fzf /)
+	    ## change directory; select from root (/)
+	    dir_root=$(fd --type d --hidden --ignore-file "$XDG_CONFIG_HOME/fd/ignore" $dir_select_fzf /)
 	    dir_root_select=$(printf '%s' "$dir_root" | fzf --prompt '/' --query "$dir_select_fzf")
 
 	    if [[ -d $dir_root_select ]]; then
@@ -932,12 +932,16 @@ function fzf-ins-item ()
     root_dir="$1"
 
     # select & kill
-    zle select-in-blank-word
-    zle kill-region
-    input="$CUTBUFFER"
-    [[ -n "$input" ]] && \
-	fzf_input="$input" || \
-	    fzf_input="$root_dir"
+    if [[ -z "$fzf_prmt" ]]; then
+
+	zle select-in-blank-word
+	zle kill-region
+	input="$CUTBUFFER"
+	[[ -n "$input" ]] && \
+	    fzf_input="$input" || \
+		fzf_input="$root_dir"
+
+    fi
 
     # fzf query
     ## follow symlinks include hidden
@@ -945,15 +949,34 @@ function fzf-ins-item ()
     ## include hidden files
     ## tr for multiple fzf entries replace \n by ' '
     ## sed remove trailing space
-    fzf_output="$(fd --follow --hidden \
-      --ignore-file "$XDG_CONFIG_HOME/fd/ignore" . "$root_dir" | \
-      fzf -m --query=`printf "$fzf_input"` --height=20% | \
-      tr '\n' ' ' | \
-      sed 's/[ \t]$//')"
+    case $fd_dirs_only in
 
-    ## invalidate the current zle display in preparation for output
-    ## prevent loosing visibility of entered characters before fzf started
-    zle -I
+	1 )
+	    ## fzf $prmt injected from inline-ins-item
+	    fzf_output="$(fd --type d --hidden \
+	          --ignore-file "$XDG_CONFIG_HOME/fd/ignore" . "$root_dir" | \
+		        fzf -m --query=`printf "$fzf_input"` --track --height=20% | \
+			      tr '\n' ' ' | \
+			            sed 's/[ \t]$//')"
+	    ;;
+
+	* )
+	    fzf_output="$(fd --follow --hidden \
+	          --ignore-file "$XDG_CONFIG_HOME/fd/ignore" . "$root_dir" | \
+		        fzf -m --prompt="$fzf_prmt " --query=`printf "$fzf_input"` --track --tiebreak length,begin,index | \
+			      tr '\n' ' ' | \
+			            sed 's/[ \t]$//')"
+	    ;;
+
+    esac
+
+    if [[ -z "$fzf_prmt" ]]; then
+
+	## invalidate the current zle display in preparation for output
+	## prevent loosing visibility of entered characters before fzf started
+	zle -I
+
+    fi
 
     # analyze fzf output
     [[ -n "$fzf_output" ]] && \
@@ -970,25 +993,31 @@ function fzf-ins-item ()
 }
 
 
-function insert-child-item ()
+function cd-child ()
 {
-    ## search and select from current directory and deeper
+    zle kill-line
+
+    ## search and select directories from current and deeper
+    fd_dirs_only=1
     fzf-ins-item "$PWD"
+
+    fd_dirs_only=''
+    [[ -n $fzf_output ]] && BUFFER="cd $BUFFER" && zle accept-line
 }
 
-zle -N insert-child-item
-bindkey '^j' insert-child-item          ## C-j
+zle -N cd-child
+bindkey '^j' cd-child                   ## C-j
 
 
-function up-dir ()
+function cd-up-dir ()
 {
     ## go to parent directory
     BUFFER="cd .."
     zle accept-line
 }
 
-zle -N up-dir
-bindkey '^k' up-dir                     ## C-k
+zle -N cd-up-dir
+bindkey '^k' cd-up-dir                  ## C-k
 
 
 function lfcd ()
@@ -1009,19 +1038,91 @@ zle -N lfcd
 bindkey '^l' lfcd                       ## C-l
 
 
-function fzf-ins-home ()
+#function fzf-ins-home ()
+#{
+#    ## search and select item(s) from home
+#    fzf-ins-item "$HOME"
+#}
+#
+#zle -N fzf-ins-home
+#bindkey '^f' fzf-ins-home               ## C-f
+
+
+function inline-ins-item ()
 {
-    ## search item from home
-    fzf-ins-item "$HOME"
+    ## first list item is $PWD (get rid of C-p)
+    realpath_cwd=$(realpath $PWD)
+    fzf_prmt='c'
+    dir_select_1=$(printf '%s' "$realpath_cwd" | fzf --prompt "$fzf_prmt ")
+
+    ## no $PWD selected
+    if [[ -z $dir_select_1 ]]; then
+
+	## search and select item(s) in $PWD
+	fzf_prmt='p'
+	fzf-ins-item $PWD
+
+	if [[ -n $fzf_output ]]; then
+
+	    zle reset-prompt
+	    unset fzf_output
+	    return 0
+
+	elif [[ -z $fzf_output ]]; then
+
+	    ## search and select item(s) in $HOME
+	    fzf_prmt='h'
+	    fzf-ins-item $HOME
+
+	    if [[ -n $fzf_output ]]; then
+
+		zle reset-prompt
+		unset fzf_output
+		return 0
+
+	    elif [[ -z $fzf_output ]]; then
+
+		## search and select item(s) in ROOT (/)
+		fzf_prmt='r'
+		fzf-ins-item /
+
+		if [[ -n $fzf_output ]]; then
+
+		    zle reset-prompt
+		    unset fzf_output
+		    return 0
+
+		else
+
+		    return 0
+
+		fi
+
+	    fi
+
+	fi
+
+    ## $PWD selected
+    elif [[ -n $dir_select_1 ]]; then
+
+	## insert at cursor position
+	### keep cursor in place
+	#RBUFFER="${dir_select_1}${RBUFFER}"
+	### move cursor to eol
+	LBUFFER+="${dir_select_1}"
+	zle reset-prompt
+	unset LBUFFER
+
+    fi
 }
 
-zle -N fzf-ins-home
-bindkey '^f' fzf-ins-home               ## C-f
+zle -N inline-ins-item
+bindkey '^f' inline-ins-item            ## C-f
 
 
 function fzf-ins-root ()
 {
-    ## search item from root
+    ## search and select item(s) from root
     fzf-ins-item '/'
 }
 

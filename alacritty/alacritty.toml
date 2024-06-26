@@ -86,13 +86,13 @@ key = "B"
 mods = "Shift|Control"
 
 [[keyboard.bindings]]
-chars = "alacritty msg config font.size=11; sleep 0.1; clear \r"
-key = "Key8"
+chars = "alacritty msg config font.size=20 sleep 0.1; clear \r"
+key = "Key9"
 mods = "Control"
 
 [[keyboard.bindings]]
-chars = "alacritty msg config font.size=20 sleep 0.1; clear \r"
-key = "Key9"
+chars = "alacritty msg config font.size=11; sleep 0.1; clear \r"
+key = "Key0"
 mods = "Control"
 
 [window]
