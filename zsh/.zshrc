@@ -862,16 +862,18 @@ zle -N git-add-commit
 bindkey '^A' git-add-commit             ## C-a
 
 
-function dirstack-cd ()
+function cd-dirstack ()
 {
     ## change directory; select from dirstack
     basename_cwd=$(basename $PWD)
+
     ## fc list history of cd commands
     ## sort chronological
     ## sort alphabetical
     ## sort chronological
     ## tr squeeze double spaces
     ## cut only directory part of command
+    ## sed remove trailing slashes
     ## grep filter out basename cwd
     ## grep filter out full $PWD
     ## awk filter out line with more than one word
@@ -881,18 +883,16 @@ function dirstack-cd ()
 		   sort --reverse --numeric-sort --key 1 | \
 		   tr -s ' ' | \
 		   cut -d ' ' -f 6- | \
+		   sed 's|[/\t]$||' | \
 		   grep --invert-match --line-regexp $basename_cwd | \
-		   grep --invert-match --line-regexp $PWD/ | \
+		   grep --invert-match --line-regexp $PWD | \
 		   awk 'NF<=1{print}' \
 	    )
+		   # sed '1d' \
 
     dir_select_fzf=$(printf '%s' "$dir_stack" | fzf)
 
-    if [[ -z $dir_select_fzf ]]; then
-
-	:
-
-    elif [[ -d $dir_select_fzf ]]; then
+    if [[ -d $dir_select_fzf ]]; then
 
 	## dir_select_fzf is an absolute directory
 	## or child of the cwd
@@ -932,73 +932,8 @@ function dirstack-cd ()
     zle -K viins
 }
 
-zle -N dirstack-cd
-bindkey -M viins '^h' dirstack-cd       ## C-h
-
-
-function fzf-ins-item ()
-{
-    ## fzf insert file or directory
-    root_dir="$1"
-
-    ## select & kill
-    if [[ -z "$fzf_prmt" ]]; then
-
-	zle select-in-blank-word
-	zle kill-region
-	input="$CUTBUFFER"
-	[[ -n "$input" ]] && \
-	    fzf_input="$input" || \
-		fzf_input="$root_dir"
-
-    fi
-
-    # fzf query fd search
-    ## follow symlinks include hidden
-    ## ignore from $XDG_CONFIG_HOME/fd/ignore
-    ## include hidden files
-    ## tr for multiple fzf entries replace \n by ' '
-    ## sed remove trailing space
-    case $fd_dirs_only in
-
-	1 )
-	    ## fzf $prmt injected from inline-ins-item
-	    fzf_output="$(fd --type d --hidden . "$root_dir" | \
-		        fzf -m --query=`printf "$fzf_input"` --track --height=20% | \
-			      tr '\n' ' ' | \
-			            sed 's/[ \t]$//')"
-	    ;;
-
-	* )
-	    fzf_output="$(fd --hidden . "$root_dir" | \
-		        fzf -m --prompt="$fzf_prmt " --query=`printf "$fzf_input"` --track | \
-			      tr '\n' ' ' | \
-			            sed 's/[ \t]$//')"
-	    ;;
-
-    esac
-
-    if [[ -z "$fzf_prmt" ]]; then
-
-	## invalidate the current zle display in preparation for output
-	## prevent loosing visibility of entered characters before fzf started
-	zle -I
-
-    fi
-
-    # analyze fzf output
-    [[ -n "$fzf_output" ]] && \
-    	CUTBUFFER="$fzf_output" || \
-    	    CUTBUFFER="$input"
-
-    # replace selection
-    zle vi-put-before
-    #zle put-replace-selection
-
-    unset CUTBUFFER
-    unset fzf_input
-    unset input
-}
+zle -N cd-dirstack
+bindkey -M viins '^h' cd-dirstack       ## C-h
 
 
 function cd-child ()
@@ -1007,7 +942,7 @@ function cd-child ()
 
     ## search and select directories from current and deeper
     fd_dirs_only=1
-    fzf-ins-item "$PWD"
+    insert-item-fzf "$PWD"
 
     fd_dirs_only=''
     [[ -n $fzf_output ]] && BUFFER="cd $BUFFER" && zle accept-line
@@ -1017,18 +952,18 @@ zle -N cd-child
 bindkey '^j' cd-child                   ## C-j
 
 
-function cd-up-dir ()
+function cd-up ()
 {
     ## go to parent directory
     BUFFER="cd .."
     zle accept-line
 }
 
-zle -N cd-up-dir
-bindkey '^k' cd-up-dir                  ## C-k
+zle -N cd-up
+bindkey '^k' cd-up                      ## C-k
 
 
-function lfcd ()
+function cd-lf ()
 {
     ## go to active directory when lf exits
 
@@ -1036,29 +971,26 @@ function lfcd ()
     ## get t0 for $time_exec (ns)
     t0_exec_ns=$(date +'%s%N')
 
-    printf 'lfcd\n'
+    printf 'cd-lf\n'
     cd $(command lf -print-last-dir "$@")
 
     precmd
 }
 
-zle -N lfcd
-bindkey '^l' lfcd                       ## C-l
+zle -N cd-lf
+bindkey '^l' cd-lf                       ## C-l
 
 
-#function fzf-ins-home ()
-#{
-#    ## search and select item(s) from home
-#    fzf-ins-item "$HOME"
-#}
-#
-#zle -N fzf-ins-home
-#bindkey '^f' fzf-ins-home               ## C-f
-
-
-function inline-ins-item ()
+function insert-item-inline ()
 {
-    ## first list item is $PWD (get rid of C-p)
+    # fzf search and select files and directories
+
+    ## item order
+    ## 1 echo $PWD
+    ## 2 $PWD
+    ## 3 $HOME
+    ## 4 /
+
     realpath_cwd=$(realpath $PWD)
     fzf_prmt='c'
     dir_select_c=$(printf '%s' "$realpath_cwd" | fzf --prompt "$fzf_prmt ")
@@ -1068,7 +1000,7 @@ function inline-ins-item ()
 
 	## search and select item(s) in $PWD
 	fzf_prmt='p'
-	fzf-ins-item $PWD
+	insert-item-fzf $PWD
 
 	if [[ -n $fzf_output ]]; then
 
@@ -1080,7 +1012,7 @@ function inline-ins-item ()
 
 	    ## search and select item(s) in $HOME
 	    fzf_prmt='h'
-	    fzf-ins-item $HOME
+	    insert-item-fzf $HOME
 
 	    if [[ -n $fzf_output ]]; then
 
@@ -1092,7 +1024,7 @@ function inline-ins-item ()
 
 		## search and select item(s) in ROOT (/)
 		fzf_prmt='r'
-		fzf-ins-item /
+		insert-item-fzf /
 
 		if [[ -n $fzf_output ]]; then
 
@@ -1123,39 +1055,102 @@ function inline-ins-item ()
     fi
 }
 
-zle -N inline-ins-item
-bindkey '^f' inline-ins-item            ## C-f
+zle -N insert-item-inline
+bindkey '^f' insert-item-inline            ## C-f
 
 
-function fzf-ins-root ()
+function insert-item-fzf ()
 {
-    ## search and select item(s) from root
-    fzf-ins-item '/'
-}
+    ## fzf insert file or directory
+    query_dir="$1"
 
-zle -N fzf-ins-root
-bindkey '^g' fzf-ins-root               ## C-g
-
-
-function ins-pwd ()
-{
-    ## insert $PWD inline
     ## select & kill
-    zle select-in-blank-word
-    zle kill-region
+    if [[ -z "$fzf_prmt" ]]; then
 
-    CUTBUFFER="$PWD"
+	zle select-in-blank-word
+	zle kill-region
+	input="$CUTBUFFER"
+	[[ -n "$input" ]] && \
+	    fzf_input="$input" || \
+		fzf_input="$query_dir"
+
+    fi
+
+    # fzf query fd search
+    ## include hidden files
+    ## tr for multiple fzf entries replace \n by ' '
+    ## sed remove trailing space
+    case $fd_dirs_only in
+
+	1 )
+	    ## fzf $prmt injected from insert-item-inline
+	    fzf_output="$(fd --type d --hidden . "$query_dir" | \
+		        fzf -m --query=`printf "$fzf_input"` | \
+			      tr '\n' ' ' | \
+			            sed 's/[ \t]$//')"
+	    ;;
+
+	* )
+	    ## fzf $prmt injected from insert-item-inline
+	    fzf_output="$(fd --hidden . "$query_dir" | \
+		        fzf -m --prompt="$fzf_prmt " --query=`printf "$fzf_input"` | \
+			      tr '\n' ' ' | \
+			            sed 's/[ \t]$//')"
+	    ;;
+
+    esac
+
+    if [[ -z "$fzf_prmt" ]]; then
+
+	## invalidate the current zle display in preparation for output
+	## prevent loosing visibility of entered characters before fzf started
+	zle -I
+
+    fi
+
+    # analyze fzf output
+    [[ -n "$fzf_output" ]] && \
+    	CUTBUFFER="$fzf_output" || \
+    	    CUTBUFFER="$input"
+
+    # replace selection
     zle vi-put-before
+    #zle put-replace-selection
 
     unset CUTBUFFER
+    unset fzf_input
+    unset input
 }
 
-zle -N ins-pwd
-bindkey '^p' ins-pwd                    ## C-p
+
+#function fzf-ins-root ()
+#{
+#    ## search and select item(s) from root
+#    insert-item-fzf '/'
+#}
+#
+#zle -N fzf-ins-root
+#bindkey '^g' fzf-ins-root               ## C-g
+#
+#
+#function ins-pwd ()
+#{
+#    ## insert $PWD inline
+#    ## select & kill
+#    zle select-in-blank-word
+#    zle kill-region
+#
+#    CUTBUFFER="$PWD"
+#    zle vi-put-before
+#
+#    unset CUTBUFFER
+#}
+#
+#zle -N ins-pwd
+#bindkey '^p' ins-pwd                    ## C-p
 
 
-
-function sudo-toggle ()
+function toggle-sudo ()
 {
     [[ -z $BUFFER ]] && zle up-history
 
@@ -1175,11 +1170,11 @@ function sudo-toggle ()
     zle -R $BUFFER
 }
 
-zle -N sudo-toggle
-bindkey -M vicmd 's' sudo-toggle        ## [vicmd] s
+zle -N toggle-sudo
+bindkey -M vicmd 's' toggle-sudo        ## [vicmd] s
 
 
-function sh-x-toggle ()
+function toggle-sh-x ()
 {
     [[ -z $BUFFER ]] && zle up-history
 
@@ -1205,8 +1200,8 @@ function sh-x-toggle ()
     zle -R $BUFFER  ## refresh
 }
 
-zle -N sh-x-toggle
-bindkey -M vicmd 'q' sh-x-toggle        ## [vicmd] q
+zle -N toggle-sh-x
+bindkey -M vicmd 'q' toggle-sh-x        ## [vicmd] q
 
 
 function foreground ()
