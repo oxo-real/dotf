@@ -911,6 +911,7 @@ function cd-dirstack ()
     elif [[ -z $dir_select_fzf ]]; then
 
 	## change directory; select directories under $PWD
+	## similar functionality directly with function cd-child
 	dir_home=$(fd --type d --hidden . $PWD)
 	dir_home_select=$(printf '%s' "$dir_home" | fzf --prompt "  $PWD/")
 
@@ -964,10 +965,11 @@ function cd-child ()
     zle kill-line
 
     ## search and select directories from current and deeper
-    fd_dirs_only=1
+    cd_function=1
+    fzf_prmt="$PWD"
     insert-item-fzf "$PWD"
 
-    fd_dirs_only=''
+    cd_function=''
     [[ -n $fzf_output ]] && BUFFER="cd $BUFFER" && zle accept-line
 }
 
@@ -1103,12 +1105,12 @@ function insert-item-fzf ()
     ## include hidden files
     ## tr for multiple fzf entries replace \n by ' '
     ## sed remove trailing space
-    case $fd_dirs_only in
+    case $cd_function in
 
 	1 )
 	    ## cd-*-functions enter here (i.e. cd-child)
 	    fzf_output="$(fd --type d --hidden . "$query_dir" | \
-		        fzf -m --query=`printf "$fzf_input"` | \
+		        fzf --prompt="  $fzf_prmt/" --query=`printf "$fzf_input"` | \
 			      tr '\n' ' ' | \
 			            sed 's/[ \t]$//')"
 	    ;;
