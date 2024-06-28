@@ -864,6 +864,14 @@ bindkey '^A' git-add-commit             ## C-a
 
 function cd-dirstack ()
 {
+    # fzf cd into directories
+
+    ## item order (no cycle):
+    ### 1  --0 $dir_stack
+    ### 2  --0 $PWD
+    ### 3  --0 $HOME
+    ### 4  --0 $ROOT (/)
+
     ## change directory; select from dirstack
     basename_cwd=$(basename $PWD)
 
@@ -876,6 +884,7 @@ function cd-dirstack ()
     ## sed remove trailing slashes
     ## grep filter out basename cwd
     ## grep filter out full $PWD
+    ## #TODO sed replace variables with realpaths (i.e. $HOME)
     ## awk filter out line with more than one word
     dir_stack=$(fc -l -d -t %Y%m%d_%H%M%S -D -m 'cd *' 1 | \
 		   sort --reverse --numeric-sort --key 1 | \
@@ -888,10 +897,10 @@ function cd-dirstack ()
 		   grep --invert-match --line-regexp $PWD | \
 		   awk 'NF<=1{print}' \
 	    )
-		   # sed '1d' \
 
-    dir_select_fzf=$(printf '%s' "$dir_stack" | fzf)
+    dir_select_fzf=$(printf '%s' "$dir_stack" | fzf --prompt 'ds ')
 
+    ## change directory; select directories from $dir_stack
     if [[ -d $dir_select_fzf ]]; then
 
 	## dir_select_fzf is an absolute directory
@@ -901,9 +910,9 @@ function cd-dirstack ()
 
     elif [[ -z $dir_select_fzf ]]; then
 
-	## change directory; select from $HOME
-	dir_home=$(fd --type d --hidden . $HOME)
-	dir_home_select=$(printf '%s' "$dir_home" | fzf --prompt "  $HOME/")
+	## change directory; select directories under $PWD
+	dir_home=$(fd --type d --hidden . $PWD)
+	dir_home_select=$(printf '%s' "$dir_home" | fzf --prompt "  $PWD/")
 
 	if [[ -d $dir_home_select ]]; then
 
@@ -911,17 +920,31 @@ function cd-dirstack ()
 	    BUFFER="cd $dir_home_select"
 	    zle accept-line
 
-	else
+	elif [[ -z $dir_select_fzf ]]; then
 
-	    ## change directory; select from $ROOT (/)
-	    dir_root=$(fd --type d --hidden . $ROOT)
-	    dir_root_select=$(printf '%s' "$dir_root" | fzf --prompt "  $ROOT")
+	    ## change directory; select directories under $HOME
+	    dir_home=$(fd --type d --hidden . $HOME)
+	    dir_home_select=$(printf '%s' "$dir_home" | fzf --prompt "  $HOME/")
 
-	    if [[ -d $dir_root_select ]]; then
+	    if [[ -d $dir_home_select ]]; then
 
 		## dir_home_select is a directory
-		BUFFER="cd $dir_root_select"
+		BUFFER="cd $dir_home_select"
 		zle accept-line
+
+	    else
+
+		## change directory; select directories under $ROOT (/)
+		dir_root=$(fd --type d --hidden . $ROOT)
+		dir_root_select=$(printf '%s' "$dir_root" | fzf --prompt "  $ROOT")
+
+		if [[ -d $dir_root_select ]]; then
+
+		    ## dir_home_select is a directory
+		    BUFFER="cd $dir_root_select"
+		    zle accept-line
+
+		fi
 
 	    fi
 
