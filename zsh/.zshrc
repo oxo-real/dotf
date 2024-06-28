@@ -866,6 +866,15 @@ function dirstack-cd ()
 {
     ## change directory; select from dirstack
     basename_cwd=$(basename $PWD)
+    ## fc list history of cd commands
+    ## sort chronological
+    ## sort alphabetical
+    ## sort chronological
+    ## tr squeeze double spaces
+    ## cut only directory part of command
+    ## grep filter out basename cwd
+    ## grep filter out full $PWD
+    ## awk filter out line with more than one word
     dir_stack=$(fc -l -d -t %Y%m%d_%H%M%S -D -m 'cd *' 1 | \
 		   sort --reverse --numeric-sort --key 1 | \
 		   sort --unique --key 4 | \
@@ -873,7 +882,8 @@ function dirstack-cd ()
 		   tr -s ' ' | \
 		   cut -d ' ' -f 6- | \
 		   grep --invert-match --line-regexp $basename_cwd | \
-		   grep --invert-match --line-regexp $PWD/ \
+		   grep --invert-match --line-regexp $PWD/ | \
+		   awk 'NF<=1{print}' \
 	    )
 
     dir_select_fzf=$(printf '%s' "$dir_stack" | fzf)
@@ -892,7 +902,7 @@ function dirstack-cd ()
     elif [[ -n $dir_select_fzf ]]; then
 
 	## change directory; select from $HOME
-	dir_home=$(fd --type d --hidden --ignore-file "$XDG_CONFIG_HOME/fd/ignore" $dir_select_fzf $HOME)
+	dir_home=$(fd --type d --hidden $dir_select_fzf $HOME)
 	dir_home_select=$(printf '%s' "$dir_home" | fzf --query "$dir_select_fzf")
 
 	if [[ -d $dir_home_select ]]; then
@@ -904,7 +914,7 @@ function dirstack-cd ()
 	else
 
 	    ## change directory; select from root (/)
-	    dir_root=$(fd --type d --hidden --ignore-file "$XDG_CONFIG_HOME/fd/ignore" $dir_select_fzf /)
+	    dir_root=$(fd --type d --hidden $dir_select_fzf /)
 	    dir_root_select=$(printf '%s' "$dir_root" | fzf --prompt '/' --query "$dir_select_fzf")
 
 	    if [[ -d $dir_root_select ]]; then
@@ -931,7 +941,7 @@ function fzf-ins-item ()
     ## fzf insert file or directory
     root_dir="$1"
 
-    # select & kill
+    ## select & kill
     if [[ -z "$fzf_prmt" ]]; then
 
 	zle select-in-blank-word
@@ -943,7 +953,7 @@ function fzf-ins-item ()
 
     fi
 
-    # fzf query
+    # fzf query fd search
     ## follow symlinks include hidden
     ## ignore from $XDG_CONFIG_HOME/fd/ignore
     ## include hidden files
@@ -953,17 +963,15 @@ function fzf-ins-item ()
 
 	1 )
 	    ## fzf $prmt injected from inline-ins-item
-	    fzf_output="$(fd --type d --hidden \
-	          --ignore-file "$XDG_CONFIG_HOME/fd/ignore" . "$root_dir" | \
+	    fzf_output="$(fd --type d --hidden . "$root_dir" | \
 		        fzf -m --query=`printf "$fzf_input"` --track --height=20% | \
 			      tr '\n' ' ' | \
 			            sed 's/[ \t]$//')"
 	    ;;
 
 	* )
-	    fzf_output="$(fd --follow --hidden \
-	          --ignore-file "$XDG_CONFIG_HOME/fd/ignore" . "$root_dir" | \
-		        fzf -m --prompt="$fzf_prmt " --query=`printf "$fzf_input"` --track --tiebreak length,begin,index | \
+	    fzf_output="$(fd --hidden . "$root_dir" | \
+		        fzf -m --prompt="$fzf_prmt " --query=`printf "$fzf_input"` --track | \
 			      tr '\n' ' ' | \
 			            sed 's/[ \t]$//')"
 	    ;;
@@ -1053,10 +1061,10 @@ function inline-ins-item ()
     ## first list item is $PWD (get rid of C-p)
     realpath_cwd=$(realpath $PWD)
     fzf_prmt='c'
-    dir_select_1=$(printf '%s' "$realpath_cwd" | fzf --prompt "$fzf_prmt ")
+    dir_select_c=$(printf '%s' "$realpath_cwd" | fzf --prompt "$fzf_prmt ")
 
     ## no $PWD selected
-    if [[ -z $dir_select_1 ]]; then
+    if [[ -z $dir_select_c ]]; then
 
 	## search and select item(s) in $PWD
 	fzf_prmt='p'
@@ -1103,15 +1111,14 @@ function inline-ins-item ()
 	fi
 
     ## $PWD selected
-    elif [[ -n $dir_select_1 ]]; then
+    elif [[ -n $dir_select_c ]]; then
 
 	## insert at cursor position
 	### keep cursor in place
-	#RBUFFER="${dir_select_1}${RBUFFER}"
+	#RBUFFER="${dir_select_c}${RBUFFER}"
 	### move cursor to eol
-	LBUFFER+="${dir_select_1}"
+	LBUFFER+="${dir_select_c}"
 	zle reset-prompt
-	unset LBUFFER
 
     fi
 }
