@@ -985,21 +985,21 @@ function insert-item-inline ()
 {
     # fzf search and select files and directories
 
-    ## item order
-    ## 1 echo $PWD
-    ## 2 $PWD
-    ## 3 $HOME
-    ## 4 /
+    ## item order (no cycle):
+    ### 1 echo $PWD  (pwd)
+    ### 2  --0 $PWD
+    ### 3  --0 $HOME
+    ### 4  --0 $ROOT (/)
 
-    realpath_cwd=$(realpath $PWD)
-    fzf_prmt='c'
-    dir_select_c=$(printf '%s' "$realpath_cwd" | fzf --prompt "$fzf_prmt ")
+    realpath_cwd=$(pwd)
+    fzf_prmt='pwd'
+    dir_select_c=$(printf '%s' "$realpath_cwd" | fzf --prompt "  $fzf_prmt")
 
     ## no $PWD selected
     if [[ -z $dir_select_c ]]; then
 
 	## search and select item(s) in $PWD
-	fzf_prmt='p'
+	fzf_prmt="$PWD/"
 	insert-item-fzf $PWD
 
 	if [[ -n $fzf_output ]]; then
@@ -1011,7 +1011,7 @@ function insert-item-inline ()
 	elif [[ -z $fzf_output ]]; then
 
 	    ## search and select item(s) in $HOME
-	    fzf_prmt='h'
+	    fzf_prmt="$HOME/"
 	    insert-item-fzf $HOME
 
 	    if [[ -n $fzf_output ]]; then
@@ -1023,7 +1023,7 @@ function insert-item-inline ()
 	    elif [[ -z $fzf_output ]]; then
 
 		## search and select item(s) in ROOT (/)
-		fzf_prmt='r'
+		fzf_prmt='/'
 		insert-item-fzf /
 
 		if [[ -n $fzf_output ]]; then
@@ -1083,7 +1083,7 @@ function insert-item-fzf ()
     case $fd_dirs_only in
 
 	1 )
-	    ## fzf $prmt injected from insert-item-inline
+	    ## cd-*-functions enter here (i.e. cd-child)
 	    fzf_output="$(fd --type d --hidden . "$query_dir" | \
 		        fzf -m --query=`printf "$fzf_input"` | \
 			      tr '\n' ' ' | \
@@ -1091,9 +1091,9 @@ function insert-item-fzf ()
 	    ;;
 
 	* )
-	    ## fzf $prmt injected from insert-item-inline
+	    ## $fzf_prmt injected from insert-item-inline
 	    fzf_output="$(fd --hidden . "$query_dir" | \
-		        fzf -m --prompt="$fzf_prmt " --query=`printf "$fzf_input"` | \
+		        fzf -m --prompt="  $fzf_prmt" --query=`printf "$fzf_input"` | \
 			      tr '\n' ' ' | \
 			            sed 's/[ \t]$//')"
 	    ;;
@@ -1121,33 +1121,6 @@ function insert-item-fzf ()
     unset fzf_input
     unset input
 }
-
-
-#function fzf-ins-root ()
-#{
-#    ## search and select item(s) from root
-#    insert-item-fzf '/'
-#}
-#
-#zle -N fzf-ins-root
-#bindkey '^g' fzf-ins-root               ## C-g
-#
-#
-#function ins-pwd ()
-#{
-#    ## insert $PWD inline
-#    ## select & kill
-#    zle select-in-blank-word
-#    zle kill-region
-#
-#    CUTBUFFER="$PWD"
-#    zle vi-put-before
-#
-#    unset CUTBUFFER
-#}
-#
-#zle -N ins-pwd
-#bindkey '^p' ins-pwd                    ## C-p
 
 
 function toggle-sudo ()
