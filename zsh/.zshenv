@@ -52,9 +52,10 @@ https://www.gnu.org/licenses/gpl-3.0.txt
 export HOSTNAME="$(head -n 1 /etc/hostname)"
 
 
-# home
+# homes
 
 export HOME="/home/$(logname)"
+export ROOT='/'
 
 
 # hist
@@ -193,6 +194,7 @@ export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
 
 export APPNDIR="$XDG_CONFIG_HOME/shln"
 export DNLDDIR="$XDG_DATA_HOME/c/download"
+export ROOTDIR='/'
 export TEMPDIR="$XDG_CACHE_HOME/temp"
 export TESTDIR="$XDG_CACHE_HOME/test"
 export TMPDIR="$XDG_CACHE_HOME/temp"  # for mktemp

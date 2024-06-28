@@ -899,11 +899,11 @@ function cd-dirstack ()
 	BUFFER="cd $dir_select_fzf"
 	zle accept-line
 
-    elif [[ -n $dir_select_fzf ]]; then
+    elif [[ -z $dir_select_fzf ]]; then
 
 	## change directory; select from $HOME
-	dir_home=$(fd --type d --hidden $dir_select_fzf $HOME)
-	dir_home_select=$(printf '%s' "$dir_home" | fzf --query "$dir_select_fzf")
+	dir_home=$(fd --type d --hidden . $HOME)
+	dir_home_select=$(printf '%s' "$dir_home" | fzf --prompt "  $HOME/")
 
 	if [[ -d $dir_home_select ]]; then
 
@@ -913,9 +913,9 @@ function cd-dirstack ()
 
 	else
 
-	    ## change directory; select from root (/)
-	    dir_root=$(fd --type d --hidden $dir_select_fzf /)
-	    dir_root_select=$(printf '%s' "$dir_root" | fzf --prompt '/' --query "$dir_select_fzf")
+	    ## change directory; select from $ROOT (/)
+	    dir_root=$(fd --type d --hidden . $ROOT)
+	    dir_root_select=$(printf '%s' "$dir_root" | fzf --prompt "  $ROOT")
 
 	    if [[ -d $dir_root_select ]]; then
 
@@ -1022,9 +1022,9 @@ function insert-item-inline ()
 
 	    elif [[ -z $fzf_output ]]; then
 
-		## search and select item(s) in ROOT (/)
-		fzf_prmt='/'
-		insert-item-fzf /
+		## search and select item(s) in $ROOT (/)
+		fzf_prmt="$ROOT"
+		insert-item-fzf $ROOT
 
 		if [[ -n $fzf_output ]]; then
 
