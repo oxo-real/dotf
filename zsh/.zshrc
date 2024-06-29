@@ -867,18 +867,18 @@ function cd-dirstack ()
     # fzf cd into directories
 
     ## item order (no cycle):
-    ### 1  --0 $dir_stack
-    ### 2  --0 $PWD
-    ### 3  --0 $HOME
-    ### 4  --0 $ROOT (/)
+    ### 1 s  --0 $dir_stack
+    ### 2 c --0 $PWD
+    ### 3 h --0 $HOME
+    ### 4 r --0 $ROOT (/)
 
     ## change directory; select from dirstack
     basename_cwd=$(basename $PWD)
 
     ## fc list history of cd commands
-    ## sort chronological
-    ## sort alphabetical
-    ## sort chronological
+    ## sort chronological (prepare unique)
+    ## sort alphabetical (unique)
+    ## sort chronological (final sort)
     ## tr squeeze double spaces
     ## cut only directory part of command
     ## sed remove trailing slashes
@@ -886,6 +886,8 @@ function cd-dirstack ()
     ## grep filter out full $PWD
     ## #TODO sed replace variables with realpaths (i.e. $HOME)
     ## awk filter out line with more than one word
+    ## sed remove ..
+    ## sed remove .
     dir_stack=$(fc -l -d -t %Y%m%d_%H%M%S -D -m 'cd *' 1 | \
 		   sort --reverse --numeric-sort --key 1 | \
 		   sort --unique --key 4 | \
@@ -895,39 +897,76 @@ function cd-dirstack ()
 		   sed 's|[/\t]$||' | \
 		   grep --invert-match --line-regexp $basename_cwd | \
 		   grep --invert-match --line-regexp $PWD | \
-		   awk 'NF<=1{print}' \
+		   awk 'NF<=1{print}' | \
+		   sed '/^..$/d' | \
+		   sed '/^.$/d' \
 	    )
 
-    dir_select_fzf=$(printf '%s' "$dir_stack" | fzf --prompt 'ds ')
+    ## add option qqq-quit-exit-cancel
+    dir_stack=$(printf '%s\n%s' "$dir_stack" 'qqq-quit-exit-cancel')
 
-    ## change directory; select directories from $dir_stack
-    if [[ -d $dir_select_fzf ]]; then
+    ## 1 change directory; select a directory from $dir_stack
+    dir_select_fzf=$(printf '%s' "$dir_stack" | fzf --prompt 's ')
+
+    if [[ $dir_select_fzf =~ 'qqq*' ]]; then
+
+	exit 10
+
+    elif [[ -d $dir_select_fzf ]]; then
 
 	## dir_select_fzf is an absolute directory
 	## or child of the cwd
 	BUFFER="cd $dir_select_fzf"
 	zle accept-line
 
+    elif [[ -n $dir_select_fzf ]]; then
+
+	# TODO DEV
+	## testcase: $ROOTDIR
+	printf 'DEV917 %s\n' "$dir_select_fzf"
+	## dir_select_fzf is no directory and not empty either
+	dir_select_fzf=$(realpath "$dir_select_fzf")
+
+	printf 'DEV921 %s\n' "$dir_select_fzf"
+	BUFFER="cd $dir_select_fzf"
+	#zle accept-line
+
     elif [[ -z $dir_select_fzf ]]; then
 
-	## change directory; select directories under $PWD
-	## similar functionality directly with function cd-child
-	dir_home=$(fd --type d --hidden . $PWD)
-	dir_home_select=$(printf '%s' "$dir_home" | fzf --prompt "  $PWD/")
+	## 2 change directory; select a directory under $PWD
+	## cd-child offers similar functionality directly
+	dir_pwd=$(fd --type d --hidden . $PWD)
 
-	if [[ -d $dir_home_select ]]; then
+	## add option qqq-quit-exit-cancel
+	dir_pwd=$(printf '%s\n%s' "$dir_pwd" 'qqq-quit-exit-cancel')
 
-	    ## dir_home_select is a directory
-	    BUFFER="cd $dir_home_select"
+	dir_pwd_select=$(printf '%s' "$dir_pwd" | fzf --prompt 'c ' --query "$PWD/")
+
+	if [[ $dir_pwd_select =~ 'qqq*' ]]; then
+
+	    return 10
+
+	elif [[ -d $dir_pwd_select ]]; then
+
+	    ## dir_pwd_select is a directory
+	    BUFFER="cd $dir_pwd_select"
 	    zle accept-line
 
-	elif [[ -z $dir_select_fzf ]]; then
+	elif [[ -z $dir_pwd_select ]]; then
 
-	    ## change directory; select directories under $HOME
+	    ## 3 change directory; select a directory under $HOME
 	    dir_home=$(fd --type d --hidden . $HOME)
-	    dir_home_select=$(printf '%s' "$dir_home" | fzf --prompt "  $HOME/")
 
-	    if [[ -d $dir_home_select ]]; then
+	    ## add option qqq-quit-exit-cancel
+	    dir_home=$(printf '%s\n%s' "$dir_home" 'qqq-quit-exit-cancel')
+
+	    dir_home_select=$(printf '%s' "$dir_home" | fzf --prompt 'h ' --query "$HOME/")
+
+	    if [[ $dir_home_select =~ 'qqq*' ]]; then
+
+		return 10
+
+	    elif [[ -d $dir_home_select ]]; then
 
 		## dir_home_select is a directory
 		BUFFER="cd $dir_home_select"
@@ -935,11 +974,19 @@ function cd-dirstack ()
 
 	    else
 
-		## change directory; select directories under $ROOT (/)
+		## 4 change directory; select a directory under $ROOT (/)
 		dir_root=$(fd --type d --hidden . $ROOT)
-		dir_root_select=$(printf '%s' "$dir_root" | fzf --prompt "  $ROOT")
 
-		if [[ -d $dir_root_select ]]; then
+		## add option qqq-quit-exit-cancel
+		dir_root=$(printf '%s\n%s' "$dir_root" 'qqq-quit-exit-cancel')
+
+		dir_root_select=$(printf '%s' "$dir_root" | fzf --prompt 'r ' --query "$ROOT")
+
+		if [[ $dir_root_select =~ 'qqq*' ]]; then
+
+		    return 10
+
+		elif [[ -d $dir_root_select ]]; then
 
 		    ## dir_home_select is a directory
 		    BUFFER="cd $dir_root_select"
