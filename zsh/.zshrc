@@ -910,7 +910,7 @@ function cd-dirstack ()
 
     if [[ $dir_select_fzf =~ 'qqq*' ]]; then
 
-	exit 10
+	return 10
 
     elif [[ -d $dir_select_fzf ]]; then
 
@@ -922,84 +922,88 @@ function cd-dirstack ()
     elif [[ -n $dir_select_fzf ]]; then
 
 	# TODO DEV
-	## testcase: $ROOTDIR
-	printf 'DEV917 %s\n' "$dir_select_fzf"
-	## dir_select_fzf is no directory and not empty either
-	dir_select_fzf=$(realpath "$dir_select_fzf")
 
-	printf 'DEV921 %s\n' "$dir_select_fzf"
-	BUFFER="cd $dir_select_fzf"
+	## dir_select_fzf is no directory and not empty either
+	## testcase: $ROOTDIR
 	#zle accept-line
+	:
 
     elif [[ -z $dir_select_fzf ]]; then
 
 	## 2 change directory; select a directory under $PWD
 	## cd-child offers similar functionality directly
-	dir_pwd=$(fd --type d --hidden . $PWD)
+	fd_path=$PWD
+	fzf_prompt='C'
+	fzf_query=$PWD/
+
+	fd_list_dirs=$(fd --type d --hidden . $fd_path)
 
 	## add option qqq-quit-exit-cancel
-	dir_pwd=$(printf '%s\n%s' "$dir_pwd" 'qqq-quit-exit-cancel')
+	fd_list_dirs=$(printf '%s\n%s' "$fd_list_dirs" 'qqq-quit-exit-cancel')
 
-	fzf_prompt='C '
-	fzf_query_dir="$PWD"
+	dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query")
 
-	dir_pwd_select=$(printf '%s' "$dir_pwd" | fzf --prompt "$fzf_prompt" --query "$fzf_query_dir/")
-
-	if [[ $dir_pwd_select =~ 'qqq*' ]]; then
+	if [[ $dir_select =~ 'qqq*' ]]; then
 
 	    return 10
 
-	elif [[ -d $dir_pwd_select ]]; then
+	elif [[ -d $dir_select ]]; then
 
 	    ## dir_pwd_select is a directory
-	    BUFFER="cd $dir_pwd_select"
+	    BUFFER="cd $dir_select"
 	    zle accept-line
 
-	elif [[ -z $dir_pwd_select ]]; then
+	elif [[ -z $dir_select ]]; then
 
 	    ## 3 change directory; select a directory under $HOME
-	    dir_home=$(fd --type d --hidden . $HOME)
+	    fd_path=$HOME
+	    fzf_prompt='H'
+	    fzf_query=$HOME/
+
+	    fd_list_dirs=$(fd --type d --hidden . $fd_path)
 
 	    ## add option qqq-quit-exit-cancel
-	    dir_home=$(printf '%s\n%s' "$dir_home" 'qqq-quit-exit-cancel')
+	    fd_list_dirs=$(printf '%s\n%s' "$fd_list_dirs" 'qqq-quit-exit-cancel')
 
-	    fzf_prompt='H '
-	    fzf_query_dir="$HOME"
+	    dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query")
 
-	    dir_home_select=$(printf '%s' "$dir_home" | fzf --prompt "$fzf_prompt" --query "$fzf_query_dir/")
-
-	    if [[ $dir_home_select =~ 'qqq*' ]]; then
+	    if [[ $dir_select =~ 'qqq*' ]]; then
 
 		return 10
 
-	    elif [[ -d $dir_home_select ]]; then
+	    elif [[ -d $dir_select ]]; then
 
 		## dir_home_select is a directory
-		BUFFER="cd $dir_home_select"
+		BUFFER="cd $dir_select"
 		zle accept-line
 
 	    else
 
 		## 4 change directory; select a directory under $ROOT (/)
-		dir_root=$(fd --type d --hidden . $ROOT)
+		fd_path=$ROOT
+		fzf_prompt='R'
+		fzf_query=$ROOT
+
+		fd_list_dirs=$(fd --type d --hidden . $fd_path)
 
 		## add option qqq-quit-exit-cancel
-		dir_root=$(printf '%s\n%s' "$dir_root" 'qqq-quit-exit-cancel')
+		fd_list_dirs=$(printf '%s\n%s' "$fd_list_dirs" 'qqq-quit-exit-cancel')
 
-		fzf_prompt='R '
-		fzf_query_dir="$ROOT"
+		dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query")
 
-		dir_root_select=$(printf '%s' "$dir_root" | fzf --prompt "$fzf_prompt" --query "$fzf_query_dir")
-
-		if [[ $dir_root_select =~ 'qqq*' ]]; then
+		if [[ $dir_select =~ 'qqq*' ]]; then
 
 		    return 10
 
-		elif [[ -d $dir_root_select ]]; then
+		elif [[ -d $dir_select ]]; then
 
 		    ## dir_home_select is a directory
-		    BUFFER="cd $dir_root_select"
+		    BUFFER="cd $dir_select"
 		    zle accept-line
+
+		else
+
+		    return 10
 
 		fi
 
@@ -1018,15 +1022,20 @@ bindkey -M viins '^h' cd-dirstack       ## C-h
 
 function cd-child ()
 {
+    ## search and select directories from cwd and deeper
     zle kill-line
 
-    ## search and select directories from current and deeper
+    ## set variables
     cd_function=1
-    fzf_prompt='C '
-    fzf_query_dir="$PWD"
-    insert-item-fzf "$fzf_prompt" "$fzf_query_dir"
+    fzf_prompt='C'
+    fd_path=$PWD
 
+    insert-item-fzf $fd_path $fzf_prompt
+
+    ## reset cd_function
     cd_function=''
+
+    ## place and execute 'cd'
     [[ -n $fzf_output ]] && BUFFER="cd $BUFFER" && zle accept-line
 }
 
@@ -1075,27 +1084,27 @@ function insert-item-inline ()
 
     realpath_cwd=$(pwd)
     fzf_prompt='P'
-    dir_select_c=$(printf '%s' "$realpath_cwd" | fzf --prompt "$fzf_prompt ")
+    dir_select_cwd=$(printf '%s' "$realpath_cwd" | fzf --prompt "$fzf_prompt ")
 
     ## $PWD selected
-    if [[ -n $dir_select_c ]]; then
+    if [[ -n $dir_select_cwd ]]; then
 
 	## insert at cursor position
 
 	### keep cursor in place
-	#RBUFFER="${dir_select_c}${RBUFFER}"
+	#RBUFFER="${dir_select_cwd}${RBUFFER}"
 
 	### move cursor to eol
-	LBUFFER+="${dir_select_c}"
+	LBUFFER+="${dir_select_cwd}"
 	zle reset-prompt
 
     ## no $PWD selected
-    elif [[ -z $dir_select_c ]]; then
+    elif [[ -z $dir_select_cwd ]]; then
 
 	## search and select item(s) in $PWD
+	fd_path="$PWD"
 	fzf_prompt='C'
-	fzf_query="$PWD"
-	insert-item-fzf $fzf_prompt $fzf_query
+	insert-item-fzf $fd_path $fzf_prompt
 
 	if [[ -n $fzf_output ]]; then
 
@@ -1106,9 +1115,9 @@ function insert-item-inline ()
 	elif [[ -z $fzf_output ]]; then
 
 	    ## search and select item(s) in $HOME
+	    fd_path="$HOME"
 	    fzf_prompt='H'
-	    fzf_query="$HOME"
-	    insert-item-fzf $fzf_prompt $fzf_query
+	    insert-item-fzf $fd_path $fzf_prompt
 
 	    if [[ -n $fzf_output ]]; then
 
@@ -1119,9 +1128,9 @@ function insert-item-inline ()
 	    elif [[ -z $fzf_output ]]; then
 
 		## search and select item(s) in $ROOT (/)
+		fd_path="$ROOT"
 		fzf_prompt='R'
-		fzf_query="$ROOT"
-		insert-item-fzf $fzf_prompt $fzf_query
+		insert-item-fzf $fd_path $fzf_prompt
 
 		if [[ -n $fzf_output ]]; then
 
@@ -1148,51 +1157,46 @@ bindkey '^f' insert-item-inline            ## C-f
 
 function insert-item-fzf ()
 {
-    ## fzf insert file- or directory-paths
-    fzf_prompt="$1"
-    fzf_query="$2"
+    ## fzf insert file- or directory-paths on command line
 
-    ## select & kill
-    if [[ -z "$fzf_query" ]]; then
+    fd_path="$1"
+    fzf_prompt="$2"
 
-	zle select-in-blank-word
-	zle kill-region
-	input="$CUTBUFFER"
-	[[ -n "$input" ]] && \
-	    fzf_input="$input" || \
-		fzf_input="$fzf_query"
-
-    fi
+    ## fzf_query
+    ## select & kill word on cursor
+    zle select-in-blank-word
+    zle kill-region
+    fzf_query="$CUTBUFFER"
 
     # fzf query fd search
-    ## include hidden files
-    ## tr for multiple fzf entries replace \n by ' '
-    ## sed remove trailing space
     case $cd_function in
 
 	1 )
 	    ## cd-*-functions enter here (i.e. cd-child)
-	    fzf_output="$(fd --type d --hidden . "$fzf_query" | \
-		        fzf --prompt="$fzf_prompt" --query="$fzf_query" | \
-			      tr '\n' ' ' | \
-			            sed 's/[ \t]$//')"
+	    fd_list_dirs=$(fd --type d --hidden . $fd_path)
+
+	    dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query")
+
+	    fzf_output=$dir_select
 	    ;;
 
 	* )
 	    ## $fzf_prmt injected from insert-item-inline
-	    item_list=$(fd --hidden . "$fzf_query")
+	    fd_list_items=$(fd --hidden . $fd_path)
 
-	    ## add option qqq-quit-exit-cancel
-	    item_list=$(printf '%s\n%s' "$item_list" 'qqq-quit-exit-cancel')
+	    ## add qqq-quit-exit-cancel as option
+	    fd_list_items=$(printf '%s\n%s' "$fd_list_items" 'qqq-quit-exit-cancel')
 
-	    fzf_output=$(printf '%s' "$item_list" | fzf -m --prompt="$fzf_prompt " --query="$fzf_query" | \
+	    ## tr converts multiple fzf entries to one line
+	    ## sed remove trailing space
+	    fzf_output=$(printf '%s' "$fd_list_items" | fzf -m --prompt="$fzf_prompt " --query="$fzf_query" | \
 			      tr '\n' ' ' | \
 			            sed 's/[ \t]$//')
 	    ;;
 
     esac
 
-    if [[ -z "$fzf_prompt" ]]; then
+    if [[ -z "$cd_function" ]]; then
 
 	## invalidate the current zle display in preparation for output
 	## prevent loosing visibility of entered characters before fzf started
@@ -1200,10 +1204,9 @@ function insert-item-fzf ()
 
     fi
 
-    # analyze fzf output
     [[ -n "$fzf_output" ]] && \
     	CUTBUFFER="$fzf_output" || \
-    	    CUTBUFFER="$input"
+    	    CUTBUFFER="$fzf_query"
 
     # replace selection
     zle vi-put-before
