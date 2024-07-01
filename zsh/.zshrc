@@ -1192,17 +1192,15 @@ function insert-item-fzf ()
 	    fzf_output=$(printf '%s' "$fd_list_items" | fzf -m --prompt="$fzf_prompt " --query="$fzf_query" | \
 			      tr '\n' ' ' | \
 			            sed 's/[ \t]$//')
+
+	    if [[ $fzf_output =~ 'qqq*' ]]; then
+
+		return 10
+
+	    fi
 	    ;;
 
     esac
-
-    if [[ -z "$cd_function" ]]; then
-
-	## invalidate the current zle display in preparation for output
-	## prevent loosing visibility of entered characters before fzf started
-	zle -I
-
-    fi
 
     [[ -n "$fzf_output" ]] && \
     	CUTBUFFER="$fzf_output" || \
@@ -1213,8 +1211,6 @@ function insert-item-fzf ()
     #zle put-replace-selection
 
     unset CUTBUFFER
-    unset fzf_input
-    unset input
 }
 
 
