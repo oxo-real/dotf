@@ -1077,29 +1077,29 @@ function insert-item-inline ()
     # fzf search and select files and directories
 
     ## item order (no cycle):
-    ### 1 P echo $PWD  (pwd)
+#    ### 1 P echo $PWD  (pwd)
     ### 2 C  --0 $PWD
     ### 3 H  --0 $HOME
     ### 4 R  --0 $ROOT (/)
 
-    realpath_cwd=$(pwd)
-    fzf_prompt='P'
-    dir_select_cwd=$(printf '%s' "$realpath_cwd" | fzf --prompt "$fzf_prompt ")
-
-    ## $PWD selected
-    if [[ -n $dir_select_cwd ]]; then
-
-	## insert at cursor position
-
-	### keep cursor in place
-	#RBUFFER="${dir_select_cwd}${RBUFFER}"
-
-	### move cursor to eol
-	LBUFFER+="${dir_select_cwd}"
-	zle reset-prompt
-
-    ## no $PWD selected
-    elif [[ -z $dir_select_cwd ]]; then
+#    realpath_cwd=$(pwd)
+#    fzf_prompt='P'
+#    dir_select_cwd=$(printf '%s' "$realpath_cwd" | fzf --prompt "$fzf_prompt ")
+#
+#    ## $PWD selected
+#    if [[ -n $dir_select_cwd ]]; then
+#
+#	## insert at cursor position
+#
+#	### keep cursor in place
+#	#RBUFFER="${dir_select_cwd}${RBUFFER}"
+#
+#	### move cursor to eol
+#	LBUFFER+="${dir_select_cwd}"
+#	zle reset-prompt
+#
+#    ## no $PWD selected
+#    elif [[ -z $dir_select_cwd ]]; then
 
 	## search and select item(s) in $PWD
 	fd_path="$PWD"
@@ -1148,7 +1148,7 @@ function insert-item-inline ()
 
 	fi
 
-    fi
+#    fi
 }
 
 zle -N insert-item-inline
