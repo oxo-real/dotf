@@ -1893,6 +1893,8 @@
 │   ├── etc_zsh_zshenv
 │   ├── prompt
 │   │   └── two-line-prompt.zsh
+│   ├── zshold
+│   ├── zshrcold
 │   └── zzz_deprecated
 │       └── git-prompt.sh
 └── zzz_deprecated
@@ -2087,5 +2089,5 @@
     │   └── config
     └── xresources_colors
 
-224 directories, 1863 files
+224 directories, 1865 files
 ```

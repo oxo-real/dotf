@@ -862,8 +862,23 @@ zle -N git-add-commit
 bindkey '^A' git-add-commit             ## C-a
 
 
-function get-dirstack ()
+fuction create_dirstack ()
 {
+
+}
+
+
+function cd-dirstack ()
+{
+    # fzf cd into directories
+
+    ## item order (no cycle):
+    ### 1 S --0 $dir_stack
+    ### 2 C --0 $PWD
+    ### 3 H --0 $HOME
+    ### 4 R --0 $ROOT (/)
+
+    ## change directory; select from dirstack
     basename_cwd=$(basename $PWD)
 
     ## fc list history of cd commands
@@ -893,35 +908,17 @@ function get-dirstack ()
 		   sed '/^.$/d' \
 	    )
 
-}
-
-
-function cd-dirstack ()
-{
-    # fzf cd into directories
-
-    ## item order (no cycle):
-    ### 1 S --0 $dir_stack
-    ### 2 C --0 $PWD
-    ### 3 H --0 $HOME
-    ### 4 R --0 $ROOT (/)
-
-    ## change directory; select from dirstack
-    get-dirstack
-
-    fzf_prompt='S'
-
     ## add option qqq-quit-exit-cancel
     dir_stack=$(printf '%s\n%s' "$dir_stack" 'qqq-quit-exit-cancel')
 
     ## 1 change directory; select a directory from $dir_stack
-    dir_stack_select_fzf=$(printf '%s' "$dir_stack" | fzf --prompt "$fzf_prompt ")
+    dir_select_fzf=$(printf '%s' "$dir_stack" | fzf --prompt 'S ')
 
-    if [[ $dir_stack_select_fzf =~ 'qqq*' ]]; then
+    if [[ $dir_select_fzf =~ 'qqq*' ]]; then
 
 	return 10
 
-    elif [[ -d $dir_stack_select_fzf ]]; then
+    elif [[ -d $dir_select_fzf ]]; then
 
 	## dir_select_fzf is an absolute directory
 	## or child of the cwd
@@ -934,39 +931,19 @@ function cd-dirstack ()
 	### overwrite entire buffer and keep cursor in place
 	#BUFFER="cd $dir_select_fzf"
 	### overwrite entire buffer and move cursor eol
-	BUFFER="cd $dir_stack_select_fzf"
+	BUFFER="cd $dir_select_fzf"
 	zle vi-add-eol
 
-    elif [[ -n $dir_stack_select_fzf ]]; then
+    elif [[ -n $dir_select_fzf ]]; then
 
-	## dir_select_fzf is no absolute directory
-	## nor from cwd accessible relative directory
-	## test if (relative) dir exist somewhere
+	# TODO DEV
+	fd_pattern=$BUFFER
 	fd_path=$ROOT
-	fd_pattern="$dir_stack_select_fzf"
-	fzf_query="$fd_pattern"
 
-	fd_list_dirs=$(fd --type d --hidden --full-path "$fd_pattern" $fd_path)
+	## dir_select_fzf is no directory and not empty either
 
-	## add option qqq-quit-exit-cancel
-	fd_list_dirs=$(printf '%s\n%s' "$fd_list_dirs" 'qqq-quit-exit-cancel')
 
-	dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query")
-
-	if [[ -d $dir_select ]]; then
-
-	    ## dir_pwd_select is a directory
-	    BUFFER="cd ${dir_select}"
-	    zle vi-add-eol
-
-	elif [[ ! -d $dir_select || -z $dir_select ]]; then
-
-	    printf '${fg_amber}%s${st_def} directory not found\n' "$fzf_query"
-	    return 100
-
-	fi
-
-    elif [[ -z $dir_stack_select_fzf ]]; then
+    elif [[ -z $dir_select_fzf ]]; then
 
 	## 2 change directory; select a directory under $PWD
 	## cd-child offers similar functionality directly
@@ -1126,12 +1103,9 @@ function insert-item-inline ()
     ### 3 H  --0 $HOME
     ### 4 R  --0 $ROOT (/)
 
-    get-dirstack
-
-    from_dirstack=1
-
     ## search and select item(s) in $PWD
-    fzf_prompt='S'
+    fd_path="$PWD"
+    fzf_prompt='C'
 
     ## fzf_query
     ## select & kill word on cursor
@@ -1139,27 +1113,20 @@ function insert-item-inline ()
     zle kill-region
     fzf_query="$CUTBUFFER"
 
-    ## add option qqq-quit-exit-cancel
-    dir_stack=$(printf '%s\n%s' "$dir_stack" 'qqq-quit-exit-cancel')
-
-    ## 1 change directory; select a directory from $dir_stack
-    ##dir_select_fzf=$(printf '%s' "$dir_stack" | fzf --prompt 'S ')
-    insert-item-fzf $dir_stack $fzf_prompt $fzf_query
+    insert-item-fzf $fd_path $fzf_prompt
 
     if [[ -n $fzf_output ]]; then
 
 	zle reset-prompt
 	unset fzf_output
-	unset from_dirstack
 	return 0
 
     elif [[ -z $fzf_output ]]; then
 
-	## search and select item(s) in $PWD
-	fd_path="$PWD"
-	fzf_prompt='C'
-
-	insert-item-fzf $fd_path $fzf_prompt $fzf_query
+	## search and select item(s) in $HOME
+	fd_path="$HOME"
+	fzf_prompt='H'
+	insert-item-fzf $fd_path $fzf_prompt
 
 	if [[ -n $fzf_output ]]; then
 
@@ -1169,9 +1136,9 @@ function insert-item-inline ()
 
 	elif [[ -z $fzf_output ]]; then
 
-	    ## search and select item(s) in $HOME
-	    fd_path="$HOME"
-	    fzf_prompt='H'
+	    ## search and select item(s) in $ROOT (/)
+	    fd_path="$ROOT"
+	    fzf_prompt='R'
 	    insert-item-fzf $fd_path $fzf_prompt
 
 	    if [[ -n $fzf_output ]]; then
@@ -1180,30 +1147,17 @@ function insert-item-inline ()
 		unset fzf_output
 		return 0
 
-	    elif [[ -z $fzf_output ]]; then
+	    else
 
-		## search and select item(s) in $ROOT (/)
-		fd_path="$ROOT"
-		fzf_prompt='R'
-		insert-item-fzf $fd_path $fzf_prompt
-
-		if [[ -n $fzf_output ]]; then
-
-		    zle reset-prompt
-		    unset fzf_output
-		    return 0
-
-		else
-
-		    return 0
-
-		fi
+		return 0
 
 	    fi
 
 	fi
 
     fi
+
+#    fi
 }
 
 zle -N insert-item-inline
@@ -1216,7 +1170,6 @@ function insert-item-fzf ()
 
     fd_path="$1"
     fzf_prompt="$2"
-    fzf_query="$3"
 
     # fzf query fd search
     case $cd_function in
@@ -1231,13 +1184,9 @@ function insert-item-fzf ()
 	    ;;
 
 	* )
-	    if [[ -z $from_dirstack ]]; then
 	    ## $fzf_prmt injected from insert-item-inline
 	    fd_list_items=$(fd --hidden . $fd_path)
-	    elif
-		[[ -n $from_dirstack ]]; then
-		fd_list_items=$dir_stack
-		fi
+
 	    ## add qqq-quit-exit-cancel as option
 	    fd_list_items=$(printf '%s\n%s' "$fd_list_items" 'qqq-quit-exit-cancel')
 
