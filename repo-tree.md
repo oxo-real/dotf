@@ -631,7 +631,6 @@
 │   ├── system.cfg
 │   └── user.cfg
 ├── fzf
-│   ├── DELyank-buffer
 │   └── transfer
 ├── fzf-tab
 │   ├── fzf-tab.plugin.zsh
@@ -2100,5 +2099,5 @@
     │   └── config
     └── xresources_colors
 
-225 directories, 1875 files
+225 directories, 1874 files
 ```
