@@ -631,6 +631,7 @@
 │   ├── system.cfg
 │   └── user.cfg
 ├── fzf
+│   ├── DELyank-buffer
 │   └── transfer
 ├── fzf-tab
 │   ├── fzf-tab.plugin.zsh
@@ -1891,6 +1892,16 @@
 │   │   ├── _mountr
 │   │   └── _passr
 │   ├── etc_zsh_zshenv
+│   ├── function
+│   │   ├── bindkey.sh
+│   │   ├── chpwd.sh
+│   │   ├── cursor.sh
+│   │   ├── git.sh
+│   │   ├── insert-date-time.sh
+│   │   ├── precmd.sh
+│   │   ├── preexec.sh
+│   │   ├── rps1.sh
+│   │   └── strlen.sh
 │   ├── prompt
 │   │   └── two-line-prompt.zsh
 │   ├── zshold
@@ -2089,5 +2100,5 @@
     │   └── config
     └── xresources_colors
 
-224 directories, 1865 files
+225 directories, 1875 files
 ```

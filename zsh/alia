@@ -317,8 +317,6 @@ alias mv='mv --interactive --verbose'
 alias rm='trash'
 alias mkdir='mkdir --parents --verbose'
 
-alias lf='lfcd'
-
 
 function cpr()
 {

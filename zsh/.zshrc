@@ -59,8 +59,10 @@ cfg="$XDG_CONFIG_HOME"
 fzf_tab="$cfg/fzf-tab/fzf-tab.zsh"
 fzf_zsh="$cfg/fzf/.fzf.zsh"
 text_appearance="$cfg/source/text_appearance"
-zsh_alia="$cfg/zsh/alia"
-zsh_completions="$cfg/zsh/completions/completion.zsh"
+zsh_config="$cfg/zsh"
+zsh_alia="$zsh_config/alia"
+zsh_function="$zsh_config/function"
+zsh_completions="$zsh_config/completions/completion.zsh"
 zsh_syntax_hl='/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh'
 
 hist_cmd_offset=100000
@@ -74,7 +76,12 @@ hist_cmd_offset=100000
 [[ -f $text_appearance ]] && source $text_appearance
 ## zsh completions
 [[ -f $zsh_completions ]] && source $zsh_completions
+## zsh functions
+for sh_function in $zsh_function/*; do
 
+    source $sh_function
+
+done
 
 # shell parameters
 autoload -U colors; colors
@@ -900,11 +907,11 @@ function cd-dirstack ()
 {
     # fzf cd into directories
 
-    ## item order (no cycle):
+    ##  order   fd_path (no cycle):
     ### 1 S --0 $dir_stack
     ### 2 C --0 $PWD
     ### 3 H --0 $HOME
-    ### 4 R --0 $ROOT (/)
+    ### 4 R --0 $ROOT
 
     ## change directory; select from dirstack
     get-dirstack
@@ -961,7 +968,8 @@ function cd-dirstack ()
 
 	elif [[ ! -d $dir_select || -z $dir_select ]]; then
 
-	    printf '${fg_amber}%s${st_def} directory not found\n' "$fzf_query"
+	    printf '%s directory not found\n' "$fzf_query"
+	    # TODO printf '${fg_amber}%s${st_def} directory not found\n' "$fzf_query"
 	    return 100
 
 	fi
@@ -1017,7 +1025,7 @@ function cd-dirstack ()
 
 	    else
 
-		## 4 change directory; select a directory under $ROOT (/)
+		## 4 change directory; select a directory under $ROOT
 		fd_path=$ROOT
 		fzf_prompt='R'
 		fzf_query=$ROOT
@@ -1118,44 +1126,39 @@ function insert-item-inline ()
 {
     # fzf search and select files and directories
 
-    ## item order (no cycle):
-
-    # TODO ### 1 S --0 $dir_stack
-
-    ### 2 C  --0 $PWD
-    ### 3 H  --0 $HOME
-    ### 4 R  --0 $ROOT (/)
-
-    get-dirstack
-
-    from_dirstack=1
+    ##  order   fd_path (no cycle):
+    ### 1 S --0 $dir_stack
+    ### 2 C --0 $PWD
+    ### 3 H --0 $HOME
+    ### 4 R --0 $ROOT
 
     ## search and select item(s) in $PWD
-    fzf_prompt='S'
-
     ## fzf_query
     ## select & kill word on cursor
     zle select-in-blank-word
     zle kill-region
     fzf_query="$CUTBUFFER"
 
+    ## dirstack instead of fd_path (below)
+    get-dirstack
+    fzf_prompt='S'
+
     ## add option qqq-quit-exit-cancel
     dir_stack=$(printf '%s\n%s' "$dir_stack" 'qqq-quit-exit-cancel')
 
-    ## 1 change directory; select a directory from $dir_stack
-    ##dir_select_fzf=$(printf '%s' "$dir_stack" | fzf --prompt 'S ')
     insert-item-fzf $dir_stack $fzf_prompt $fzf_query
 
     if [[ -n $fzf_output ]]; then
 
 	zle reset-prompt
-	unset fzf_output
-	unset from_dirstack
 	return 0
 
     elif [[ -z $fzf_output ]]; then
 
 	## search and select item(s) in $PWD
+	unset fzf_output
+	unset dir_stack
+	unset fzf_prompt
 	fd_path="$PWD"
 	fzf_prompt='C'
 
@@ -1164,38 +1167,45 @@ function insert-item-inline ()
 	if [[ -n $fzf_output ]]; then
 
 	    zle reset-prompt
-	    unset fzf_output
 	    return 0
 
 	elif [[ -z $fzf_output ]]; then
 
 	    ## search and select item(s) in $HOME
+	    unset fzf_output
+	    unset fd_path
+	    unset fzf_prompt
 	    fd_path="$HOME"
 	    fzf_prompt='H'
-	    insert-item-fzf $fd_path $fzf_prompt
+
+	    insert-item-fzf $fd_path $fzf_prompt $fzf_query
 
 	    if [[ -n $fzf_output ]]; then
 
 		zle reset-prompt
-		unset fzf_output
 		return 0
 
 	    elif [[ -z $fzf_output ]]; then
 
-		## search and select item(s) in $ROOT (/)
+		## search and select item(s) in $ROOT
+		unset fzf_output
+		unset fd_path
+		unset fzf_prompt
 		fd_path="$ROOT"
 		fzf_prompt='R'
-		insert-item-fzf $fd_path $fzf_prompt
+
+		insert-item-fzf $fd_path $fzf_prompt $fzf_query
 
 		if [[ -n $fzf_output ]]; then
 
 		    zle reset-prompt
+		    return 0
+
+		elif [[ -z $fzf_output ]]; then
+
 		    unset fzf_output
-		    return 0
-
-		else
-
-		    return 0
+		    unset fd_path
+		    unset fzf_prompt
 
 		fi
 
@@ -1225,21 +1235,33 @@ function insert-item-fzf ()
 	    ## cd-*-functions enter here (i.e. cd-child)
 	    fd_list_dirs=$(fd --type d --hidden . $fd_path)
 
+	    printf '\r'
 	    dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query")
 
 	    fzf_output=$dir_select
 	    ;;
 
 	* )
-	    if [[ -z $from_dirstack ]]; then
-	    ## $fzf_prmt injected from insert-item-inline
-	    fd_list_items=$(fd --hidden . $fd_path)
-	    elif
-		[[ -n $from_dirstack ]]; then
+	    if [[ -n $dir_stack ]]; then
+
 		fd_list_items=$dir_stack
-		fi
+
+	    elif [[ -n $fd_path ]]; then
+
+		## this can take a while, so we give some user feedback
+		printf '%s %s .. retrieving file data' "$fzf_prompt" "$fd_path"
+		#TODO printf '${fg_blue}%s %s${st_def} .. retrieving file data' "$fzf_prompt" "$fd_path"
+
+		fd_list_items=$(fd --hidden . $fd_path)
+
+	    fi
+
 	    ## add qqq-quit-exit-cancel as option
 	    fd_list_items=$(printf '%s\n%s' "$fd_list_items" 'qqq-quit-exit-cancel')
+
+	    ## erase line
+	    tput el1
+	    #printf '\r'
 
 	    ## tr converts multiple fzf entries to one line
 	    ## sed remove trailing space
