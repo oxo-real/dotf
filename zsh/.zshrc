@@ -871,35 +871,41 @@ bindkey '^A' git-add-commit             ## C-a
 
 function get-dirstack ()
 {
+    ## create chronological cd history with unique lines only
+
     basename_cwd=$(basename $PWD)
 
     ## fc list history of cd commands
     ## sort chronological (prepare unique)
-    ## sort alphabetical (unique)
+    ## sed remove trailing slashes (prepare unique)
+    ## sort alphabetical (first unique pass)
     ## sort chronological (final sort)
-    ## tr squeeze double spaces
-    ## cut only directory part of command
-    ## sed remove trailing slashes
-    ## grep filter out basename cwd
-    ## grep filter out full $PWD
-    ## #TODO sed replace variables with realpaths (i.e. $HOME)
-    ## awk filter out line with more than one word
-    ## sed remove ..
-    ## sed remove .
+    ## tr remove double spaces
+    ## cut remove non-directory part of fc line
+    ## sed insert previous working directory
+    ## grep remove basename cwd
+    ## grep remove full $PWD
+    ## awk remove lines with more than one word
+    ## sed remove '..'
+    ## sed remove '.'
+    ## sed remove empty lines
+    ## uniq remove repeated lines (second pass)
     dir_stack=$(fc -l -d -t %Y%m%d_%H%M%S -D -m 'cd *' 1 | \
 		   sort --reverse --numeric-sort --key 1 | \
-		   sort --unique --key 4 | \
+		   sed 's|[/\t]$||' | \
+		   sort --unique --key 5 | \
 		   sort --reverse --numeric-sort --key 1 | \
 		   tr -s ' ' | \
 		   cut -d ' ' -f 6- | \
-		   sed 's|[/\t]$||' | \
+		   sed "1i $OLDPWD" | \
 		   grep --invert-match --line-regexp $basename_cwd | \
 		   grep --invert-match --line-regexp $PWD | \
-		   awk 'NF<=1{print}' | \
 		   sed '/^..$/d' | \
-		   sed '/^.$/d' \
+		   sed '/^.$/d' | \
+		   awk 'NF<=1{print}' | \
+		   sed '/^\s*$/d' | \
+		   uniq \
 	    )
-
 }
 
 
