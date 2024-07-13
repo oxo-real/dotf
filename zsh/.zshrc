@@ -874,6 +874,7 @@ function get-dirstack ()
     ## create chronological cd history with unique lines only
 
     basename_cwd=$(basename $PWD)
+    first_hist_line=1
 
     ## fc list history of cd commands
     ## sort chronological (prepare unique)
@@ -890,7 +891,7 @@ function get-dirstack ()
     ## sed remove '.'
     ## sed remove empty lines
     ## uniq remove repeated lines (second pass)
-    dir_stack=$(fc -l -d -t %Y%m%d_%H%M%S -D -m 'cd *' 1 | \
+    dir_stack=$(fc -l -d -t %Y%m%d_%H%M%S -D -m 'cd *' $first_hist_line | \
 		   sort --reverse --numeric-sort --key 1 | \
 		   sed 's|[/\t]$||' | \
 		   sort --unique --key 5 | \
@@ -909,9 +910,9 @@ function get-dirstack ()
 }
 
 
-function cd-dirstack ()
+function cd-nav-dirs ()
 {
-    # fzf cd into directories
+    # cd navigate directories with fzf
 
     ##  order   fd_path (no cycle):
     ### 1 S --0 $dir_stack
@@ -956,6 +957,7 @@ function cd-dirstack ()
 	## nor from cwd accessible relative directory
 	## test if (relative) dir exist somewhere
 	fd_path=$ROOT
+	fzf_prompt='R'
 	fd_pattern="$dir_stack_select_fzf"
 	fzf_query="$fd_pattern"
 
@@ -1068,8 +1070,8 @@ function cd-dirstack ()
     zle -K viins
 }
 
-zle -N cd-dirstack
-bindkey -M viins '^h' cd-dirstack       ## C-h
+zle -N cd-nav-dirs
+bindkey -M viins '^h' cd-nav-dirs       ## C-h
 
 
 function cd-child ()
@@ -1285,11 +1287,13 @@ function insert-item-fzf ()
     esac
 
     [[ -n "$fzf_output" ]] && \
-    	CUTBUFFER="$fzf_output" || \
-    	    CUTBUFFER="$fzf_query"
+    	CUTBUFFER="$fzf_output" && zle vi-replace-selection
+    [[ -z "$fzf_output" ]] && \
+    	CUTBUFFER="$fzf_query" && zle vi-put-before
 
     # replace selection
-    zle vi-put-before
+    zle put-replace-selection
+    #zle vi-put-before
     #zle put-replace-selection
 
     unset CUTBUFFER

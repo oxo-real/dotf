@@ -711,7 +711,7 @@ c.content.blocking.enabled = True
 ## setting with a URL pattern instead. Local domains are always exempt
 ## from hostblocking.
 ## Type: List of UrlPattern
-c.content.blocking.whitelist = []
+c.content.blocking.whitelist = ['https://account.proton.me']
 
 ## Enable hyperlink auditing (`<a ping>`).
 ## Type: Bool
@@ -1673,7 +1673,7 @@ c.url.auto_search = 'naive'
 ## Page to open if :open -t/-b/-w is used without URL. Use `about:blank`
 ## for a blank page.
 ## Type: FuzzyUrl
-c.url.default_page = 'https://duckduckgo.com/?q=&k1=-1&kac=-1&kaj=m&kak=-1&kao=-1&kap=-1&kaq=-1&kau=-1&kax=-1&kay=b&kc=-1&kf=-1&kg=p%3Fq%3D%7B%7D&kk=-1&kz=-1&t=h'
+c.url.default_page = 'https://priv.au/search'
 
 ## URL segments where `:navigate increment/decrement` will search for a
 ## number.
@@ -1701,14 +1701,12 @@ c.url.open_base_url = False
 ## `:open google qutebrowser`.
 ## Type: Dict
 c.url.searchengines = {
-        'DEFAULT':  'https://duckduckgo.com/?q={}&k1=-1&kac=-1&kaj=m&kak=-1&kao=-1&kap=-1&kaq=-1&kau=-1&kax=-1&kay=b&kc=-1&kf=-1&kg=p%3Fq%3D%7B%7D&kk=-1&kz=-1&t=h'
+        'DEFAULT':  'https://priv.au/?q={}'
         }
 
 ## Page(s) to open at the start.
 ## Type: List of FuzzyUrl, or FuzzyUrl
 c.url.start_pages = ['qute://start']
-#c.url.start_pages = ['https://codeberg.org/oxo']
-#c.url.start_pages= ['https://duckduckgo.com/?q=&k1=-1&kac=-1&kaj=m&kak=-1&kao=-1&kap=-1&kaq=-1&kau=-1&kax=-1&kay=b&kc=-1&kf=-1&kg=p%3Fq%3D%7B%7D&kk=-1&kz=-1&t=h']
 
 ## URL parameters to strip with `:yank url`.
 ## Type: List of String
