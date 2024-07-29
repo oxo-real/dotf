@@ -59,7 +59,7 @@ no_thr=5
 int=$(echo "scale=0; ($max - $min) / $no_thr" | bc -l)
 
 
-## full text
+# full text
 printf "%s%s\n" "$sink_vol" "$sink_status"
 #printf "%s%s${RED}%s${NOC}\n" "$sink_vol" "$sink_status" "$mic_warning"
 

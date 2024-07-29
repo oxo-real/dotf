@@ -887,6 +887,7 @@ contacts
 
 #+end_src
 
+
 * structure templates
 ** easier way to create codeblocks
 to insert codeblock type: <el [TAB]

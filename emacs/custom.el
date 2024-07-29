@@ -16,7 +16,7 @@
  '(org-journal-dir "~/.local/share/c/org/journal")
  '(org-journal-file-type 'yearly)
  '(package-selected-packages
-   '(fzf rust-mode ledger-mode buffer-move auto-package-update embark-consult modus-themes vterm org-journal pinentry super-save diminish general dired-singlea dired-single which-key org-contacts org-present visual-fill-column org-bullets embark marginalia magit consult helpful evil-collection evil doom-themes doom-modeline orderless vertico use-package)))
+   '(fzf rust-mode ledger-mode buffer-move auto-package-update embark-consult modus-themes vterm pinentry super-save diminish general dired-singlea dired-single which-key visual-fill-column embark marginalia magit consult helpful evil-collection evil doom-themes doom-modeline orderless vertico use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
