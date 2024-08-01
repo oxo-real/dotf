@@ -6,14 +6,15 @@ focused_con_data=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.focus
 pid=$(printf '%s' "$focused_con_data" | jq ' .pid' | sed 's/null//')
 name=$(printf '%s' "$focused_con_data" | jq ' .name' | sed 's/"//g')
 
+wid=$(printf '%s' "$focused_con_data" | jq ' .id' | sed 's/null//')
 type=$(printf '%s' "$focused_con_data" | jq ' .type')
-[[ $type == '"con"' ]] || con_type='~' || con_type='=<>'
-#[[ $type == '"con"' ]] && con_type='=[]' || con_type='=<>'
+[[ $type == '"con"' ]] && con_type='[]=' || con_type='<>='
 
 # NOTICE eol for i3blocks
 if [[ -n $pid ]]; then
 
-    printf '%s %s %s\n' "$name" $pid "$con_type"
+    printf '%s%s %s %s\n' "$con_type" "$wid" $pid "$name"
+    #printf '%s %s %s\n' "$name" $pid "$con_type"
     #printf '%s %6s %s\n' "$name" $pid "$con_type"
 
 fi

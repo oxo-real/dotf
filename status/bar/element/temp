@@ -9,7 +9,7 @@ var=$cpu_temp  ## inverted values; lower is better
 
 ## minimum, maximum value and number of threshold (colors)
 ## number of colors = no_thr + 2
-min=45
+min=50
 max=90
 no_thr=5
 

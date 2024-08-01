@@ -412,10 +412,10 @@ bar
 	   focused_background	#00000095
 	   focused_statusline	#777777
 	   focused_separator	#ffffff
-	   focused_workspace	#00000095 #33333395 #cccccc
-	   #focused_workspace	#005577   #00557795 #cccccc
-	   active_workspace	#00000095 #77777795 #000000
-	   inactive_workspace	#1f1f1f95 #00000095 #777777
+	   #focused_workspace	#00000095 #33333395 #cccccc
+	   focused_workspace	#00557750 #00557750 #aaaaaa
+	   active_workspace	#00557795 #00000095 #005577
+	   inactive_workspace	#00000095 #00000095 #777777
 	   urgent_workspace	#00000095 #77005595 #ffffd3
     }
 }

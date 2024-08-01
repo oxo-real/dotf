@@ -61,9 +61,10 @@ interval=2
 separator_block_width=8
 align=left
 color=#777777
-background=#33333395
-#background=#00557795
-border=#33333395
+#background=#33333395
+background=#00557750
+#border=#33333395
+border=#00557750
 border_left=2
 border_right=2
 
