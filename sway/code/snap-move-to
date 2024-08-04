@@ -177,6 +177,8 @@ snap_or_move()
 		    esac
 
 		    swaymsg "${criteria}move position $new_x $new_y"
+
+		    ## TODO direction set; second time same direction make tile and move
 		    ;;
 
 		*)

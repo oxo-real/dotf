@@ -165,4 +165,3 @@ case $batt_status in
 	;;
 
 esac
-echo

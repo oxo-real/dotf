@@ -29,10 +29,10 @@ set $keyboard_ext			12951:6505:ZSA_Technology_Labs_Moonlander_Mark_I_Consumer_Co
 # mouse					(identifier)
 
 ## logitech mx master
-set $mouse				1133:45074:Logitech_Wireless_Mouse_MX_Master
+#set $mouse				1133:45074:Logitech_Wireless_Mouse_MX_Master
 
 ## logitech mx anywhere 3
-#set $mouse				1133:16528:Logitech_MX_Anywhere_3
+set $mouse				1133:16528:Logitech_MX_Anywhere_3
 
 ## logitech mbj69
 #set $mouse				1133:49166:Logitech_USB-PS/2_Optical_Mouse

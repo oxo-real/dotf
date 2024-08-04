@@ -2,18 +2,38 @@
 
 ## focused container data block
 focused_con_data=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.focused == true)')
+monitor_dimensions=$(
+    swaymsg -t get_workspaces |
+	jq -r '.. | select(.focused?) |
+	    select(.type=="workspace") |
+	    .rect |
+	    "\(.width)x\(.height)"' \
+		  )
 
 pid=$(printf '%s' "$focused_con_data" | jq ' .pid' | sed 's/null//')
 name=$(printf '%s' "$focused_con_data" | jq ' .name' | sed 's/"//g')
 
+rect_width=$(printf '%s' "$focused_con_data" | jq '.. | select(.type?) | select(.focused == true) | '.rect' '.width'')
+rect_height=$(printf '%s' "$focused_con_data" | jq '.. | select(.type?) | select(.focused == true) | '.rect' '.height'')
+
 wid=$(printf '%s' "$focused_con_data" | jq ' .id' | sed 's/null//')
 type=$(printf '%s' "$focused_con_data" | jq ' .type')
+
+monitor_width=${monitor_dimensions%x*}
+monitor_height=${monitor_dimensions#*x}
+
+## container types
+### []= tiling
+### ><= floating
+### <M> monoocle
 [[ $type == '"con"' ]] && con_type='[]=' || con_type='<>='
+[[ $con_type == '<>=' && $monitor_width == $rect_width ]] && con_type='<M>'
+
 
 # NOTICE eol for i3blocks
 if [[ -n $pid ]]; then
 
-    printf '%s%s %s %s\n' "$con_type" "$wid" $pid "$name"
+    printf '%s %s %s %s\n' "$con_type" "$wid" $pid "$name"
     #printf '%s %s %s\n' "$name" $pid "$con_type"
     #printf '%s %6s %s\n' "$name" $pid "$con_type"
 

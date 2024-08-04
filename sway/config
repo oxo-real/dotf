@@ -78,6 +78,7 @@ seat * hide_cursor when-typing enable
 input $touchpad
 {
     dwt			enabled
+    dwtp		enabled
     tap			enabled
     natural_scroll	enabled
     accel_profile	adaptive
@@ -91,6 +92,7 @@ input $touchpad
 input $touchpad_ext
 {
     dwt			enabled
+    dwtp		enabled
     tap			enabled
     natural_scroll	enabled
     accel_profile	adaptive
@@ -141,6 +143,14 @@ input $keyboard_ext
     #xkb_numlock	enabled
 }
 
+## mouse
+### general
+input $mouse
+{
+    # converts left and right button click into a middle button
+    # enable emulation when the device does not provide a middle button
+    middle_emulation	disabled
+}
 
 ## modkey settings (xmodmap)
 # use wev to designate events
@@ -405,18 +415,17 @@ bar
 
     colors
     {
-    	   ## color		border	  backgr    text
+    	   ### item		color	  border    backgr    text
     	   background		#00000095
 	   statusline		#777777
 	   separator		#777777
 	   focused_background	#00000095
 	   focused_statusline	#777777
 	   focused_separator	#ffffff
-	   #focused_workspace	#00000095 #33333395 #cccccc
-	   focused_workspace	#00557750 #00557750 #aaaaaa
-	   active_workspace	#00557795 #00000095 #005577
-	   inactive_workspace	#00000095 #00000095 #777777
-	   urgent_workspace	#00000095 #77005595 #ffffd3
+	   focused_workspace		  #00557750 #00557795 #aaaaaa
+	   active_workspace		  #00000095 #77777795 #000000
+	   inactive_workspace		  #00000095 #00000095 #777777
+	   urgent_workspace		  #00000095 #77005595 #ffffd3
     }
 }
 
@@ -448,13 +457,15 @@ bindsym $mod+Control+b 		exec $i3b_cycle
 # window configuration
 ## no title bar
 default_border		none
-#default_border 	pixel	1
-## color		border	backgr	text	indictr	child_border
-client.focused		#000000 #000000 #999999 #000000
-client.focused_inactive	#000000 #000000 #333333 #000000
-client.unfocused	#000000 #000000 #333333 #000000
-client.urgent		#000000 #000000 #ff0000 #000000
+#default_border 		pixel	1
+## color
+### item		border	backgr	text	indictr	child_border
+client.focused		#000000 #000000 #999999 #000000 #00557775
+client.focused_inactive	#000000 #000000 #333333 #000000 #000000
+client.unfocused	#000000 #000000 #333333 #000000 #000000
+client.urgent		#000000 #000000 #ff0000 #000000 #ff0000
 
+## cycle through border styles
 bindsym $mod+Shift+b	border toggle
 
 
@@ -576,19 +587,20 @@ bindsym $mod+Mod1+k		floating enable; $smt Z
 
 ## snap to screen edge; filled
 ### $mod+Mod1+78
-bindsym $mod+Mod1+7		floating enable; exec sh $csc/float-v-fill
+bindsym $mod+Mod1+7		floating enable; exec sh $csc/float-v-fill # float h fill
 bindsym $mod+Mod1+8		floating enable; exec sh $csc/float-h-fill
 
-## container float; minimize, divide 2,3,4, maximize
+## container float; minimize, divide 1,2,3,4, maximize
 ### $mod+Control+012349
 bindsym $mod+Mod1+0		floating enable; $smt Z; exec sh $csc/float-min
+### 1/1, 2/6, 3/6 or 4/6 width
 bindsym $mod+Mod1+1		floating enable; exec sh $csc/float-divide 1
-### 2/6, 3/6 or 4/6 width
 bindsym $mod+Mod1+2		floating enable; exec sh $csc/float-divide 2
 bindsym $mod+Mod1+3		floating enable; exec sh $csc/float-divide 3
 bindsym $mod+Mod1+4		floating enable; exec sh $csc/float-divide 4
 
 bindsym $mod+Mod1+9		floating enable; $smt Z; exec sh $csc/float-max
+bindsym $mod+Mod1+f		floating enable; $smt Z; exec sh $csc/float-max
 
 
 #----------------------------------------------------------------
@@ -670,6 +682,9 @@ bindsym $mod+semicolon		focus mode_toggle
 # toggle focused window tiling / floating
 bindsym $mod+Control+semicolon 	floating toggle
 bindsym $mod+Mod1+semicolon 	floating toggle
+
+## mouse method
+bindsym --whole-window $mod+BTN_MIDDLE floating toggle
 
 
 # toggle floating window sticky (always on top)
