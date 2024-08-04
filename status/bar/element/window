@@ -24,8 +24,8 @@ monitor_height=${monitor_dimensions#*x}
 
 ## container types
 ### []= tiling
-### ><= floating
-### <M> monoocle
+### <>= floating
+### <M> monoocle (floating container maximized)
 [[ $type == '"con"' ]] && con_type='[]=' || con_type='<>='
 [[ $con_type == '<>=' && $monitor_width == $rect_width ]] && con_type='<M>'
 
@@ -34,7 +34,5 @@ monitor_height=${monitor_dimensions#*x}
 if [[ -n $pid ]]; then
 
     printf '%s %s %s %s\n' "$con_type" "$wid" $pid "$name"
-    #printf '%s %s %s\n' "$name" $pid "$con_type"
-    #printf '%s %6s %s\n' "$name" $pid "$con_type"
 
 fi
