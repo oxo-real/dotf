@@ -432,7 +432,7 @@ bar
 ### bar toggle (hide)
 bindsym $mod+b			bar mode toggle
 
-### bar blocks toggle
+### bar blocks cycle
 bindsym $mod+Control+b 		exec $i3b_cycle
 
 
@@ -600,7 +600,7 @@ bindsym $mod+Mod1+6		floating enable; exec sh $csc/float-divide 6  ## float full
 
 ## container float; snap fill screen edge
 ### $mod+Mod1+78
-bindsym $mod+Mod1+7		floating enable; exec sh $csc/float-v-fill  ## snap fill left/right edge
+bindsym $mod+Mod1+h		floating enable; exec sh $csc/float-v-fill  ## snap fill left/right edge
 bindsym $mod+Mod1+8		floating enable; exec sh $csc/float-h-fill  ## snap fill top/bottom edge
 
 ## container float; maximize
@@ -641,8 +641,6 @@ bindsym $mod+Control+$ri	resize grow width $resize_minor_step px or $resize_mino
 
 # close (quit) container
 bindsym $mod+Shift+q		kill
-## for convenience
-bindsym $mod+Mod1+q		kill
 
 
 #----------------------------------------------------------------
@@ -685,11 +683,9 @@ bindsym $mod+semicolon		focus mode_toggle
 
 
 # toggle focused window tiling / floating
-bindsym $mod+Control+semicolon 	floating toggle
 bindsym $mod+Mod1+semicolon 	floating toggle
-
 ## mouse method
-bindsym --whole-window $mod+BTN_MIDDLE floating toggle
+bindsym --whole-window $mod+BTN_MIDDLE	floating toggle
 
 
 # toggle floating window sticky (always on top)
@@ -921,10 +917,6 @@ bindsym $mod+m			exec --no-startup-id $term --class="float_spicules" \
 ## switch microphone on/off
 bindsym Shift+Control+Mod1+x	exec mic-switch toggle Webcam C310
 
-## play video
-bindsym Shift+Control+Mod1+v 	exec --no-startup-id $term --class="term_float_inv" \
-				-e mpv $(wl-paste) &
-
 
 #----------------------------------------------------------------
 # screencapture
@@ -952,7 +944,8 @@ bindsym --release $mod+Shift+p	exec grim -g "$(slurp)" \
 bindsym $mod+Control+p		exec grim -g "$(slurp)" | wl-copy && \
 				notify-send 'scr_cap sel copy'
 
-## pick a color
+## imagemagick pixel enumeration
+### pick a color
 bindsym $mod+Mod1+c		exec grim -g "$(slurp -p)" -t ppm - | \
 				convert - -format '%[pixel:p{0,0}]' txt:- | \
 				wl-copy -n && \

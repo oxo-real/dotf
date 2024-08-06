@@ -1877,10 +1877,8 @@
 │   └── zathurarc
 ├── zsa
 │   └── moonlander
-│       ├── moonlander_oxo_qwerty_llMPa_eNXrR.bin
-│       ├── moonlander_oxo_qwerty_llMPa_eNXrR.zip
-│       ├── moonlander_oxo_qwerty_NZWR6_QWMKB.bin
-│       ├── moonlander_oxo_qwerty_NZWR6_QWMKB.zip
+│       ├── moonlander_oxo_qwerty_RmXGx_o6wLP.bin
+│       ├── moonlander_oxo_qwerty_RmXGx_o6wLP.zip
 │       └── zsa_oxo_moon_url
 ├── zsh
 │   ├── alia
@@ -2099,5 +2097,5 @@
     │   └── config
     └── xresources_colors
 
-225 directories, 1874 files
+225 directories, 1872 files
 ```
