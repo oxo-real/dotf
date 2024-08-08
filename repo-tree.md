@@ -2,7 +2,8 @@
 /home/oxo/.local/share/c/git/dotf
 ├── alacritty
 │   ├── alacritty.toml
-│   └── alacritty.yml
+│   ├── alacritty.yml
+│   └── atty-kb-guide.pdf -> /home/oxo/c/git/note/application/kb-guide/atty-kb-guide.pdf
 ├── base16-shell
 │   ├── base16-shell.plugin.zsh
 │   ├── base16-shell.png
@@ -1810,6 +1811,7 @@
 │   ├── lock
 │   │   ├── config
 │   │   └── config_bg
+│   ├── sway-kb-guide.pdf -> /home/oxo/c/git/note/application/kb-guide/sway-kb-guide.pdf
 │   └── zzz_deprecated
 │       └── bar
 │           ├── blocks
@@ -1877,8 +1879,9 @@
 │   └── zathurarc
 ├── zsa
 │   └── moonlander
-│       ├── moonlander_oxo_qwerty_RmXGx_o6wLP.bin
-│       ├── moonlander_oxo_qwerty_RmXGx_o6wLP.zip
+│       ├── moonlander_oxo_qwerty_NZWR6_On6M3.bin
+│       ├── moonlander_oxo_qwerty_NZWR6_On6M3.zip
+│       ├── zsa0-kb-guide.pdf -> /home/oxo/c/git/note/application/kb-guide/zsa0-kb-guide.pdf
 │       └── zsa_oxo_moon_url
 ├── zsh
 │   ├── alia
@@ -1901,6 +1904,7 @@
 │   │   └── strlen.sh
 │   ├── prompt
 │   │   └── two-line-prompt.zsh
+│   ├── zsh-kb-guide.pdf -> /home/oxo/c/git/note/application/kb-guide/zsh-kb-guide.pdf
 │   ├── zshold
 │   ├── zshrcold
 │   └── zzz_deprecated
@@ -2097,5 +2101,5 @@
     │   └── config
     └── xresources_colors
 
-225 directories, 1872 files
+225 directories, 1876 files
 ```
