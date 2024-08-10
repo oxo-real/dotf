@@ -3,7 +3,7 @@
 ├── alacritty
 │   ├── alacritty.toml
 │   ├── alacritty.yml
-│   └── atty-kb-guide.pdf -> /home/oxo/c/git/note/application/kb-guide/atty-kb-guide.pdf
+│   └── atty-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/atty-kb-guide.pdf
 ├── base16-shell
 │   ├── base16-shell.plugin.zsh
 │   ├── base16-shell.png
@@ -1811,7 +1811,7 @@
 │   ├── lock
 │   │   ├── config
 │   │   └── config_bg
-│   ├── sway-kb-guide.pdf -> /home/oxo/c/git/note/application/kb-guide/sway-kb-guide.pdf
+│   ├── sway-kb-guide.pdf -> /home/oxo/.local/share/c/git/note/application/keybinding/guide/sway-kb-guide.pdf
 │   └── zzz_deprecated
 │       └── bar
 │           ├── blocks
@@ -1879,10 +1879,16 @@
 │   └── zathurarc
 ├── zsa
 │   └── moonlander
-│       ├── moonlander_oxo_qwerty_NZWR6_On6M3.bin
-│       ├── moonlander_oxo_qwerty_NZWR6_On6M3.zip
-│       ├── zsa0-kb-guide.pdf -> /home/oxo/c/git/note/application/kb-guide/zsa0-kb-guide.pdf
-│       └── zsa_oxo_moon_url
+│       ├── ml0-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/ml0-kb-guide.pdf
+│       ├── ml1-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/ml1-kb-guide.pdf
+│       ├── ml2-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/ml2-kb-guide.pdf
+│       ├── ml3-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/ml3-kb-guide.pdf
+│       ├── ml4-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/ml4-kb-guide.pdf
+│       ├── ml5-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/ml5-kb-guide.pdf
+│       ├── ml7-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/ml7-kb-guide.pdf
+│       ├── moonlander_oxo_qwerty_NZWR6_MrLBY.bin
+│       ├── moonlander_oxo_qwerty_NZWR6_MrLBY.zip
+│       └── moonlander_oxo_qwerty_NZWR6.url
 ├── zsh
 │   ├── alia
 │   ├── completions
@@ -1904,7 +1910,7 @@
 │   │   └── strlen.sh
 │   ├── prompt
 │   │   └── two-line-prompt.zsh
-│   ├── zsh-kb-guide.pdf -> /home/oxo/c/git/note/application/kb-guide/zsh-kb-guide.pdf
+│   ├── zsh-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/zsh-kb-guide.pdf
 │   ├── zshold
 │   ├── zshrcold
 │   └── zzz_deprecated
@@ -2101,5 +2107,5 @@
     │   └── config
     └── xresources_colors
 
-225 directories, 1876 files
+225 directories, 1882 files
 ```

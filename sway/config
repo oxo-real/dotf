@@ -359,7 +359,6 @@ bindsym Mod1+Period		exec echo mousemove $kb_mouse_minor_move 0  | dotoolc  ## r
 ## button events
 ### click
 bindsym Mod1+u			exec echo click left | dotoolc
-#bindsym Mod1+u			exec echo buttonup left; click left | dotoolc
 bindsym Mod1+i			exec echo buttonup middle; click middle | dotoolc
 bindsym Mod1+o			exec echo buttonup right; click right | dotoolc
 ### hold down
