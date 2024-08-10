@@ -1,33 +1,37 @@
-#!/bin/sh
+#! /usr/bin/env sh
 
-# define colors
-RED='\033[0;31m' # red
-GREEN='\033[0;32m' # green
-NOC='\033[0m' # no color
-
-ip="9.9.9.9"
+ip='9.9.9.9'
 
 # name active interface
-#old (did not work well with vpn tunnels)
-#i=$(ip -o -4 route show to default | awk '{print $5}')
-
 if [[ -n $(ip route show) ]]; then
 
-	i=$(ip route get $ip | awk '{print $5}')
-
-	case "$i" in
-
-		proton0)
-
-			vpn_server=$(protonvpn s | grep Server: | awk '{print $2}')
-			printf '%s\n' "$vpn_server"
-			;;
-
-		*)
-
-			printf '%s\n' "$i"
-			;;
-
-	esac
+    ## perl regex positive look-ahead
+    ## [Using Look-ahead and Look-behind](https://www.perlmonks.org/?node_id=518444)
+    i=$(ip route get $ip | grep --perl-regexp --only-matching --ignore-case --word-regexp '(?<=\bdev )([a-zA-Z0-9-])+')
 
 fi
+
+# full text
+echo "$i"
+
+## short text
+echo  ## none
+
+## text
+case $i in
+
+    wg-*)
+	echo "#529877"  ## dark moderate cyan - lime green
+	;;
+
+    *)
+	echo  ## default
+	;;
+
+esac
+
+## background
+echo  ## default
+
+## border
+echo  ## default
