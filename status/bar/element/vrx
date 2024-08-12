@@ -1,9 +1,7 @@
 #! /usr/bin/env sh
 
-#[TODO] posix compliance: #!/bin/sh does not accept the array
-
 ## get data
-i=$(ip -o -4 route show to default | awk '{print $5}')
+i=$(ip route show to default | grep --perl-regexp --only-matching --ignore-case --word-regexp '(?<=\bdev )([a-zA-Z0-9-])+')
 
 ### check for interface
 if [ -z "$i" ]; then
