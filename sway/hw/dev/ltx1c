@@ -2,7 +2,7 @@
 
 # lenovo_thinkpad_x1_carbon
 
-## internal input devices	(identifiers)
+## set internal input devices	(identifiers)
 set	$keyboard		1:1:AT_Translated_Set_2_keyboard
 set	$touchpad		1267:12793:ELAN067C:00_04F3:31F9_Touchpad
 

@@ -126,7 +126,7 @@ input $touchpad_ext
 ### specific
 input $keyboard
 {
-    xkb_options		compose:ralt,ctrl:nocaps
+    xkb_options		compose:ralt,caps:escape,shift:both_capslock
     repeat_delay	500
     repeat_rate		20
 }

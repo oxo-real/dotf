@@ -163,7 +163,7 @@ function emacs()
 	    # use current tui
 
 	    ## get file(s)
-	    [[ "$#" -gt 1 ]] && shift && files="$@"
+	    files="$@"
 
 	    emacsclient --tty --alternate-editor='' "$files"
 	    ;;
@@ -172,7 +172,7 @@ function emacs()
 	    # use new gui frame
 
 	    ## get file(s)
-	    [[ "$#" -gt 1 ]] && shift && files="$@"
+	    files="$@"
 
 	    ## last ampersand to start a separate process
 	    ## brackets to prevent jobs running in current shell (new subshell)
@@ -183,7 +183,7 @@ function emacs()
 	    # start emacs 'desktop', no emacsclient
 
 	    ## get file(s)
-	    [[ "$#" -gt 1 ]] && shift && files="$@"
+	    files="$@"
 
 	    ## brackets to prevent jobs running in current shell (new subshell)
 	    (/bin/emacs "$files" > /dev/null 2>&1 &)
@@ -232,7 +232,7 @@ function view()
 	    # use current tui
 
 	    ## get file(s)
-	    [[ "$#" -gt 1 ]] && shift && files="$@"
+	    files="$@"
 
 	    emacsclient --tty --alternate-editor='' --eval "(view-file \"$files\")"
 	    ;;
@@ -241,7 +241,7 @@ function view()
 	    # use new gui frame
 
 	    ## get file(s)
-	    [[ "$#" -gt 1 ]] && shift && files="$@"
+	    files="$@"
 
 	    ## last ampersand to start a separate process
 	    ## brackets to prevent jobs running in current shell (new subshell)
@@ -252,7 +252,7 @@ function view()
 	    # start emacs 'desktop', no emacsclient
 
 	    ## get file(s)
-	    [[ "$#" -gt 1 ]] && shift && files="$@"
+	    files="$@"
 
 	    ## brackets to prevent jobs running in current shell (new subshell)
 	    (/bin/emacs --eval "view-file \"$files\")" > /dev/null 2>&1 &)
