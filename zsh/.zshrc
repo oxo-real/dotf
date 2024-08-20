@@ -608,8 +608,9 @@ function calc-rps1 ()
 {
     calc-epoch
 
+    weekday=$(date +'%u')
     day_num=$(date +'%d')
-    rp='$day_num%F{#696969}$ep_l $ep_r%f %D{%H%M%S}'
+    rp='$weekday$day_num%F{#696969}$ep_l $ep_r%f %D{%H%M%S}'
 
     ## length exit code in PS1
     if [[ "$exit_code" -gt '0' ]]; then
