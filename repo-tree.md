@@ -2,8 +2,9 @@
 /home/oxo/.local/share/c/git/dotf
 ├── alacritty
 │   ├── alacritty.toml
-│   ├── alacritty.yml
-│   └── atty-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/atty-kb-guide.pdf
+│   ├── atty-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/atty-kb-guide.pdf
+│   └── zzz_deprecated
+│       └── alacritty.yml
 ├── base16-shell
 │   ├── base16-shell.plugin.zsh
 │   ├── base16-shell.png
@@ -2107,5 +2108,5 @@
     │   └── config
     └── xresources_colors
 
-225 directories, 1882 files
+226 directories, 1882 files
 ```
