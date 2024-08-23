@@ -741,7 +741,7 @@ bindsym --whole-window $mod+BTN_MIDDLE	floating toggle
 
 
 # toggle floating window sticky (always on top)
-bindsym $mod+Shift+s	 	sticky toggle
+bindsym $mod+Mod1+s	 	sticky toggle
 
 
 # move focused container to scratchpad
