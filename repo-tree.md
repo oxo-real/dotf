@@ -1880,6 +1880,7 @@
 │   └── zathurarc
 ├── zsa
 │   └── moonlander
+│       ├── keymapp-latest.tar.gz
 │       ├── ml0-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/ml0-kb-guide.pdf
 │       ├── ml1-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/ml1-kb-guide.pdf
 │       ├── ml2-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/ml2-kb-guide.pdf
@@ -1889,7 +1890,13 @@
 │       ├── ml7-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/ml7-kb-guide.pdf
 │       ├── moonlander_oxo_qwerty_NZWR6_MrLBY.bin
 │       ├── moonlander_oxo_qwerty_NZWR6_MrLBY.zip
-│       └── moonlander_oxo_qwerty_NZWR6.url
+│       ├── moonlander_oxo_qwerty_NZWR6.url
+│       ├── moonlander_oxo_qwerty_NZWR6_v3qeo.bin
+│       ├── moonlander_oxo_qwerty_NZWR6_v3qeo.zip
+│       ├── zsa_moonlander_oxo_qwerty_NZWR6_JWmlZ.bin
+│       ├── zsa_moonlander_oxo_qwerty_NZWR6_JWmlZ.zip
+│       ├── zsa_moonlander_oxo_qwerty_NZWR6_wVDXd.bin
+│       └── zsa_moonlander_oxo_qwerty_NZWR6_wVDXd.zip
 ├── zsh
 │   ├── alia
 │   ├── completions
@@ -2108,5 +2115,5 @@
     │   └── config
     └── xresources_colors
 
-226 directories, 1882 files
+226 directories, 1889 files
 ```

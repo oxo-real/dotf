@@ -728,6 +728,9 @@ rp-redisplay
 # history shell options
 ## see man zshoptions (history)
 
+## save timestamp and duration
+setopt EXTENDED_HISTORY
+
 ## when trimming history file, first trim from duplicate entries
 setopt HIST_EXPIRE_DUPS_FIRST
 

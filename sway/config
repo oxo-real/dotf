@@ -518,7 +518,8 @@ client.unfocused	#000000 #000000 #333333 #000000 #000000
 client.urgent		#000000 #000000 #ff0000 #000000 #ff0000
 
 ## cycle through border styles
-bindsym $mod+Shift+b	border toggle
+bindsym $mod+Shift+bracketleft	border toggle
+#bindsym $mod+Shift+b	border toggle
 
 
 # start with touchpad disabled
@@ -528,10 +529,20 @@ input $touchpad		events disabled
 floating_modifier	$mod
 
 
-# toggle touchpad device (keyboard only)
-bindsym $mod+Shift+space    input $touchpad \
-			    events toggle enabled disabled
+# toggle touchpad device
+bindsym $mod+Shift+space    exec swaymsg input $touchpad \
+			    events toggle enabled disabled \
+			    && notify-send 'touchpad'
 
+# toggle trackpoint device
+bindsym $mod+Shift+b	    exec swaymsg input $trackpoint \
+			    events toggle enabled disabled \
+			    && notify-send 'trackpoint'
+
+# toggle touchscreen device
+bindsym $mod+Shift+v	    exec swaymsg input $touchscreen \
+			    events toggle enabled disabled \
+			    && notify-send 'touchscreen'
 
 # focus follows mouse
 focus_follows_mouse	no

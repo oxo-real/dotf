@@ -5,6 +5,8 @@
 ## set internal input devices	(identifiers)
 set	$keyboard		1:1:AT_Translated_Set_2_keyboard
 set	$touchpad		1267:12793:ELAN067C:00_04F3:31F9_Touchpad
+set	$trackpoint		2:10:TPPS/2_Elan_TrackPoint
+set	$touchscreen		1267:11342:ELAN901C:00_04F3:2C4E
 
 ## internal output devices
 ### Chimei Innolux Corporation 0x1417 0x00000000
