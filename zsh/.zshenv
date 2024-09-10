@@ -61,7 +61,7 @@ export ROOT='/'
 # hist
 ## for history shell options (setopt) see zshrc
 
-## location of the history file
+## (absolute!) location of the history file
 export HISTFILE="$XDG_LOGS_HOME/history/history"
 
 ## maximum number of history events to save in the history file

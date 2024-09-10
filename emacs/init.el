@@ -844,6 +844,11 @@
 ;;(setq tab-bar-format '(tab-bar-format-global)
 ;;  tab-bar-mode t))
 
+;; (use-package base16-theme
+  ;; :ensure t
+  ;; :config
+  ;; (load-theme 'base16-default-dark t))
+
 ;; first set the custom variables
 (setq modus-themes-mode-line '(borderless))
 (setq modus-themes-hl-line '(nil))

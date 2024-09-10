@@ -1714,10 +1714,10 @@
 │   ├── monitor -> /home/oxo/.config/git/monitor
 │   ├── mountr -> /home/oxo/.local/share/c/git/code/tool/mountr
 │   ├── netconn -> /home/oxo/.local/share/c/git/code/network/netconn
-│   ├── netflow -> /home/oxo/.local/share/c/git/code/tool/netflow
-│   ├── netistat -> /home/oxo/.local/share/c/git/code/tool/netistat
+│   ├── netflow -> /home/oxo/.local/share/c/git/code/network/netflow
+│   ├── netistat -> /home/oxo/.local/share/c/git/code/network/netistat
 │   ├── netkill -> /home/oxo/.local/share/c/git/code/network/netkill
-│   ├── nmconn -> /home/oxo/.local/share/c/git/code/tool/nmconn
+│   ├── nmconn -> /home/oxo/.local/share/c/git/code/network/nmconn
 │   ├── otp95 -> /home/oxo/.local/share/c/git/code/tool/otp95
 │   ├── passexp -> /home/oxo/.local/share/c/git/code/tool/passexp
 │   ├── passr -> /home/oxo/.local/share/c/git/code/tool/passr

@@ -896,7 +896,7 @@ contacts
 
 * structure templates
 ** easier way to create codeblocks
-to insert codeblock type: <el [TAB]
+to insert codeblock i.e. emacs-lisp type: <el [TAB]
 *** languages
 #+begin_src emacs-lisp
 
@@ -1167,6 +1167,21 @@ M-x display-fill-column-indicator-mode
   ;;tab-bar-open-button-show nil)
   ;;(setq tab-bar-format '(tab-bar-format-global)
   ;;  tab-bar-mode t))
+
+#+end_src
+
+** base16-emacs
+[GitHub - tinted-theming/base16-emacs: Base16 themes for Emacs]
+(https://github.com/tinted-theming/base16-emacs)
+
+for temporary instance eval:
+(load-theme 'base16-irblack t)
+#+begin_src emacs-lisp
+
+  ;; (use-package base16-theme
+    ;; :ensure t
+    ;; :config
+    ;; (load-theme 'base16-default-dark t))
 
 #+end_src
 

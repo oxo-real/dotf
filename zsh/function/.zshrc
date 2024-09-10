@@ -59,8 +59,10 @@ cfg="$XDG_CONFIG_HOME"
 fzf_tab="$cfg/fzf-tab/fzf-tab.zsh"
 fzf_zsh="$cfg/fzf/.fzf.zsh"
 text_appearance="$cfg/source/text_appearance"
-zsh_alia="$cfg/zsh/alia"
-zsh_completions="$cfg/zsh/completions/completion.zsh"
+zsh_config="$cfg/zsh"
+zsh_alia="$zsh_config/alia"
+zsh_function="$zsh_config/function"
+zsh_completions="$zsh_config/completions/completion.zsh"
 zsh_syntax_hl='/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh'
 
 hist_cmd_offset=100000
@@ -74,7 +76,12 @@ hist_cmd_offset=100000
 [[ -f $text_appearance ]] && source $text_appearance
 ## zsh completions
 [[ -f $zsh_completions ]] && source $zsh_completions
+## zsh functions
+for sh_function in $zsh_function/*; do
 
+    source $sh_function
+
+done
 
 # shell parameters
 autoload -U colors; colors
@@ -601,8 +608,9 @@ function calc-rps1 ()
 {
     calc-epoch
 
+    weekday=$(date +'%u')
     day_num=$(date +'%d')
-    rp='$day_num%F{#696969}$ep_l $ep_r%f %D{%H%M%S}'
+    rp='$weekday$day_num%F{#696969}$ep_l $ep_r%f %D{%H%M%S}'
 
     ## length exit code in PS1
     if [[ "$exit_code" -gt '0' ]]; then
@@ -719,6 +727,9 @@ rp-redisplay
 
 # history shell options
 ## see man zshoptions (history)
+
+## save timestamp and duration
+setopt EXTENDED_HISTORY
 
 ## when trimming history file, first trim from duplicate entries
 setopt HIST_EXPIRE_DUPS_FIRST
@@ -864,47 +875,54 @@ bindkey '^A' git-add-commit             ## C-a
 
 function get-dirstack ()
 {
+    ## create chronological cd history with unique lines only
+
     basename_cwd=$(basename $PWD)
+    first_hist_line=1
 
     ## fc list history of cd commands
     ## sort chronological (prepare unique)
-    ## sort alphabetical (unique)
+    ## sed remove trailing slashes (prepare unique)
+    ## sort alphabetical (first unique pass)
     ## sort chronological (final sort)
-    ## tr squeeze double spaces
-    ## cut only directory part of command
-    ## sed remove trailing slashes
-    ## grep filter out basename cwd
-    ## grep filter out full $PWD
-    ## #TODO sed replace variables with realpaths (i.e. $HOME)
-    ## awk filter out line with more than one word
-    ## sed remove ..
-    ## sed remove .
-    dir_stack=$(fc -l -d -t %Y%m%d_%H%M%S -D -m 'cd *' 1 | \
+    ## tr remove double spaces
+    ## cut remove non-directory part of fc line
+    ## sed insert previous working directory
+    ## grep remove basename cwd
+    ## grep remove full $PWD
+    ## awk remove lines with more than one word
+    ## sed remove '..'
+    ## sed remove '.'
+    ## sed remove empty lines
+    ## uniq remove repeated lines (second pass)
+    dir_stack=$(fc -l -d -t %Y%m%d_%H%M%S -D -m 'cd *' $first_hist_line | \
 		   sort --reverse --numeric-sort --key 1 | \
-		   sort --unique --key 4 | \
+		   sed 's|[/\t]$||' | \
+		   sort --unique --key 5 | \
 		   sort --reverse --numeric-sort --key 1 | \
 		   tr -s ' ' | \
 		   cut -d ' ' -f 6- | \
-		   sed 's|[/\t]$||' | \
+		   sed "1i $OLDPWD" | \
 		   grep --invert-match --line-regexp $basename_cwd | \
 		   grep --invert-match --line-regexp $PWD | \
-		   awk 'NF<=1{print}' | \
 		   sed '/^..$/d' | \
-		   sed '/^.$/d' \
+		   sed '/^.$/d' | \
+		   awk 'NF<=1{print}' | \
+		   sed '/^\s*$/d' | \
+		   uniq \
 	    )
-
 }
 
 
-function cd-dirstack ()
+function cd-nav-dirs ()
 {
-    # fzf cd into directories
+    # cd navigate directories with fzf
 
-    ## item order (no cycle):
+    ##  order   fd_path (no cycle):
     ### 1 S --0 $dir_stack
     ### 2 C --0 $PWD
     ### 3 H --0 $HOME
-    ### 4 R --0 $ROOT (/)
+    ### 4 R --0 $ROOT
 
     ## change directory; select from dirstack
     get-dirstack
@@ -943,6 +961,7 @@ function cd-dirstack ()
 	## nor from cwd accessible relative directory
 	## test if (relative) dir exist somewhere
 	fd_path=$ROOT
+	fzf_prompt='R'
 	fd_pattern="$dir_stack_select_fzf"
 	fzf_query="$fd_pattern"
 
@@ -961,7 +980,8 @@ function cd-dirstack ()
 
 	elif [[ ! -d $dir_select || -z $dir_select ]]; then
 
-	    printf '${fg_amber}%s${st_def} directory not found\n' "$fzf_query"
+	    printf '%s directory not found\n' "$fzf_query"
+	    # TODO printf '${fg_amber}%s${st_def} directory not found\n' "$fzf_query"
 	    return 100
 
 	fi
@@ -1017,7 +1037,7 @@ function cd-dirstack ()
 
 	    else
 
-		## 4 change directory; select a directory under $ROOT (/)
+		## 4 change directory; select a directory under $ROOT
 		fd_path=$ROOT
 		fzf_prompt='R'
 		fzf_query=$ROOT
@@ -1054,8 +1074,8 @@ function cd-dirstack ()
     zle -K viins
 }
 
-zle -N cd-dirstack
-bindkey -M viins '^h' cd-dirstack       ## C-h
+zle -N cd-nav-dirs
+bindkey -M viins '^h' cd-nav-dirs       ## C-h
 
 
 function cd-child ()
@@ -1118,44 +1138,39 @@ function insert-item-inline ()
 {
     # fzf search and select files and directories
 
-    ## item order (no cycle):
-
-    # TODO ### 1 S --0 $dir_stack
-
-    ### 2 C  --0 $PWD
-    ### 3 H  --0 $HOME
-    ### 4 R  --0 $ROOT (/)
-
-    get-dirstack
-
-    from_dirstack=1
+    ##  order   fd_path (no cycle):
+    ### 1 S --0 $dir_stack
+    ### 2 C --0 $PWD
+    ### 3 H --0 $HOME
+    ### 4 R --0 $ROOT
 
     ## search and select item(s) in $PWD
-    fzf_prompt='S'
-
     ## fzf_query
     ## select & kill word on cursor
     zle select-in-blank-word
     zle kill-region
     fzf_query="$CUTBUFFER"
 
+    ## dirstack instead of fd_path (below)
+    get-dirstack
+    fzf_prompt='S'
+
     ## add option qqq-quit-exit-cancel
     dir_stack=$(printf '%s\n%s' "$dir_stack" 'qqq-quit-exit-cancel')
 
-    ## 1 change directory; select a directory from $dir_stack
-    ##dir_select_fzf=$(printf '%s' "$dir_stack" | fzf --prompt 'S ')
     insert-item-fzf $dir_stack $fzf_prompt $fzf_query
 
     if [[ -n $fzf_output ]]; then
 
 	zle reset-prompt
-	unset fzf_output
-	unset from_dirstack
 	return 0
 
     elif [[ -z $fzf_output ]]; then
 
 	## search and select item(s) in $PWD
+	unset fzf_output
+	unset dir_stack
+	unset fzf_prompt
 	fd_path="$PWD"
 	fzf_prompt='C'
 
@@ -1164,38 +1179,45 @@ function insert-item-inline ()
 	if [[ -n $fzf_output ]]; then
 
 	    zle reset-prompt
-	    unset fzf_output
 	    return 0
 
 	elif [[ -z $fzf_output ]]; then
 
 	    ## search and select item(s) in $HOME
+	    unset fzf_output
+	    unset fd_path
+	    unset fzf_prompt
 	    fd_path="$HOME"
 	    fzf_prompt='H'
-	    insert-item-fzf $fd_path $fzf_prompt
+
+	    insert-item-fzf $fd_path $fzf_prompt $fzf_query
 
 	    if [[ -n $fzf_output ]]; then
 
 		zle reset-prompt
-		unset fzf_output
 		return 0
 
 	    elif [[ -z $fzf_output ]]; then
 
-		## search and select item(s) in $ROOT (/)
+		## search and select item(s) in $ROOT
+		unset fzf_output
+		unset fd_path
+		unset fzf_prompt
 		fd_path="$ROOT"
 		fzf_prompt='R'
-		insert-item-fzf $fd_path $fzf_prompt
+
+		insert-item-fzf $fd_path $fzf_prompt $fzf_query
 
 		if [[ -n $fzf_output ]]; then
 
 		    zle reset-prompt
+		    return 0
+
+		elif [[ -z $fzf_output ]]; then
+
 		    unset fzf_output
-		    return 0
-
-		else
-
-		    return 0
+		    unset fd_path
+		    unset fzf_prompt
 
 		fi
 
@@ -1225,21 +1247,33 @@ function insert-item-fzf ()
 	    ## cd-*-functions enter here (i.e. cd-child)
 	    fd_list_dirs=$(fd --type d --hidden . $fd_path)
 
+	    printf '\r'
 	    dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query")
 
 	    fzf_output=$dir_select
 	    ;;
 
 	* )
-	    if [[ -z $from_dirstack ]]; then
-	    ## $fzf_prmt injected from insert-item-inline
-	    fd_list_items=$(fd --hidden . $fd_path)
-	    elif
-		[[ -n $from_dirstack ]]; then
+	    if [[ -n $dir_stack ]]; then
+
 		fd_list_items=$dir_stack
-		fi
+
+	    elif [[ -n $fd_path ]]; then
+
+		## this can take a while, so we give some user feedback
+		printf '%s %s .. retrieving file data' "$fzf_prompt" "$fd_path"
+		#TODO printf '${fg_blue}%s %s${st_def} .. retrieving file data' "$fzf_prompt" "$fd_path"
+
+		fd_list_items=$(fd --hidden . $fd_path)
+
+	    fi
+
 	    ## add qqq-quit-exit-cancel as option
 	    fd_list_items=$(printf '%s\n%s' "$fd_list_items" 'qqq-quit-exit-cancel')
+
+	    ## erase line
+	    tput el1
+	    #printf '\r'
 
 	    ## tr converts multiple fzf entries to one line
 	    ## sed remove trailing space
@@ -1257,11 +1291,13 @@ function insert-item-fzf ()
     esac
 
     [[ -n "$fzf_output" ]] && \
-    	CUTBUFFER="$fzf_output" || \
-    	    CUTBUFFER="$fzf_query"
+    	CUTBUFFER="$fzf_output" && zle vi-replace-selection
+    [[ -z "$fzf_output" ]] && \
+    	CUTBUFFER="$fzf_query" && zle vi-put-before
 
     # replace selection
-    zle vi-put-before
+    zle put-replace-selection
+    #zle vi-put-before
     #zle put-replace-selection
 
     unset CUTBUFFER
