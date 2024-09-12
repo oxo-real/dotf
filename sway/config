@@ -629,7 +629,6 @@ bindsym $mod+Mod1+j		$smt W
 bindsym $mod+Mod1+Comma		$smt S
 bindsym $mod+Mod1+i          	$smt N
 bindsym $mod+Mod1+l		$smt E
-#bindsym $mod+Mod1+l		floating enable; $smt E
 
 ## snap to screen corner
 ### $mod+Mod4+uom.
@@ -642,17 +641,14 @@ bindsym $mod+Mod1+Period	$smt SE
 ## snap to screen center
 ### $mod+Mod1+5
 bindsym $mod+Mod1+k		$smt Z
-#bindsym $mod+Mod1+5		floating enable; $smt Z
 
 ## container float; minimize
 ### $mod+Control+0
 bindsym $mod+Mod1+0		floating toggle; exec sh $csc/float-min  ## float minimize
-#bindsym $mod+Mod1+0		floating toggle; $smt Z; exec sh $csc/float-min  ## float minimize
 
 ## container float; maximize
 ### $mod+Mod1+9
 bindsym $mod+Mod1+9		floating toggle; exec sh $csc/float-max  ## float maximize
-#bindsym $mod+Mod1+9		floating toggle; $smt Z; exec sh $csc/float-max  ## float maximize
 
 ## container float; divide 1,2,3,4,5,6 hexades
 ### $mod+Mod1+123456
@@ -664,7 +660,7 @@ bindsym $mod+Mod1+5		floating toggle; exec sh $csc/float-divide 5  ## float 5/6 
 bindsym $mod+Mod1+6		floating toggle; exec sh $csc/float-divide 6  ## float full monitor width
 
 ## container float; snap fill screen edge
-### $mod+Mod1+78
+### $mod+Mod1+h8
 bindsym $mod+Mod1+h		floating toggle; exec sh $csc/float-v-fill  ## snap fill left/right edge
 bindsym $mod+Mod1+8		floating toggle; exec sh $csc/float-h-fill  ## snap fill top/bottom edge
 

@@ -1,3 +1,5 @@
+#! /usr/bin/env sh
+
 function precmd ()
 {
     ## precmd runs before each prompt

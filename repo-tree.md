@@ -1907,15 +1907,27 @@
 │   │   └── _passr
 │   ├── etc_zsh_zshenv
 │   ├── function
+│   │   ├── 100-git.sh
 │   │   ├── bindkey.sh
+│   │   ├── cd-funcs.sh
 │   │   ├── chpwd.sh
 │   │   ├── cursor.sh
-│   │   ├── git.sh
+│   │   ├── decorations.sh
+│   │   ├── foreground.sh
+│   │   ├── fzf-config.sh
+│   │   ├── get-dirstack.sh
+│   │   ├── history.sh
 │   │   ├── insert-date-time.sh
+│   │   ├── insert-item-fzf.sh
+│   │   ├── insert-item-inline.sh
 │   │   ├── precmd.sh
 │   │   ├── preexec.sh
+│   │   ├── ps1.sh
 │   │   ├── rps1.sh
-│   │   └── strlen.sh
+│   │   ├── rps4.sh
+│   │   ├── strlen.sh
+│   │   ├── toggle-sh-x.sh
+│   │   └── toggle-sudo.sh
 │   ├── prompt
 │   │   └── two-line-prompt.zsh
 │   ├── zsh-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/zsh-kb-guide.pdf
@@ -2115,5 +2127,5 @@
     │   └── config
     └── xresources_colors
 
-226 directories, 1889 files
+226 directories, 1901 files
 ```

@@ -1,3 +1,13 @@
+#! /usr/bin/env sh
+
+
+## right side prompt (RPS1)
+## shows running time without breaking menus (like fzf or zsh completion)
+
+## no indentation for RPS1
+ZLE_RPROMPT_INDENT=0
+
+
 function calc-epoch ()
 {
     epoch=$(date +'%s')
@@ -6,12 +16,14 @@ function calc-epoch ()
 }
 
 
+## define what to display in RPS1
 function calc-rps1 ()
 {
     calc-epoch
 
+    weekday=$(date +'%u')
     day_num=$(date +'%d')
-    rp='$day_num%F{#696969}$ep_l $ep_r%f %D{%H%M%S}'
+    rp='$weekday$day_num%F{#696969}$ep_l $ep_r%f %D{%H%M%S}'
 
     ## length exit code in PS1
     if [[ "$exit_code" -gt '0' ]]; then
@@ -113,3 +125,13 @@ function TRAPALRM ()
 {
     rp-redisplay
 }
+
+
+## TMOUT triggers the TRAPALRM
+## RPS1 refresh rate (seconds)
+TMOUT=3
+
+## initial activation
+rp-redisplay
+
+

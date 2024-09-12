@@ -1,3 +1,7 @@
+#! /usr/bin/env sh
+
+
+# pwd, statistics and ls when cwd changes
 function chpwd ()
 {
     ## prompt path color

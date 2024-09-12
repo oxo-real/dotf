@@ -1,3 +1,6 @@
+#! /usr/bin/env sh
+
+
 function def-cursor ()
 {
     ## define cursor styles

@@ -1,3 +1,6 @@
+#! /usr/bin/env sh
+
+
 function git-branch ()
 {
     # Long form
@@ -103,3 +106,5 @@ function git-add-commit ()
     #BUFFER="git add . && git commit --gpg-sign=7f462acc -a -m $nowdate (local_update)"
     BUFFER="git add . && git commit --gpg-sign=7f462acc -a -m '`date +%Y%m%d_%H%M%S` (local_update)'"
 }
+
+zle -N git-add-commit

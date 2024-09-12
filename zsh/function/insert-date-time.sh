@@ -1,3 +1,6 @@
+#! /usr/bin/env sh
+
+
 function insert-date-time ()
 {
     # add (+=) current date and time to cursor position (C-2)
@@ -5,8 +8,12 @@ function insert-date-time ()
     LBUFFER+="$(date +'%Y%m%d_%H%M%S')"
 }
 
+zle -N insert-date-time
+
 
 function insert-epoch ()
 {
     LBUFFER+="$(date +'%s')"
 }
+
+zle -N insert-epoch
