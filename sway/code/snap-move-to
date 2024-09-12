@@ -3,6 +3,8 @@
 
 args="$@"
 
+## usage
+## sh snap-move-to [--id $con_id] direction
 
 initialize()
 {
@@ -79,6 +81,7 @@ set_params()
 	    criteria="[con_id = $id]"
 	}
 
+    ## create window_params_array
     mapfile -t window_params_arr < <( \
 	swaymsg -t get_tree | \
 	    jq -r ".. |

@@ -1,5 +1,7 @@
 #! /usr/bin/env sh
 
+## create floating window and distribute it's width
+
 divisor_arg=$1
 
 set_params()
