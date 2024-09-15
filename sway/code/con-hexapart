@@ -1,0 +1,93 @@
+#! /usr/bin/env sh
+
+## toggle container type and set it's width in hexaparts
+
+hexapart=$1
+
+get_parameters()
+{
+    monitor_dimensions=$(
+	swaymsg -t get_workspaces |
+	    jq -r '.. | select(.focused?) |
+	    select(.type=="workspace") |
+	    .rect |
+	    "\(.width)x\(.height)"' \
+		      )
+
+    monitor_width=${monitor_dimensions%x*}
+    monitor_height=${monitor_dimensions#*x}
+
+    selection=".focused?"
+    #criteria=
+    #[[ "$id" ]] && \
+    #	{
+    #	    selection=".id == $id"
+    #	    criteria="[con_id = $id]"
+    #	}
+
+    mapfile -t container_params_arr < <( \
+	swaymsg -t get_tree | \
+	    jq -r ".. |
+	    select(.type?) |
+	    select($selection) |
+	    .rect.x, .rect.y,
+	    .rect.width, .rect.height,
+	    .deco_rect.height, .type" \
+		)
+
+    new_x=${container_params_arr[0]}
+    new_y=${container_params_arr[1]}
+    container_width=${container_params_arr[2]}
+    container_height=${container_params_arr[3]}
+    decor_height=${container_params_arr[4]}
+    container_type=${container_params_arr[5]}
+}
+
+
+container_resize()
+{
+    case $hexapart in
+
+	# 1/6, 1/3, 1/2, 2/3, 5/6 and full width
+	## NOTICE $mod+Mod1+9 (maximize) also enables full width
+	1|2|3|4|5|6)
+	    counter=$hexapart
+	    divisor=6
+	    ;;
+
+    esac
+
+    set_width=$(echo "scale=0; $monitor_width*$counter/$divisor" | bc)
+    set_height=$(echo "scale=0; $monitor_height*$counter/$divisor" | bc)
+
+    swaymsg "resize set width $set_width px height $set_height px"
+    #swaymsg "${criteria}resize set width $set_width px height $set_height px"
+}
+
+
+container_type_toggle ()
+{
+    case $container_type in
+
+	con)
+	    swaymsg "floating enable"
+	    notify-send "float ${hexapart}/6"
+	    ;;
+
+	floating_con)
+	    swaymsg "floating disable"
+	    notify-send "tile ${hexapart}/6"
+	    ;;
+
+    esac
+}
+
+
+main()
+{
+    get_parameters
+    container_type_toggle
+    container_resize
+}
+
+main

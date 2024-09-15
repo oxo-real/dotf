@@ -1,3 +1,6 @@
+[colors.primary]
+background = "#550000"
+
 [colors.cursor]
 cursor = "#ffffb6"
 
@@ -14,8 +17,8 @@ background = "#ffffb6"
 foreground = "#000000"
 
 [colors.selection]
-background = "CellForeground"
-text = "CellBackground"
+background = "#ffffb6"
+text = "#000000"
 
 [colors.vi_mode_cursor]
 cursor = "#ffffb6"

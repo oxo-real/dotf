@@ -1,7 +1,7 @@
 #! /usr/bin/env sh
 
 
-function get-dirstack ()
+function dirstack ()
 {
     ## create chronological cd history with unique lines only
 
@@ -40,5 +40,3 @@ function get-dirstack ()
 		   uniq \
 	    )
 }
-
-

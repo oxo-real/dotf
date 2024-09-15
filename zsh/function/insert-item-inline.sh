@@ -19,7 +19,7 @@ function insert-item-inline ()
     fzf_query="$CUTBUFFER"
 
     ## dirstack instead of fd_path (below)
-    get-dirstack
+    dirstack
     fzf_prompt='S'
 
     ## add option qqq-quit-exit-cancel

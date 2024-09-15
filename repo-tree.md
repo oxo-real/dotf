@@ -3,6 +3,8 @@
 ├── alacritty
 │   ├── alacritty.toml
 │   ├── atty-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/atty-kb-guide.pdf
+│   ├── bg_blue.toml
+│   ├── bg_red.toml
 │   └── zzz_deprecated
 │       └── alacritty.yml
 ├── base16-shell
@@ -1767,12 +1769,12 @@
 ├── sway
 │   ├── bar -> ../i3blocks/show/
 │   ├── code
+│   │   ├── con-hexapart
+│   │   ├── con-h-fill
+│   │   ├── con-max
+│   │   ├── con-min
+│   │   ├── con-v-fill
 │   │   ├── dimr
-│   │   ├── float-divide
-│   │   ├── float-h-fill
-│   │   ├── float-max
-│   │   ├── float-min
-│   │   ├── float-v-fill
 │   │   ├── fzf-cpbd
 │   │   ├── fzf-run
 │   │   ├── fzf-spicules
@@ -1913,9 +1915,9 @@
 │   │   ├── chpwd.sh
 │   │   ├── cursor.sh
 │   │   ├── decorations.sh
+│   │   ├── dirstack.sh
 │   │   ├── foreground.sh
 │   │   ├── fzf-config.sh
-│   │   ├── get-dirstack.sh
 │   │   ├── history.sh
 │   │   ├── insert-date-time.sh
 │   │   ├── insert-item-fzf.sh
@@ -2127,5 +2129,5 @@
     │   └── config
     └── xresources_colors
 
-226 directories, 1901 files
+226 directories, 1903 files
 ```

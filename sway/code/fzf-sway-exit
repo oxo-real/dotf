@@ -7,109 +7,108 @@
 ### \__ \\ V  V / (_| | |_| | |  __/>  <| | |_
 ### |___/ \_/\_/ \__,_|\__, |  \___/_/\_\_|\__|
 ###                    |___/
-### # # # # # #
-###      #
-### # # # # # #
+###
+###  # # # # # #
+###       #
+###  # # # # # #
+###
 ###
 ### sway exit
-### terminal cli application that offers a sway fzf exit dialogue
-### (c) 2019 - 2023  |  oxo
+### terminal cli application that offers a fzf sway exit dialogue
+### (c) 2019 - 2024  |  oxo
 ###
 ##
 #
 
 
-sway_ver=$(sway -v | sed 's/ersion //')
+sway_ver=$(sway -v)
 
-exit_option=$(printf \
-	" cancel \n idle \n lock \n exit \n suspend \n reboot \n poweroff " | \
-	fzf \
-	--prompt="  E X I T ? $(printf '%s' "$sway_ver") "
-	)
+exit_arr='cancel idle lock exit suspend reboot poweroff'
+
+exit_options=$(for option in $exit_arr; do printf '%s\n' "$option"; done)
+
+printf '%s' "$exit_options" | \
+    fzf \
+	--prompt="$(printf '%s ' "$sway_ver")" \
+	--info hidden \
+	--separator ''
 
 
-cancel() {
-
-	exit
-
+cancel ()
+{
+    exit
 }
 
 
-sway_idle() {
-
-	sh $XDG_CONFIG_HOME/code/sway/dimr screen_off
-
+sway_idle ()
+{
+    sh $XDG_CONFIG_HOME/code/sway/dimr screen_off
 }
 
 
-sway_lock() {
-
-	sh $XDG_CONFIG_HOME/code/sway/dimr swaylock_now
-
+sway_lock ()
+{
+    sh $XDG_CONFIG_HOME/code/sway/dimr swaylock_now
 }
 
 
-sway_exit() {
-
-	sway exit
-
+sway_exit ()
+{
+    sway exit
 }
 
 
-os_suspend() {
-
-	systemctl suspend
-
+os_suspend ()
+{
+    systemctl suspend
 }
 
 
-os_reboot() {
-
-	systemctl reboot
-
+os_reboot ()
+{
+    systemctl reboot
 }
 
 
-os_poweroff() {
-
-	systemctl poweroff
-
+os_poweroff ()
+{
+    systemctl poweroff
 }
 
 
 case $exit_option in
 
-	*cancel*)
-		exit 0
-		;;
+    cancel)
+	exit 0
+	;;
 
-	*idle*)
-		sway_idle
-		;;
+    idle)
+	sway_idle
+	;;
 
-	*lock*)
-		sway_lock
-		;;
+    lock)
+	sway_lock
+	;;
 
-	*exit*)
-		sway_exit
-		;;
+    exit)
+	sway_exit
+	;;
 
-	*suspend*)
-		os_suspend
-		;;
+    suspend)
+	os_suspend
+	;;
 
-	*reboot*)
-		os_reboot
-		;;
+    reboot)
+	os_reboot
+	;;
 
-	*poweroff*)
-		os_poweroff
-		;;
+    poweroff)
+	os_poweroff
+	;;
 
-	*)
-		exit 111
-		;;
+    *)
+	exit 111
+	;;
 
 esac
 
