@@ -1,8 +1,13 @@
 #! /usr/bin/env sh
 
-## toggle container type and set it's width in hexaparts
+## toggle container type and minimize it's size
 
-set_parameters()
+## height and width when minimized (px)
+min_height=20
+min_width=20
+
+
+get_parameters ()
 {
     monitor_dimensions=$(
 	swaymsg -t get_workspaces |
@@ -16,12 +21,6 @@ set_parameters()
     monitor_height=${monitor_dimensions#*x}
 
     selection=".focused?"
-    #criteria=
-    #[[ "$id" ]] && \
-    #	{
-    #	    selection=".id == $id"
-    #	    criteria="[con_id = $id]"
-    #	}
 
     mapfile -t container_params_arr < <( \
 	swaymsg -t get_tree | \
@@ -42,9 +41,9 @@ set_parameters()
 }
 
 
-minimize()
+minimize ()
 {
-    swaymsg "resize set width 20 px height 20 px"
+    swaymsg "resize set width $min_width px height $min_height px"
 }
 
 
@@ -66,9 +65,9 @@ container_type_toggle ()
 }
 
 
-main()
+main ()
 {
-    set_parameters
+    get_parameters
     container_type_toggle
     minimize
 }

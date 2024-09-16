@@ -1897,6 +1897,8 @@
 │       ├── moonlander_oxo_qwerty_NZWR6_v3qeo.zip
 │       ├── zsa_moonlander_oxo_qwerty_NZWR6_JWmlZ.bin
 │       ├── zsa_moonlander_oxo_qwerty_NZWR6_JWmlZ.zip
+│       ├── zsa_moonlander_oxo_qwerty_NZWR6_LwYqe.bin
+│       ├── zsa_moonlander_oxo_qwerty_NZWR6_LwYqe.zip
 │       ├── zsa_moonlander_oxo_qwerty_NZWR6_wVDXd.bin
 │       └── zsa_moonlander_oxo_qwerty_NZWR6_wVDXd.zip
 ├── zsh
@@ -1909,7 +1911,6 @@
 │   │   └── _passr
 │   ├── etc_zsh_zshenv
 │   ├── function
-│   │   ├── 100-git.sh
 │   │   ├── bindkey.sh
 │   │   ├── cd-funcs.sh
 │   │   ├── chpwd.sh
@@ -1918,6 +1919,7 @@
 │   │   ├── dirstack.sh
 │   │   ├── foreground.sh
 │   │   ├── fzf-config.sh
+│   │   ├── git.sh
 │   │   ├── history.sh
 │   │   ├── insert-date-time.sh
 │   │   ├── insert-item-fzf.sh
@@ -2129,5 +2131,5 @@
     │   └── config
     └── xresources_colors
 
-226 directories, 1903 files
+226 directories, 1905 files
 ```

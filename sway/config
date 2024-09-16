@@ -646,8 +646,8 @@ bindsym $mod+Mod1+k		$smt Z
 
 ## container dividing parameters
 set $con_hexa			exec sh $csc/con-hexapart $1
-set $con_min			exec sh $csc/con-min
 set $con_max			exec sh $csc/con-max
+set $con_min			exec sh $csc/con-min
 set $con_vfill			exec sh $csc/con-v-fill
 set $con_hfill			exec sh $csc/con-h-fill
 
@@ -657,7 +657,8 @@ bindsym $mod+Mod1+0		$con_min  ## container minimize
 
 ## container float; maximize
 ### $mod+Mod1+9
-bindsym $mod+Mod1+9		floating toggle; $con-max  ## container maximize
+#bindsym $mod+Mod1+9		exec notify-send 'DEV660 sway config'
+bindsym $mod+Mod1+9		$con_max  ## container maximize
 
 ## toggle container type and set it's width in hexapart (1/6)
 ### $mod+Mod1+123456

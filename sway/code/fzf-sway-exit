@@ -23,15 +23,17 @@
 
 sway_ver=$(sway -v)
 
-exit_arr='cancel idle lock exit suspend reboot poweroff'
+exit_opts='cancel idle lock exit suspend reboot poweroff'
 
-exit_options=$(for option in $exit_arr; do printf '%s\n' "$option"; done)
+exit_options=$(for option in $exit_opts; do printf '%s\n' "$option"; done)
 
-printf '%s' "$exit_options" | \
-    fzf \
-	--prompt="$(printf '%s ' "$sway_ver")" \
-	--info hidden \
-	--separator ''
+exit_option=$(\
+	      printf '%s' "$exit_options" | \
+		  fzf \
+		      --prompt="$(printf '  %s ' "$sway_ver")" \
+		      --info hidden \
+		      --separator ''\
+	   )
 
 
 cancel ()

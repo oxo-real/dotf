@@ -1,6 +1,9 @@
 #! /usr/bin/env sh
 
-set_params()
+## toggle container type and maximize it's size
+
+
+get_parameters ()
 {
     monitor_dimensions=$(
 	swaymsg -t get_workspaces |
@@ -14,14 +17,8 @@ set_params()
     monitor_height=${monitor_dimensions#*x}
 
     selection=".focused?"
-    criteria=
-    [[ "$id" ]] && \
-	{
-	    selection=".id == $id"
-	    criteria="[con_id = $id]"
-	}
 
-    mapfile -t window_params_arr < <( \
+    mapfile -t container_params_arr < <( \
 	swaymsg -t get_tree | \
 	    jq -r ".. |
 	    select(.type?) |
@@ -31,24 +28,47 @@ set_params()
 	    .deco_rect.height, .type" \
 		)
 
-    new_x=${window_params_arr[0]}
-    new_y=${window_params_arr[1]}
-    window_width=${window_params_arr[2]}
-    window_height=${window_params_arr[3]}
-    decor_height=${window_params_arr[4]}
-    window_type=${window_params_arr[5]}
+    new_x=${container_params_arr[0]}
+    new_y=${container_params_arr[1]}
+    container_width=${container_params_arr[2]}
+    container_height=${container_params_arr[3]}
+    decor_height=${container_params_arr[4]}
+    container_type=${container_params_arr[5]}
 }
 
 
-maximize()
+maximize ()
 {
-    swaymsg "${criteria}resize set width $monitor_width px height $monitor_height px"
+    ## height and width when minimized (px)
+    max_height=$monitor_height
+    max_width=$monitor_width
+
+    swaymsg "resize set width $max_width px height $max_height px"
 }
 
 
-main()
+container_type_toggle ()
 {
-    set_params
+    case $container_type in
+
+	con)
+	    swaymsg "floating enable"
+	    notify-send "float maximized"
+	    ;;
+
+	floating_con)
+	    swaymsg "floating disable"
+	    notify-send "tile maximized"
+	    ;;
+
+    esac
+}
+
+
+main ()
+{
+    get_parameters
+    container_type_toggle
     maximize
 }
 
