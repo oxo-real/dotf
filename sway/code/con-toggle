@@ -1,0 +1,27 @@
+#! /usr/bin/env sh
+
+
+csc="$XDG_CONFIG_HOME/sway/code"
+
+
+# get container data
+source "$csc/get-parameters"
+
+container_type_toggle ()
+{
+    case $container_type in
+
+    con)
+        swaymsg "floating enable"
+        container_type='floating_con'
+        ;;
+
+    floating_con)
+        swaymsg "floating disable"
+        container_type='con'
+        ;;
+
+    esac
+}
+
+container_type_toggle

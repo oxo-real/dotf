@@ -52,16 +52,16 @@ args="$@"
 
 initialize()
 {
-#terminal_cmd=${TERMINAL:-'foot'}
-terminal_cmd=${TERMINAL:-'alacritty'}
+    #terminal_cmd=${TERMINAL:-'foot'}
+    terminal_cmd=${TERMINAL:-'alacritty'}
 }
 
 
 process_args()
 {
     # while $1 true; do
-	target_path=$1
-[[ $# -gt 1 ]] && shift target_con_float=$1 && shift && target_con_dims="$@"
+    target_path=$1
+    [[ $# -gt 1 ]] && shift target_con_float=$1 && shift && target_con_dims="$@"
 }
 
 
@@ -169,8 +169,11 @@ process_dim_args()
 
 resize_float()
 {
-    [[ -n $target_con_width ]] || target_con_width=800
-    [[ -n $target_con_height ]] || target_con_height=600
+    target_con_width=${target_con_width:-800}
+    target_con_height=${target_con_height:-600}
+
+    #[[ -n $target_con_width ]] || target_con_width=800
+    #[[ -n $target_con_height ]] || target_con_height=600
 
     ## TODO DEV not working because no focus
     swaymsg resize set width $target_con_width

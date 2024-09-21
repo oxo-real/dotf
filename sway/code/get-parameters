@@ -1,0 +1,44 @@
+#! /usr/bin/env sh
+
+
+get_parameters()
+{
+    ## output (monitor)
+    monitor_focus_data=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused==true) | "\(.id) \(.name) \(.serial) \(.rect.width) \(.rect.height) \(.make) \(.model)"')
+
+    ## string to array
+    IFS=' ' read -r -a monitor_data <<< "$monitor_focus_data"
+
+    monitor_width=${monitor_data[3]}
+    monitor_height=${monitor_data[4]}
+
+    ## container (window)
+    selection=".focused?"
+
+    mapfile -t container_params_arr < <( \
+	swaymsg -t get_tree | \
+	    jq -r ".. |
+	    select(.type?) |
+	    select($selection) |
+	    .rect.x, .rect.y,
+	    .rect.width, .rect.height,
+	    .deco_rect.height, .type" \
+		)
+
+    container_curr_position=($(
+	swaymsg -t get_tree |
+	    jq -r '.. | select(.type?) |
+	    select(.focused?) |
+	    .rect |
+	    "\(.x) \(.y)"' \
+		      ))
+
+    new_x=${container_params_arr[0]}
+    new_y=${container_params_arr[1]}
+    container_width=${container_params_arr[2]}
+    container_height=${container_params_arr[3]}
+    decor_height=${container_params_arr[4]}
+    container_type=${container_params_arr[5]}
+}
+
+get_parameters

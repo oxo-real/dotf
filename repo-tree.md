@@ -1746,6 +1746,7 @@
 │       │   ├── batt
 │       │   ├── brightness
 │       │   ├── bt
+│       │   ├── container
 │       │   ├── cpu
 │       │   ├── dev
 │       │   │   └── audio
@@ -1755,6 +1756,7 @@
 │       │   ├── macex
 │       │   ├── macin
 │       │   ├── mem
+│       │   ├── mwcp
 │       │   ├── temp
 │       │   ├── time
 │       │   ├── time_seconds
@@ -1762,8 +1764,7 @@
 │       │   ├── vrx
 │       │   ├── vtx
 │       │   ├── weather
-│       │   ├── wifi
-│       │   └── window
+│       │   └── wifi
 │       └── tmux
 │           └── right_side
 ├── sway
@@ -1773,6 +1774,7 @@
 │   │   ├── con-h-fill
 │   │   ├── con-max
 │   │   ├── con-min
+│   │   ├── con-toggle
 │   │   ├── con-v-fill
 │   │   ├── dimr
 │   │   ├── fzf-cpbd
@@ -1781,6 +1783,7 @@
 │   │   ├── fzf-sway-exit
 │   │   ├── fzf-sway-focus
 │   │   ├── fzf_sway_move
+│   │   ├── get-parameters
 │   │   ├── kill_float_inv
 │   │   ├── layout-ntfy-send
 │   │   ├── lock
@@ -2131,5 +2134,5 @@
     │   └── config
     └── xresources_colors
 
-226 directories, 1905 files
+226 directories, 1908 files
 ```

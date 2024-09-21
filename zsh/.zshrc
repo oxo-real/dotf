@@ -917,13 +917,14 @@ function dirstack ()
 
     ## sed --regexp-extended get history commands only
     ## grep only cd commands
-    ## sed remove lines with cd .(.), cd - and erase cd ../
+    ## sed remove lines with cd .(.), cd - and erase ../
     ## nl add linenumbers (for chronological order)
     ## sed remove trailing slashes (prepare unique)
     ## sort chronological (prepare unique)
     ## sort alphabetical and make unique (first unique pass)
     ## sort chronological (final sort)
     ## awk remove column 1 and 2 (linenumber and cd)
+    ## uniq only unique lines (second unique pass)
     ## sed remove leading spaces
     #### this leaves us with a neat list of directories
 
@@ -932,14 +933,16 @@ function dirstack ()
     ## grep remove full $PWD (can't move to it)
     ## sed insert previous working directory on first line
     ## sed remove empty lines
-    ## uniq remove repeated lines (second unique pass)
-    dir_stack=$(sed --regexp-extended 's/^:[[:space:]][[:digit:]]{10}:[[:digit:]]+;//' $HISTFILE | \
+    ## uniq remove repeated lines (third unique pass)
+    dir_stack=$(\
+		sed --regexp-extended 's/^:[[:space:]][[:digit:]]{10}:[[:digit:]]+;//' $HISTFILE | \
 		    grep '^cd ' | \
 		    sed --regexp-extended -e '/cd [\.]{1,2}$/d' -e '/cd -/d' -e 's|\.\./||' | \
 		    nl --number-format ln | \
 		    sed 's|/$||' | \
 		    sort --reverse --numeric-sort --key 1 | \
 		    sort --unique --key 2 | \
+		    uniq --skip-fields 2 --unique | \
 		    sort --reverse --numeric-sort --key 1 | \
 		    awk '!($1=$2="")' | \
 		    sed --regexp-extended 's/^[[:space:]]+//' | \

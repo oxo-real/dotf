@@ -1,0 +1,46 @@
+#! /usr/bin/env sh
+
+# monitor workspace container_id process_id
+
+## active monitor data blcok
+focused_monitor_data=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused == true)')
+
+monitor_name=$(printf '%s' "$focused_monitor_data" | jq '.name')
+monitor_width=$(printf '%s' "$focused_monitor_data" | jq '.rect .width')
+monitor_height=$(printf '%s' "$focused_monitor_data" | jq '.rect .height')
+
+monitor_name_show=$(printf '%s' "$monitor_name" | sed 's/"//g' | head -c 1)
+
+## active workspace data block
+focused_workspace_data=$(swaymsg -t get_workspaces | jq -r '.[] | select(.focused == true)')
+
+workspace_name=$(printf '%s' "$focused_workspace_data" | jq '.name')
+workspace_name_show=$(printf '%s' "$focused_workspace_data" | jq '.name' | sed 's/"//g')
+
+
+## focused container data block
+focused_con_data=$(swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.focused == true)')
+
+con_id=$(printf '%s' "$focused_con_data" | jq '.id' | sed 's/null//')
+con_pid=$(printf '%s' "$focused_con_data" | jq '.pid' | sed 's/null//')
+con_name=$(printf '%s' "$focused_con_data" | jq '.name' | sed 's/"//g')
+con_type=$(printf '%s' "$focused_con_data" | jq '.type')
+
+rect_width=$(printf '%s' "$focused_con_data" | jq '.. | select(.type?) | select(.focused == true) | '.rect' '.width'')
+rect_height=$(printf '%s' "$focused_con_data" | jq '.. | select(.type?) | select(.focused == true) | '.rect' '.height'')
+
+
+## container types
+### []= tiling
+### <>= floating
+### <M> monoocle (floating container maximized)
+[[ $con_type == '"con"' ]] && con_type_show='[]=' || con_type_show='<>='
+[[ $con_type_show == '<>=' && $monitor_width == $rect_width ]] && con_type_show='<M>'
+
+
+# NOTICE eol for i3blocks
+if [[ -n $monitor_name ]]; then
+
+    printf '%s%s %s %s\n' "$monitor_name_show" "$workspace_name_show" "$con_id" "$con_pid"
+
+fi

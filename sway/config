@@ -449,6 +449,12 @@ bindsym $mod+Period		workspace next
 bindsym $mod+grave		exec $term --class="float_spicules" -e \
 				$csc/fzf-sway-focus
 
+## move workspace to output
+bindsym $mod+Mod1+Shift+h	move container to output left
+bindsym $mod+Mod1+Shift+j	move container to output down
+bindsym $mod+Mod1+Shift+k	move container to output up
+bindsym $mod+Mod1+Shift+l 	move container to output right
+
 
 # display workspace bar ##
 
@@ -857,7 +863,8 @@ for_window [app_id="float_spicules"]
     resize set width 1000
     resize set height 500
     opacity set 0.95
-    exec $csc/con-h-fill
+    $csc/con-h-fill
+    #exec $csc/con-h-fill
     #TODO this only works when no other alacritty windows are open
     ## workaround is specific alacritty config file
     #exec $term msg config colors.primary.background='"#000020"'
