@@ -34,7 +34,7 @@ rect_height=$(printf '%s' "$focused_con_data" | jq '.. | select(.type?) | select
 ### <>= floating
 ### <M> monoocle (floating container maximized)
 [[ $con_type == '"con"' ]] && con_type_show='[]=' || con_type_show='<>='
-[[ $con_type_show == '<>=' && $monitor_width == $rect_width ]] && con_type_show='<M>'
+[[ $con_type == 'con_float' && $monitor_width == $rect_width ]] && con_type_show='<M>'
 
 
 # NOTICE eol for i3blocks

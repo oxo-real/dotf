@@ -1774,7 +1774,7 @@
 │   │   ├── con-h-fill
 │   │   ├── con-max
 │   │   ├── con-min
-│   │   ├── con-toggle
+│   │   ├── con-type-toggle
 │   │   ├── con-v-fill
 │   │   ├── dimr
 │   │   ├── fzf-cpbd
@@ -1938,10 +1938,11 @@
 │   ├── prompt
 │   │   └── two-line-prompt.zsh
 │   ├── zsh-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/zsh-kb-guide.pdf
-│   ├── zshold
-│   ├── zshrcold
 │   └── zzz_deprecated
-│       └── git-prompt.sh
+│       ├── 20240924_174623_1727192783-.zshrc
+│       ├── git-prompt.sh
+│       ├── zshold
+│       └── zshrcold
 └── zzz_deprecated
     ├── back_rest
     │   ├── backup_20201225_085610
@@ -2134,5 +2135,5 @@
     │   └── config
     └── xresources_colors
 
-226 directories, 1908 files
+226 directories, 1909 files
 ```

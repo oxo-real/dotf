@@ -10,15 +10,16 @@ csc="$XDG_CONFIG_HOME/sway/code"
 
 # get container data
 source "$csc/get-parameters"
+source "$csc/con-type-toggle"
 
 
-container_resize()
+container_resize ()
 {
     case $hexapart in
 
 	# 1/6, 1/3, 1/2, 2/3, 5/6 and full width
 	## NOTICE $mod+Mod1+9 (maximize) also enables full width
-	1|2|3|4|5|6)
+	1 | 2 | 3 | 4 | 5 | 6)
 	    counter=$hexapart
 	    divisor=6
 	    ;;
@@ -29,33 +30,21 @@ container_resize()
     set_height=$(echo "scale=0; $monitor_height*$counter/$divisor" | bc)
 
     swaymsg "resize set width $set_width px height $set_height px"
-    #swaymsg "${criteria}resize set width $set_width px height $set_height px"
 }
 
 
-container_type_toggle ()
+inform ()
 {
-    case $container_type in
-
-	con)
-	    swaymsg "floating enable"
-	    notify-send "float ${hexapart}/6"
-	    ;;
-
-	floating_con)
-	    swaymsg "floating disable"
-	    notify-send "tile ${hexapart}/6"
-	    ;;
-
-    esac
+    notify-send "$container_type $counter/$divisor"
 }
 
 
-main()
+main ()
 {
     get_parameters
     container_type_toggle
     container_resize
+    inform
 }
 
 main

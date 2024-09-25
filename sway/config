@@ -444,8 +444,6 @@ bindsym $mod+o			workspace prev
 bindsym $mod+Period		workspace next
 
 ## fzf_sway_focus 		(focus switcher)
-#bindsym $mod+grave		exec $term --app-id="float_spicules" \
-#				sh -c $csc/fzf-sway-focus
 bindsym $mod+grave		exec $term --class="float_spicules" -e \
 				$csc/fzf-sway-focus
 
@@ -668,7 +666,7 @@ bindsym $mod+Mod1+9		$con_max  ## container maximize
 
 ## toggle container type and set it's width in hexapart (1/6)
 ### $mod+Mod1+123456
-### WARNING mpv doesn't work while playing video
+### TODO mpv doesn't resize properly while playing video
 bindsym $mod+Mod1+1		$con_hexa 1  ## container toggle float/tile width 1 hexapart
 bindsym $mod+Mod1+2		$con_hexa 2  ## container toggle float/tile width 2 hexaparts
 bindsym $mod+Mod1+3		$con_hexa 3  ## container toggle float/tile width 3 hexaparts
@@ -676,10 +674,10 @@ bindsym $mod+Mod1+4		$con_hexa 4  ## container toggle float/tile width 4 hexapar
 bindsym $mod+Mod1+5		$con_hexa 5  ## container toggle float/tile width 5 hexaparts
 bindsym $mod+Mod1+6		$con_hexa 6  ## container toggle float/tile width 6 hexaparts
 
-## container float; snap fill screen edge
+## toggle container type and snap fill screen edge
 ### $mod+Mod1+h8
-bindsym $mod+Mod1+7		$con_vfill  ## snap fill left/right edge
-bindsym $mod+Mod1+8		$con_hfill  ## snap fill top/bottom edge
+bindsym $mod+Mod1+7		$con_vfill  ## container toggle float/tile snap fill right edge
+bindsym $mod+Mod1+8		$con_hfill  ## container toggle float/tile snap fill bottom edge
 
 
 #----------------------------------------------------------------
@@ -837,7 +835,7 @@ for_window [app_id="float_exit"]
     resize set width 300
     resize set height 150
     opacity set 0.95
-    exec $smt NW
+    $smt NW
     #TODO this only works when no other alacritty windows are open
     ## workaround is specific alacritty config file (bg_red.toml)
     #exec $term msg config colors.primary.background='"#550000"'
@@ -859,11 +857,12 @@ for_window [app_id="float_fzf_run"]
 ## spicules
 for_window [app_id="float_spicules"]
 {
-    floating enable
-    resize set width 1000
-    resize set height 500
+    #floating disable
+    #resize set width 1000
+    #resize set height 500
+    $con_hfill
+    $smt N
     opacity set 0.95
-    $csc/con-h-fill
     #exec $csc/con-h-fill
     #TODO this only works when no other alacritty windows are open
     ## workaround is specific alacritty config file
@@ -1040,7 +1039,7 @@ bindsym $mod+Mod1+c		exec grim -g "$(slurp -p)" -t ppm - | \
 bindsym Shift+Control+0		exec echo -n '' | wl-copy && notify-send 'clipboard cleared'
 
 ## current date_time copy
-bindsym Control+Grave		exec date +'%Y%m%d_%H%M%S_%s' | wl-copy && notify-send 'current date_time copied'
+bindsym Control+Grave		exec date +'%Y%m%d_%H%M%S_%s' | wl-copy -n && notify-send 'date_time_epoch copied'
 
 
 #----------------------------------------------------------------

@@ -41,6 +41,6 @@ rect_height=$(printf '%s' "$focused_con_data" | jq '.. | select(.type?) | select
 # NOTICE eol for i3blocks
 if [[ -n $monitor_name ]]; then
 
-    printf '%s%s %s %s\n' "$monitor_name_show" "$workspace_name_show" "$con_id" "$con_pid"
+    printf '%s %s%s %s\n' "$con_pid" "$monitor_name_show" "$workspace_name_show" "$con_id"
 
 fi

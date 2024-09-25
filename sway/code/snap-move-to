@@ -15,7 +15,7 @@ source "$csc/get-parameters"
 
 initialize()
 {
-    script_name='snap_move_to'
+    script_name='snap-move-to'
     usage="usage: $script_name [-i,--id $con_id] NW|N|NE|E|SE|S|SW|W|Z|left|down|up|right
 move sway container to screen corner, edge or center.
 OPTIONS:
@@ -26,13 +26,13 @@ OPTIONS:
 
         case "$1" in
 
-            NW|N|NE|E|SE|S|SW|W|Z)
+            NW | N | NE | E | SE | S | SW | W | Z)
 		# snap floating container
                 direction="$1"
                 break
                 ;;
 
-	    left|down|up|right)
+	    left | down | up | right)
 		# shift floating container
 		direction="$1"
 		shift
@@ -41,15 +41,16 @@ OPTIONS:
 		break
 		;;
 
-            -i|--id)
+            -i | --id)
 		## get id value
                 shift
                 con_id="$1"
+		swaymsg [con_id="$con_id"] focus
 		## get direction in next while loop
                 shift
                 ;;
 
-            -h|--help)
+            -h | --help)
                 printf '%s\n' "$usage"
                 exit 0
                 ;;
@@ -170,7 +171,7 @@ snap_or_move()
 		    swaymsg "move left"
 		    ;;
 
-		N|up)
+		N | up)
 		    swaymsg "move up"
 		    ;;
 
@@ -179,7 +180,7 @@ snap_or_move()
 		    swaymsg "move right"
 		    ;;
 
-		E|right)
+		E | right)
 		    swaymsg "move right"
 		    ;;
 
@@ -188,7 +189,7 @@ snap_or_move()
 		    swaymsg "move down"
 		    ;;
 
-		S|down)
+		S | down)
 		    swaymsg "move down"
 		    ;;
 
@@ -197,7 +198,7 @@ snap_or_move()
 		    swaymsg "move left"
 		    ;;
 
-		W|left)
+		W | left)
 		    swaymsg "move left"
 		    ;;
 
@@ -215,7 +216,7 @@ snap_or_move()
 main()
 {
     ## NOTICE no quotation around $args
-    ## with quoted $args: "$args"
+    ## because with quoted $args: "$args"
     ## initialize() receives only one argument
     initialize $args
     #set_params

@@ -1,0 +1,19 @@
+#! /usr/bin/env sh
+
+
+container_type_toggle ()
+{
+    case $container_type in
+
+	con)
+	    swaymsg "floating enable"
+	    container_type='<>='
+	    ;;
+
+	floating_con)
+	    swaymsg "floating disable"
+	    container_type='[]='
+	    ;;
+
+    esac
+}

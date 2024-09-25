@@ -16,6 +16,3 @@ cat $catalog | \
     sed 's/[^ ]* *//' | \
     sed 's/  ## .*$//' | \
     wl-copy -n
-
-#TODO paste into buffer without further user interaction
-## problem is subshell

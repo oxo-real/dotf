@@ -284,12 +284,14 @@ alias ev='view'
 
 alias lsblk='lsblk --ascii --tree -o name,uuid,fstype,path,size,fsuse%,fsused,label,mountpoint'
 # #alias cal='env TERM=xterm cal'
+alias pwd='pwd | wl-copy -n && pwd'
 alias tree='tree -n --charset=unicode'
 #alias tree='env TERM=xterm-256color tree'
 #alias zsh="env ZDOTDIR="$XDG_CONFIG_HOME/zsh" zsh"
 alias rmln='unlink'
-alias figlet="figlet -d $XDG_CONFIG_HOME/figlet"
 alias type='type -a'
+
+alias figlet="figlet -d $XDG_CONFIG_HOME/figlet"
 
 
 ## generate qr code from clipboard
@@ -325,9 +327,9 @@ alias rm='trash'
 alias mkdir='mkdir --parents --verbose'
 
 
+## rsync for copy and move (better for large files)
 function cpr()
 {
-    ## rsync for copy and move (better for large files)
     rsync --archive --partial --verbose --info=progress2,stats2 --human-readable --modify-window=1 "$@"
 }
 
@@ -337,7 +339,8 @@ function mvr()
     rsync --archive --partial --verbose --info=progress2,stats2 --human-readable --modify-window=1 --remove-source-files "$@"
 }
 
-## ls
+
+## eza for ls
 if command -v eza > /dev/null; then
 
     alias ls="echo; $XDG_CONFIG_HOME/eza/eza_wrapper.sh"
