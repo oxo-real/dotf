@@ -21,7 +21,8 @@ echo  ## none
 case $i in
 
     wg-*)
-	echo "#529877"  ## dark moderate cyan - lime green
+	echo "#00806b"  ## dark moderate cyan - lime green
+	#echo "#529877"  ## dark moderate cyan - lime green
 	;;
 
     *)

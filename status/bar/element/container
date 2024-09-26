@@ -5,9 +5,10 @@ bar_el_dir="$XDG_CONFIG_HOME/status/bar/element"
 source $bar_el_dir/get_focus_data
 
 
-# NOTICE mandatory eol for i3blocks
-if [[ -n $con_pid ]]; then
+## focused workspace must have at least one container
+if [[ $con_pid != 'null' ]]; then
 
+    # NOTICE mandatory eol for i3blocks
     printf '%s %s\n' "$con_type_bar" "$con_name"
 
 fi

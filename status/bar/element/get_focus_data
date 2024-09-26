@@ -40,6 +40,7 @@ container_data ()
 
     container_focus_data=$(swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.focused == true) | "\(.id),\(.pid),\(.type),\(.name),\(.rect.width),\(.rect.height)"')
 
+
     ## string to array
     IFS=',' read -r -a container_data_arr <<< "$container_focus_data"
 
@@ -56,8 +57,25 @@ container_data ()
     ### <>= floating
     ### <M> monoocle
     ###      (maximized floating container)
-    [[ $con_type == 'con' ]] && con_type_bar='[]=' || con_type_bar='<>='
-    [[ $con_type == 'con_float' && $monitor_width == $rect_width ]] && con_type_bar='<M>'
+
+    case $con_type in
+
+	'con')
+	    con_type_bar='[]='
+	    ;;
+
+	'floating_con')
+	    con_type_bar='<>='
+
+	    [[ $monitor_width == $rect_width ]] && con_type_bar='<M>'
+	    ;;
+
+	*)
+	    # i.e. workspace
+	    con_type_bar=''
+	    ;;
+
+    esac
 }
 
 
