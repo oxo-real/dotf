@@ -1,0 +1,71 @@
+#! /usr/bin/env sh
+
+
+monitor_data ()
+{
+    # retrieve focused monitor data
+
+    monitor_focus_data=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused==true) | "\(.id),\(.name),\(.serial),\(.rect.width),\(.rect.height),\(.make),\(.model)"')
+
+    ## string to array
+    IFS=',' read -r -a monitor_data_arr <<< "$monitor_focus_data"
+
+    ## set monitor variables
+    monitor_id=${monitor_data_arr[0]}
+    monitor_name=${monitor_data_arr[1]}
+    monitor_serial=${monitor_data_arr[2]}
+    monitor_width=${monitor_data_arr[3]}
+    monitor_height=${monitor_data_arr[4]}
+    monitor_make=${monitor_data_arr[5]}
+    monitor_model=${monitor_data_arr[6]}
+
+    monitor_name_bar=$(printf '%s' "$monitor_name" | sed 's/"//g' | head -c 1)
+}
+
+
+workspace_data ()
+{
+    # retrieve focused workspace data
+
+    workspace_focus_data=$(swaymsg -t get_workspaces | jq -r '.[] | select(.focused == true)')
+
+    workspace_name=$(printf '%s' "$workspace_focus_data" | jq '.name')
+    workspace_name_bar=$(printf '%s' "$workspace_focus_data" | jq '.name' | sed 's/"//g')
+}
+
+
+container_data ()
+{
+    # retrieve focused container data
+
+    container_focus_data=$(swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.focused == true) | "\(.id),\(.pid),\(.type),\(.name),\(.rect.width),\(.rect.height)"')
+
+    ## string to array
+    IFS=',' read -r -a container_data_arr <<< "$container_focus_data"
+
+    ## set monitor variables
+    con_id=${container_data_arr[0]}
+    con_pid=${container_data_arr[1]}
+    con_type=${container_data_arr[2]}
+    con_name=${container_data_arr[3]}
+    con_width=${container_data_arr[4]}
+    con_height=${container_data_arr[5]}
+
+    ## container types
+    ### []= tiling
+    ### <>= floating
+    ### <M> monoocle
+    ###      (maximized floating container)
+    [[ $con_type == 'con' ]] && con_type_bar='[]=' || con_type_bar='<>='
+    [[ $con_type == 'con_float' && $monitor_width == $rect_width ]] && con_type_bar='<M>'
+}
+
+
+main ()
+{
+    monitor_data
+    workspace_data
+    container_data
+}
+
+main
