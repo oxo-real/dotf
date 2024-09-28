@@ -1,0 +1,86 @@
+#! /usr/bin/env sh
+
+# move cursor to absolute or relative position
+
+## absolute monitor position
+## synopsis: cursor-to [--id] [$con_id] -x xpt -y ypt
+
+## relative focused container position
+## synopsis: cursor-to [--id] [$con_id] -x xpt -y ypt
+
+# synopsis: cursor-to [$con_id] $x[%] $y[%]
+# usage: cursor-to --id 5 -x 50 -y 50%
+
+
+csbe="$XDG_CONFIG_HOME/status/bar/element"
+source $csbe/get-focus-data
+
+## loop through all arguments
+while [[ "$1" ]]; do
+
+    case "$1" in
+
+        -i | --id)
+	    ## get container id value
+            shift
+            con_id="$1"
+	    swaymsg [con_id="$con_id"] focus
+            shift
+            ;;
+
+        -x)
+	    ## get x value
+            shift
+            x_arg="$1"
+            shift
+            ;;
+
+        -y)
+	    ## get y value
+            shift
+            y_arg="$1"
+            shift
+            ;;
+
+    esac
+
+done
+
+
+case "${x_arg: -1}" in
+
+    '%')
+	## relative x
+	x_rel="${x_arg::-1}"
+	x_pos=$(echo "$con_x + ($x_rel * $con_width / 100)" | bc)
+	;;
+
+    *)
+	## absolute x
+	x_pos="$x_arg"
+	;;
+
+esac
+
+
+case "${y_arg: -1}" in
+
+    '%')
+	## relative y value
+	y_rel="${y_arg::-1}"
+	y_pos=$(echo "$con_y + ($y_rel * $con_height / 100)" | bc)
+	;;
+
+    *)
+	## absolute x
+	y_pos="$y_arg"
+	;;
+
+esac
+
+## calculate dotool percentages
+x_dt_rel=$(printf '%.3f\n' "$(echo "scale=3; $x_pos / $monitor_width" | bc)")
+y_dt_rel=$(printf '%.3f\n' "$(echo "scale=3; $y_pos / $monitor_height" | bc)")
+
+## move mouse cursor
+echo mouseto $x_dt_rel $y_dt_rel | dotoolc

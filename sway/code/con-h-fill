@@ -5,7 +5,7 @@ csc="$XDG_CONFIG_HOME/sway/code"
 
 
 # sourcing general scripts
-source "$csc/get-parameters"
+source "$csc/get-focus-data"
 source "$csc/con-type-toggle"
 
 
@@ -15,7 +15,7 @@ horizontal_fill()
     ## container height = 1/divisor of monitor height
     divisor=4
 
-    ## initially snap to south monitor border
+    ## initially snap to north monitor border
     ## change position manually at will afterwards
     direction='N'
 
@@ -35,7 +35,6 @@ inform ()
 
 main()
 {
-    get_parameters
     container_type_toggle
     horizontal_fill
     inform

@@ -1,5 +1,8 @@
 #! /usr/bin/env sh
 
+# sway-output monitor origo O(0.0) NW
+# sway-output container origo O(0.0) NW
+# dotool monitor origo O(0.0) NW
 
 monitor_data ()
 {
@@ -38,19 +41,23 @@ container_data ()
 {
     # retrieve focused container data
 
-    container_focus_data=$(swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.focused == true) | "\(.id),\(.pid),\(.type),\(.name),\(.rect.width),\(.rect.height)"')
+    container_focus_data=$(swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.focused == true) | "\(.id),\(.pid),\(.type),\(.name),\(.rect.x),\(.rect.y),\(.rect.width),\(.rect.height),\(.deco_rect.width),\(.deco_rect.height)"')
 
 
     ## string to array
     IFS=',' read -r -a container_data_arr <<< "$container_focus_data"
 
-    ## set monitor variables
-    con_id=${container_data_arr[0]}
-    con_pid=${container_data_arr[1]}
-    con_type=${container_data_arr[2]}
-    con_name=${container_data_arr[3]}
-    con_width=${container_data_arr[4]}
-    con_height=${container_data_arr[5]}
+    ## set container variables
+    container_id=${container_data_arr[0]}
+    container_pid=${container_data_arr[1]}
+    container_type=${container_data_arr[2]}
+    container_name=${container_data_arr[3]}
+    container_x=${container_data_arr[4]}
+    container_y=${container_data_arr[5]}
+    container_width=${container_data_arr[6]}
+    container_height=${container_data_arr[7]}
+    container_deco_width=${container_data_arr[8]}
+    container_deco_height=${container_data_arr[9]}
 
     ## container types
     ### []= tiling
@@ -58,21 +65,21 @@ container_data ()
     ### <M> monoocle
     ###      (maximized floating container)
 
-    case $con_type in
+    case $container_type in
 
 	'con')
-	    con_type_bar='[]='
+	    container_type_bar='[]='
 	    ;;
 
 	'floating_con')
-	    con_type_bar='<>='
+	    container_type_bar='<>='
 
-	    [[ $monitor_width == $rect_width ]] && con_type_bar='<M>'
+	    [[ $monitor_width == $container_width ]] && container_type_bar='<M>'
 	    ;;
 
 	*)
 	    # i.e. workspace
-	    con_type_bar=''
+	    container_type_bar=''
 	    ;;
 
     esac

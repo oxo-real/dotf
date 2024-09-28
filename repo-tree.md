@@ -1750,7 +1750,7 @@
 │       │   ├── cpu
 │       │   ├── dev
 │       │   │   └── audio
-│       │   ├── get_focus_data
+│       │   ├── get-focus-data
 │       │   ├── interface
 │       │   ├── ipex
 │       │   ├── ipin
@@ -1777,6 +1777,7 @@
 │   │   ├── con-min
 │   │   ├── con-type-toggle
 │   │   ├── con-v-fill
+│   │   ├── cursor-to
 │   │   ├── dimr
 │   │   ├── fzf-cpbd
 │   │   ├── fzf-run
@@ -1784,7 +1785,7 @@
 │   │   ├── fzf-sway-exit
 │   │   ├── fzf-sway-focus
 │   │   ├── fzf_sway_move
-│   │   ├── get-parameters
+│   │   ├── get-focus-data -> /home/oxo/.config/status/bar/element/get-focus-data
 │   │   ├── kill_float_inv
 │   │   ├── layout-ntfy-send
 │   │   ├── lock
@@ -1795,7 +1796,9 @@
 │   │   ├── snap-move-to
 │   │   ├── split_auto
 │   │   ├── term_font_size
-│   │   └── term-spawn
+│   │   ├── term-spawn
+│   │   └── zzz_deprecated
+│   │       └── get-parameters
 │   ├── config
 │   ├── current -> /home/oxo/.config/sway/hw/dev/ltx1c
 │   ├── env
@@ -2136,5 +2139,5 @@
     │   └── config
     └── xresources_colors
 
-226 directories, 1910 files
+227 directories, 1912 files
 ```

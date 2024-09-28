@@ -9,7 +9,7 @@ csc="$XDG_CONFIG_HOME/sway/code"
 
 
 # get container data
-source "$csc/get-parameters"
+source "$csc/get-focus-data"
 source "$csc/con-type-toggle"
 
 
@@ -41,7 +41,6 @@ inform ()
 
 main ()
 {
-    get_parameters
     container_type_toggle
     container_resize
     inform

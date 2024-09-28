@@ -1,11 +1,13 @@
 #! /usr/bin/env sh
 
-bar_el_dir="$XDG_CONFIG_HOME/status/bar/element"
-source $bar_el_dir/get_focus_data
+
+csbe="$XDG_CONFIG_HOME/status/bar/element"
+source $csbe/get-focus-data
+
 
 if [[ -n $monitor_name ]]; then
 
-    [[ $con_pid != 'null' ]] && printf '%s %s ' "$con_pid" "$con_id"
+    [[ $container_pid != 'null' ]] && printf '%s %s ' "$container_pid" "$container_id"
     ## NOTICE eol for i3blocks
     printf '%s%s\n' "$monitor_name_bar" "$workspace_name_bar"
 

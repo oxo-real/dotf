@@ -21,6 +21,10 @@
 #
 
 
+csbe="$XDG_CONFIG_HOME/status/bar/element"
+csc="$XDG_CONFIG_HOME/sway/code"
+
+
 sway_ver=$(sway -v)
 
 exit_opts='cancel idle lock exit suspend reboot poweroff'
@@ -28,6 +32,9 @@ exit_opts='cancel idle lock exit suspend reboot poweroff'
 exit_options=$(for option in $exit_opts; do printf '%s\n' "$option"; done)
 
 exit_option=$(\
+	      source $csbe/get-focus-data
+	      $csc/cursor-to -x 100% -y 100%
+
 	      printf '%s' "$exit_options" | \
 		  fzf \
 		      --prompt="$(printf '  %s ' "$sway_ver")" \

@@ -3,45 +3,19 @@
 ## toggle container type and maximize it's size
 
 
-get_parameters ()
-{
-    monitor_dimensions=$(
-	swaymsg -t get_workspaces |
-	    jq -r '.. | select(.focused?) |
-	    select(.type=="workspace") |
-	    .rect |
-	    "\(.width)x\(.height)"' \
-		      )
+csc="$XDG_CONFIG_HOME/sway/code"
 
-    monitor_width=${monitor_dimensions%x*}
-    monitor_height=${monitor_dimensions#*x}
 
-    selection=".focused?"
-
-    mapfile -t container_params_arr < <( \
-	swaymsg -t get_tree | \
-	    jq -r ".. |
-	    select(.type?) |
-	    select($selection) |
-	    .rect.x, .rect.y,
-	    .rect.width, .rect.height,
-	    .deco_rect.height, .type" \
-		)
-
-    new_x=${container_params_arr[0]}
-    new_y=${container_params_arr[1]}
-    container_width=${container_params_arr[2]}
-    container_height=${container_params_arr[3]}
-    decor_height=${container_params_arr[4]}
-    container_type=${container_params_arr[5]}
-}
+# sourcing general scripts
+source "$csc/get-focus-data"
+source "$csc/con-type-toggle"
 
 
 maximize ()
 {
     ## height and width when minimized (px)
-    max_height=$monitor_height
     max_width=$monitor_width
+    max_height=$monitor_height
 
     swaymsg "resize set width $max_width px height $max_height px"
 }
@@ -67,7 +41,6 @@ container_type_toggle ()
 
 main ()
 {
-    get_parameters
     container_type_toggle
     maximize
 }

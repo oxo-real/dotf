@@ -1,7 +1,7 @@
 #! /usr/bin/env sh
 
 ## usage
-## sh snap-move-to [--id $con_id] direction
+## sh snap-move-to [--id $container_id] direction
 
 args="$@"
 
@@ -10,18 +10,18 @@ csc="$XDG_CONFIG_HOME/sway/code"
 
 
 # get container data
-source "$csc/get-parameters"
+source "$csc/get-focus-data"
 
 
 initialize()
 {
     script_name='snap-move-to'
-    usage="usage: $script_name [-i,--id $con_id] NW|N|NE|E|SE|S|SW|W|Z|left|down|up|right
+    usage="usage: $script_name [-i,--id $container_id] NW|N|NE|E|SE|S|SW|W|Z|left|down|up|right
 move sway container to screen corner, edge or center.
 OPTIONS:
--i|--id $con_id    move a designated container"
+-i|--id $container_id    move a designated container"
 
-    ## loop through all arguments
+    # loop through all arguments
     while [[ "$1" ]]; do
 
         case "$1" in
@@ -44,8 +44,8 @@ OPTIONS:
             -i | --id)
 		## get id value
                 shift
-                con_id="$1"
-		swaymsg [con_id="$con_id"] focus
+                container_id="$1"
+		swaymsg [con_id="$container_id"] focus
 		## get direction in next while loop
                 shift
                 ;;
@@ -219,7 +219,6 @@ main()
     ## because with quoted $args: "$args"
     ## initialize() receives only one argument
     initialize $args
-    #set_params
     snap_or_move
 }
 

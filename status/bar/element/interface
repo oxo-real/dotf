@@ -21,18 +21,29 @@ echo  ## none
 case $i in
 
     wg-*)
-	echo "#00806b"  ## dark moderate cyan - lime green
-	#echo "#529877"  ## dark moderate cyan - lime green
+	echo  ## default
 	;;
 
     *)
-	echo  ## default
+	## white   abnormal operation
+	echo "#ffffff"
 	;;
 
 esac
 
 ## background
-echo  ## default
+case $i in
+
+    wg-*)
+	echo  ## default
+	;;
+
+    *)
+	## black   abnormal operation
+	echo "#000000"
+	;;
+
+esac
 
 ## border
 echo  ## default

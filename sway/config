@@ -325,7 +325,9 @@ set $term_bu		foot
 ## dotool daemon
 exec_always		dotoold
 
-## jump to grid (# origo NW)
+## jump to grid
+## dotool origo O(0,0) is NW corner
+## sway-output origo O(0,0) is NW corner (see man sway-output)
 bindsym Mod1+Shift+i		exec echo mouseto 0.500 0.165 | dotoolc  ## N
 bindsym Mod1+Shift+o		exec echo mouseto 0.835 0.165 | dotoolc  ## NE
 bindsym Mod1+Shift+l		exec echo mouseto 0.835 0.500 | dotoolc  ## E
@@ -478,9 +480,9 @@ bar
 	   focused_background	#00000095
 	   focused_statusline	#777777
 	   focused_separator	#ffffff
-	   focused_workspace		  #00669995 #00669995 #aaaaaa
+	   focused_workspace		  #000020   #000020   #999999
 	   active_workspace		  #00000095 #77777795 #000000
-	   inactive_workspace		  #00000095 #00000095 #777777
+	   inactive_workspace		  #00000095 #00000095 #555555
 	   urgent_workspace		  #ff73fd95 #ff73fd95 #ffffd3
     }
 }

@@ -5,14 +5,14 @@ csc="$XDG_CONFIG_HOME/sway/code"
 
 
 # sourcing general scripts
-source "$csc/get-parameters"
+source "$csc/get-focus-data"
 source "$csc/con-type-toggle"
 
 
 vertical_fill()
 {
-    ## container height = monitor height
     ## container width = 1/divisor of monitor width
+    ## container height = monitor height
     divisor=4
 
     ## initially snap to east monitor border

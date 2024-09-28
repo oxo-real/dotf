@@ -1,14 +1,14 @@
 #! /usr/bin/env sh
 
 
-bar_el_dir="$XDG_CONFIG_HOME/status/bar/element"
-source $bar_el_dir/get_focus_data
+csbe="$XDG_CONFIG_HOME/status/bar/element"
+source $csbe/get-focus-data
 
 
 ## focused workspace must have at least one container
-if [[ $con_pid != 'null' ]]; then
+if [[ $container_pid != 'null' ]]; then
 
     # NOTICE mandatory eol for i3blocks
-    printf '%s %s\n' "$con_type_bar" "$con_name"
+    printf '%s %s\n' "$container_type_bar" "$container_name"
 
 fi

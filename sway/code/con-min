@@ -3,20 +3,20 @@
 ## toggle container type and minimize it's size
 
 ## height and width when minimized (px)
-min_height=20
-min_width=20
+container_min_height=20
+container_min_width=20
 
 
 csc="$XDG_CONFIG_HOME/sway/code"
 
 
 # get container data
-source "$csc/get-parameters"
+source "$csc/get-focus-data"
 
 
 minimize ()
 {
-    swaymsg "resize set width $min_width px height $min_height px"
+    swaymsg "resize set width $container_min_width px height $container_min_height px"
 }
 
 
@@ -26,12 +26,12 @@ container_type_toggle ()
 
 	con)
 	    swaymsg "floating enable"
-	    notify-send "float minimized"
+	    notify-send "<>= minimized"
 	    ;;
 
 	floating_con)
 	    swaymsg "floating disable"
-	    notify-send "tile minimized"
+	    notify-send "[]= minimized"
 	    ;;
 
     esac
@@ -40,7 +40,6 @@ container_type_toggle ()
 
 main ()
 {
-    get_parameters
     container_type_toggle
     minimize
 }

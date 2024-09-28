@@ -62,10 +62,9 @@ separator_block_width=8
 align=left
 color=#999999100
 #color=#777777
-#background=#33333395
-background=#00669950
-#border=#33333395
-border=#00669950
+background=#000020
+#background=#00669950
+border=#000020
 border_left=2
 border_right=2
 
