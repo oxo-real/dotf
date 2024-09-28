@@ -23,6 +23,7 @@ horizontal_fill()
     set_height=$(echo "scale=0; $monitor_height"/"$divisor" | bc)
 
     swaymsg "resize set width $monitor_width px height $set_height px"
+    sleep 0.2
     sh $csc/snap-move-to $direction
 }
 
