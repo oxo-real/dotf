@@ -37,6 +37,13 @@ workspace_data ()
 }
 
 
+swaybar_data ()
+{
+    bar_id=$(swaymsg -t get_bar_config | grep 'bar' | cut -d '"' -f 2)
+    bar_height=$(swaymsg -t get_bar_config "$bar_id" |  jq '.bar_height')
+}
+
+
 container_data ()
 {
     # retrieve focused container data
@@ -74,7 +81,9 @@ container_data ()
 	'floating_con')
 	    container_type_bar='<>='
 
-	    [[ $monitor_width == $container_width ]] && container_type_bar='<M>'
+	    [[ $monitor_width == $container_width ]] && \
+		[[ $(( monitor_height + bar_height )) == $monitor_height ]] && \
+		container_type_bar='<M>'
 	    ;;
 
 	*)
@@ -90,6 +99,7 @@ main ()
 {
     monitor_data
     workspace_data
+    swaybar_data
     container_data
 }
 

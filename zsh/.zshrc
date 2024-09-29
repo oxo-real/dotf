@@ -493,7 +493,7 @@ function precmd ()
 
 	### no write permission directory color (amber #ffbf00)
 	### single quotes; wait with expansion until print
-	local precmd_left='%F{#000000}%K{#ffbf00}%B %~ %b%k%f $(git-branch "%s") $(git-dirty "%s")'
+	local precmd_left='%F{#ffffff}%B %~ %b%f $(git-branch "%s") $(git-dirty "%s")'
 
     fi
 
@@ -586,7 +586,7 @@ setopt PROMPT_SUBST
 ## [zsh: 13 Prompt Expansion](https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html#Conditional-Substrings-in-Prompts)
 [[ $(host) != "$HOSTNAME" ]] && \
     PS1="%(?..%F{#ff6c60}%?%f)%(1j.%F{#4aa5fd}%K{#333333}%B%j%b%k%f.)%F{#000000}%K{#cccccc}%n@%m%k%f%(!.%F{#ffbf00}%B#%b%f.%%) " || \
-    PS1="%(?..%F{#ff6c60}%?%f)%(1j.%F{#4aa5fd}%K{#333333}%B%j%b%k%f.)%(!.%F{#ffbf00}%B#%b%f.%%) "
+    PS1="%(?..%F{#ff6c60}%?%f)%(1j.%F{#4aa5fd}%K{#333333}%B%j%b%k%f.)%(!.%F{#ffffff}%B#%b%f.%%) "
 
 ## right side prompt (RPS1)
 ## shows running time without breaking menus (like fzf or zsh completion)
@@ -783,7 +783,7 @@ function chpwd ()
     else
 
 	# no write permission directory color #ffbf00
-	local left_bar="%F{#000000}%K{#ffbf00}%B %~ %b%k%f"
+	local left_bar="%F{#ffffff}%B %~ %b%f"
 
     fi
 
@@ -899,81 +899,45 @@ function dirstack ()
 {
     ## create chronological cd history with unique lines only
 
-    basename_cwd=$(basename $PWD)
-
-    ##first_hist_line=1
-    ## fc list history of cd commands
-    ## sort chronological (prepare unique)
-    ## sed remove trailing slashes (prepare unique)
-    ## sort alphabetical (first unique pass)
-    ## sort chronological (final sort)
-    ## tr remove double spaces
-    ## cut remove non-directory part of fc line
-    ## sed insert previous working directory
-    ## grep remove basename cwd
-    ## grep remove full $PWD
-    ## awk remove lines with more than one word
-    ## sed remove '..'
-    ## sed remove '.'
-    ## sed remove empty lines
-    ## uniq remove repeated lines (second pass)
-    ## : '
-    ## NOTICE fc works only within interactive shells
-    ## dir_stack=$(fc -l -d -t %Y%m%d_%H%M%S -D -m 'cd *' $first_hist_line | \
-    ## 		   sort --reverse --numeric-sort --key 1 | \
-    ## 		   sed 's|[/\t]$||' | \
-    ## 		   sort --unique --key 5 | \
-    ## 		   sort --reverse --numeric-sort --key 1 | \
-    ## 		   tr -s ' ' | \
-    ## 		   cut -d ' ' -f 6- | \
-    ## 		   sed "1i $OLDPWD" | \
-    ## 		   grep --invert-match --line-regexp $basename_cwd | \
-    ## 		   grep --invert-match --line-regexp $PWD | \
-    ## 		   sed '/^..$/d' | \
-    ## 		   sed '/^.$/d' | \
-    ## 		   awk 'NF<=1{print}' | \
-    ## 		   sed '/^\s*$/d' | \
-    ## 		   uniq\
-    ## 	    )
-    ## # '
-
-    ## sed --regexp-extended get history commands only
+    ## sed get only commands from history
     ## grep only cd commands
-    ## sed remove lines with cd .(.), cd - and erase ../
-    ## nl add linenumbers (for chronological order)
-    ## sed remove trailing slashes (prepare unique)
-    ## sort chronological (prepare unique)
-    ## sort alphabetical and make unique (first unique pass)
-    ## sort chronological (final sort)
-    ## awk remove column 1 and 2 (linenumber and cd)
-    ## uniq only unique lines (second unique pass)
+    ## sed remove lines with cd .(.), cd -, erase ../, cd[space], and trailing slashes
+    ### ### marked lines are keeping last occurence of duplicates
+    ### ### only relevant if also timestamps and or linenumbers are exported to dir_stack
+    ### nl add linenumbers (for chronological order)
+    ### sort chronological (1st sort; prepare unique)
+    ### sort alphabetical and make unique (2nd sort; first unique pass)
+    ### DEL####### uniq only unique lines (second unique pass)
+    ### sort chronological (3rd final sort)
+    ## awk remove linenumbers
     ## sed remove leading spaces
-    #### this leaves us with a neat list of directories
+    ## this leaves us with a chronological list of unique directories from history
 
-    #### final adjustments
-    ## grep remove basename cwd (can't move to it)
-    ## grep remove full $PWD (can't move to it)
+    ## final adjustments for cd-nav-dirs
+
     ## sed insert previous working directory on first line
+    ## grep remove basename $PWD (can't move to it)
+    ## grep remove full $PWD (can't move to it)
     ## sed remove empty lines
-    ## uniq remove repeated lines (third unique pass)
+    ## DEL####### uniq remove repeated lines (third final unique pass)
+
     dir_stack=$(\
 		sed --regexp-extended 's/^:[[:space:]][[:digit:]]{10}:[[:digit:]]+;//' $HISTFILE | \
 		    grep '^cd ' | \
-		    sed --regexp-extended -e '/cd [\.]{1,2}$/d' -e '/cd -/d' -e 's|\.\./||' | \
+		    sed --regexp-extended -e '/cd [\.]{1,2}$/d' -e '/cd -/d' -e 's|\.\./||' -e 's|^cd ||' -e 's|/$||' | \
+		    sed "1i cd $OLDPWD" | \
 		    nl --number-format ln | \
-		    sed 's|/$||' | \
 		    sort --reverse --numeric-sort --key 1 | \
 		    sort --unique --key 2 | \
-		    uniq --skip-fields 2 --unique | \
 		    sort --reverse --numeric-sort --key 1 | \
-		    awk '!($1=$2="")' | \
+		    awk '!($1="")' | \
 		    sed --regexp-extended 's/^[[:space:]]+//' | \
-		    grep --invert-match --line-regexp $basename_cwd | \
+		    grep --invert-match --line-regexp $(basename $PWD) | \
 		    grep --invert-match --line-regexp $PWD | \
-		    sed "1i $OLDPWD" | \
-		    sed '/^\s*$/d' | \
-		    uniq\
+		    sed '/^\s*$/d'\
 	     )
+		    #uniq --skip-fields 1 --unique | \
+		    #uniq\
 }
 
 
@@ -981,7 +945,7 @@ function cd-nav-dirs ()
 {
     # cd navigate directories with fzf
 
-    ##  order   fd_path (no cycle):
+    ##  order   fd_path source (no cycle)
     ### 1 S --0 $dir_stack
     ### 2 C --0 $PWD
     ### 3 H --0 $HOME
@@ -996,13 +960,14 @@ function cd-nav-dirs ()
     dir_stack=$(printf '%s\n%s' "$dir_stack" 'qqq-quit-exit-cancel')
 
     ## 1 change directory; select a directory from $dir_stack
+    #TODO case select is '~', starts with ~ or contains ~
     dir_stack_select_fzf=$(printf '%s' "$dir_stack" | fzf --prompt "$fzf_prompt ")
 
     if [[ $dir_stack_select_fzf =~ 'qqq*' ]]; then
 
 	return 10
 
-    elif [[ -d $dir_stack_select_fzf ]]; then
+    elif [[ -d "$dir_stack_select_fzf" ]]; then
 
 	## dir_select_fzf is an absolute directory
 	## or child of the cwd

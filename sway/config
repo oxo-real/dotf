@@ -555,8 +555,8 @@ focus_follows_mouse	no
 
 
 # mouse warping (mouse follows focus)
-## set to container: moonlander keyboard mousewheel works
-mouse_warping		container
+## set to container: moonlander mousewheel
+mouse_warping		output
 
 
 #----------------------------------------------------------------
