@@ -320,58 +320,66 @@ set $term		alacritty
 set $term_bu		foot
 
 
-# keyboard mouse control
+# keyboard mouse pointer control
 
 ## dotool daemon
 exec_always		dotoold
 
-## jump to grid
+
+# jump to grid
+
 ## dotool origo O(0,0) is NW corner
 ## sway-output origo O(0,0) is NW corner (see man sway-output)
-bindsym Mod1+Shift+i		exec echo mouseto 0.500 0.165 | dotoolc  ## N
-bindsym Mod1+Shift+o		exec echo mouseto 0.835 0.165 | dotoolc  ## NE
-bindsym Mod1+Shift+l		exec echo mouseto 0.835 0.500 | dotoolc  ## E
-bindsym Mod1+Shift+Period	exec echo mouseto 0.835 0.835 | dotoolc  ## SE
-bindsym Mod1+Shift+Comma	exec echo mouseto 0.500 0.835 | dotoolc  ## S
-bindsym Mod1+Shift+m		exec echo mouseto 0.165 0.835 | dotoolc  ## SW
-bindsym Mod1+Shift+j		exec echo mouseto 0.165 0.500 | dotoolc  ## W
-bindsym Mod1+Shift+u		exec echo mouseto 0.165 0.165 | dotoolc  ## NW
-bindsym Mod1+Shift+k		exec echo mouseto 0.500 0.500 | dotoolc  ## Z
+
+## container grid (else monitor grid)
+bindsym Mod1+Shift+i		exec $csc/pointer-to -x 50% -y 17%  ## N
+bindsym Mod1+Shift+o		exec $csc/pointer-to -x 83% -y 17%  ## NE
+bindsym Mod1+Shift+l		exec $csc/pointer-to -x 83% -y 50%  ## E
+bindsym Mod1+Shift+Period	exec $csc/pointer-to -x 83% -y 83%  ## SE
+bindsym Mod1+Shift+Comma	exec $csc/pointer-to -x 50% -y 83%  ## S
+bindsym Mod1+Shift+m		exec $csc/pointer-to -x 17% -y 83%  ## SW
+bindsym Mod1+Shift+j		exec $csc/pointer-to -x 17% -y 50%  ## W
+bindsym Mod1+Shift+u		exec $csc/pointer-to -x 17% -y 17%  ## NW
+bindsym Mod1+Shift+k		exec $csc/pointer-to -x 50% -y 50%  ## Z
 
 ## move
-set $kb_mouse_major_move		100
+#set $kb_mouse_major_move		100
 set $kb_mouse_regular_move		10
-set $kb_mouse_minor_move		1
+#set $kb_mouse_minor_move		1
 
 #bindsym Mod1+y			exec echo mousemove -$kb_mouse_major_move 0 | dotoolc  ## left
 #bindsym Mod1+u			exec echo mousemove 0 $kb_mouse_major_move  | dotoolc  ## down
 #bindsym Mod1+i			exec echo mousemove 0 -$kb_mouse_major_move | dotoolc  ## up
 #bindsym Mod1+o			exec echo mousemove $kb_mouse_major_move 0  | dotoolc  ## right
 
+## same as moonlander layer 3 mouse
 bindsym Mod1+h			exec echo mousemove -$kb_mouse_regular_move 0 | dotoolc  ## left
 bindsym Mod1+j			exec echo mousemove 0 $kb_mouse_regular_move  | dotoolc  ## down
 bindsym Mod1+k			exec echo mousemove 0 -$kb_mouse_regular_move | dotoolc  ## up
 bindsym Mod1+l			exec echo mousemove $kb_mouse_regular_move 0  | dotoolc  ## right
 
-bindsym Mod1+n			exec echo mousemove -$kb_mouse_minor_move 0 | dotoolc  ## left
-bindsym Mod1+m			exec echo mousemove 0 $kb_mouse_minor_move  | dotoolc  ## down
-bindsym Mod1+Comma		exec echo mousemove 0 -$kb_mouse_minor_move | dotoolc  ## up
-bindsym Mod1+Period		exec echo mousemove $kb_mouse_minor_move 0  | dotoolc  ## right
+#bindsym Mod1+n			exec echo mousemove -$kb_mouse_minor_move 0 | dotoolc  ## left
+#bindsym Mod1+m			exec echo mousemove 0 $kb_mouse_minor_move  | dotoolc  ## down
+#bindsym Mod1+Comma		exec echo mousemove 0 -$kb_mouse_minor_move | dotoolc  ## up
+#bindsym Mod1+Period		exec echo mousemove $kb_mouse_minor_move 0  | dotoolc  ## right
 
 ## button events
 ### click
-bindsym Mod1+u			exec echo click left | dotoolc
+### same as moonlander layer 3 mouse
+bindsym Mod1+u			exec echo buttonup middle; click left | dotoolc
 bindsym Mod1+i			exec echo buttonup middle; click middle | dotoolc
 bindsym Mod1+o			exec echo buttonup right; click right | dotoolc
-### hold down
+### hold
 bindsym Mod1+y			exec echo buttondown left | dotoolc
 bindsym Mod1+8			exec echo buttondown middle | dotoolc
 bindsym Mod1+p			exec echo buttondown right | dotoolc
-### wheel
-bindsym Mod1+Left		exec echo hwheel -1 | dotoolc
-bindsym Mod1+Down		exec echo wheel -1 | dotoolc
-bindsym Mod1+Up			exec echo wheel 1 | dotoolc
-bindsym Mod1+Right		exec echo hwheel 1 | dotoolc
+
+## wheel events
+### same as moonlander layer 3 mouse
+bindsym Mod1+n			exec echo hwheel -1 | dotoolc
+bindsym Mod1+m			exec echo wheel -1 | dotoolc
+bindsym Mod1+Comma		exec echo wheel 1 | dotoolc
+bindsym Mod1+Period		exec echo hwheel 1 | dotoolc
 
 
 #----------------------------------------------------------------
@@ -758,7 +766,9 @@ bindsym $mod+semicolon		focus mode_toggle
 
 # toggle focused window tiling / floating
 bindsym $mod+Mod1+semicolon 	floating toggle
+
 ## mouse method
+## $mod+MouseMiddle toggles container tiling / floating
 bindsym --whole-window $mod+BTN_MIDDLE	floating toggle
 
 

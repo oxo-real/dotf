@@ -1,15 +1,15 @@
 #! /usr/bin/env sh
 
-# move cursor to absolute or relative position
+# move poiner to absolute or relative position
 
 ## absolute monitor position
-## synopsis: cursor-to [--id] [$con_id] -x xpt -y ypt
+## synopsis: poiner-to [--id] [$con_id] -x xpt -y ypt
 
 ## relative focused container position
-## synopsis: cursor-to [--id] [$con_id] -x xpt -y ypt
+## synopsis: poiner-to [--id] [$con_id] -x x% -y y%
 
-# synopsis: cursor-to [$con_id] $x[%] $y[%]
-# usage: cursor-to --id 5 -x 50 -y 50%
+# synopsis: poiner-to [$con_id] $x[%] $y[%]
+# usage: poiner-to --id 5 -x 50 -y 50%
 
 
 csbe="$XDG_CONFIG_HOME/status/bar/element"
@@ -24,7 +24,7 @@ while [[ "$1" ]]; do
 	    ## get container id value
             shift
             con_id="$1"
-	    swaymsg [con_id="$con_id"] focus
+	    swaymsg [con_id="$container_id"] focus
             shift
             ;;
 
@@ -52,7 +52,7 @@ case "${x_arg: -1}" in
     '%')
 	## relative x
 	x_rel="${x_arg::-1}"
-	x_pos=$(echo "$con_x + ($x_rel * $con_width / 100)" | bc)
+	x_pos=$(echo "$container_x + ($x_rel * $container_width / 100)" | bc)
 	;;
 
     *)
@@ -68,7 +68,7 @@ case "${y_arg: -1}" in
     '%')
 	## relative y value
 	y_rel="${y_arg::-1}"
-	y_pos=$(echo "$con_y + ($y_rel * $con_height / 100)" | bc)
+	y_pos=$(echo "$container_y + ($y_rel * $container_height / 100)" | bc)
 	;;
 
     *)
@@ -82,5 +82,7 @@ esac
 x_dt_rel=$(printf '%.3f\n' "$(echo "scale=3; $x_pos / $monitor_width" | bc)")
 y_dt_rel=$(printf '%.3f\n' "$(echo "scale=3; $y_pos / $monitor_height" | bc)")
 
-## move mouse cursor
+## dotool move mouse poiner
+# NOTICE this works with single monitor setup
+#TODO dotool grid with 2 monitors is 2 monitors wide
 echo mouseto $x_dt_rel $y_dt_rel | dotoolc

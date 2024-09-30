@@ -71,7 +71,6 @@ container_data ()
     ### <>= floating
     ### <M> monoocle
     ###      (maximized floating container)
-
     case $container_type in
 
 	'con')
@@ -95,12 +94,64 @@ container_data ()
 }
 
 
+pointer_data ()
+{
+    if [[ -n $container_id ]]; then
+
+	## pointer container grid for dotool
+	# grid_DIRx = (container_x + p * container_width ) / monitor_width
+	# grid_DIRy = (container_y + q * container_height ) / monitor_height
+	grid_Nx=$(echo "$container_x + (0.500 * $container_width) / $monitor_width" | bc)
+	grid_Ny=$(echo "$container_y + (0.165 * $container_height) / $monitor_height" | bc)
+	grid_NEx=$(( container_x + 0.835 * container_width ))
+	grid_NEy=$(( container_y + 0.165 * container_height ))
+	grid_Ex=$(( container_x + 0.835 * container_width ))
+	grid_Ey=$(( container_y + 0.500 * container_height ))
+	grid_SEx=$(( container_x + 0.835 * container_width ))
+	grid_SEy=$(( container_y + 0.835 * container_height ))
+	grid_Sx=$(( container_x + 0.500 * container_width ))
+	grid_Sy=$(( container_y + 0.835 * container_height ))
+	grid_SWx=$(( container_x + 0.165 * container_width ))
+	grid_SWy=$(( container_y + 0.835 * container_height ))
+	grid_Wx=$(( container_x + 0.165 * container_width ))
+	grid_Wy=$(( container_y + 0.500 * container_height ))
+	grid_NWx=$(( container_x + 0.165 * container_width ))
+	grid_NWy=$(( container_y + 0.165 * container_height ))
+	grid_Zx=$(( container_x + 0.500 * container_width ))
+	grid_Zy=$(( container_y + 0.500 * container_height ))
+
+    else
+
+	grid_Nx=$(( 0.500 * container_width ))
+	grid_Ny=$(( 0.165 * container_height ))
+	grid_NEx=$(( 0.835 * container_width ))
+	grid_NEy=$(( 0.165 * container_height ))
+	grid_Ex=$(( 0.835 * container_width ))
+	grid_Ey=$(( 0.500 * container_height ))
+	grid_SEx=$(( 0.835 * container_width ))
+	grid_SEy=$(( 0.835 * container_height ))
+	grid_Sx=$(( 0.500 * container_width ))
+	grid_Sy=$(( 0.835 * container_height ))
+	grid_SWx=$(( 0.165 * container_width ))
+	grid_SWy=$(( 0.835 * container_height ))
+	grid_Wx=$(( 0.165 * container_width ))
+	grid_Wy=$(( 0.500 * container_height ))
+	grid_NWx=$(( 0.165 * container_width ))
+	grid_NWy=$(( 0.165 * container_height ))
+	grid_Zx=$(( 0.500 * container_width ))
+	grid_Zy=$(( 0.500 * container_height ))
+
+    fi
+}
+
+
 main ()
 {
     monitor_data
     workspace_data
     swaybar_data
     container_data
+    #pointer_data
 }
 
 main
