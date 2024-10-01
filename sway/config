@@ -848,7 +848,7 @@ for_window [app_id="float_exit"]
     resize set height 150
     opacity set 0.95
     $smt NW
-    #TODO this only works when no other alacritty windows are open
+    #TODO bg color only works when no other alacritty windows are open
     ## workaround is specific alacritty config file (bg_red.toml)
     #exec $term msg config colors.primary.background='"#550000"'
 }
@@ -861,7 +861,7 @@ for_window [app_id="float_fzf_run"]
     resize set height 500
     opacity set 0.95
     $smt Z
-    #TODO this only works when no other alacritty windows are open
+    #TODO bg color only works when no other alacritty windows are open
     ## workaround is specific alacritty config file (bg_blue.toml)
     #exec $term msg config colors.primary.background='"#000020"'
 }
@@ -869,13 +869,13 @@ for_window [app_id="float_fzf_run"]
 ## spicules
 for_window [app_id="float_spicules"]
 {
-    #floating enable
-    #resize set width 2000
-    #resize set height 500
+    floating enable
+    resize set width 2560
+    resize set height 200
     opacity set 0.95
-    $con_hfill
-    #exec $csc/con-h-fill
-    #TODO this only works when no other alacritty windows are open
+    $smt N
+    #TODO make #$con_hfill work
+    #TODO bg color only works when no other alacritty windows are open
     ## workaround is specific alacritty config file
     #exec $term msg config colors.primary.background='"#000020"'
 }
