@@ -1720,6 +1720,7 @@
 │   ├── netistat -> /home/oxo/.local/share/c/git/code/network/netistat
 │   ├── netkill -> /home/oxo/.local/share/c/git/code/network/netkill
 │   ├── nmconn -> /home/oxo/.local/share/c/git/code/network/nmconn
+│   ├── novies -> /home/oxo/.local/share/c/git/code/tool/novies
 │   ├── otp95 -> /home/oxo/.local/share/c/git/code/tool/otp95
 │   ├── passexp -> /home/oxo/.local/share/c/git/code/tool/passexp
 │   ├── passr -> /home/oxo/.local/share/c/git/code/tool/passr
@@ -2139,5 +2140,5 @@
     │   └── config
     └── xresources_colors
 
-227 directories, 1912 files
+227 directories, 1913 files
 ```
