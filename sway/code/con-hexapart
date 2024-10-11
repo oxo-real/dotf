@@ -13,7 +13,7 @@ source "$csc/get-focus-data"
 source "$csc/con-type-toggle"
 
 
-container_resize ()
+calc_container_size ()
 {
     case $hexapart in
 
@@ -28,7 +28,11 @@ container_resize ()
 
     set_width=$(echo "scale=0; $monitor_width*$counter/$divisor" | bc)
     set_height=$(echo "scale=0; $monitor_height*$counter/$divisor" | bc)
+}
 
+
+container_resize ()
+{
     swaymsg "resize set width $set_width px height $set_height px"
 }
 
@@ -41,7 +45,9 @@ inform ()
 
 main ()
 {
+    calc_container_size
     container_type_toggle
+    sleep 0.1
     container_resize
     inform
 }

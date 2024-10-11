@@ -25,8 +25,8 @@ echo  ## none
 
 ## text
 (( $var > $(( min + 5 * int )) )) && echo "#ff6c60"  ## red
-(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo "#ffffb6"  ## yellow
-(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo "#ffbf00"  ## amber
+(( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo "#ffbf00"  ## amber
+(( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo "#ffffb6"  ## yellow
 (( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo "#96cbfe"  ## blue
 (( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo "#aaaaaa"  ## greyaa
 (( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo "#999999"  ## grey99

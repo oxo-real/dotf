@@ -3,7 +3,8 @@
 # sway focus to workspace or container via fzf menu
 ## TODO DEV focus workspace focuses/selects all containers
 
-fzf_selection=$(swaymsg --pretty --type get_tree | fzf --height ~100% --prompt 'focus ')
+fzf_selection=$(swaymsg --pretty --type get_tree | fzf --height -1 --prompt 'focus ')
+#fzf_selection=$(swaymsg --pretty --type get_tree | fzf --height ~100% --prompt 'focus ')
 
 if [[ $(printf '%s' "$fzf_selection" | grep 'workspace') ]]; then
 

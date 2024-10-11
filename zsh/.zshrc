@@ -749,29 +749,6 @@ setopt SHARE_HISTORY
 #setopt INC_APPEND_HISTORY_TIME
 
 
-### export FZF_CTRL_R_OPTS="$(
-### 	cat <<'FZF_FTW'
-### 	--bind "ctrl-d:execute-silent(zsh --interactive -c 'fc -pa $HISTFILE;
-### 	for i in {+1}; do
-### 	    ignore+=( \"${(b)history[$i]}\" );
-### 	done
-### 	HISTORY_IGNORE=\"(${(j:|:)ignore})\"
-### 	fc -W')+reload:fc -pa $HISTFILE
-### 	fc -rl 1 |
-### 	awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, \"\", cmd);
-### 	    if (!seen[cmd]++) print $0 }'"
-### --bind "start:reload:fc -pa $HISTFILE; fc -rl 1 |
-### 	awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, \"\", cmd); if (!seen[cmd]++) print $0 }'"
-### --header 'enter select · ^d remove'
-### --height 70%
-### --preview-window 'hidden:down:border-top:wrap:<70(hidden)'
-### --prompt ' Global History > '
-### --with-nth 2..
-### FZF_FTW
-### )"
-
-#source $XDG_CACHE_HOME/test/zsh-hist-delete-fzf-plugin.zsh
-
 # pwd, statistics and ls when cwd changes
 function chpwd ()
 {

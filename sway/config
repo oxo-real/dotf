@@ -108,7 +108,7 @@ input $touchpad_ext
 ## xkb_options: man 7 xkeyboard-config
 
 ### set caps = esc
-#   xkb_options		caps:escape,compose:ralt
+#   xkb_options		caps:escape
 ### set shiftL+shiftR = caps
 #   xkb_options		shift:both_capslock
 ### swap caps and left ctrl
@@ -137,13 +137,16 @@ input $keyboard
 ## specific
 input $keyboard_ext
 {
-    xkb_options		compose:ralt,shift:both_capslock
+    xkb_options		compose:ralt,caps:escape,shift:both_capslock
     repeat_delay	500
     repeat_rate		20
     #xkb_numlock	enabled
 }
 
 ## mouse
+## x11 mouse button values (i.e. button1)
+## 1=left, 2=middle, 3=right, 4=scroll up, 5=scroll down,
+## 6=scroll left, 7=scroll right, 8=back, 9=forward
 ### general
 input $kb_mouse
 {
@@ -187,42 +190,6 @@ set $mod		Mod4
 output * background	#000000 solid_color
 
 
-# laptop internal displays
-## top left is pos 0 0
-## y axis is inverted
-## scaling has to be considered
-
-## dell_latitude_3189
-### maximum performance		mode 1366x768 scale 1.0 pos 0 0
-#output eDP-1			mode 1366x768 scale 1.0 pos 0 0
-
-## dell_xps13_9360
-### maximum performance:	mode 3200x1800 scale 2.0 pos 0 1440
-## output eDP-1			mode 3200x1800 scale 2.0 pos 0 1440
-
-## lenovo_thinkpad_x220
-### Seiko Epson Corporation 0x3047 0x00000000
-### maximum performance:	mode 1366x768 @ 60.002 Hz
-# output LVDS-1			mode 1366x768 scale 1.0 pos 0 0
-
-## tuxedo_pulse_15
-### Sharp Corporation LQ156M1JW01
-### maximum performance:	mode 1920x1080 @ 60.042000 Hz
-#output eDP-1
-#{
-#    mode		1920x1080
-#    pos		2560 0
-#    scale		1.0
-#    transform		0
-#}
-
-## lenovo thinkpad x1c
-### Chimei Innolux Corporation 0x1417 0x00000000
-### 1440 is $y_res_ext > read important notice below
-#output eDP-1		mode 1920x1200 scale 1.0 pos 0 0
-#output eDP-1		mode 1920x1200 scale 1.0 pos 0 1440
-
-
 # external monitors
 
 ## dell_u2715h (hdmi)
@@ -245,10 +212,16 @@ output * background	#000000 solid_color
 ## set ext display coordinates to pos 0 0 (instead of the main monitor)
 output HDMI-A-1		pos 0 0
 ## then adjust the main monitor pos to ext display with positive coordinates
-### ext is above main
+### ext above main
 #output eDP-1		pos 0 $hdmi_y_res
-### ext is left of main
+### ext left of main
 output eDP-1		pos $hdmi_x_res 0
+
+### ext right of main
+#output HDMI-A-1		pos $x_res_main	 0
+### ext below main
+#output HDMI-A-1		pos 0 $y_res_main
+
 
 ## focus on sway launch
 #focus			output eDP-1
@@ -438,7 +411,7 @@ bindsym $mod+Shift+Equal    move container to workspace $ws=
 
 ## workspace switching
 ### keyboard
-bindsym $mod+tab		workspace back_and_forth
+bindsym $mod+Tab		workspace back_and_forth
 ### mouse
 workspace_auto_back_and_forth	yes
 
@@ -454,7 +427,7 @@ bindsym $mod+o			workspace prev
 bindsym $mod+Period		workspace next
 
 ## fzf_sway_focus 		(focus switcher)
-bindsym $mod+grave		exec $term --class="float_spicules" -e \
+bindsym $mod+Grave		exec $term --class="float_spicules" -e \
 				$csc/fzf-sway-focus
 
 ## move workspace to output
@@ -478,6 +451,21 @@ bar
     swaybar_command		swaybar
     status_command		i3blocks
     wrap_scroll			no
+
+    # diable vertical scrolling (4u5d)
+    bindsym button4   		nop
+    bindsym button5 		nop
+    # diable horizontal scrolling (6l7r)
+    bindsym button6 		nop
+    bindsym button7 		nop
+
+    #TODO seems not to be supported
+    # enable $mod vertical scrolling (4u5d)
+    #bindsym $mod+button4	workspace prev
+    #bindsym $mod+button5 	workspace next
+    # diable $mod horizontal scrolling (6l7r)
+    #bindsym $mod+button6     	workspace prev
+    #bindsym $mod+button7 	workspace next
 
     colors
     {
@@ -678,7 +666,7 @@ bindsym $mod+Mod1+9		$con_max  ## container maximize
 ### $mod+Mod1+123456
 ### TODO mpv doesn't resize properly while playing video
 bindsym $mod+Mod1+1		$con_hexa 1  ## container toggle float/tile width 1 hexapart
-bindsym $mod+Mod1+2		$con_hexa 2  ## container toggle float/tile width 2 hexaparts
+bindsym $mod+Mod1+2		$con_hexa 2  ## container toggle float/til1e width 2 hexaparts
 bindsym $mod+Mod1+3		$con_hexa 3  ## container toggle float/tile width 3 hexaparts
 bindsym $mod+Mod1+4		$con_hexa 4  ## container toggle float/tile width 4 hexaparts
 bindsym $mod+Mod1+5		$con_hexa 5  ## container toggle float/tile width 5 hexaparts
@@ -844,12 +832,12 @@ for_window [app_id="term_fullscreen"]
 for_window [app_id="float_exit"]
 {
     floating enable
-    resize set width 300
-    resize set height 150
+    resize set width 270
+    resize set height 145
     opacity set 0.95
-    $smt NW
+    $smt NE
     #TODO bg color only works when no other alacritty windows are open
-    ## workaround is specific alacritty config file (bg_red.toml)
+    ## current workaround is specific alacritty config file (bg_red.toml)
     #exec $term msg config colors.primary.background='"#550000"'
 }
 
@@ -860,9 +848,9 @@ for_window [app_id="float_fzf_run"]
     resize set width 500
     resize set height 500
     opacity set 0.95
-    $smt Z
+    $smt N
     #TODO bg color only works when no other alacritty windows are open
-    ## workaround is specific alacritty config file (bg_blue.toml)
+    ## current workaround is specific alacritty config file (bg_blue.toml)
     #exec $term msg config colors.primary.background='"#000020"'
 }
 
@@ -871,12 +859,12 @@ for_window [app_id="float_spicules"]
 {
     floating enable
     resize set width 2560
-    resize set height 200
+    resize set height 300
     opacity set 0.95
     $smt N
     #TODO make #$con_hfill work
     #TODO bg color only works when no other alacritty windows are open
-    ## workaround is specific alacritty config file
+    ## current workaround is specific alacritty config file
     #exec $term msg config colors.primary.background='"#000020"'
 }
 

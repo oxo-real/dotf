@@ -32,8 +32,8 @@ int=$(echo "scale=0; ($max - $min) / $no_thr" | bc -l)
 (( $var > $(( min + 4 * int )) && $var <= $(( min + 5 * int )) )) && echo "#999999"  ## grey99
 (( $var > $(( min + 3 * int )) && $var <= $(( min + 4 * int )) )) && echo "#aaaaaa"  ## greyaa
 (( $var > $(( min + 2 * int )) && $var <= $(( min + 3 * int )) )) && echo "#96cbfe"  ## blue
-(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo "#ffbf00"  ## amber
-(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo "#ffffb6"  ## yellow
+(( $var > $(( min + 1 * int )) && $var <= $(( min + 2 * int )) )) && echo "#ffffb6"  ## yellow
+(( $var > $(( min + 0 * int )) && $var <= $(( min + 1 * int )) )) && echo "#ffbf00"  ## amber
 (( $var <= $(( min + 0 * int )) )) && echo "#ff6c60"  ## red
 
 ## background

@@ -4,11 +4,14 @@
 # sway-output container origo O(0.0) NW
 # dotool monitor origo O(0.0) NW
 
+args=$@
+
 monitor_data ()
 {
     # retrieve focused monitor data
 
-    monitor_focus_data=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused==true) | "\(.id),\(.name),\(.serial),\(.rect.width),\(.rect.height),\(.make),\(.model)"')
+    active_monitors=$(swaymsg -t get_outputs | jq -r '.[] | select(.active==true) | "\(.id),\(.name),\(.rect.x),\(.rect.y)"' | wc -l)
+    monitor_focus_data=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused==true) | "\(.id),\(.name),\(.serial),\(.rect.x),\(.rect.y),\(.rect.width),\(.rect.height),\(.make),\(.model)"')
 
     ## string to array
     IFS=',' read -r -a monitor_data_arr <<< "$monitor_focus_data"
@@ -17,10 +20,12 @@ monitor_data ()
     monitor_id=${monitor_data_arr[0]}
     monitor_name=${monitor_data_arr[1]}
     monitor_serial=${monitor_data_arr[2]}
-    monitor_width=${monitor_data_arr[3]}
-    monitor_height=${monitor_data_arr[4]}
-    monitor_make=${monitor_data_arr[5]}
-    monitor_model=${monitor_data_arr[6]}
+    monitor_x=${monitor_data_arr[3]}
+    monitor_y=${monitor_data_arr[4]}
+    monitor_width=${monitor_data_arr[5]}
+    monitor_height=${monitor_data_arr[6]}
+    monitor_make=${monitor_data_arr[7]}
+    monitor_model=${monitor_data_arr[8]}
 
     monitor_name_bar=$(printf '%s' "$monitor_name" | sed 's/"//g' | head -c 1)
 }
@@ -145,6 +150,19 @@ pointer_data ()
 }
 
 
+debug_data ()
+{
+    case "$args" in
+
+	*debug*)
+	    printf 'monitor_width %s\n' "$monitor_width"
+	    printf 'monitor_height %s\n' "$monitor_height"
+	    ;;
+
+    esac
+}
+
+
 main ()
 {
     monitor_data
@@ -152,6 +170,7 @@ main ()
     swaybar_data
     container_data
     #pointer_data
+    debug_data
 }
 
 main

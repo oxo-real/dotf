@@ -219,6 +219,7 @@ main()
     ## because with quoted $args: "$args"
     ## initialize() receives only one argument
     initialize $args
+    sleep 0.1
     snap_or_move
 }
 

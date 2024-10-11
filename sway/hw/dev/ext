@@ -17,7 +17,7 @@
 #set $keyboard_ext			16700:8195:Dell_Dell_USB_Keyboard
 
 ## logitech mx mechanical mini
-#set $keyboard_ext			1133:50504:Logitech_USB_Receiver
+set $keyboard_ext			1133:50504:Logitech_USB_Receiver
 
 ## zsa moonlander
 set $keyboard_ext			12951:6505:ZSA_Technology_Labs_Moonlander_Mark_I

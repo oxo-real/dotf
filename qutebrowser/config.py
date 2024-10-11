@@ -1941,7 +1941,7 @@ config.unbind('D') # remove dangerous default keybinding
 config.bind('DDD', 'tab-close -o')
 config.bind('t', 'tab-next')
 config.bind('T', 'open -t')
-config.bind('V', 'hint links spawn mpv --force-window --no-terminal --keep-open=yes --ytdl {hint-url}')
+config.bind('V', 'hint links spawn mpv --force-window --no-terminal --keep-open=yes --ytdl --start=+00:00 --ytdl-raw-options=format-sort=res:240 --profile=cache_xs --demuxer-cache-wait --msg-level=all=v --user-agent=$USER_AGENT {hint-url}')
 config.bind('yf', 'hint all yank')
 config.bind('<Ctrl-t>', 'config-cycle tabs.show always never')
 #config.bind('<Ctrl-Space>', 'config-cycle statusbar.show always never')
