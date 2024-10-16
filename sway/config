@@ -677,6 +677,16 @@ bindsym $mod+Mod1+6		$con_hexa 6  ## container toggle float/tile width 6 hexapar
 bindsym $mod+Mod1+7		$con_vfill  ## container toggle float/tile snap fill right edge
 bindsym $mod+Mod1+8		$con_hfill  ## container toggle float/tile snap fill bottom edge
 
+## same functionality for right super alt
+## #TODO none of these attempts below works, why?
+bindsym Mod4+Multi_key+4		$con_hexa 4  ## container toggle float/tile width 4 hexaparts
+#bindsym Mod4+Alt_R+4		$con_hexa 4  ## container toggle float/tile width 4 hexaparts
+#bindsym Mod4+Multi_key+4		$con_hexa 4  ## container toggle float/tile width 4 hexaparts
+#bindsym Super_R+Multi_key+4		$con_hexa 4  ## container toggle float/tile width 4 hexaparts
+#bindsym Super_R+Alt_R+4		$con_hexa 4  ## container toggle float/tile width 4 hexaparts
+#bindsym $mod+Alt_R+4		$con_hexa 4  ## container toggle float/tile width 4 hexaparts
+#bindsym $mod+Multi_key+4	$con_hexa 4  ## container toggle float/tile width 4 hexaparts
+
 
 #----------------------------------------------------------------
 # resize focused window

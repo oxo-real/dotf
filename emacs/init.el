@@ -777,9 +777,9 @@
                    (display-line-numbers-mode 0))))
 
 ;; TODO absolute line numbers for evil-insert-state
-;;(add-hook 'evil-insert-state-entry-hook 'display-line-numbers-type 'absolute)
-;;(add-hook 'evil-insert-state-exit-hook 'display-line-numbers-type 'relative)
-;;(menu-bar--display-line-numbers-mode-relative)
+;;(add-hook 'evil-insert-state-entry-hook 'menu-bar--display-line-numbers-mode 'absolute)
+;;(add-hook 'evil-insert-state-exit-hook 'menu-bar--display-line-numbers-mode 'relative)
+;;(menu-bar--display-line-numbers-mode 'relative)
 
 ;;  (add-hook 'window-setup-hook #'(lambda ()
 ;;                                   (set-cursor-color "#ffffb6")))

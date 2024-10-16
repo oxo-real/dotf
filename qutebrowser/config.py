@@ -1701,8 +1701,9 @@ c.url.open_base_url = False
 ## `:open google qutebrowser`.
 ## Type: Dict
 c.url.searchengines = {
-        'DEFAULT':  'https://priv.au/?q={}'
+        'DEFAULT':  'https://duckduckgo.com/?q={}'
         }
+        #'DEFAULT':  'https://priv.au/?q={}'
 
 ## Page(s) to open at the start.
 ## Type: List of FuzzyUrl, or FuzzyUrl
