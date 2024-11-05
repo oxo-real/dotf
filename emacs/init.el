@@ -301,7 +301,7 @@
 
 ;; NOTE: Make sure to configure a GitHub token before using this package!
 ;; - https://magit.vc/manual/forge/Token-Creation.html#Token-Creation
-;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Startedd
+;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
 
 (use-package marginalia
   :after vertigo
@@ -352,6 +352,86 @@
 
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
+
+(defun oxo/lsp-mode-setup ()
+  (setq lsp-headerline-breadcrumb-segments '(symbols))
+  (lsp-headerline-breadcrumb-mode))
+
+(use-package lsp-mode
+  :commands (lsp lsp-deferred)
+  :hook (lsp-mode . oxo/lsp-mode-setup)
+  :init
+  (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
+  :config
+  (lsp-enable-which-key-integration t))
+
+(use-package lsp-ui
+  :hook (lsp-mode . lsp-ui-mode)
+  :custom
+  (lsp-ui-doc-position 'bottom))
+
+(use-package lsp-ivy)
+
+(use-package company
+  :after lsp-mode
+  :hook (lsp-mode . company-mode)
+  :bind (:map company-active-map
+              ("<tab>" . company-complete-selection))
+  (:map lsp-mode-map
+        ("<tab>" . company-indent-or-complete-common))
+  :custom
+  (company-minimum-prefix-length 1)
+  (company-idle-delay 0.0))
+
+(require 'ansi-color)
+(defun endless/colorize-compilation ()
+  "Colorize from `compilation-filter-start' to `point'."
+  (let ((inhibit-read-only t))
+    (ansi-color-apply-on-region
+     compilation-filter-start (point))))
+
+(add-hook 'compilation-filter-hook
+          #'endless/colorize-compilation)
+
+(defun regexp-alternatives (regexps)
+  "Return the alternation of a list of regexps."
+  (mapconcat (lambda (regexp)
+               (concat "\\(?:" regexp "\\)"))
+             regexps "\\|"))
+
+(defvar non-sgr-control-sequence-regexp nil
+  "Regexp that matches non-SGR control sequences.")
+
+(setq non-sgr-control-sequence-regexp
+      (regexp-alternatives
+       '(;; icon name escape sequences
+         "\033\\][0-2];.*?\007"
+         ;; non-SGR CSI escape sequences
+         "\033\\[\\??[0-9;]*[^0-9;m]"
+         ;; noop
+         "\012\033\\[2K\033\\[1F"
+         )))
+
+(defun filter-non-sgr-control-sequences-in-region (begin end)
+  (save-excursion
+    (goto-char begin)
+    (while (re-search-forward
+            non-sgr-control-sequence-regexp end t)
+      (replace-match ""))))
+
+(defun filter-non-sgr-control-sequences-in-output (ignored)
+  (let ((start-marker
+         (or comint-last-output-start
+             (point-min-marker)))
+        (end-marker
+         (process-mark
+          (get-buffer-process (current-buffer)))))
+    (filter-non-sgr-control-sequences-in-region
+     start-marker
+     end-marker)))
+
+(add-hook 'comint-output-filter-functions
+          'filter-non-sgr-control-sequences-in-output)
 
 (use-package denote)
 
@@ -889,7 +969,7 @@
 (setq history-lenght 25)
 (savehist-mode 1)
 
-;;(defun oxo-change-number-at-point (change increment)
+;; (defun oxo-change-number-at-point (change increment)
 ;;  (let ((number (number-at-point))
 ;;        (point (point)))
 ;;    (when number
@@ -899,12 +979,12 @@
 ;;        (replace-match (number-to-string (funcall change number increment)))
 ;;        (goto-char point)))))
 
-;;(defun oxo-increment-number-at-point (&optional increment)
+;; (defun oxo-increment-number-at-point (&optional increment)
 ;;  "Increment number at point like vim's C-a"
 ;;  (interactive "p")
 ;;  (oxo-change-number-at-point '+ (or increment 1)))
 
-;;(defun oxo-decrement-number-at-point (&optional increment)
+;; (defun oxo-decrement-number-at-point (&optional increment)
 ;;  "Decrement number at point like vim's C-x"
 ;;  (interactive "p")
 ;;  (oxo-change-number-at-point '- (or increment 1)))
@@ -912,6 +992,32 @@
 ;; CAUTION! 'C-c a' conflicts with org agenda
 ;;  (global-set-key (kbd "C-c a") 'oxo-increment-number-at-point)
 ;;  (global-set-key (kbd "C-c x") 'oxo-decrement-number-at-point)
+
+
+(defun my-increment-number-at-point (&optional increment)
+  "Increment the number at point by INCREMENT."
+  (interactive "*p")
+  (let ((pos (point)))
+    (save-match-data
+      (skip-chars-backward "0-9")
+      (if (looking-at "[0-9]+")
+          (let ((field-width (- (match-end 0) (match-beginning 0)))
+                (newval (+ (string-to-number (match-string 0) 10) increment)))
+            (when (< newval 0)
+              (setq newval (+ (expt 10 field-width) newval)))
+            (replace-match (format (concat "%0" (int-to-string field-width) "d")
+                                   newval)))
+        (user-error "No number at point")))
+    (goto-char pos)))
+
+(defun my-decrement-number-at-point (&optional decrement)
+  "Decrement the number at point by DECREMENT."
+  (interactive "*p")
+  (my-increment-number-at-point (- decrement)))
+
+(use-package evil-nerd-commenter
+  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
+;; TODO AltGr /
 
 (oxo/leader-keys
   "w" '(:ignore t :wk "window")

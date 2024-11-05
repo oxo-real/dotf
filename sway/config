@@ -666,7 +666,7 @@ bindsym $mod+Mod1+9		$con_max  ## container maximize
 ### $mod+Mod1+123456
 ### TODO mpv doesn't resize properly while playing video
 bindsym $mod+Mod1+1		$con_hexa 1  ## container toggle float/tile width 1 hexapart
-bindsym $mod+Mod1+2		$con_hexa 2  ## container toggle float/til1e width 2 hexaparts
+bindsym $mod+Mod1+2		$con_hexa 2  ## container toggle float/tile width 2 hexaparts
 bindsym $mod+Mod1+3		$con_hexa 3  ## container toggle float/tile width 3 hexaparts
 bindsym $mod+Mod1+4		$con_hexa 4  ## container toggle float/tile width 4 hexaparts
 bindsym $mod+Mod1+5		$con_hexa 5  ## container toggle float/tile width 5 hexaparts

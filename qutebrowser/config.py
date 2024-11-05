@@ -179,15 +179,15 @@ c.colors.downloads.system.fg = 'none'
 ## Background color for hints. Note that you can use a `rgba(...)` value
 ## for transparency.
 ## Type: QssColor
-c.colors.hints.bg = '#005577'
+c.colors.hints.bg = 'black'
 
 ## Font color for hints.
 ## Type: QssColor
-c.colors.hints.fg = '#ffffb6'
+c.colors.hints.fg = '#96cbfe'
 
 ## Font color for the matched part of hints.
 ## Type: QtColor
-c.colors.hints.match.fg = '#b6b6ff'
+c.colors.hints.match.fg = 'black'
 
 ## Background color of the keyhint widget.
 ## Type: QssColor
@@ -200,7 +200,7 @@ c.colors.keyhint.fg = '#aaaaaa'
 
 ## Highlight color for keys to complete the current keychain.
 ## Type: QssColor
-c.colors.keyhint.suffix.fg = '#ffffb6'
+c.colors.keyhint.suffix.fg = '#96cbfe'
 
 ## Background color of an error message.
 ## Type: QssColor
@@ -1007,7 +1007,8 @@ c.fonts.downloads = 'default_size default_family'
 
 ## Font used for the hints.
 ## Type: Font
-c.fonts.hints = 'bold default_size Source Code Pro'
+c.fonts.hints = 'bold 17px Source Code Pro'
+#c.fonts.hints = 'bold default_size Source Code Pro'
 #c.fonts.hints = 'default_size default_family'
 
 ## Font used in the keyhint widget.
@@ -1763,9 +1764,9 @@ config.bind(';i', 'hint images')
 config.bind(';o', 'hint links fill :open {hint-url}')
 config.bind(';r', 'hint --rapid links tab-bg')
 config.bind(';t', 'hint inputs')
-config.bind(';v2', 'hint links spawn mpv --start=+00:00 --ytdl-raw-options=format-sort=res:240 --profile=cache_xs --demuxer-cache-wait --msg-level=all=v --user-agent=$USER_AGENT --force-window --no-terminal --keep-open=yes --ytdl {hint-url}')
-config.bind(';v3', 'hint links spawn mpv --start=+00:00 --ytdl-raw-options=format-sort=res:360 --profile=cache_xs --demuxer-cache-wait --msg-level=all=v --user-agent=$USER_AGENT --force-window --no-terminal --keep-open=yes --ytdl {hint-url}')
-config.bind(';v4', 'hint links spawn mpv --start=+00:00 --ytdl-raw-options=format-sort=res:480 --profile=cache_xs --demuxer-cache-wait --msg-level=all=v --user-agent=$USER_AGENT --force-window --no-terminal --keep-open=yes --ytdl {hint-url}')
+config.bind(';v2', 'hint links spawn mpv --start=+00:00 --ytdl-raw-options=format-sort=res:240 --profile=cache_xs --demuxer-cache-wait=no --msg-level=all=v --user-agent=$USER_AGENT --force-window --no-terminal --keep-open=yes --ytdl {hint-url}')
+config.bind(';v3', 'hint links spawn mpv --start=+00:00 --ytdl-raw-options=format-sort=res:360 --profile=cache_xs --demuxer-cache-wait=no --msg-level=all=v --user-agent=$USER_AGENT --force-window --no-terminal --keep-open=yes --ytdl {hint-url}')
+config.bind(';v4', 'hint links spawn mpv --start=+00:00 --ytdl-raw-options=format-sort=res:480 --profile=cache_xs --demuxer-cache-wait=no --msg-level=all=v --user-agent=$USER_AGENT --force-window --no-terminal --keep-open=yes --ytdl {hint-url}')
 config.bind(';v6', 'hint links spawn mpv --ytdl-format="best[filesize<600M]" --force-window --no-terminal --keep-open=yes --ytdl {hint-url}')
 config.bind(';v9', 'hint links spawn mpv --ytdl-format="best[filesize<900M]" --force-window --no-terminal --keep-open=yes --ytdl {hint-url}')
 config.bind(';y', 'hint links yank')

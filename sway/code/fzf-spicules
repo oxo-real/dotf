@@ -1,10 +1,10 @@
 #! /usr/bin/env sh
 
 
-sh "$XDG_DATA_HOME/c/git/note/linux/terminal/catalog/generate"
+sh "$XDG_DATA_HOME/c/git/note/catalog/generate"
 
 
-catalog="$XDG_DATA_HOME/c/git/note/linux/terminal/catalog/list"
+catalog="$XDG_DATA_HOME/c/git/note/catalog/list"
 
 
 ## NOTICE
@@ -15,4 +15,5 @@ cat $catalog | \
     fzf --height ~100% | \
     sed 's/[^ ]* *//' | \
     sed 's/  ## .*$//' | \
+    sed 's/  \/\/ .*$//' | \
     wl-copy -n
