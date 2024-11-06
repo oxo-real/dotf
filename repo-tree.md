@@ -856,828 +856,851 @@
 ├── notmuch.tar.aes
 ├── notmuch.tar.hash
 ├── nvim
-│   ├── autoload
-│   │   ├── plug.vim
-│   │   └── plug.vim.old
-│   ├── colors
-│   │   ├── emacs_charcoal_black
-│   │   ├── molokai.vim
-│   │   ├── muon.vim
-│   │   └── vim_colors.vim
-│   ├── damian.init
-│   ├── initDEV.lua
-│   ├── init.vim
-│   ├── plugins
-│   │   ├── auto-pairs
-│   │   │   ├── doc
-│   │   │   │   ├── AutoPairs.txt
-│   │   │   │   └── tags
-│   │   │   ├── plugin
-│   │   │   │   └── auto-pairs.vim
-│   │   │   └── README.md
-│   │   ├── base16-vim
-│   │   │   ├── base16-vim.png
-│   │   │   ├── colors
-│   │   │   │   ├── base16-3024.vim
-│   │   │   │   ├── base16-apathy.vim
-│   │   │   │   ├── base16-ashes.vim
-│   │   │   │   ├── base16-atelier-cave-light.vim
-│   │   │   │   ├── base16-atelier-cave.vim
-│   │   │   │   ├── base16-atelier-dune-light.vim
-│   │   │   │   ├── base16-atelier-dune.vim
-│   │   │   │   ├── base16-atelier-estuary-light.vim
-│   │   │   │   ├── base16-atelier-estuary.vim
-│   │   │   │   ├── base16-atelier-forest-light.vim
-│   │   │   │   ├── base16-atelier-forest.vim
-│   │   │   │   ├── base16-atelier-heath-light.vim
-│   │   │   │   ├── base16-atelier-heath.vim
-│   │   │   │   ├── base16-atelier-lakeside-light.vim
-│   │   │   │   ├── base16-atelier-lakeside.vim
-│   │   │   │   ├── base16-atelier-plateau-light.vim
-│   │   │   │   ├── base16-atelier-plateau.vim
-│   │   │   │   ├── base16-atelier-savanna-light.vim
-│   │   │   │   ├── base16-atelier-savanna.vim
-│   │   │   │   ├── base16-atelier-seaside-light.vim
-│   │   │   │   ├── base16-atelier-seaside.vim
-│   │   │   │   ├── base16-atelier-sulphurpool-light.vim
-│   │   │   │   ├── base16-atelier-sulphurpool.vim
-│   │   │   │   ├── base16-atlas.vim
-│   │   │   │   ├── base16-bespin.vim
-│   │   │   │   ├── base16-black-metal-bathory.vim
-│   │   │   │   ├── base16-black-metal-burzum.vim
-│   │   │   │   ├── base16-black-metal-dark-funeral.vim
-│   │   │   │   ├── base16-black-metal-gorgoroth.vim
-│   │   │   │   ├── base16-black-metal-immortal.vim
-│   │   │   │   ├── base16-black-metal-khold.vim
-│   │   │   │   ├── base16-black-metal-marduk.vim
-│   │   │   │   ├── base16-black-metal-mayhem.vim
-│   │   │   │   ├── base16-black-metal-nile.vim
-│   │   │   │   ├── base16-black-metal-venom.vim
-│   │   │   │   ├── base16-black-metal.vim
-│   │   │   │   ├── base16-brewer.vim
-│   │   │   │   ├── base16-bright.vim
-│   │   │   │   ├── base16-brogrammer.vim
-│   │   │   │   ├── base16-brushtrees-dark.vim
-│   │   │   │   ├── base16-brushtrees.vim
-│   │   │   │   ├── base16-chalk.vim
-│   │   │   │   ├── base16-circus.vim
-│   │   │   │   ├── base16-classic-dark.vim
-│   │   │   │   ├── base16-classic-light.vim
-│   │   │   │   ├── base16-codeschool.vim
-│   │   │   │   ├── base16-cupcake.vim
-│   │   │   │   ├── base16-cupertino.vim
-│   │   │   │   ├── base16-darktooth.vim
-│   │   │   │   ├── base16-decaf.vim
-│   │   │   │   ├── base16-default-dark.vim
-│   │   │   │   ├── base16-default-light.vim
-│   │   │   │   ├── base16-dracula.vim
-│   │   │   │   ├── base16-edge-dark.vim
-│   │   │   │   ├── base16-edge-light.vim
-│   │   │   │   ├── base16-eighties.vim
-│   │   │   │   ├── base16-embers.vim
-│   │   │   │   ├── base16-espresso.vim
-│   │   │   │   ├── base16-flat.vim
-│   │   │   │   ├── base16-framer.vim
-│   │   │   │   ├── base16-fruit-soda.vim
-│   │   │   │   ├── base16-gigavolt.vim
-│   │   │   │   ├── base16-github.vim
-│   │   │   │   ├── base16-google-dark.vim
-│   │   │   │   ├── base16-google-light.vim
-│   │   │   │   ├── base16-grayscale-dark.vim
-│   │   │   │   ├── base16-grayscale-light.vim
-│   │   │   │   ├── base16-greenscreen.vim
-│   │   │   │   ├── base16-gruvbox-dark-hard.vim
-│   │   │   │   ├── base16-gruvbox-dark-medium.vim
-│   │   │   │   ├── base16-gruvbox-dark-pale.vim
-│   │   │   │   ├── base16-gruvbox-dark-soft.vim
-│   │   │   │   ├── base16-gruvbox-light-hard.vim
-│   │   │   │   ├── base16-gruvbox-light-medium.vim
-│   │   │   │   ├── base16-gruvbox-light-soft.vim
-│   │   │   │   ├── base16-harmonic-dark.vim
-│   │   │   │   ├── base16-harmonic-light.vim
-│   │   │   │   ├── base16-heetch-light.vim
-│   │   │   │   ├── base16-heetch.vim
-│   │   │   │   ├── base16-helios.vim
-│   │   │   │   ├── base16-hopscotch.vim
-│   │   │   │   ├── base16-horizon-dark.vim
-│   │   │   │   ├── base16-horizon-light.vim
-│   │   │   │   ├── base16-horizon-terminal-dark.vim
-│   │   │   │   ├── base16-horizon-terminal-light.vim
-│   │   │   │   ├── base16-ia-dark.vim
-│   │   │   │   ├── base16-ia-light.vim
-│   │   │   │   ├── base16-icy.vim
-│   │   │   │   ├── base16-irblack.vim
-│   │   │   │   ├── base16-isotope.vim
-│   │   │   │   ├── base16-macintosh.vim
-│   │   │   │   ├── base16-marrakesh.vim
-│   │   │   │   ├── base16-material-darker.vim
-│   │   │   │   ├── base16-material-lighter.vim
-│   │   │   │   ├── base16-material-palenight.vim
-│   │   │   │   ├── base16-material.vim
-│   │   │   │   ├── base16-material-vivid.vim
-│   │   │   │   ├── base16-materia.vim
-│   │   │   │   ├── base16-mellow-purple.vim
-│   │   │   │   ├── base16-mexico-light.vim
-│   │   │   │   ├── base16-mocha.vim
-│   │   │   │   ├── base16-monokai.vim
-│   │   │   │   ├── base16-nord.vim
-│   │   │   │   ├── base16-nova.vim
-│   │   │   │   ├── base16-oceanicnext.vim
-│   │   │   │   ├── base16-ocean.vim
-│   │   │   │   ├── base16-onedark.vim
-│   │   │   │   ├── base16-one-light.vim
-│   │   │   │   ├── base16-outrun-dark.vim
-│   │   │   │   ├── base16-papercolor-dark.vim
-│   │   │   │   ├── base16-papercolor-light.vim
-│   │   │   │   ├── base16-paraiso.vim
-│   │   │   │   ├── base16-phd.vim
-│   │   │   │   ├── base16-pico.vim
-│   │   │   │   ├── base16-pop.vim
-│   │   │   │   ├── base16-porple.vim
-│   │   │   │   ├── base16-railscasts.vim
-│   │   │   │   ├── base16-rebecca.vim
-│   │   │   │   ├── base16-sandcastle.vim
-│   │   │   │   ├── base16-seti.vim
-│   │   │   │   ├── base16-shapeshifter.vim
-│   │   │   │   ├── base16-snazzy.vim
-│   │   │   │   ├── base16-solarflare.vim
-│   │   │   │   ├── base16-solarized-dark.vim
-│   │   │   │   ├── base16-solarized-light.vim
-│   │   │   │   ├── base16-spacemacs.vim
-│   │   │   │   ├── base16-summerfruit-dark.vim
-│   │   │   │   ├── base16-summerfruit-light.vim
-│   │   │   │   ├── base16-synth-midnight-dark.vim
-│   │   │   │   ├── base16-tomorrow-night-eighties.vim
-│   │   │   │   ├── base16-tomorrow-night.vim
-│   │   │   │   ├── base16-tomorrow.vim
-│   │   │   │   ├── base16-tube.vim
-│   │   │   │   ├── base16-twilight.vim
-│   │   │   │   ├── base16-unikitty-dark.vim
-│   │   │   │   ├── base16-unikitty-light.vim
-│   │   │   │   ├── base16-woodland.vim
-│   │   │   │   ├── base16-xcode-dusk.vim
-│   │   │   │   └── base16-zenburn.vim
-│   │   │   ├── LICENSE.md
-│   │   │   ├── README.md
-│   │   │   ├── templates
-│   │   │   │   ├── config.yaml
-│   │   │   │   └── default.mustache
-│   │   │   ├── with-base16colorspace-256-without-base16-shell.png
-│   │   │   └── without-base16colorspace-256-with-256-terminal-theme.png
-│   │   ├── delimitmate
-│   │   │   ├── autoload
-│   │   │   │   └── delimitMate.vim
-│   │   │   ├── basic_vimrc
-│   │   │   ├── doc
-│   │   │   │   ├── delimitMate.txt
-│   │   │   │   └── tags
-│   │   │   ├── Makefile
-│   │   │   ├── plugin
-│   │   │   │   └── delimitMate.vim
-│   │   │   ├── README.md
-│   │   │   └── test
-│   │   │       ├── autoclose_matchpairs.txt
-│   │   │       ├── autoclose_matchpairs.vim
-│   │   │       ├── autoclose_quotes.txt
-│   │   │       ├── autoclose_quotes.vim
-│   │   │       ├── eol_marker.vim
-│   │   │       ├── expand_cr.txt
-│   │   │       ├── expand_cr.vim
-│   │   │       ├── expand_space.txt
-│   │   │       ├── expand_space.vim
-│   │   │       ├── first_buffer_no_ft.vim
-│   │   │       ├── Makefile
-│   │   │       ├── README.md
-│   │   │       └── _setup.vim
-│   │   ├── fzf.vim
-│   │   │   ├── autoload
-│   │   │   │   └── fzf
-│   │   │   │       ├── vim
-│   │   │   │       │   ├── complete.vim
-│   │   │   │       │   └── listproc.vim
-│   │   │   │       └── vim.vim
-│   │   │   ├── bin
-│   │   │   │   ├── preview.rb
-│   │   │   │   ├── preview.sh
-│   │   │   │   ├── tagpreview.sh
-│   │   │   │   └── tags.pl
-│   │   │   ├── doc
-│   │   │   │   ├── fzf-vim.txt
-│   │   │   │   └── tags
-│   │   │   ├── LICENSE
-│   │   │   ├── plugin
-│   │   │   │   └── fzf.vim
-│   │   │   └── README.md
-│   │   ├── goyo.vim
-│   │   │   ├── autoload
-│   │   │   │   └── goyo.vim
-│   │   │   ├── doc
-│   │   │   │   ├── goyo.txt
-│   │   │   │   └── tags
-│   │   │   ├── LICENSE
-│   │   │   ├── plugin
-│   │   │   │   └── goyo.vim
-│   │   │   └── README.md
-│   │   ├── taboo.vim
-│   │   │   ├── doc
-│   │   │   │   ├── taboo.txt
-│   │   │   │   └── tags
-│   │   │   ├── LICENSE.txt
-│   │   │   ├── plugin
-│   │   │   │   └── taboo.vim
-│   │   │   └── README.md
-│   │   ├── vim-airline-themes
-│   │   │   ├── autoload
-│   │   │   │   └── airline
-│   │   │   │       └── themes
-│   │   │   │           ├── alduin.vim
-│   │   │   │           ├── angr.vim
-│   │   │   │           ├── apprentice.vim
-│   │   │   │           ├── atomic.vim
-│   │   │   │           ├── ayu_dark.vim
-│   │   │   │           ├── ayu_light.vim
-│   │   │   │           ├── ayu_mirage.vim
-│   │   │   │           ├── badwolf.vim
-│   │   │   │           ├── base16_3024.vim
-│   │   │   │           ├── base16_adwaita.vim
-│   │   │   │           ├── base16_apathy.vim
-│   │   │   │           ├── base16_ashes.vim
-│   │   │   │           ├── base16_atelier_cave_light.vim
-│   │   │   │           ├── base16_atelier_cave.vim
-│   │   │   │           ├── base16_atelier_dune_light.vim
-│   │   │   │           ├── base16_atelier_dune.vim
-│   │   │   │           ├── base16_atelierdune.vim
-│   │   │   │           ├── base16_atelier_estuary_light.vim
-│   │   │   │           ├── base16_atelier_estuary.vim
-│   │   │   │           ├── base16_atelier_forest_light.vim
-│   │   │   │           ├── base16_atelier_forest.vim
-│   │   │   │           ├── base16_atelierforest.vim
-│   │   │   │           ├── base16_atelier_heath_light.vim
-│   │   │   │           ├── base16_atelier_heath.vim
-│   │   │   │           ├── base16_atelierheath.vim
-│   │   │   │           ├── base16_atelier_lakeside_light.vim
-│   │   │   │           ├── base16_atelier_lakeside.vim
-│   │   │   │           ├── base16_atelierlakeside.vim
-│   │   │   │           ├── base16_atelier_plateau_light.vim
-│   │   │   │           ├── base16_atelier_plateau.vim
-│   │   │   │           ├── base16_atelier_savanna_light.vim
-│   │   │   │           ├── base16_atelier_savanna.vim
-│   │   │   │           ├── base16_atelier_seaside_light.vim
-│   │   │   │           ├── base16_atelier_seaside.vim
-│   │   │   │           ├── base16_atelierseaside.vim
-│   │   │   │           ├── base16_atelier_sulphurpool_light.vim
-│   │   │   │           ├── base16_atelier_sulphurpool.vim
-│   │   │   │           ├── base16_atlas.vim
-│   │   │   │           ├── base16_bespin.vim
-│   │   │   │           ├── base16_black_metal_bathory.vim
-│   │   │   │           ├── base16_black_metal_burzum.vim
-│   │   │   │           ├── base16_black_metal_dark_funeral.vim
-│   │   │   │           ├── base16_black_metal_gorgoroth.vim
-│   │   │   │           ├── base16_black_metal_immortal.vim
-│   │   │   │           ├── base16_black_metal_khold.vim
-│   │   │   │           ├── base16_black_metal_marduk.vim
-│   │   │   │           ├── base16_black_metal_mayhem.vim
-│   │   │   │           ├── base16_black_metal_nile.vim
-│   │   │   │           ├── base16_black_metal_venom.vim
-│   │   │   │           ├── base16_black_metal.vim
-│   │   │   │           ├── base16_brewer.vim
-│   │   │   │           ├── base16_bright.vim
-│   │   │   │           ├── base16_brogrammer.vim
-│   │   │   │           ├── base16_brushtrees_dark.vim
-│   │   │   │           ├── base16_brushtrees.vim
-│   │   │   │           ├── base16_chalk.vim
-│   │   │   │           ├── base16_circus.vim
-│   │   │   │           ├── base16_classic_dark.vim
-│   │   │   │           ├── base16_classic_light.vim
-│   │   │   │           ├── base16_classic.vim
-│   │   │   │           ├── base16_codeschool.vim
-│   │   │   │           ├── base16_colors.vim
-│   │   │   │           ├── base16color.vim
-│   │   │   │           ├── base16_cupcake.vim
-│   │   │   │           ├── base16_cupertino.vim
-│   │   │   │           ├── base16_darktooth.vim
-│   │   │   │           ├── base16_decaf.vim
-│   │   │   │           ├── base16_default_dark.vim
-│   │   │   │           ├── base16_default_light.vim
-│   │   │   │           ├── base16_default.vim
-│   │   │   │           ├── base16_dracula.vim
-│   │   │   │           ├── base16_edge_dark.vim
-│   │   │   │           ├── base16_edge_light.vim
-│   │   │   │           ├── base16_eighties.vim
-│   │   │   │           ├── base16_embers.vim
-│   │   │   │           ├── base16_espresso.vim
-│   │   │   │           ├── base16_flat.vim
-│   │   │   │           ├── base16_framer.vim
-│   │   │   │           ├── base16_fruit_soda.vim
-│   │   │   │           ├── base16_gigavolt.vim
-│   │   │   │           ├── base16_github.vim
-│   │   │   │           ├── base16_google_dark.vim
-│   │   │   │           ├── base16_google_light.vim
-│   │   │   │           ├── base16_google.vim
-│   │   │   │           ├── base16_grayscale_dark.vim
-│   │   │   │           ├── base16_grayscale_light.vim
-│   │   │   │           ├── base16_grayscale.vim
-│   │   │   │           ├── base16_greenscreen.vim
-│   │   │   │           ├── base16_gruvbox_dark_hard.vim
-│   │   │   │           ├── base16_gruvbox_dark_medium.vim
-│   │   │   │           ├── base16_gruvbox_dark_pale.vim
-│   │   │   │           ├── base16_gruvbox_dark_soft.vim
-│   │   │   │           ├── base16_gruvbox_light_hard.vim
-│   │   │   │           ├── base16_gruvbox_light_medium.vim
-│   │   │   │           ├── base16_gruvbox_light_soft.vim
-│   │   │   │           ├── base16_harmonic16.vim
-│   │   │   │           ├── base16_harmonic_dark.vim
-│   │   │   │           ├── base16_harmonic_light.vim
-│   │   │   │           ├── base16_heetch_light.vim
-│   │   │   │           ├── base16_heetch.vim
-│   │   │   │           ├── base16_helios.vim
-│   │   │   │           ├── base16_hopscotch.vim
-│   │   │   │           ├── base16_horizon_dark.vim
-│   │   │   │           ├── base16_horizon_light.vim
-│   │   │   │           ├── base16_horizon_terminal_dark.vim
-│   │   │   │           ├── base16_horizon_terminal_light.vim
-│   │   │   │           ├── base16_ia_dark.vim
-│   │   │   │           ├── base16_ia_light.vim
-│   │   │   │           ├── base16_icy.vim
-│   │   │   │           ├── base16_irblack.vim
-│   │   │   │           ├── base16_isotope.vim
-│   │   │   │           ├── base16_londontube.vim
-│   │   │   │           ├── base16_macintosh.vim
-│   │   │   │           ├── base16_marrakesh.vim
-│   │   │   │           ├── base16_material_darker.vim
-│   │   │   │           ├── base16_material_lighter.vim
-│   │   │   │           ├── base16_material_palenight.vim
-│   │   │   │           ├── base16_material.vim
-│   │   │   │           ├── base16_material_vivid.vim
-│   │   │   │           ├── base16_materia.vim
-│   │   │   │           ├── base16_mellow_purple.vim
-│   │   │   │           ├── base16_mexico_light.vim
-│   │   │   │           ├── base16_mocha.vim
-│   │   │   │           ├── base16_monokai.vim
-│   │   │   │           ├── base16_nord.vim
-│   │   │   │           ├── base16_nova.vim
-│   │   │   │           ├── base16_oceanicnext.vim
-│   │   │   │           ├── base16_ocean.vim
-│   │   │   │           ├── base16_onedark.vim
-│   │   │   │           ├── base16_one_light.vim
-│   │   │   │           ├── base16_outrun_dark.vim
-│   │   │   │           ├── base16_papercolor_dark.vim
-│   │   │   │           ├── base16_papercolor_light.vim
-│   │   │   │           ├── base16_paraiso.vim
-│   │   │   │           ├── base16_phd.vim
-│   │   │   │           ├── base16_pico.vim
-│   │   │   │           ├── base16_pop.vim
-│   │   │   │           ├── base16_porple.vim
-│   │   │   │           ├── base16_railscasts.vim
-│   │   │   │           ├── base16_rebecca.vim
-│   │   │   │           ├── base16_sandcastle.vim
-│   │   │   │           ├── base16_seti.vim
-│   │   │   │           ├── base16_shapeshifter.vim
-│   │   │   │           ├── base16_shell.vim
-│   │   │   │           ├── base16_snazzy.vim
-│   │   │   │           ├── base16_solarflare.vim
-│   │   │   │           ├── base16_solarized_dark.vim
-│   │   │   │           ├── base16_solarized_light.vim
-│   │   │   │           ├── base16_solarized.vim
-│   │   │   │           ├── base16_spacemacs.vim
-│   │   │   │           ├── base16_summerfruit_dark.vim
-│   │   │   │           ├── base16_summerfruit_light.vim
-│   │   │   │           ├── base16_summerfruit.vim
-│   │   │   │           ├── base16_synth_midnight_dark.vim
-│   │   │   │           ├── base16_tomorrow_night_eighties.vim
-│   │   │   │           ├── base16_tomorrow_night.vim
-│   │   │   │           ├── base16_tomorrow.vim
-│   │   │   │           ├── base16_tube.vim
-│   │   │   │           ├── base16_twilight.vim
-│   │   │   │           ├── base16_unikitty_dark.vim
-│   │   │   │           ├── base16_unikitty_light.vim
-│   │   │   │           ├── base16.vim
-│   │   │   │           ├── base16_vim.vim
-│   │   │   │           ├── base16_woodland.vim
-│   │   │   │           ├── base16_xcode_dusk.vim
-│   │   │   │           ├── base16_zenburn.vim
-│   │   │   │           ├── behelit.vim
-│   │   │   │           ├── biogoo.vim
-│   │   │   │           ├── bubblegum.vim
-│   │   │   │           ├── cobalt2.vim
-│   │   │   │           ├── cool.vim
-│   │   │   │           ├── dark_minimal.vim
-│   │   │   │           ├── desertink.vim
-│   │   │   │           ├── deus.vim
-│   │   │   │           ├── distinguished.vim
-│   │   │   │           ├── durant.vim
-│   │   │   │           ├── fairyfloss.vim
-│   │   │   │           ├── fruit_punch.vim
-│   │   │   │           ├── google_dark.vim
-│   │   │   │           ├── google_light.vim
-│   │   │   │           ├── hybridline.vim
-│   │   │   │           ├── hybrid.vim
-│   │   │   │           ├── jellybeans.vim
-│   │   │   │           ├── jet.vim
-│   │   │   │           ├── kalisi.vim
-│   │   │   │           ├── kolor.vim
-│   │   │   │           ├── laederon.vim
-│   │   │   │           ├── lessnoise.vim
-│   │   │   │           ├── lighthaus.vim
-│   │   │   │           ├── light.vim
-│   │   │   │           ├── lucius.vim
-│   │   │   │           ├── luna.vim
-│   │   │   │           ├── minimalist.vim
-│   │   │   │           ├── molokai.vim
-│   │   │   │           ├── monochrome.vim
-│   │   │   │           ├── murmur.vim
-│   │   │   │           ├── night_owl.vim
-│   │   │   │           ├── nord_minimal.vim
-│   │   │   │           ├── onedark.vim
-│   │   │   │           ├── ouo.vim
-│   │   │   │           ├── owo.vim
-│   │   │   │           ├── papercolor.vim
-│   │   │   │           ├── peaksea.vim
-│   │   │   │           ├── powerlineish.vim
-│   │   │   │           ├── qwq.vim
-│   │   │   │           ├── ravenpower.vim
-│   │   │   │           ├── raven.vim
-│   │   │   │           ├── seagull.vim
-│   │   │   │           ├── selenized_bw.vim
-│   │   │   │           ├── selenized.vim
-│   │   │   │           ├── seoul256.vim
-│   │   │   │           ├── serene.vim
-│   │   │   │           ├── sierra.vim
-│   │   │   │           ├── silver.vim
-│   │   │   │           ├── simple.vim
-│   │   │   │           ├── soda.vim
-│   │   │   │           ├── solarized_flood.vim
-│   │   │   │           ├── solarized.vim
-│   │   │   │           ├── sol.vim
-│   │   │   │           ├── supernova.vim
-│   │   │   │           ├── term_light.vim
-│   │   │   │           ├── term.vim
-│   │   │   │           ├── tomorrow.vim
-│   │   │   │           ├── transparent.vim
-│   │   │   │           ├── ubaryd.vim
-│   │   │   │           ├── understated.vim
-│   │   │   │           ├── violet.vim
-│   │   │   │           ├── wombat.vim
-│   │   │   │           ├── xtermlight.vim
-│   │   │   │           └── zenburn.vim
-│   │   │   ├── doc
-│   │   │   │   ├── airline-themes.txt
-│   │   │   │   └── tags
-│   │   │   ├── LICENSE
-│   │   │   ├── plugin
-│   │   │   │   └── airline-themes.vim
-│   │   │   ├── README.md
-│   │   │   └── test
-│   │   │       └── airline-themes.vader
-│   │   ├── vim-autoswap
-│   │   │   ├── COPYING.CC0
-│   │   │   ├── plugin
-│   │   │   │   └── autoswap.vim
-│   │   │   └── README.md
-│   │   ├── vim-dotoo
-│   │   │   ├── autoload
-│   │   │   │   ├── dotoo
-│   │   │   │   │   ├── agenda_views
-│   │   │   │   │   │   ├── agenda.vim
-│   │   │   │   │   │   ├── notes.vim
-│   │   │   │   │   │   ├── plugins
-│   │   │   │   │   │   │   └── log_summary.vim
-│   │   │   │   │   │   ├── refiles.vim
-│   │   │   │   │   │   ├── search.vim
-│   │   │   │   │   │   ├── tagged.vim
-│   │   │   │   │   │   ├── todos.vim
-│   │   │   │   │   │   └── wikis.vim
-│   │   │   │   │   ├── agenda.vim
-│   │   │   │   │   ├── autocompletion.vim
-│   │   │   │   │   ├── capture.vim
-│   │   │   │   │   ├── checkbox.vim
-│   │   │   │   │   ├── clock.vim
-│   │   │   │   │   ├── date.vim
-│   │   │   │   │   ├── link.vim
-│   │   │   │   │   ├── parser
-│   │   │   │   │   │   ├── directive.vim
-│   │   │   │   │   │   ├── headline.vim
-│   │   │   │   │   │   ├── lexer.vim
-│   │   │   │   │   │   ├── logbook.vim
-│   │   │   │   │   │   ├── metadata.vim
-│   │   │   │   │   │   └── properties.vim
-│   │   │   │   │   ├── parser.vim
-│   │   │   │   │   ├── time.vim
-│   │   │   │   │   └── utils.vim
-│   │   │   │   └── dotoo.vim
-│   │   │   ├── doc
-│   │   │   │   ├── dotoo.txt
-│   │   │   │   └── tags
-│   │   │   ├── dotoo.dotoo
-│   │   │   ├── ftdetect
-│   │   │   │   └── dotoo.vim
-│   │   │   ├── ftplugin
-│   │   │   │   ├── dotooagenda.vim
-│   │   │   │   ├── dotoocapture.vim
-│   │   │   │   └── dotoo.vim
-│   │   │   ├── indent
-│   │   │   │   ├── dotoocapture.vim
-│   │   │   │   └── dotoo.vim
-│   │   │   ├── plugin
-│   │   │   │   └── dotoo.vim
-│   │   │   ├── README.md
-│   │   │   ├── syntax
-│   │   │   │   ├── dotooagenda.vim
-│   │   │   │   ├── dotoocapture.vim
-│   │   │   │   └── dotoo.vim
-│   │   │   └── t
-│   │   │       ├── autoload
-│   │   │       │   └── dotoo
-│   │   │       │       ├── checkbox_test.vim
-│   │   │       │       └── parser_test.vim
-│   │   │       └── fixtures
-│   │   │           └── sample.dotoo
-│   │   ├── vim-fugitive
-│   │   │   ├── autoload
-│   │   │   │   └── fugitive.vim
-│   │   │   ├── CONTRIBUTING.markdown
-│   │   │   ├── doc
-│   │   │   │   ├── fugitive.txt
-│   │   │   │   └── tags
-│   │   │   ├── ftdetect
-│   │   │   │   └── fugitive.vim
-│   │   │   ├── ftplugin
-│   │   │   │   └── fugitiveblame.vim
-│   │   │   ├── plugin
-│   │   │   │   └── fugitive.vim
-│   │   │   ├── README.markdown
-│   │   │   └── syntax
-│   │   │       ├── fugitiveblame.vim
-│   │   │       └── fugitive.vim
-│   │   ├── vim-orgmode
-│   │   │   ├── CHANGELOG.org
-│   │   │   ├── doc
-│   │   │   │   ├── orgguide.txt
-│   │   │   │   └── tags
-│   │   │   ├── examples
-│   │   │   │   ├── mylife.gif
-│   │   │   │   ├── mylife.org
-│   │   │   │   ├── mylife.png
-│   │   │   │   └── plugins
-│   │   │   │       └── PluginExample.py
-│   │   │   ├── ftdetect
-│   │   │   │   └── org.vim
-│   │   │   ├── ftplugin
-│   │   │   │   ├── org.cnf
-│   │   │   │   ├── orgmode
-│   │   │   │   │   ├── docs
-│   │   │   │   │   │   ├── conf.py
-│   │   │   │   │   │   ├── index.rst
-│   │   │   │   │   │   ├── make.bat
-│   │   │   │   │   │   ├── Makefile
-│   │   │   │   │   │   ├── orgmode.liborgmode.rst
-│   │   │   │   │   │   ├── orgmode.plugins.rst
-│   │   │   │   │   │   ├── orgmode.py3compat.rst
-│   │   │   │   │   │   └── orgmode.rst
-│   │   │   │   │   ├── exceptions.py
-│   │   │   │   │   ├── __init__.py
-│   │   │   │   │   ├── keybinding.py
-│   │   │   │   │   ├── liborgmode
-│   │   │   │   │   │   ├── agendafilter.py
-│   │   │   │   │   │   ├── agenda.py
-│   │   │   │   │   │   ├── base.py
-│   │   │   │   │   │   ├── checkboxes.py
-│   │   │   │   │   │   ├── documents.py
-│   │   │   │   │   │   ├── dom_obj.py
-│   │   │   │   │   │   ├── headings.py
-│   │   │   │   │   │   ├── __init__.py
-│   │   │   │   │   │   └── orgdate.py
-│   │   │   │   │   ├── menu.py
-│   │   │   │   │   ├── plugins
-│   │   │   │   │   │   ├── Agenda.py
-│   │   │   │   │   │   ├── Date.py
-│   │   │   │   │   │   ├── EditCheckbox.py
-│   │   │   │   │   │   ├── EditStructure.py
-│   │   │   │   │   │   ├── Export.py
-│   │   │   │   │   │   ├── Hyperlinks.py
-│   │   │   │   │   │   ├── __init__.py
-│   │   │   │   │   │   ├── LoggingWork.py
-│   │   │   │   │   │   ├── Misc.py
-│   │   │   │   │   │   ├── Navigator.py
-│   │   │   │   │   │   ├── ShowHide.py
-│   │   │   │   │   │   ├── TagsProperties.py
-│   │   │   │   │   │   └── Todo.py
-│   │   │   │   │   ├── py3compat
-│   │   │   │   │   │   ├── encode_compatibility.py
-│   │   │   │   │   │   ├── __init__.py
-│   │   │   │   │   │   ├── py_py3_string.py
-│   │   │   │   │   │   ├── unicode_compatibility.py
-│   │   │   │   │   │   └── xrange_compatibility.py
-│   │   │   │   │   ├── settings.py
-│   │   │   │   │   ├── vimbuffer.py
-│   │   │   │   │   └── _vim.py
-│   │   │   │   └── org.vim
-│   │   │   ├── indent
-│   │   │   │   └── org.vim
-│   │   │   ├── LICENSE
-│   │   │   ├── Makefile
-│   │   │   ├── README.org
-│   │   │   ├── syntax
-│   │   │   │   ├── orgagenda.vim
-│   │   │   │   ├── orgtodo.vim
-│   │   │   │   └── org.vim
-│   │   │   └── tests
-│   │   │       ├── orgmode_testfile.org
-│   │   │       ├── run_tests.py
-│   │   │       ├── test_libagendafilter.py
-│   │   │       ├── test_libbase.py
-│   │   │       ├── test_libcheckbox.py
-│   │   │       ├── test_libheading.py
-│   │   │       ├── test_liborgdate_parsing.py
-│   │   │       ├── test_liborgdate.py
-│   │   │       ├── test_liborgdatetime.py
-│   │   │       ├── test_liborgdate_utf8.py
-│   │   │       ├── test_liborgtimerange.py
-│   │   │       ├── test_plugin_date.py
-│   │   │       ├── test_plugin_edit_checkbox.py
-│   │   │       ├── test_plugin_edit_structure.py
-│   │   │       ├── test_plugin_mappings.py
-│   │   │       ├── test_plugin_misc.py
-│   │   │       ├── test_plugin_navigator.py
-│   │   │       ├── test_plugin_show_hide.py
-│   │   │       ├── test_plugin_tags_properties.py
-│   │   │       ├── test_plugin_todo.py
-│   │   │       ├── test_vimbuffer.py
-│   │   │       └── vim.py
-│   │   ├── vim-sandwich
-│   │   │   ├── after
-│   │   │   │   └── ftplugin
-│   │   │   │       ├── initex
-│   │   │   │       │   └── sandwich.vim
-│   │   │   │       ├── julia
-│   │   │   │       │   └── sandwich.vim
-│   │   │   │       ├── plaintex
-│   │   │   │       │   └── sandwich.vim
-│   │   │   │       ├── tex
-│   │   │   │       │   └── sandwich.vim
-│   │   │   │       └── vim
-│   │   │   │           └── sandwich.vim
-│   │   │   ├── autoload
-│   │   │   │   ├── operator
-│   │   │   │   │   ├── sandwich
-│   │   │   │   │   │   ├── act.vim
-│   │   │   │   │   │   ├── lib.vim
-│   │   │   │   │   │   ├── operator.vim
-│   │   │   │   │   │   └── stuff.vim
-│   │   │   │   │   └── sandwich.vim
-│   │   │   │   ├── sandwich
-│   │   │   │   │   ├── clock.vim
-│   │   │   │   │   ├── constants.vim
-│   │   │   │   │   ├── filetype
-│   │   │   │   │   │   └── tex.vim
-│   │   │   │   │   ├── highlight.vim
-│   │   │   │   │   ├── magicchar
-│   │   │   │   │   │   ├── f.vim
-│   │   │   │   │   │   ├── i.vim
-│   │   │   │   │   │   └── t.vim
-│   │   │   │   │   ├── messenger.vim
-│   │   │   │   │   ├── opt.vim
-│   │   │   │   │   └── util.vim
-│   │   │   │   ├── sandwich.vim
-│   │   │   │   └── textobj
-│   │   │   │       ├── sandwich
-│   │   │   │       │   ├── lib.vim
-│   │   │   │       │   ├── recipes.vim
-│   │   │   │       │   ├── sandwich.vim
-│   │   │   │       │   └── textobj.vim
-│   │   │   │       └── sandwich.vim
-│   │   │   ├── doc
-│   │   │   │   ├── compound-sandwich
-│   │   │   │   ├── operator-sandwich.jax
-│   │   │   │   ├── operator-sandwich.txt
-│   │   │   │   ├── sandwich.jax
-│   │   │   │   ├── sandwich.txt
-│   │   │   │   ├── tags
-│   │   │   │   ├── tags-ja
-│   │   │   │   ├── textobj-sandwich.jax
-│   │   │   │   └── textobj-sandwich.txt
-│   │   │   ├── macros
-│   │   │   │   └── sandwich
-│   │   │   │       ├── ftplugin
-│   │   │   │       │   └── tex.vim
-│   │   │   │       └── keymap
-│   │   │   │           └── surround.vim
-│   │   │   ├── plugin
-│   │   │   │   ├── operator
-│   │   │   │   │   └── sandwich.vim
-│   │   │   │   ├── sandwich.vim
-│   │   │   │   └── textobj
-│   │   │   │       └── sandwich.vim
-│   │   │   ├── README.md
-│   │   │   └── test
-│   │   │       ├── dot-repeat
-│   │   │       │   ├── test_dot.bat
-│   │   │       │   ├── test_dot.sh
-│   │   │       │   └── test_dot.vim
-│   │   │       ├── operator-add.vim
-│   │   │       ├── operator-delete.vim
-│   │   │       ├── operator-replace.vim
-│   │   │       ├── README
-│   │   │       ├── surround
-│   │   │       │   └── test-surround.vim
-│   │   │       ├── test-magicchar-f.vim
-│   │   │       ├── test-magicchar-t-emmet.vim
-│   │   │       ├── test-magicchar-t.vim
-│   │   │       ├── textobj-auto.vim
-│   │   │       └── textobj-query.vim
-│   │   └── vim-surround
-│   │       ├── doc
-│   │       │   ├── surround.txt
-│   │       │   └── tags
-│   │       ├── plugin
-│   │       │   └── surround.vim
-│   │       └── README.markdown
-│   ├── sources
-│   │   └── damian_conway
-│   │       ├── bin
-│   │       │   ├── file_template
-│   │       │   ├── install
-│   │       │   ├── lessvim
-│   │       │   ├── list2bullets
-│   │       │   ├── listplusdir
-│   │       │   ├── listplusdirplusmodules
-│   │       │   ├── metapd
-│   │       │   ├── normalize_module_name
-│   │       │   ├── pbtranscopy
-│   │       │   ├── pbtranspaste
-│   │       │   ├── pd
-│   │       │   ├── perltests
-│   │       │   ├── polyperl
-│   │       │   ├── rename_module_to
-│   │       │   └── terminal_promote_vim_session
-│   │       ├── grammarian
-│   │       │   ├── cautions
-│   │       │   │   ├── data.vim
-│   │       │   │   └── spell
-│   │       │   │       ├── en.latin1.add
-│   │       │   │       ├── en.latin1.add.spl
-│   │       │   │       ├── en.utf-8.add
-│   │       │   │       └── en.utf-8.add.spl
-│   │       │   └── errors
-│   │       │       ├── data.vim
-│   │       │       └── spell
-│   │       │           ├── en.latin1.add
-│   │       │           ├── en.latin1.add.spl
-│   │       │           ├── en.utf-8.add
-│   │       │           ├── en.utf8.add
-│   │       │           ├── en.utf-8.add.spl
-│   │       │           └── en.utf8.add.spl
-│   │       ├── plugin
-│   │       │   ├── arrownavigation.vim
-│   │       │   ├── automkdir.vim
-│   │       │   ├── autoswap_mac_linux.vim
-│   │       │   ├── betterdigraphs_utf8.vim
-│   │       │   ├── betterdigraphs.vim
-│   │       │   ├── blockwise.vim
-│   │       │   ├── colalignsimple.vim
-│   │       │   ├── comment_toggle.vim
-│   │       │   ├── copyeditpaste.vim
-│   │       │   ├── doc.patch
-│   │       │   ├── documap.vim
-│   │       │   ├── dragvisuals.vim
-│   │       │   ├── eqalignsimple.vim
-│   │       │   ├── file_templates.vim
-│   │       │   ├── fillabbr.vim
-│   │       │   ├── foldsearches.vim
-│   │       │   ├── goto_file.vim
-│   │       │   ├── grammarian.vim
-│   │       │   ├── gvi.vim
-│   │       │   ├── hlnext.vim
-│   │       │   ├── hudigraphs_utf8.vim
-│   │       │   ├── hudigraphs.vim
-│   │       │   ├── listtrans.vim
-│   │       │   ├── logevents.vim
-│   │       │   ├── miv.vim
-│   │       │   ├── normalized_search.vim
-│   │       │   ├── perlrefactor.vim
-│   │       │   ├── persistentvisuals.vim
-│   │       │   ├── schlepp.vim
-│   │       │   ├── scrollwithcursor.vim
-│   │       │   ├── smartcom.vim
-│   │       │   ├── smartvcopy.vim
-│   │       │   ├── SWTC.vim
-│   │       │   ├── tablecellselect.vim
-│   │       │   ├── todo_support.vim
-│   │       │   ├── trackperlvars.vim
-│   │       │   ├── udpopup.vim
-│   │       │   ├── undowarnings.vim
-│   │       │   ├── visualguide.vim
-│   │       │   ├── visualsmartia.vim
-│   │       │   ├── vmath.vim
-│   │       │   ├── warmmargin.vim
-│   │       │   ├── xmlmatch.vim
-│   │       │   └── yankmatches.vim
-│   │       ├── README
-│   │       └── spell
-│   │           └── en-basic.latin1.spl
-│   ├── test.init
+│   ├── doc
+│   │   ├── kickstart.txt
+│   │   └── tags
+│   ├── init.lua
+│   ├── kickstart
+│   ├── lazy-lock.json
+│   ├── LICENSE.md
+│   ├── lua
+│   │   ├── custom
+│   │   │   └── plugins
+│   │   │       └── init.lua
+│   │   └── kickstart
+│   │       ├── health.lua
+│   │       └── plugins
+│   │           ├── autopairs.lua
+│   │           ├── debug.lua
+│   │           ├── gitsigns.lua
+│   │           ├── indent_line.lua
+│   │           ├── lint.lua
+│   │           └── neo-tree.lua
+│   ├── README.md
 │   ├── viminfo.aes
-│   └── viminfo.hash
+│   ├── viminfo.hash
+│   └── zzz_deprecated
+│       ├── autoload
+│       │   ├── plug.vim
+│       │   └── plug.vim.old
+│       ├── colors
+│       │   ├── emacs_charcoal_black
+│       │   ├── molokai.vim
+│       │   ├── muon.vim
+│       │   └── vim_colors.vim
+│       ├── damian.init
+│       ├── initDEV.lua
+│       ├── init.vim
+│       ├── plugins
+│       │   ├── auto-pairs
+│       │   │   ├── doc
+│       │   │   │   ├── AutoPairs.txt
+│       │   │   │   └── tags
+│       │   │   ├── plugin
+│       │   │   │   └── auto-pairs.vim
+│       │   │   └── README.md
+│       │   ├── base16-vim
+│       │   │   ├── base16-vim.png
+│       │   │   ├── colors
+│       │   │   │   ├── base16-3024.vim
+│       │   │   │   ├── base16-apathy.vim
+│       │   │   │   ├── base16-ashes.vim
+│       │   │   │   ├── base16-atelier-cave-light.vim
+│       │   │   │   ├── base16-atelier-cave.vim
+│       │   │   │   ├── base16-atelier-dune-light.vim
+│       │   │   │   ├── base16-atelier-dune.vim
+│       │   │   │   ├── base16-atelier-estuary-light.vim
+│       │   │   │   ├── base16-atelier-estuary.vim
+│       │   │   │   ├── base16-atelier-forest-light.vim
+│       │   │   │   ├── base16-atelier-forest.vim
+│       │   │   │   ├── base16-atelier-heath-light.vim
+│       │   │   │   ├── base16-atelier-heath.vim
+│       │   │   │   ├── base16-atelier-lakeside-light.vim
+│       │   │   │   ├── base16-atelier-lakeside.vim
+│       │   │   │   ├── base16-atelier-plateau-light.vim
+│       │   │   │   ├── base16-atelier-plateau.vim
+│       │   │   │   ├── base16-atelier-savanna-light.vim
+│       │   │   │   ├── base16-atelier-savanna.vim
+│       │   │   │   ├── base16-atelier-seaside-light.vim
+│       │   │   │   ├── base16-atelier-seaside.vim
+│       │   │   │   ├── base16-atelier-sulphurpool-light.vim
+│       │   │   │   ├── base16-atelier-sulphurpool.vim
+│       │   │   │   ├── base16-atlas.vim
+│       │   │   │   ├── base16-bespin.vim
+│       │   │   │   ├── base16-black-metal-bathory.vim
+│       │   │   │   ├── base16-black-metal-burzum.vim
+│       │   │   │   ├── base16-black-metal-dark-funeral.vim
+│       │   │   │   ├── base16-black-metal-gorgoroth.vim
+│       │   │   │   ├── base16-black-metal-immortal.vim
+│       │   │   │   ├── base16-black-metal-khold.vim
+│       │   │   │   ├── base16-black-metal-marduk.vim
+│       │   │   │   ├── base16-black-metal-mayhem.vim
+│       │   │   │   ├── base16-black-metal-nile.vim
+│       │   │   │   ├── base16-black-metal-venom.vim
+│       │   │   │   ├── base16-black-metal.vim
+│       │   │   │   ├── base16-brewer.vim
+│       │   │   │   ├── base16-bright.vim
+│       │   │   │   ├── base16-brogrammer.vim
+│       │   │   │   ├── base16-brushtrees-dark.vim
+│       │   │   │   ├── base16-brushtrees.vim
+│       │   │   │   ├── base16-chalk.vim
+│       │   │   │   ├── base16-circus.vim
+│       │   │   │   ├── base16-classic-dark.vim
+│       │   │   │   ├── base16-classic-light.vim
+│       │   │   │   ├── base16-codeschool.vim
+│       │   │   │   ├── base16-cupcake.vim
+│       │   │   │   ├── base16-cupertino.vim
+│       │   │   │   ├── base16-darktooth.vim
+│       │   │   │   ├── base16-decaf.vim
+│       │   │   │   ├── base16-default-dark.vim
+│       │   │   │   ├── base16-default-light.vim
+│       │   │   │   ├── base16-dracula.vim
+│       │   │   │   ├── base16-edge-dark.vim
+│       │   │   │   ├── base16-edge-light.vim
+│       │   │   │   ├── base16-eighties.vim
+│       │   │   │   ├── base16-embers.vim
+│       │   │   │   ├── base16-espresso.vim
+│       │   │   │   ├── base16-flat.vim
+│       │   │   │   ├── base16-framer.vim
+│       │   │   │   ├── base16-fruit-soda.vim
+│       │   │   │   ├── base16-gigavolt.vim
+│       │   │   │   ├── base16-github.vim
+│       │   │   │   ├── base16-google-dark.vim
+│       │   │   │   ├── base16-google-light.vim
+│       │   │   │   ├── base16-grayscale-dark.vim
+│       │   │   │   ├── base16-grayscale-light.vim
+│       │   │   │   ├── base16-greenscreen.vim
+│       │   │   │   ├── base16-gruvbox-dark-hard.vim
+│       │   │   │   ├── base16-gruvbox-dark-medium.vim
+│       │   │   │   ├── base16-gruvbox-dark-pale.vim
+│       │   │   │   ├── base16-gruvbox-dark-soft.vim
+│       │   │   │   ├── base16-gruvbox-light-hard.vim
+│       │   │   │   ├── base16-gruvbox-light-medium.vim
+│       │   │   │   ├── base16-gruvbox-light-soft.vim
+│       │   │   │   ├── base16-harmonic-dark.vim
+│       │   │   │   ├── base16-harmonic-light.vim
+│       │   │   │   ├── base16-heetch-light.vim
+│       │   │   │   ├── base16-heetch.vim
+│       │   │   │   ├── base16-helios.vim
+│       │   │   │   ├── base16-hopscotch.vim
+│       │   │   │   ├── base16-horizon-dark.vim
+│       │   │   │   ├── base16-horizon-light.vim
+│       │   │   │   ├── base16-horizon-terminal-dark.vim
+│       │   │   │   ├── base16-horizon-terminal-light.vim
+│       │   │   │   ├── base16-ia-dark.vim
+│       │   │   │   ├── base16-ia-light.vim
+│       │   │   │   ├── base16-icy.vim
+│       │   │   │   ├── base16-irblack.vim
+│       │   │   │   ├── base16-isotope.vim
+│       │   │   │   ├── base16-macintosh.vim
+│       │   │   │   ├── base16-marrakesh.vim
+│       │   │   │   ├── base16-material-darker.vim
+│       │   │   │   ├── base16-material-lighter.vim
+│       │   │   │   ├── base16-material-palenight.vim
+│       │   │   │   ├── base16-material.vim
+│       │   │   │   ├── base16-material-vivid.vim
+│       │   │   │   ├── base16-materia.vim
+│       │   │   │   ├── base16-mellow-purple.vim
+│       │   │   │   ├── base16-mexico-light.vim
+│       │   │   │   ├── base16-mocha.vim
+│       │   │   │   ├── base16-monokai.vim
+│       │   │   │   ├── base16-nord.vim
+│       │   │   │   ├── base16-nova.vim
+│       │   │   │   ├── base16-oceanicnext.vim
+│       │   │   │   ├── base16-ocean.vim
+│       │   │   │   ├── base16-onedark.vim
+│       │   │   │   ├── base16-one-light.vim
+│       │   │   │   ├── base16-outrun-dark.vim
+│       │   │   │   ├── base16-papercolor-dark.vim
+│       │   │   │   ├── base16-papercolor-light.vim
+│       │   │   │   ├── base16-paraiso.vim
+│       │   │   │   ├── base16-phd.vim
+│       │   │   │   ├── base16-pico.vim
+│       │   │   │   ├── base16-pop.vim
+│       │   │   │   ├── base16-porple.vim
+│       │   │   │   ├── base16-railscasts.vim
+│       │   │   │   ├── base16-rebecca.vim
+│       │   │   │   ├── base16-sandcastle.vim
+│       │   │   │   ├── base16-seti.vim
+│       │   │   │   ├── base16-shapeshifter.vim
+│       │   │   │   ├── base16-snazzy.vim
+│       │   │   │   ├── base16-solarflare.vim
+│       │   │   │   ├── base16-solarized-dark.vim
+│       │   │   │   ├── base16-solarized-light.vim
+│       │   │   │   ├── base16-spacemacs.vim
+│       │   │   │   ├── base16-summerfruit-dark.vim
+│       │   │   │   ├── base16-summerfruit-light.vim
+│       │   │   │   ├── base16-synth-midnight-dark.vim
+│       │   │   │   ├── base16-tomorrow-night-eighties.vim
+│       │   │   │   ├── base16-tomorrow-night.vim
+│       │   │   │   ├── base16-tomorrow.vim
+│       │   │   │   ├── base16-tube.vim
+│       │   │   │   ├── base16-twilight.vim
+│       │   │   │   ├── base16-unikitty-dark.vim
+│       │   │   │   ├── base16-unikitty-light.vim
+│       │   │   │   ├── base16-woodland.vim
+│       │   │   │   ├── base16-xcode-dusk.vim
+│       │   │   │   └── base16-zenburn.vim
+│       │   │   ├── LICENSE.md
+│       │   │   ├── README.md
+│       │   │   ├── templates
+│       │   │   │   ├── config.yaml
+│       │   │   │   └── default.mustache
+│       │   │   ├── with-base16colorspace-256-without-base16-shell.png
+│       │   │   └── without-base16colorspace-256-with-256-terminal-theme.png
+│       │   ├── delimitmate
+│       │   │   ├── autoload
+│       │   │   │   └── delimitMate.vim
+│       │   │   ├── basic_vimrc
+│       │   │   ├── doc
+│       │   │   │   ├── delimitMate.txt
+│       │   │   │   └── tags
+│       │   │   ├── Makefile
+│       │   │   ├── plugin
+│       │   │   │   └── delimitMate.vim
+│       │   │   ├── README.md
+│       │   │   └── test
+│       │   │       ├── autoclose_matchpairs.txt
+│       │   │       ├── autoclose_matchpairs.vim
+│       │   │       ├── autoclose_quotes.txt
+│       │   │       ├── autoclose_quotes.vim
+│       │   │       ├── eol_marker.vim
+│       │   │       ├── expand_cr.txt
+│       │   │       ├── expand_cr.vim
+│       │   │       ├── expand_space.txt
+│       │   │       ├── expand_space.vim
+│       │   │       ├── first_buffer_no_ft.vim
+│       │   │       ├── Makefile
+│       │   │       ├── README.md
+│       │   │       └── _setup.vim
+│       │   ├── fzf.vim
+│       │   │   ├── autoload
+│       │   │   │   └── fzf
+│       │   │   │       ├── vim
+│       │   │   │       │   ├── complete.vim
+│       │   │   │       │   └── listproc.vim
+│       │   │   │       └── vim.vim
+│       │   │   ├── bin
+│       │   │   │   ├── preview.rb
+│       │   │   │   ├── preview.sh
+│       │   │   │   ├── tagpreview.sh
+│       │   │   │   └── tags.pl
+│       │   │   ├── doc
+│       │   │   │   ├── fzf-vim.txt
+│       │   │   │   └── tags
+│       │   │   ├── LICENSE
+│       │   │   ├── plugin
+│       │   │   │   └── fzf.vim
+│       │   │   └── README.md
+│       │   ├── goyo.vim
+│       │   │   ├── autoload
+│       │   │   │   └── goyo.vim
+│       │   │   ├── doc
+│       │   │   │   ├── goyo.txt
+│       │   │   │   └── tags
+│       │   │   ├── LICENSE
+│       │   │   ├── plugin
+│       │   │   │   └── goyo.vim
+│       │   │   └── README.md
+│       │   ├── taboo.vim
+│       │   │   ├── doc
+│       │   │   │   ├── taboo.txt
+│       │   │   │   └── tags
+│       │   │   ├── LICENSE.txt
+│       │   │   ├── plugin
+│       │   │   │   └── taboo.vim
+│       │   │   └── README.md
+│       │   ├── vim-airline-themes
+│       │   │   ├── autoload
+│       │   │   │   └── airline
+│       │   │   │       └── themes
+│       │   │   │           ├── alduin.vim
+│       │   │   │           ├── angr.vim
+│       │   │   │           ├── apprentice.vim
+│       │   │   │           ├── atomic.vim
+│       │   │   │           ├── ayu_dark.vim
+│       │   │   │           ├── ayu_light.vim
+│       │   │   │           ├── ayu_mirage.vim
+│       │   │   │           ├── badwolf.vim
+│       │   │   │           ├── base16_3024.vim
+│       │   │   │           ├── base16_adwaita.vim
+│       │   │   │           ├── base16_apathy.vim
+│       │   │   │           ├── base16_ashes.vim
+│       │   │   │           ├── base16_atelier_cave_light.vim
+│       │   │   │           ├── base16_atelier_cave.vim
+│       │   │   │           ├── base16_atelier_dune_light.vim
+│       │   │   │           ├── base16_atelier_dune.vim
+│       │   │   │           ├── base16_atelierdune.vim
+│       │   │   │           ├── base16_atelier_estuary_light.vim
+│       │   │   │           ├── base16_atelier_estuary.vim
+│       │   │   │           ├── base16_atelier_forest_light.vim
+│       │   │   │           ├── base16_atelier_forest.vim
+│       │   │   │           ├── base16_atelierforest.vim
+│       │   │   │           ├── base16_atelier_heath_light.vim
+│       │   │   │           ├── base16_atelier_heath.vim
+│       │   │   │           ├── base16_atelierheath.vim
+│       │   │   │           ├── base16_atelier_lakeside_light.vim
+│       │   │   │           ├── base16_atelier_lakeside.vim
+│       │   │   │           ├── base16_atelierlakeside.vim
+│       │   │   │           ├── base16_atelier_plateau_light.vim
+│       │   │   │           ├── base16_atelier_plateau.vim
+│       │   │   │           ├── base16_atelier_savanna_light.vim
+│       │   │   │           ├── base16_atelier_savanna.vim
+│       │   │   │           ├── base16_atelier_seaside_light.vim
+│       │   │   │           ├── base16_atelier_seaside.vim
+│       │   │   │           ├── base16_atelierseaside.vim
+│       │   │   │           ├── base16_atelier_sulphurpool_light.vim
+│       │   │   │           ├── base16_atelier_sulphurpool.vim
+│       │   │   │           ├── base16_atlas.vim
+│       │   │   │           ├── base16_bespin.vim
+│       │   │   │           ├── base16_black_metal_bathory.vim
+│       │   │   │           ├── base16_black_metal_burzum.vim
+│       │   │   │           ├── base16_black_metal_dark_funeral.vim
+│       │   │   │           ├── base16_black_metal_gorgoroth.vim
+│       │   │   │           ├── base16_black_metal_immortal.vim
+│       │   │   │           ├── base16_black_metal_khold.vim
+│       │   │   │           ├── base16_black_metal_marduk.vim
+│       │   │   │           ├── base16_black_metal_mayhem.vim
+│       │   │   │           ├── base16_black_metal_nile.vim
+│       │   │   │           ├── base16_black_metal_venom.vim
+│       │   │   │           ├── base16_black_metal.vim
+│       │   │   │           ├── base16_brewer.vim
+│       │   │   │           ├── base16_bright.vim
+│       │   │   │           ├── base16_brogrammer.vim
+│       │   │   │           ├── base16_brushtrees_dark.vim
+│       │   │   │           ├── base16_brushtrees.vim
+│       │   │   │           ├── base16_chalk.vim
+│       │   │   │           ├── base16_circus.vim
+│       │   │   │           ├── base16_classic_dark.vim
+│       │   │   │           ├── base16_classic_light.vim
+│       │   │   │           ├── base16_classic.vim
+│       │   │   │           ├── base16_codeschool.vim
+│       │   │   │           ├── base16_colors.vim
+│       │   │   │           ├── base16color.vim
+│       │   │   │           ├── base16_cupcake.vim
+│       │   │   │           ├── base16_cupertino.vim
+│       │   │   │           ├── base16_darktooth.vim
+│       │   │   │           ├── base16_decaf.vim
+│       │   │   │           ├── base16_default_dark.vim
+│       │   │   │           ├── base16_default_light.vim
+│       │   │   │           ├── base16_default.vim
+│       │   │   │           ├── base16_dracula.vim
+│       │   │   │           ├── base16_edge_dark.vim
+│       │   │   │           ├── base16_edge_light.vim
+│       │   │   │           ├── base16_eighties.vim
+│       │   │   │           ├── base16_embers.vim
+│       │   │   │           ├── base16_espresso.vim
+│       │   │   │           ├── base16_flat.vim
+│       │   │   │           ├── base16_framer.vim
+│       │   │   │           ├── base16_fruit_soda.vim
+│       │   │   │           ├── base16_gigavolt.vim
+│       │   │   │           ├── base16_github.vim
+│       │   │   │           ├── base16_google_dark.vim
+│       │   │   │           ├── base16_google_light.vim
+│       │   │   │           ├── base16_google.vim
+│       │   │   │           ├── base16_grayscale_dark.vim
+│       │   │   │           ├── base16_grayscale_light.vim
+│       │   │   │           ├── base16_grayscale.vim
+│       │   │   │           ├── base16_greenscreen.vim
+│       │   │   │           ├── base16_gruvbox_dark_hard.vim
+│       │   │   │           ├── base16_gruvbox_dark_medium.vim
+│       │   │   │           ├── base16_gruvbox_dark_pale.vim
+│       │   │   │           ├── base16_gruvbox_dark_soft.vim
+│       │   │   │           ├── base16_gruvbox_light_hard.vim
+│       │   │   │           ├── base16_gruvbox_light_medium.vim
+│       │   │   │           ├── base16_gruvbox_light_soft.vim
+│       │   │   │           ├── base16_harmonic16.vim
+│       │   │   │           ├── base16_harmonic_dark.vim
+│       │   │   │           ├── base16_harmonic_light.vim
+│       │   │   │           ├── base16_heetch_light.vim
+│       │   │   │           ├── base16_heetch.vim
+│       │   │   │           ├── base16_helios.vim
+│       │   │   │           ├── base16_hopscotch.vim
+│       │   │   │           ├── base16_horizon_dark.vim
+│       │   │   │           ├── base16_horizon_light.vim
+│       │   │   │           ├── base16_horizon_terminal_dark.vim
+│       │   │   │           ├── base16_horizon_terminal_light.vim
+│       │   │   │           ├── base16_ia_dark.vim
+│       │   │   │           ├── base16_ia_light.vim
+│       │   │   │           ├── base16_icy.vim
+│       │   │   │           ├── base16_irblack.vim
+│       │   │   │           ├── base16_isotope.vim
+│       │   │   │           ├── base16_londontube.vim
+│       │   │   │           ├── base16_macintosh.vim
+│       │   │   │           ├── base16_marrakesh.vim
+│       │   │   │           ├── base16_material_darker.vim
+│       │   │   │           ├── base16_material_lighter.vim
+│       │   │   │           ├── base16_material_palenight.vim
+│       │   │   │           ├── base16_material.vim
+│       │   │   │           ├── base16_material_vivid.vim
+│       │   │   │           ├── base16_materia.vim
+│       │   │   │           ├── base16_mellow_purple.vim
+│       │   │   │           ├── base16_mexico_light.vim
+│       │   │   │           ├── base16_mocha.vim
+│       │   │   │           ├── base16_monokai.vim
+│       │   │   │           ├── base16_nord.vim
+│       │   │   │           ├── base16_nova.vim
+│       │   │   │           ├── base16_oceanicnext.vim
+│       │   │   │           ├── base16_ocean.vim
+│       │   │   │           ├── base16_onedark.vim
+│       │   │   │           ├── base16_one_light.vim
+│       │   │   │           ├── base16_outrun_dark.vim
+│       │   │   │           ├── base16_papercolor_dark.vim
+│       │   │   │           ├── base16_papercolor_light.vim
+│       │   │   │           ├── base16_paraiso.vim
+│       │   │   │           ├── base16_phd.vim
+│       │   │   │           ├── base16_pico.vim
+│       │   │   │           ├── base16_pop.vim
+│       │   │   │           ├── base16_porple.vim
+│       │   │   │           ├── base16_railscasts.vim
+│       │   │   │           ├── base16_rebecca.vim
+│       │   │   │           ├── base16_sandcastle.vim
+│       │   │   │           ├── base16_seti.vim
+│       │   │   │           ├── base16_shapeshifter.vim
+│       │   │   │           ├── base16_shell.vim
+│       │   │   │           ├── base16_snazzy.vim
+│       │   │   │           ├── base16_solarflare.vim
+│       │   │   │           ├── base16_solarized_dark.vim
+│       │   │   │           ├── base16_solarized_light.vim
+│       │   │   │           ├── base16_solarized.vim
+│       │   │   │           ├── base16_spacemacs.vim
+│       │   │   │           ├── base16_summerfruit_dark.vim
+│       │   │   │           ├── base16_summerfruit_light.vim
+│       │   │   │           ├── base16_summerfruit.vim
+│       │   │   │           ├── base16_synth_midnight_dark.vim
+│       │   │   │           ├── base16_tomorrow_night_eighties.vim
+│       │   │   │           ├── base16_tomorrow_night.vim
+│       │   │   │           ├── base16_tomorrow.vim
+│       │   │   │           ├── base16_tube.vim
+│       │   │   │           ├── base16_twilight.vim
+│       │   │   │           ├── base16_unikitty_dark.vim
+│       │   │   │           ├── base16_unikitty_light.vim
+│       │   │   │           ├── base16.vim
+│       │   │   │           ├── base16_vim.vim
+│       │   │   │           ├── base16_woodland.vim
+│       │   │   │           ├── base16_xcode_dusk.vim
+│       │   │   │           ├── base16_zenburn.vim
+│       │   │   │           ├── behelit.vim
+│       │   │   │           ├── biogoo.vim
+│       │   │   │           ├── bubblegum.vim
+│       │   │   │           ├── cobalt2.vim
+│       │   │   │           ├── cool.vim
+│       │   │   │           ├── dark_minimal.vim
+│       │   │   │           ├── desertink.vim
+│       │   │   │           ├── deus.vim
+│       │   │   │           ├── distinguished.vim
+│       │   │   │           ├── durant.vim
+│       │   │   │           ├── fairyfloss.vim
+│       │   │   │           ├── fruit_punch.vim
+│       │   │   │           ├── google_dark.vim
+│       │   │   │           ├── google_light.vim
+│       │   │   │           ├── hybridline.vim
+│       │   │   │           ├── hybrid.vim
+│       │   │   │           ├── jellybeans.vim
+│       │   │   │           ├── jet.vim
+│       │   │   │           ├── kalisi.vim
+│       │   │   │           ├── kolor.vim
+│       │   │   │           ├── laederon.vim
+│       │   │   │           ├── lessnoise.vim
+│       │   │   │           ├── lighthaus.vim
+│       │   │   │           ├── light.vim
+│       │   │   │           ├── lucius.vim
+│       │   │   │           ├── luna.vim
+│       │   │   │           ├── minimalist.vim
+│       │   │   │           ├── molokai.vim
+│       │   │   │           ├── monochrome.vim
+│       │   │   │           ├── murmur.vim
+│       │   │   │           ├── night_owl.vim
+│       │   │   │           ├── nord_minimal.vim
+│       │   │   │           ├── onedark.vim
+│       │   │   │           ├── ouo.vim
+│       │   │   │           ├── owo.vim
+│       │   │   │           ├── papercolor.vim
+│       │   │   │           ├── peaksea.vim
+│       │   │   │           ├── powerlineish.vim
+│       │   │   │           ├── qwq.vim
+│       │   │   │           ├── ravenpower.vim
+│       │   │   │           ├── raven.vim
+│       │   │   │           ├── seagull.vim
+│       │   │   │           ├── selenized_bw.vim
+│       │   │   │           ├── selenized.vim
+│       │   │   │           ├── seoul256.vim
+│       │   │   │           ├── serene.vim
+│       │   │   │           ├── sierra.vim
+│       │   │   │           ├── silver.vim
+│       │   │   │           ├── simple.vim
+│       │   │   │           ├── soda.vim
+│       │   │   │           ├── solarized_flood.vim
+│       │   │   │           ├── solarized.vim
+│       │   │   │           ├── sol.vim
+│       │   │   │           ├── supernova.vim
+│       │   │   │           ├── term_light.vim
+│       │   │   │           ├── term.vim
+│       │   │   │           ├── tomorrow.vim
+│       │   │   │           ├── transparent.vim
+│       │   │   │           ├── ubaryd.vim
+│       │   │   │           ├── understated.vim
+│       │   │   │           ├── violet.vim
+│       │   │   │           ├── wombat.vim
+│       │   │   │           ├── xtermlight.vim
+│       │   │   │           └── zenburn.vim
+│       │   │   ├── doc
+│       │   │   │   ├── airline-themes.txt
+│       │   │   │   └── tags
+│       │   │   ├── LICENSE
+│       │   │   ├── plugin
+│       │   │   │   └── airline-themes.vim
+│       │   │   ├── README.md
+│       │   │   └── test
+│       │   │       └── airline-themes.vader
+│       │   ├── vim-autoswap
+│       │   │   ├── COPYING.CC0
+│       │   │   ├── plugin
+│       │   │   │   └── autoswap.vim
+│       │   │   └── README.md
+│       │   ├── vim-dotoo
+│       │   │   ├── autoload
+│       │   │   │   ├── dotoo
+│       │   │   │   │   ├── agenda_views
+│       │   │   │   │   │   ├── agenda.vim
+│       │   │   │   │   │   ├── notes.vim
+│       │   │   │   │   │   ├── plugins
+│       │   │   │   │   │   │   └── log_summary.vim
+│       │   │   │   │   │   ├── refiles.vim
+│       │   │   │   │   │   ├── search.vim
+│       │   │   │   │   │   ├── tagged.vim
+│       │   │   │   │   │   ├── todos.vim
+│       │   │   │   │   │   └── wikis.vim
+│       │   │   │   │   ├── agenda.vim
+│       │   │   │   │   ├── autocompletion.vim
+│       │   │   │   │   ├── capture.vim
+│       │   │   │   │   ├── checkbox.vim
+│       │   │   │   │   ├── clock.vim
+│       │   │   │   │   ├── date.vim
+│       │   │   │   │   ├── link.vim
+│       │   │   │   │   ├── parser
+│       │   │   │   │   │   ├── directive.vim
+│       │   │   │   │   │   ├── headline.vim
+│       │   │   │   │   │   ├── lexer.vim
+│       │   │   │   │   │   ├── logbook.vim
+│       │   │   │   │   │   ├── metadata.vim
+│       │   │   │   │   │   └── properties.vim
+│       │   │   │   │   ├── parser.vim
+│       │   │   │   │   ├── time.vim
+│       │   │   │   │   └── utils.vim
+│       │   │   │   └── dotoo.vim
+│       │   │   ├── doc
+│       │   │   │   ├── dotoo.txt
+│       │   │   │   └── tags
+│       │   │   ├── dotoo.dotoo
+│       │   │   ├── ftdetect
+│       │   │   │   └── dotoo.vim
+│       │   │   ├── ftplugin
+│       │   │   │   ├── dotooagenda.vim
+│       │   │   │   ├── dotoocapture.vim
+│       │   │   │   └── dotoo.vim
+│       │   │   ├── indent
+│       │   │   │   ├── dotoocapture.vim
+│       │   │   │   └── dotoo.vim
+│       │   │   ├── plugin
+│       │   │   │   └── dotoo.vim
+│       │   │   ├── README.md
+│       │   │   ├── syntax
+│       │   │   │   ├── dotooagenda.vim
+│       │   │   │   ├── dotoocapture.vim
+│       │   │   │   └── dotoo.vim
+│       │   │   └── t
+│       │   │       ├── autoload
+│       │   │       │   └── dotoo
+│       │   │       │       ├── checkbox_test.vim
+│       │   │       │       └── parser_test.vim
+│       │   │       └── fixtures
+│       │   │           └── sample.dotoo
+│       │   ├── vim-fugitive
+│       │   │   ├── autoload
+│       │   │   │   └── fugitive.vim
+│       │   │   ├── CONTRIBUTING.markdown
+│       │   │   ├── doc
+│       │   │   │   ├── fugitive.txt
+│       │   │   │   └── tags
+│       │   │   ├── ftdetect
+│       │   │   │   └── fugitive.vim
+│       │   │   ├── ftplugin
+│       │   │   │   └── fugitiveblame.vim
+│       │   │   ├── plugin
+│       │   │   │   └── fugitive.vim
+│       │   │   ├── README.markdown
+│       │   │   └── syntax
+│       │   │       ├── fugitiveblame.vim
+│       │   │       └── fugitive.vim
+│       │   ├── vim-orgmode
+│       │   │   ├── CHANGELOG.org
+│       │   │   ├── doc
+│       │   │   │   ├── orgguide.txt
+│       │   │   │   └── tags
+│       │   │   ├── examples
+│       │   │   │   ├── mylife.gif
+│       │   │   │   ├── mylife.org
+│       │   │   │   ├── mylife.png
+│       │   │   │   └── plugins
+│       │   │   │       └── PluginExample.py
+│       │   │   ├── ftdetect
+│       │   │   │   └── org.vim
+│       │   │   ├── ftplugin
+│       │   │   │   ├── org.cnf
+│       │   │   │   ├── orgmode
+│       │   │   │   │   ├── docs
+│       │   │   │   │   │   ├── conf.py
+│       │   │   │   │   │   ├── index.rst
+│       │   │   │   │   │   ├── make.bat
+│       │   │   │   │   │   ├── Makefile
+│       │   │   │   │   │   ├── orgmode.liborgmode.rst
+│       │   │   │   │   │   ├── orgmode.plugins.rst
+│       │   │   │   │   │   ├── orgmode.py3compat.rst
+│       │   │   │   │   │   └── orgmode.rst
+│       │   │   │   │   ├── exceptions.py
+│       │   │   │   │   ├── __init__.py
+│       │   │   │   │   ├── keybinding.py
+│       │   │   │   │   ├── liborgmode
+│       │   │   │   │   │   ├── agendafilter.py
+│       │   │   │   │   │   ├── agenda.py
+│       │   │   │   │   │   ├── base.py
+│       │   │   │   │   │   ├── checkboxes.py
+│       │   │   │   │   │   ├── documents.py
+│       │   │   │   │   │   ├── dom_obj.py
+│       │   │   │   │   │   ├── headings.py
+│       │   │   │   │   │   ├── __init__.py
+│       │   │   │   │   │   └── orgdate.py
+│       │   │   │   │   ├── menu.py
+│       │   │   │   │   ├── plugins
+│       │   │   │   │   │   ├── Agenda.py
+│       │   │   │   │   │   ├── Date.py
+│       │   │   │   │   │   ├── EditCheckbox.py
+│       │   │   │   │   │   ├── EditStructure.py
+│       │   │   │   │   │   ├── Export.py
+│       │   │   │   │   │   ├── Hyperlinks.py
+│       │   │   │   │   │   ├── __init__.py
+│       │   │   │   │   │   ├── LoggingWork.py
+│       │   │   │   │   │   ├── Misc.py
+│       │   │   │   │   │   ├── Navigator.py
+│       │   │   │   │   │   ├── ShowHide.py
+│       │   │   │   │   │   ├── TagsProperties.py
+│       │   │   │   │   │   └── Todo.py
+│       │   │   │   │   ├── py3compat
+│       │   │   │   │   │   ├── encode_compatibility.py
+│       │   │   │   │   │   ├── __init__.py
+│       │   │   │   │   │   ├── py_py3_string.py
+│       │   │   │   │   │   ├── unicode_compatibility.py
+│       │   │   │   │   │   └── xrange_compatibility.py
+│       │   │   │   │   ├── settings.py
+│       │   │   │   │   ├── vimbuffer.py
+│       │   │   │   │   └── _vim.py
+│       │   │   │   └── org.vim
+│       │   │   ├── indent
+│       │   │   │   └── org.vim
+│       │   │   ├── LICENSE
+│       │   │   ├── Makefile
+│       │   │   ├── README.org
+│       │   │   ├── syntax
+│       │   │   │   ├── orgagenda.vim
+│       │   │   │   ├── orgtodo.vim
+│       │   │   │   └── org.vim
+│       │   │   └── tests
+│       │   │       ├── orgmode_testfile.org
+│       │   │       ├── run_tests.py
+│       │   │       ├── test_libagendafilter.py
+│       │   │       ├── test_libbase.py
+│       │   │       ├── test_libcheckbox.py
+│       │   │       ├── test_libheading.py
+│       │   │       ├── test_liborgdate_parsing.py
+│       │   │       ├── test_liborgdate.py
+│       │   │       ├── test_liborgdatetime.py
+│       │   │       ├── test_liborgdate_utf8.py
+│       │   │       ├── test_liborgtimerange.py
+│       │   │       ├── test_plugin_date.py
+│       │   │       ├── test_plugin_edit_checkbox.py
+│       │   │       ├── test_plugin_edit_structure.py
+│       │   │       ├── test_plugin_mappings.py
+│       │   │       ├── test_plugin_misc.py
+│       │   │       ├── test_plugin_navigator.py
+│       │   │       ├── test_plugin_show_hide.py
+│       │   │       ├── test_plugin_tags_properties.py
+│       │   │       ├── test_plugin_todo.py
+│       │   │       ├── test_vimbuffer.py
+│       │   │       └── vim.py
+│       │   ├── vim-sandwich
+│       │   │   ├── after
+│       │   │   │   └── ftplugin
+│       │   │   │       ├── initex
+│       │   │   │       │   └── sandwich.vim
+│       │   │   │       ├── julia
+│       │   │   │       │   └── sandwich.vim
+│       │   │   │       ├── plaintex
+│       │   │   │       │   └── sandwich.vim
+│       │   │   │       ├── tex
+│       │   │   │       │   └── sandwich.vim
+│       │   │   │       └── vim
+│       │   │   │           └── sandwich.vim
+│       │   │   ├── autoload
+│       │   │   │   ├── operator
+│       │   │   │   │   ├── sandwich
+│       │   │   │   │   │   ├── act.vim
+│       │   │   │   │   │   ├── lib.vim
+│       │   │   │   │   │   ├── operator.vim
+│       │   │   │   │   │   └── stuff.vim
+│       │   │   │   │   └── sandwich.vim
+│       │   │   │   ├── sandwich
+│       │   │   │   │   ├── clock.vim
+│       │   │   │   │   ├── constants.vim
+│       │   │   │   │   ├── filetype
+│       │   │   │   │   │   └── tex.vim
+│       │   │   │   │   ├── highlight.vim
+│       │   │   │   │   ├── magicchar
+│       │   │   │   │   │   ├── f.vim
+│       │   │   │   │   │   ├── i.vim
+│       │   │   │   │   │   └── t.vim
+│       │   │   │   │   ├── messenger.vim
+│       │   │   │   │   ├── opt.vim
+│       │   │   │   │   └── util.vim
+│       │   │   │   ├── sandwich.vim
+│       │   │   │   └── textobj
+│       │   │   │       ├── sandwich
+│       │   │   │       │   ├── lib.vim
+│       │   │   │       │   ├── recipes.vim
+│       │   │   │       │   ├── sandwich.vim
+│       │   │   │       │   └── textobj.vim
+│       │   │   │       └── sandwich.vim
+│       │   │   ├── doc
+│       │   │   │   ├── compound-sandwich
+│       │   │   │   ├── operator-sandwich.jax
+│       │   │   │   ├── operator-sandwich.txt
+│       │   │   │   ├── sandwich.jax
+│       │   │   │   ├── sandwich.txt
+│       │   │   │   ├── tags
+│       │   │   │   ├── tags-ja
+│       │   │   │   ├── textobj-sandwich.jax
+│       │   │   │   └── textobj-sandwich.txt
+│       │   │   ├── macros
+│       │   │   │   └── sandwich
+│       │   │   │       ├── ftplugin
+│       │   │   │       │   └── tex.vim
+│       │   │   │       └── keymap
+│       │   │   │           └── surround.vim
+│       │   │   ├── plugin
+│       │   │   │   ├── operator
+│       │   │   │   │   └── sandwich.vim
+│       │   │   │   ├── sandwich.vim
+│       │   │   │   └── textobj
+│       │   │   │       └── sandwich.vim
+│       │   │   ├── README.md
+│       │   │   └── test
+│       │   │       ├── dot-repeat
+│       │   │       │   ├── test_dot.bat
+│       │   │       │   ├── test_dot.sh
+│       │   │       │   └── test_dot.vim
+│       │   │       ├── operator-add.vim
+│       │   │       ├── operator-delete.vim
+│       │   │       ├── operator-replace.vim
+│       │   │       ├── README
+│       │   │       ├── surround
+│       │   │       │   └── test-surround.vim
+│       │   │       ├── test-magicchar-f.vim
+│       │   │       ├── test-magicchar-t-emmet.vim
+│       │   │       ├── test-magicchar-t.vim
+│       │   │       ├── textobj-auto.vim
+│       │   │       └── textobj-query.vim
+│       │   └── vim-surround
+│       │       ├── doc
+│       │       │   ├── surround.txt
+│       │       │   └── tags
+│       │       ├── plugin
+│       │       │   └── surround.vim
+│       │       └── README.markdown
+│       ├── sources
+│       │   └── damian_conway
+│       │       ├── bin
+│       │       │   ├── file_template
+│       │       │   ├── install
+│       │       │   ├── lessvim
+│       │       │   ├── list2bullets
+│       │       │   ├── listplusdir
+│       │       │   ├── listplusdirplusmodules
+│       │       │   ├── metapd
+│       │       │   ├── normalize_module_name
+│       │       │   ├── pbtranscopy
+│       │       │   ├── pbtranspaste
+│       │       │   ├── pd
+│       │       │   ├── perltests
+│       │       │   ├── polyperl
+│       │       │   ├── rename_module_to
+│       │       │   └── terminal_promote_vim_session
+│       │       ├── grammarian
+│       │       │   ├── cautions
+│       │       │   │   ├── data.vim
+│       │       │   │   └── spell
+│       │       │   │       ├── en.latin1.add
+│       │       │   │       ├── en.latin1.add.spl
+│       │       │   │       ├── en.utf-8.add
+│       │       │   │       └── en.utf-8.add.spl
+│       │       │   └── errors
+│       │       │       ├── data.vim
+│       │       │       └── spell
+│       │       │           ├── en.latin1.add
+│       │       │           ├── en.latin1.add.spl
+│       │       │           ├── en.utf-8.add
+│       │       │           ├── en.utf8.add
+│       │       │           ├── en.utf-8.add.spl
+│       │       │           └── en.utf8.add.spl
+│       │       ├── plugin
+│       │       │   ├── arrownavigation.vim
+│       │       │   ├── automkdir.vim
+│       │       │   ├── autoswap_mac_linux.vim
+│       │       │   ├── betterdigraphs_utf8.vim
+│       │       │   ├── betterdigraphs.vim
+│       │       │   ├── blockwise.vim
+│       │       │   ├── colalignsimple.vim
+│       │       │   ├── comment_toggle.vim
+│       │       │   ├── copyeditpaste.vim
+│       │       │   ├── doc.patch
+│       │       │   ├── documap.vim
+│       │       │   ├── dragvisuals.vim
+│       │       │   ├── eqalignsimple.vim
+│       │       │   ├── file_templates.vim
+│       │       │   ├── fillabbr.vim
+│       │       │   ├── foldsearches.vim
+│       │       │   ├── goto_file.vim
+│       │       │   ├── grammarian.vim
+│       │       │   ├── gvi.vim
+│       │       │   ├── hlnext.vim
+│       │       │   ├── hudigraphs_utf8.vim
+│       │       │   ├── hudigraphs.vim
+│       │       │   ├── listtrans.vim
+│       │       │   ├── logevents.vim
+│       │       │   ├── miv.vim
+│       │       │   ├── normalized_search.vim
+│       │       │   ├── perlrefactor.vim
+│       │       │   ├── persistentvisuals.vim
+│       │       │   ├── schlepp.vim
+│       │       │   ├── scrollwithcursor.vim
+│       │       │   ├── smartcom.vim
+│       │       │   ├── smartvcopy.vim
+│       │       │   ├── SWTC.vim
+│       │       │   ├── tablecellselect.vim
+│       │       │   ├── todo_support.vim
+│       │       │   ├── trackperlvars.vim
+│       │       │   ├── udpopup.vim
+│       │       │   ├── undowarnings.vim
+│       │       │   ├── visualguide.vim
+│       │       │   ├── visualsmartia.vim
+│       │       │   ├── vmath.vim
+│       │       │   ├── warmmargin.vim
+│       │       │   ├── xmlmatch.vim
+│       │       │   └── yankmatches.vim
+│       │       ├── README
+│       │       └── spell
+│       │           └── en-basic.latin1.spl
+│       ├── test.init
+│       └── viminfo
 ├── nyxt
 │   ├── auto-config.lisp
 │   └── init.lisp
@@ -2141,5 +2164,5 @@
     │   └── config
     └── xresources_colors
 
-227 directories, 1914 files
+234 directories, 1930 files
 ```

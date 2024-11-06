@@ -384,16 +384,16 @@
   (company-idle-delay 0.0))
 
 (require 'ansi-color)
-(defun endless/colorize-compilation ()
+(defun oxo/colorize-compilation ()
   "Colorize from `compilation-filter-start' to `point'."
   (let ((inhibit-read-only t))
     (ansi-color-apply-on-region
      compilation-filter-start (point))))
 
 (add-hook 'compilation-filter-hook
-          #'endless/colorize-compilation)
+          #'oxo/colorize-compilation)
 
-(defun regexp-alternatives (regexps)
+(defun oxo/regexp-alternatives (regexps)
   "Return the alternation of a list of regexps."
   (mapconcat (lambda (regexp)
                (concat "\\(?:" regexp "\\)"))
@@ -403,7 +403,7 @@
   "Regexp that matches non-SGR control sequences.")
 
 (setq non-sgr-control-sequence-regexp
-      (regexp-alternatives
+      (oxo/regexp-alternatives
        '(;; icon name escape sequences
          "\033\\][0-2];.*?\007"
          ;; non-SGR CSI escape sequences
@@ -412,26 +412,26 @@
          "\012\033\\[2K\033\\[1F"
          )))
 
-(defun filter-non-sgr-control-sequences-in-region (begin end)
+(defun oxo/filter-non-sgr-control-sequences-in-region (begin end)
   (save-excursion
     (goto-char begin)
     (while (re-search-forward
             non-sgr-control-sequence-regexp end t)
       (replace-match ""))))
 
-(defun filter-non-sgr-control-sequences-in-output (ignored)
+(defun oxo/filter-non-sgr-control-sequences-in-output (ignored)
   (let ((start-marker
          (or comint-last-output-start
              (point-min-marker)))
         (end-marker
          (process-mark
           (get-buffer-process (current-buffer)))))
-    (filter-non-sgr-control-sequences-in-region
+    (oxo/filter-non-sgr-control-sequences-in-region
      start-marker
      end-marker)))
 
 (add-hook 'comint-output-filter-functions
-          'filter-non-sgr-control-sequences-in-output)
+          'oxo/filter-non-sgr-control-sequences-in-output)
 
 (use-package denote)
 
