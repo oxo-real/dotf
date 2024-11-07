@@ -1015,6 +1015,13 @@
   (interactive "*p")
   (my-increment-number-at-point (- decrement)))
 
+(use-package smartparens
+  ;;:ensure smartparens  ;; install the package
+  :hook (prog-mode text-mode markdown-mode lsp-mode) ;; add `smartparens-mode` to these hooks
+  :config
+  ;; load default config
+  (require 'smartparens-config))
+
 (use-package evil-nerd-commenter
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 ;; TODO AltGr /
@@ -1027,33 +1034,6 @@
   "w w j" '(split-window-below :wk "below"))
   ;;(global-set-key (kbd "SPC-w-c-l") 'split-window-right)
   ;;(global-set-key (kbd "SPC-w-c-j") 'split-window-below)
-
-;; prevent interference with org mode map
-;; when org-mode loads alter bindings
-;;  (defun oxo/org-mode-map-alt-focus ()
-(define-key outline-mode-map (kbd "<normal-state> M-h") nil)
-(define-key org-mode-map (kbd "M-h") nil)
-(define-key outline-mode-map (kbd "<normal-state> M-j") nil)
-(define-key outline-mode-map (kbd "<normal-state> M-k") nil)
-(define-key outline-mode-map (kbd "<normal-state> M-l") nil)
-(global-set-key (kbd "M-h") 'windmove-left)
-(global-set-key (kbd "M-j") 'windmove-down)
-(global-set-key (kbd "M-k") 'windmove-up)
-(global-set-key (kbd "M-l") 'windmove-right)
-
-(use-package buffer-move
-  :ensure t
-
-  :config
-  (global-set-key (kbd "M-H") 'buf-move-left)
-  (global-set-key (kbd "M-J") 'buf-move-down)
-  (global-set-key (kbd "M-K") 'buf-move-up)
-  (global-set-key (kbd "M-L") 'buf-move-right))
-
-(global-set-key (kbd "M-C-h") 'shrink-window-horizontally)
-(global-set-key (kbd "M-C-j") 'enlarge-window)
-(global-set-key (kbd "M-C-k") 'shrink-window)
-(global-set-key (kbd "M-C-l") 'enlarge-window-horizontally)
 
 (oxo/leader-keys
   "s" '(:ignore t :wk "search")

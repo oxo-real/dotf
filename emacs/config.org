@@ -761,9 +761,6 @@ note taking tool
 
 #+end_src
 
-#+RESULTS:
-: org
-
 *** org agenda
 #+begin_src emacs-lisp
 
@@ -1405,6 +1402,19 @@ M-x recentf-open-files
 
 #+end_src
 
+** parenthesis magic
+edit parens magic
+#+begin_src emacs-lisp
+
+  (use-package smartparens
+    ;;:ensure smartparens  ;; install the package
+    :hook (prog-mode text-mode markdown-mode lsp-mode) ;; add `smartparens-mode` to these hooks
+    :config
+    ;; load default config
+    (require 'smartparens-config))
+
+#+end_src
+
 ** comments
 better (inline) (un)comment
 #+begin_src emacs-lisp
@@ -1448,7 +1458,7 @@ xaxis:
 yaxis:
   down  M-j
   up    M-k
-#+begin_src emacs-lisp
+x#+begin_src emacs-lisp
 
   ;; prevent interference with org mode map
   ;; when org-mode loads alter bindings
@@ -1473,7 +1483,7 @@ xaxis:
 yaxis:
   down  M-S-j
   up    M-S-k
-#+begin_src emacs-lisp
+x#+begin_src emacs-lisp
 
   (use-package buffer-move
     :ensure t
@@ -1494,7 +1504,7 @@ xaxis:
 yaxis:
   enlarge M-C-j
   shrink  M-C-k
-#+begin_src emacs-lisp
+x#+begin_src emacs-lisp
 
   (global-set-key (kbd "M-C-h") 'shrink-window-horizontally)
   (global-set-key (kbd "M-C-j") 'enlarge-window)

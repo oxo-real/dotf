@@ -860,6 +860,8 @@
 │   │   ├── kickstart.txt
 │   │   └── tags
 │   ├── init.lua
+│   ├── init.lua.bak
+│   ├── init.lua.org
 │   ├── kickstart
 │   ├── lazy-lock.json
 │   ├── LICENSE.md
@@ -2164,5 +2166,5 @@
     │   └── config
     └── xresources_colors
 
-234 directories, 1930 files
+234 directories, 1932 files
 ```
