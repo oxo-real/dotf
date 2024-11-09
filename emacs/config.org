@@ -74,18 +74,6 @@ Use a hook to measure Emacs startup time.
 
 #+end_src
 
-* space as oxo leaderkey
-#+begin_src emacs-lisp
-
-  ;; set up 'SPC' as the global leader key
-  (general-create-definer oxo/leader-keys
-    :states '(normal insert visual emacs)
-    :keymaps 'override
-    :prefix "SPC" ;; set leader
-    :global-prefix "M-SPC") ;; access leader in insert mode
-
-#+end_src
-
 * server mode
 #+begin_src emacs-lisp
 
@@ -119,6 +107,18 @@ Use a hook to measure Emacs startup time.
 
   (require 'use-package)
   (setq use-package-always-ensure t)
+
+#+end_src
+
+* space as oxo leaderkey
+#+begin_src emacs-lisp
+
+  ;; set up 'SPC' as the global leader key
+  (general-create-definer oxo/leader-keys
+    :states '(normal insert visual emacs)
+    :keymaps 'override
+    :prefix "SPC" ;; set leader
+    :global-prefix "M-SPC") ;; access leader in insert mode
 
 #+end_src
 
@@ -543,6 +543,14 @@ choose a command to run based on what is near point
     :custom
     (company-minimum-prefix-length 1)
     (company-idle-delay 0.0))
+
+#+end_src
+
+*** lsp languages
+**** zig
+#+begin_src emacs-lisp
+
+  (use-package zig-mode)
 
 #+end_src
 
@@ -979,13 +987,6 @@ contacts
 
 #+end_src
 
-*** rust
-#+begin_src emacs-lisp
-
-  (use-package rust-mode)
-
-#+end_src
-
 
 * structure templates
 ** easier way to create codeblocks
@@ -1065,6 +1066,9 @@ this changes the location to a separate file and loads from there
   (tool-bar-mode -1)
   (tooltip-mode -1)
   (set-fringe-mode 0)
+
+  ;; UTF-8 as default
+  (set-default-coding-systems 'utf-8)
 
 #+end_src
 
@@ -1406,12 +1410,12 @@ M-x recentf-open-files
 edit parens magic
 #+begin_src emacs-lisp
 
-  (use-package smartparens
-    ;;:ensure smartparens  ;; install the package
-    :hook (prog-mode text-mode markdown-mode lsp-mode) ;; add `smartparens-mode` to these hooks
-    :config
-    ;; load default config
-    (require 'smartparens-config))
+  ;; (use-package smartparens
+  ;;   :ensure smartparens  ;; install the package
+  ;;   :hook (prog-mode text-mode markdown-mode lsp-mode) ;; add `smartparens-mode` to these hooks
+  ;;   :config
+  ;;   ;; load default config
+  ;;   (require 'smartparens-config))
 
 #+end_src
 

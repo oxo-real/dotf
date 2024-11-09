@@ -132,7 +132,17 @@ alias vimdiff='nvim -d'
 
 # emacs
 
-function emacs-daemon()
+## functions tempo disab for error:
+#Warning: due to a long standing Gtk+ bug
+#http://bugzilla.gnome.org/show_bug.cgi?id=85715
+#Emacs might crash when run in daemon mode and the X11 connection is unexpectedly lost.
+#Using an Emacs configured with --with-x-toolkit=lucid does not have this problem.
+#Starting Emacs daemon.
+#see also:
+#[crash - Starting emacs in daemon mode freezes, emacsclient is not able find a socket - Emacs Stack Exchange](https://emacs.stackexchange.com/questions/14232/starting-emacs-in-daemon-mode-freezes-emacsclient-is-not-able-find-a-socket)
+#[xorg - emacs --daemon crashing after closing emacsclient -c - Unix & Linux Stack Exchange](https://unix.stackexchange.com/questions/56871/emacs-daemon-crashing-after-closing-emacsclient-c)
+
+function emacs-daemon ()
 {
     # if no active daemon, then start service
 
@@ -153,7 +163,7 @@ function emacs-daemon()
 }
 
 
-function emacs()
+function emacs ()
 {
     emacs-daemon
 
@@ -221,7 +231,7 @@ function emacs()
 }
 
 
-function view()
+function view ()
 {
     # nvim readonly
     #nvim -R $@
@@ -279,6 +289,7 @@ function view()
 
 #alias emacs="emacs $@ &"
 alias em='emacs'
+#alias em='emacs'
 alias ev='view'
 
 

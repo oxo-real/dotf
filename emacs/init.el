@@ -14,13 +14,6 @@
                               (time-subtract after-init-time before-init-time)))
                      gcs-done)))
 
-;; set up 'SPC' as the global leader key
-(general-create-definer oxo/leader-keys
-  :states '(normal insert visual emacs)
-  :keymaps 'override
-  :prefix "SPC" ;; set leader
-  :global-prefix "M-SPC") ;; access leader in insert mode
-
 ;;(server-mode)
 
 (require 'package)
@@ -45,6 +38,13 @@
 
 (require 'use-package)
 (setq use-package-always-ensure t)
+
+;; set up 'SPC' as the global leader key
+(general-create-definer oxo/leader-keys
+  :states '(normal insert visual emacs)
+  :keymaps 'override
+  :prefix "SPC" ;; set leader
+  :global-prefix "M-SPC") ;; access leader in insert mode
 
 (use-package vertico
   :ensure t
@@ -382,6 +382,8 @@
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0))
+
+(use-package zig-mode)
 
 (require 'ansi-color)
 (defun oxo/colorize-compilation ()
@@ -743,8 +745,6 @@
 
 (use-package ledger-mode)
 
-(use-package rust-mode)
-
 (org-babel-do-load-languages 'org-babel-load-languages
 			     '((emacs-lisp . t)
 			       (python . t)
@@ -792,6 +792,9 @@
 (tool-bar-mode -1)
 (tooltip-mode -1)
 (set-fringe-mode 0)
+
+;; UTF-8 as default
+(set-default-coding-systems 'utf-8)
 
 (setq visible-bell nil)
 
@@ -1015,12 +1018,12 @@
   (interactive "*p")
   (my-increment-number-at-point (- decrement)))
 
-(use-package smartparens
-  ;;:ensure smartparens  ;; install the package
-  :hook (prog-mode text-mode markdown-mode lsp-mode) ;; add `smartparens-mode` to these hooks
-  :config
-  ;; load default config
-  (require 'smartparens-config))
+;; (use-package smartparens
+;;   :ensure smartparens  ;; install the package
+;;   :hook (prog-mode text-mode markdown-mode lsp-mode) ;; add `smartparens-mode` to these hooks
+;;   :config
+;;   ;; load default config
+;;   (require 'smartparens-config))
 
 (use-package evil-nerd-commenter
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
