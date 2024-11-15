@@ -972,32 +972,7 @@
 (setq history-lenght 25)
 (savehist-mode 1)
 
-;; (defun oxo-change-number-at-point (change increment)
-;;  (let ((number (number-at-point))
-;;        (point (point)))
-;;    (when number
-;;      (progn
-;;        (forward-word)
-;;        (search-backward (number-to-string number))
-;;        (replace-match (number-to-string (funcall change number increment)))
-;;        (goto-char point)))))
-
-;; (defun oxo-increment-number-at-point (&optional increment)
-;;  "Increment number at point like vim's C-a"
-;;  (interactive "p")
-;;  (oxo-change-number-at-point '+ (or increment 1)))
-
-;; (defun oxo-decrement-number-at-point (&optional increment)
-;;  "Decrement number at point like vim's C-x"
-;;  (interactive "p")
-;;  (oxo-change-number-at-point '- (or increment 1)))
-
-;; CAUTION! 'C-c a' conflicts with org agenda
-;;  (global-set-key (kbd "C-c a") 'oxo-increment-number-at-point)
-;;  (global-set-key (kbd "C-c x") 'oxo-decrement-number-at-point)
-
-
-(defun my-increment-number-at-point (&optional increment)
+(defun oxo/increment-number-at-point (&optional increment)
   "Increment the number at point by INCREMENT."
   (interactive "*p")
   (let ((pos (point)))
@@ -1013,10 +988,17 @@
         (user-error "No number at point")))
     (goto-char pos)))
 
-(defun my-decrement-number-at-point (&optional decrement)
+(defun oxo/decrement-number-at-point (&optional decrement)
   "Decrement the number at point by DECREMENT."
   (interactive "*p")
-  (my-increment-number-at-point (- decrement)))
+  (oxo/increment-number-at-point (- decrement)))
+
+;; SPC n a increment
+;; SPC n x decrement
+(oxo/leader-keys
+  "n" '(:ignore t :wk "number")
+  "n a" '(oxo/increment-number-at-point :wk "increment")
+  "n x" '(oxo/decrement-number-at-point :wk "decrement"))
 
 (use-package smartparens
   :ensure smartparens  ;; install the package
@@ -1028,20 +1010,20 @@
 (use-package indent-bars
   :hook ((lsp-mode) . indent-bars-mode)) ; or whichever modes you prefer
 
-;; #1 alt-/
-(use-package evil-nerd-commenter
-  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
-
-;; #2 g c (evil normal mode)
+;; 1 'g c (evil normal mode)'
 (with-eval-after-load 'evil
   (define-key evil-normal-state-map (kbd "g c") 'evilnc-comment-or-uncomment-lines))
 
-;; #3 SPC g c
-;; #4 SPC t c
+;; 2 'SPC g c  go comment toggle'
+;; 3 'SPC t c  toggle comment'
 (oxo/leader-keys
   "g" '(:ignore t :wk "go")
   "t c" '(evilnc-comment-or-uncomment-lines :wk "comment")
   "g c" '(evilnc-comment-or-uncomment-lines :wk "comment toggle"))
+
+;; 4 'alt /'
+(use-package evil-nerd-commenter
+  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 
 (oxo/leader-keys
   "w" '(:ignore t :wk "window")
@@ -1051,6 +1033,33 @@
   "w w j" '(split-window-below :wk "below"))
   ;;(global-set-key (kbd "SPC-w-c-l") 'split-window-right)
   ;;(global-set-key (kbd "SPC-w-c-j") 'split-window-below)
+
+;; ;; prevent interference with org mode map
+;; ;; when org-mode loads alter bindings
+;; ;;  (defun oxo/org-mode-map-alt-focus ()
+;; (define-key outline-mode-map (kbd "<normal-state> M-h") nil)
+;; (define-key org-mode-map (kbd "M-h") nil)
+;; (define-key outline-mode-map (kbd "<normal-state> M-j") nil)
+;; (define-key outline-mode-map (kbd "<normal-state> M-k") nil)
+;; (define-key outline-mode-map (kbd "<normal-state> M-l") nil)
+;; (global-set-key (kbd "M-h") 'windmove-left)
+;; (global-set-key (kbd "M-j") 'windmove-down)
+;; (global-set-key (kbd "M-k") 'windmove-up)
+;; (global-set-key (kbd "M-l") 'windmove-right)
+
+;; (use-package buffer-move
+;;   :ensure t
+
+;;   :config
+;;   (global-set-key (kbd "M-H") 'buf-move-left)
+;;   (global-set-key (kbd "M-J") 'buf-move-down)
+;;   (global-set-key (kbd "M-K") 'buf-move-up)
+;;   (global-set-key (kbd "M-L") 'buf-move-right))
+
+;; (global-set-key (kbd "M-C-h") 'shrink-window-horizontally)
+;; (global-set-key (kbd "M-C-j") 'enlarge-window)
+;; (global-set-key (kbd "M-C-k") 'shrink-window)
+;; (global-set-key (kbd "M-C-l") 'enlarge-window-horizontally)
 
 (oxo/leader-keys
   "s" '(:ignore t :wk "search")

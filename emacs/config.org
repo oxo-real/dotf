@@ -1358,32 +1358,7 @@ M-x recentf-open-files
 ** increment numbers
 #+begin_src emacs-lisp
 
-  ;; (defun oxo-change-number-at-point (change increment)
-  ;;  (let ((number (number-at-point))
-  ;;        (point (point)))
-  ;;    (when number
-  ;;      (progn
-  ;;        (forward-word)
-  ;;        (search-backward (number-to-string number))
-  ;;        (replace-match (number-to-string (funcall change number increment)))
-  ;;        (goto-char point)))))
-
-  ;; (defun oxo-increment-number-at-point (&optional increment)
-  ;;  "Increment number at point like vim's C-a"
-  ;;  (interactive "p")
-  ;;  (oxo-change-number-at-point '+ (or increment 1)))
-
-  ;; (defun oxo-decrement-number-at-point (&optional increment)
-  ;;  "Decrement number at point like vim's C-x"
-  ;;  (interactive "p")
-  ;;  (oxo-change-number-at-point '- (or increment 1)))
-
-  ;; CAUTION! 'C-c a' conflicts with org agenda
-  ;;  (global-set-key (kbd "C-c a") 'oxo-increment-number-at-point)
-  ;;  (global-set-key (kbd "C-c x") 'oxo-decrement-number-at-point)
-
-
-  (defun my-increment-number-at-point (&optional increment)
+  (defun oxo/increment-number-at-point (&optional increment)
     "Increment the number at point by INCREMENT."
     (interactive "*p")
     (let ((pos (point)))
@@ -1399,10 +1374,17 @@ M-x recentf-open-files
           (user-error "No number at point")))
       (goto-char pos)))
 
-  (defun my-decrement-number-at-point (&optional decrement)
+  (defun oxo/decrement-number-at-point (&optional decrement)
     "Decrement the number at point by DECREMENT."
     (interactive "*p")
-    (my-increment-number-at-point (- decrement)))
+    (oxo/increment-number-at-point (- decrement)))
+
+  ;; SPC n a increment
+  ;; SPC n x decrement
+  (oxo/leader-keys
+    "n" '(:ignore t :wk "number")
+    "n a" '(oxo/increment-number-at-point :wk "increment")
+    "n x" '(oxo/decrement-number-at-point :wk "decrement"))
 
 #+end_src
 
@@ -1410,12 +1392,12 @@ M-x recentf-open-files
 edit parens magic
 #+begin_src emacs-lisp
 
-   (use-package smartparens
-     :ensure smartparens  ;; install the package
-     :hook (prog-mode text-mode markdown-mode lsp-mode) ;; add `smartparens-mode` to these hooks
-     :config
-     ;; load default config
-     (require 'smartparens-config))
+  (use-package smartparens
+    :ensure smartparens  ;; install the package
+    :hook (prog-mode text-mode markdown-mode lsp-mode) ;; add `smartparens-mode` to these hooks
+    :config
+    ;; load default config
+    (require 'smartparens-config))
 
 #+end_src
 
@@ -1431,20 +1413,20 @@ edit parens magic
 better (inline) (un)comment
 #+begin_src emacs-lisp
 
-  ;; #1 alt-/
-  (use-package evil-nerd-commenter
-    :bind ("M-/" . evilnc-comment-or-uncomment-lines))
-
-  ;; #2 g c (evil normal mode)
+  ;; 1 'g c (evil normal mode)'
   (with-eval-after-load 'evil
     (define-key evil-normal-state-map (kbd "g c") 'evilnc-comment-or-uncomment-lines))
 
-  ;; #3 SPC g c
-  ;; #4 SPC t c
+  ;; 2 'SPC g c  go comment toggle'
+  ;; 3 'SPC t c  toggle comment'
   (oxo/leader-keys
     "g" '(:ignore t :wk "go")
     "t c" '(evilnc-comment-or-uncomment-lines :wk "comment")
     "g c" '(evilnc-comment-or-uncomment-lines :wk "comment toggle"))
+
+  ;; 4 'alt /'
+  (use-package evil-nerd-commenter
+    :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 
 #+end_src
 
@@ -1481,20 +1463,20 @@ xaxis:
 yaxis:
   down  M-j
   up    M-k
-x#+begin_src emacs-lisp
+#+begin_src emacs-lisp
 
-  ;; prevent interference with org mode map
-  ;; when org-mode loads alter bindings
-  ;;  (defun oxo/org-mode-map-alt-focus ()
-  (define-key outline-mode-map (kbd "<normal-state> M-h") nil)
-  (define-key org-mode-map (kbd "M-h") nil)
-  (define-key outline-mode-map (kbd "<normal-state> M-j") nil)
-  (define-key outline-mode-map (kbd "<normal-state> M-k") nil)
-  (define-key outline-mode-map (kbd "<normal-state> M-l") nil)
-  (global-set-key (kbd "M-h") 'windmove-left)
-  (global-set-key (kbd "M-j") 'windmove-down)
-  (global-set-key (kbd "M-k") 'windmove-up)
-  (global-set-key (kbd "M-l") 'windmove-right)
+  ;; ;; prevent interference with org mode map
+  ;; ;; when org-mode loads alter bindings
+  ;; ;;  (defun oxo/org-mode-map-alt-focus ()
+  ;; (define-key outline-mode-map (kbd "<normal-state> M-h") nil)
+  ;; (define-key org-mode-map (kbd "M-h") nil)
+  ;; (define-key outline-mode-map (kbd "<normal-state> M-j") nil)
+  ;; (define-key outline-mode-map (kbd "<normal-state> M-k") nil)
+  ;; (define-key outline-mode-map (kbd "<normal-state> M-l") nil)
+  ;; (global-set-key (kbd "M-h") 'windmove-left)
+  ;; (global-set-key (kbd "M-j") 'windmove-down)
+  ;; (global-set-key (kbd "M-k") 'windmove-up)
+  ;; (global-set-key (kbd "M-l") 'windmove-right)
 
 #+end_src
 
@@ -1506,16 +1488,16 @@ xaxis:
 yaxis:
   down  M-S-j
   up    M-S-k
-x#+begin_src emacs-lisp
+#+begin_src emacs-lisp
 
-  (use-package buffer-move
-    :ensure t
+  ;; (use-package buffer-move
+  ;;   :ensure t
 
-    :config
-    (global-set-key (kbd "M-H") 'buf-move-left)
-    (global-set-key (kbd "M-J") 'buf-move-down)
-    (global-set-key (kbd "M-K") 'buf-move-up)
-    (global-set-key (kbd "M-L") 'buf-move-right))
+  ;;   :config
+  ;;   (global-set-key (kbd "M-H") 'buf-move-left)
+  ;;   (global-set-key (kbd "M-J") 'buf-move-down)
+  ;;   (global-set-key (kbd "M-K") 'buf-move-up)
+  ;;   (global-set-key (kbd "M-L") 'buf-move-right))
 
 #+end_src
 
@@ -1527,12 +1509,12 @@ xaxis:
 yaxis:
   enlarge M-C-j
   shrink  M-C-k
-x#+begin_src emacs-lisp
+#+begin_src emacs-lisp
 
-  (global-set-key (kbd "M-C-h") 'shrink-window-horizontally)
-  (global-set-key (kbd "M-C-j") 'enlarge-window)
-  (global-set-key (kbd "M-C-k") 'shrink-window)
-  (global-set-key (kbd "M-C-l") 'enlarge-window-horizontally)
+  ;; (global-set-key (kbd "M-C-h") 'shrink-window-horizontally)
+  ;; (global-set-key (kbd "M-C-j") 'enlarge-window)
+  ;; (global-set-key (kbd "M-C-k") 'shrink-window)
+  ;; (global-set-key (kbd "M-C-l") 'enlarge-window-horizontally)
 
 #+end_src
 
