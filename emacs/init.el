@@ -1018,16 +1018,30 @@
   (interactive "*p")
   (my-increment-number-at-point (- decrement)))
 
-;; (use-package smartparens
-;;   :ensure smartparens  ;; install the package
-;;   :hook (prog-mode text-mode markdown-mode lsp-mode) ;; add `smartparens-mode` to these hooks
-;;   :config
-;;   ;; load default config
-;;   (require 'smartparens-config))
+(use-package smartparens
+  :ensure smartparens  ;; install the package
+  :hook (prog-mode text-mode markdown-mode lsp-mode) ;; add `smartparens-mode` to these hooks
+  :config
+  ;; load default config
+  (require 'smartparens-config))
 
+(use-package indent-bars
+  :hook ((lsp-mode) . indent-bars-mode)) ; or whichever modes you prefer
+
+;; #1 alt-/
 (use-package evil-nerd-commenter
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
-;; TODO AltGr /
+
+;; #2 g c (evil normal mode)
+(with-eval-after-load 'evil
+  (define-key evil-normal-state-map (kbd "g c") 'evilnc-comment-or-uncomment-lines))
+
+;; #3 SPC g c
+;; #4 SPC t c
+(oxo/leader-keys
+  "g" '(:ignore t :wk "go")
+  "t c" '(evilnc-comment-or-uncomment-lines :wk "comment")
+  "g c" '(evilnc-comment-or-uncomment-lines :wk "comment toggle"))
 
 (oxo/leader-keys
   "w" '(:ignore t :wk "window")

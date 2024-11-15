@@ -1,8 +1,0 @@
-#! /usr/bin/env perl -w
-
-open my($fh), '/usr/bin/pbpaste|' or die $!;
-while (<$fh>) {
-    tr/ÈÇ´ÕÔÒÓĞ/»«¥''""-/;
-    s/Ñ/--/g;
-    print;
-}
