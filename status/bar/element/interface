@@ -1,6 +1,7 @@
 #! /usr/bin/env sh
 
 ip='9.9.9.9'
+wg_designator='wg*'
 
 # name active interface
 if [[ -n $(ip route show) ]]; then
@@ -20,7 +21,7 @@ echo  ## none
 ## text
 case $i in
 
-    wg-*)
+    $wg_designator)
 	echo  ## default
 	;;
 
@@ -34,7 +35,7 @@ esac
 ## background
 case $i in
 
-    wg-*)
+    $wg_designator)
 	echo  ## default
 	;;
 

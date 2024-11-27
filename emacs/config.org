@@ -156,6 +156,8 @@ completion style matches multiple regular expressions in any order
 #+begin_src emacs-lisp
 
   (use-package which-key
+    :ensure t
+
     :init (which-key-mode)
 
     :diminish which-key-mode
@@ -239,6 +241,8 @@ https://nathantypanski.com/blog/2014-08-03-a-vim-like-emacs-config.html
 #+begin_src emacs-lisp
 
   (use-package evil-collection
+    :ensure t
+
     :after evil
 
     :config
@@ -254,6 +258,8 @@ https://nathantypanski.com/blog/2014-08-03-a-vim-like-emacs-config.html
 #+begin_src emacs-lisp
 
   (use-package general
+    :ensure t
+
     :config
     (general-evil-setup t)
 
@@ -271,6 +277,8 @@ https://nathantypanski.com/blog/2014-08-03-a-vim-like-emacs-config.html
 #+begin_src emacs-lisp
 
   (use-package helpful
+    :ensure t
+
     :config
     ;; Note that the built-in `describe-function' includes both functions
     ;; and macros. `helpful-function' is functions only, so we provide
@@ -303,6 +311,8 @@ similar and lighter than counsel
 #+begin_src emacs-lisp
 
   (use-package consult
+    :ensure t
+
     ;; Replace bindings. Lazily loaded due by `use-package'.
     :bind (;; C-c bindings (mode-specific-map)
            ("C-c h" . consult-history)
@@ -435,6 +445,8 @@ similar and lighter than counsel
 #+begin_src emacs-lisp
 
   (use-package magit
+    :ensure t
+
     :custom
     (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
@@ -448,9 +460,9 @@ similar and lighter than counsel
 #+begin_src emacs-lisp
 
   (use-package marginalia
-    :after vertigo
-
     :ensure t
+
+    :after vertigo
 
     :custom
     (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
@@ -519,21 +531,32 @@ choose a command to run based on what is near point
     (lsp-headerline-breadcrumb-mode))
 
   (use-package lsp-mode
+    :ensure t
+
     :commands (lsp lsp-deferred)
+
     :hook (lsp-mode . oxo/lsp-mode-setup)
+
     :init
     (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
+
     :config
     (lsp-enable-which-key-integration t))
 
   (use-package lsp-ui
+    :ensure t
+
     :hook (lsp-mode . lsp-ui-mode)
     :custom
     (lsp-ui-doc-position 'bottom))
 
-  (use-package lsp-ivy)
+  (use-package lsp-ivy
+    :ensure t)
+
 
   (use-package company
+    :ensure t
+
     :after lsp-mode
     :hook (lsp-mode . company-mode)
     :bind (:map company-active-map
@@ -550,7 +573,8 @@ choose a command to run based on what is near point
 **** zig
 #+begin_src emacs-lisp
 
-  (use-package zig-mode)
+  (use-package zig-mode
+    :ensure t)
 
 #+end_src
 
@@ -617,7 +641,8 @@ choose a command to run based on what is near point
 note taking tool
 #+begin_src emacs-lisp
 
-  (use-package denote)
+  (use-package denote
+    :ensure t)
 
   ;; [Denote (denote.el) | 17. Sample configuration](https://protesilaos.com/emacs/denote#h:5d16932d-4f7b-493d-8e6a-e5c396b15fd6)
   (require 'denote)
@@ -657,9 +682,9 @@ note taking tool
 
   ;; We use different ways to specify a path for demo purposes.
   (setq denote-dired-directories
-	(list denote-directory
-	      (thread-last denote-directory (expand-file-name "attachments"))
-	      (expand-file-name "~/Documents/books")))
+        (list denote-directory
+              (thread-last denote-directory (expand-file-name "attachments"))
+              (expand-file-name "~/Documents/books")))
 
   ;; Generic (great if you rename files Denote-style in lots of places):
   ;; (add-hook 'dired-mode-hook #'denote-dired-mode)
@@ -705,13 +730,13 @@ note taking tool
   (with-eval-after-load 'org-capture
     (setq denote-org-capture-specifiers "%l\n%i\n%?")
     (add-to-list 'org-capture-templates
-		 '("n" "New note (with denote.el)" plain
-		   (file denote-last-path)
-		   #'denote-org-capture
-		   :no-save t
-		   :immediate-finish nil
-		   :kill-buffer t
-		   :jump-to-captured t)))
+                 '("n" "New note (with denote.el)" plain
+                   (file denote-last-path)
+                   #'denote-org-capture
+                   :no-save t
+                   :immediate-finish nil
+                   :kill-buffer t
+                   :jump-to-captured t)))
 
   ;; Also check the commands `denote-link-after-creating',
   ;; `denote-link-or-create'.  You may want to bind them to keys as well.
@@ -740,6 +765,8 @@ note taking tool
     (visual-line-mode 1))
 
   (use-package org
+    :ensure t
+
     :hook (org-mode . oxo/org-mode-setup)
 
     :config
@@ -748,6 +775,8 @@ note taking tool
 
   ;; replace indentation stars
   (use-package org-bullets
+    :ensure t
+
     :after org
 
     :hook (org-mode . org-bullets-mode)
@@ -760,6 +789,8 @@ note taking tool
     (visual-fill-column-mode 0))
 
   (use-package visual-fill-column
+    :ensure t
+
     :hook (org-mode . oxo/org-mode-visual-fill))
 
   ;; read from entire directory
@@ -813,7 +844,8 @@ note taking tool
 *** org journal
 #+begin_src emacs-lisp
 
-  (use-package org-journal)
+  (use-package org-journal
+    :ensure t)
 
   (custom-set-variables
    '(org-journal-dir "~/.local/share/c/org/journal/")
@@ -972,7 +1004,7 @@ contacts
 #+begin_src emacs-lisp
 
   (use-package org-capture
-    :ensure nil
+    :ensure t
 
     :after org
 
@@ -983,7 +1015,8 @@ contacts
 *** ledger
 #+begin_src emacs-lisp
 
-  (use-package ledger-mode)
+  (use-package ledger-mode
+    :ensure t)
 
 #+end_src
 
@@ -1134,7 +1167,8 @@ CAUTION! may interfere with package doom-modeline
 *** diminish annoying minor modes on the mode line
 #+begin_src emacs-lisp
 
-  (use-package diminish)
+  (use-package diminish
+    :ensure t)
 
 #+end_src
 
@@ -1275,10 +1309,10 @@ for temporary instance eval:
 (load-theme 'base16-irblack t)
 #+begin_src emacs-lisp
 
-  ;; (use-package base16-theme
-    ;; :ensure t
-    ;; :config
-    ;; (load-theme 'base16-default-dark t))
+  (use-package base16-theme
+    :ensure t
+    :config
+    (load-theme 'base16-default-dark t))
 
 #+end_src
 
@@ -1356,6 +1390,7 @@ M-x recentf-open-files
 #+end_src
 
 ** increment numbers
+[EmacsWiki: Increment Number](https://www.emacswiki.org/emacs/IncrementNumber)
 #+begin_src emacs-lisp
 
   (defun oxo/increment-number-at-point (&optional increment)
@@ -1388,12 +1423,12 @@ M-x recentf-open-files
 
 #+end_src
 
-** parenthesis magic
-edit parens magic
+** parenthesis automation
+edit parenthesis intelligently
 #+begin_src emacs-lisp
 
   (use-package smartparens
-    :ensure smartparens  ;; install the package
+    :ensure t
     :hook (prog-mode text-mode markdown-mode lsp-mode) ;; add `smartparens-mode` to these hooks
     :config
     ;; load default config
@@ -1405,6 +1440,7 @@ edit parens magic
 #+begin_src emacs-lisp
 
   (use-package indent-bars
+    :ensure t
     :hook ((lsp-mode) . indent-bars-mode)) ; or whichever modes you prefer
 
 #+end_src
@@ -1412,6 +1448,11 @@ edit parens magic
 ** comments
 better (inline) (un)comment
 #+begin_src emacs-lisp
+
+  ;; 4 'alt /'
+  (use-package evil-nerd-commenter
+    :ensute t
+    :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 
   ;; 1 'g c (evil normal mode)'
   (with-eval-after-load 'evil
@@ -1423,10 +1464,6 @@ better (inline) (un)comment
     "g" '(:ignore t :wk "go")
     "t c" '(evilnc-comment-or-uncomment-lines :wk "comment")
     "g c" '(evilnc-comment-or-uncomment-lines :wk "comment toggle"))
-
-  ;; 4 'alt /'
-  (use-package evil-nerd-commenter
-    :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 
 #+end_src
 
@@ -1586,7 +1623,7 @@ Put backup and autosave files neatly away
 #+begin_src emacs-lisp
 
   (use-package dired
-    :ensure nil
+    :ensure t
 
     :commands (dired dired-jump)
 
@@ -1636,9 +1673,10 @@ Put backup and autosave files neatly away
 passphrase prompt of gpg private keys
 #+begin_src emacs-lisp
 
-  (use-package pinentry)
-  (setq epa-pinentry-mode 'loopback)
-  (pinentry-start)
+    (use-package pinentry
+      :ensure t)
+    (setq epa-pinentry-mode 'loopback)
+    (pinentry-start)
 
 #+end_src
 

@@ -13,7 +13,7 @@
  '(org-journal-dir "~/.local/share/c/org/journal/")
  '(org-journal-file-type 'yearly)
  '(package-selected-packages
-   '(indent-bars smartparens zig-mode pinentry super-save evil-nerd-commenter diminish ledger-mode org-present org-journal visual-fill-column org-bullets denote company lsp-ivy lsp-ui lsp-mode embark-consult embark marginalia magit consult helpful general evil-collection evil doom-modeline which-key orderless vertico)))
+   '(dired indent-bars smartparens zig-mode pinentry super-save evil-nerd-commenter diminish ledger-mode org-present org-journal visual-fill-column org-bullets denote company lsp-ivy lsp-ui lsp-mode embark-consult embark marginalia magit consult helpful general evil-collection evil doom-modeline which-key orderless vertico)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

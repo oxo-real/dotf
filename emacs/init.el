@@ -63,6 +63,8 @@
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package which-key
+  :ensure t
+
   :init (which-key-mode)
 
   :diminish which-key-mode
@@ -121,6 +123,8 @@
   (evil-set-initial-state 'dashboard-mode 'normal))
 
 (use-package evil-collection
+  :ensure t
+
   :after evil
 
   :config
@@ -131,6 +135,8 @@
   ;;(("C-." . embark-act)))
 
 (use-package general
+  :ensure t
+
   :config
   (general-evil-setup t)
 
@@ -143,6 +149,8 @@
                           :prefix "C-c"))
 
 (use-package helpful
+  :ensure t
+
   :config
   ;; Note that the built-in `describe-function' includes both functions
   ;; and macros. `helpful-function' is functions only, so we provide
@@ -169,6 +177,8 @@
   (global-set-key (kbd "C-h C") #'helpful-command))
 
 (use-package consult
+  :ensure t
+
   ;; Replace bindings. Lazily loaded due by `use-package'.
   :bind (;; C-c bindings (mode-specific-map)
          ("C-c h" . consult-history)
@@ -296,6 +306,8 @@
   (define-key evil-normal-state-map (kbd "#") 'evil-search-word-backward)
 
 (use-package magit
+  :ensure t
+
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
@@ -304,9 +316,9 @@
 ;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
 
 (use-package marginalia
-  :after vertigo
-
   :ensure t
+
+  :after vertigo
 
   :custom
   (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
@@ -358,21 +370,32 @@
   (lsp-headerline-breadcrumb-mode))
 
 (use-package lsp-mode
+  :ensure t
+
   :commands (lsp lsp-deferred)
+
   :hook (lsp-mode . oxo/lsp-mode-setup)
+
   :init
   (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
+
   :config
   (lsp-enable-which-key-integration t))
 
 (use-package lsp-ui
+  :ensure t
+
   :hook (lsp-mode . lsp-ui-mode)
   :custom
   (lsp-ui-doc-position 'bottom))
 
-(use-package lsp-ivy)
+(use-package lsp-ivy
+  :ensure t)
+
 
 (use-package company
+  :ensure t
+
   :after lsp-mode
   :hook (lsp-mode . company-mode)
   :bind (:map company-active-map
@@ -383,7 +406,8 @@
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0))
 
-(use-package zig-mode)
+(use-package zig-mode
+  :ensure t)
 
 (require 'ansi-color)
 (defun oxo/colorize-compilation ()
@@ -435,7 +459,8 @@
 (add-hook 'comint-output-filter-functions
           'oxo/filter-non-sgr-control-sequences-in-output)
 
-(use-package denote)
+(use-package denote
+  :ensure t)
 
 ;; [Denote (denote.el) | 17. Sample configuration](https://protesilaos.com/emacs/denote#h:5d16932d-4f7b-493d-8e6a-e5c396b15fd6)
 (require 'denote)
@@ -476,8 +501,8 @@
 ;; We use different ways to specify a path for demo purposes.
 (setq denote-dired-directories
       (list denote-directory
-	    (thread-last denote-directory (expand-file-name "attachments"))
-	    (expand-file-name "~/Documents/books")))
+            (thread-last denote-directory (expand-file-name "attachments"))
+            (expand-file-name "~/Documents/books")))
 
 ;; Generic (great if you rename files Denote-style in lots of places):
 ;; (add-hook 'dired-mode-hook #'denote-dired-mode)
@@ -523,13 +548,13 @@
 (with-eval-after-load 'org-capture
   (setq denote-org-capture-specifiers "%l\n%i\n%?")
   (add-to-list 'org-capture-templates
-	       '("n" "New note (with denote.el)" plain
-		 (file denote-last-path)
-		 #'denote-org-capture
-		 :no-save t
-		 :immediate-finish nil
-		 :kill-buffer t
-		 :jump-to-captured t)))
+               '("n" "New note (with denote.el)" plain
+                 (file denote-last-path)
+                 #'denote-org-capture
+                 :no-save t
+                 :immediate-finish nil
+                 :kill-buffer t
+                 :jump-to-captured t)))
 
 ;; Also check the commands `denote-link-after-creating',
 ;; `denote-link-or-create'.  You may want to bind them to keys as well.
@@ -553,6 +578,8 @@
   (visual-line-mode 1))
 
 (use-package org
+  :ensure t
+
   :hook (org-mode . oxo/org-mode-setup)
 
   :config
@@ -561,6 +588,8 @@
 
 ;; replace indentation stars
 (use-package org-bullets
+  :ensure t
+
   :after org
 
   :hook (org-mode . org-bullets-mode)
@@ -573,6 +602,8 @@
   (visual-fill-column-mode 0))
 
 (use-package visual-fill-column
+  :ensure t
+
   :hook (org-mode . oxo/org-mode-visual-fill))
 
 ;; read from entire directory
@@ -611,7 +642,8 @@
 
 (require 'org-attach)
 
-(use-package org-journal)
+(use-package org-journal
+  :ensure t)
 
 (custom-set-variables
  '(org-journal-dir "~/.local/share/c/org/journal/")
@@ -737,13 +769,14 @@
     'font-lock-warning-face))
 
 (use-package org-capture
-  :ensure nil
+  :ensure t
 
   :after org
 
   :custom (org-contacts-files '("~/.local/share/c/org/contacts/contacts.org")))
 
-(use-package ledger-mode)
+(use-package ledger-mode
+  :ensure t)
 
 (org-babel-do-load-languages 'org-babel-load-languages
 			     '((emacs-lisp . t)
@@ -844,7 +877,8 @@
 
 (oxo/custom-mode-line)
 
-(use-package diminish)
+(use-package diminish
+  :ensure t)
 
 ;; relative line numbers
 (setq display-line-numbers-type 'relative)
@@ -927,10 +961,10 @@
 ;;(setq tab-bar-format '(tab-bar-format-global)
 ;;  tab-bar-mode t))
 
-;; (use-package base16-theme
-  ;; :ensure t
-  ;; :config
-  ;; (load-theme 'base16-default-dark t))
+(use-package base16-theme
+  :ensure t
+  :config
+  (load-theme 'base16-default-dark t))
 
 ;; first set the custom variables
 (setq modus-themes-mode-line '(borderless))
@@ -1001,14 +1035,20 @@
   "n x" '(oxo/decrement-number-at-point :wk "decrement"))
 
 (use-package smartparens
-  :ensure smartparens  ;; install the package
+  :ensure t
   :hook (prog-mode text-mode markdown-mode lsp-mode) ;; add `smartparens-mode` to these hooks
   :config
   ;; load default config
   (require 'smartparens-config))
 
 (use-package indent-bars
+  :ensure t
   :hook ((lsp-mode) . indent-bars-mode)) ; or whichever modes you prefer
+
+;; 4 'alt /'
+(use-package evil-nerd-commenter
+  :ensute t
+  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 
 ;; 1 'g c (evil normal mode)'
 (with-eval-after-load 'evil
@@ -1020,10 +1060,6 @@
   "g" '(:ignore t :wk "go")
   "t c" '(evilnc-comment-or-uncomment-lines :wk "comment")
   "g c" '(evilnc-comment-or-uncomment-lines :wk "comment toggle"))
-
-;; 4 'alt /'
-(use-package evil-nerd-commenter
-  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 
 (oxo/leader-keys
   "w" '(:ignore t :wk "window")
@@ -1098,7 +1134,7 @@
       kept-old-versions 5)   ;; and how many of the old
 
 (use-package dired
-  :ensure nil
+  :ensure t
 
   :commands (dired dired-jump)
 
@@ -1127,7 +1163,8 @@
   "tw" 'whitespace-mode
   "tt" '(counsel-load-theme :which-key "choose theme"))
 
-(use-package pinentry)
+(use-package pinentry
+  :ensure t)
 (setq epa-pinentry-mode 'loopback)
 (pinentry-start)
 
