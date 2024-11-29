@@ -858,7 +858,8 @@
 ├── nushell
 │   ├── config.nu
 │   ├── env.nu
-│   └── history.txt
+│   ├── history.txt.aes
+│   └── history.txt.hash
 ├── nvim
 │   ├── doc
 │   │   ├── kickstart.txt
@@ -1342,5 +1343,5 @@
     │   └── config
     └── xresources_colors
 
-121 directories, 1221 files
+121 directories, 1222 files
 ```

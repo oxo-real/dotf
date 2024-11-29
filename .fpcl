@@ -41,6 +41,7 @@ c network
 c newsboat
 c notmuch
 nushell
+c nushell/history.txt
 nvim
 nyxt
 obs
