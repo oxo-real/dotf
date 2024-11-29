@@ -855,6 +855,10 @@
 ├── newsboat.tar.hash
 ├── notmuch.tar.aes
 ├── notmuch.tar.hash
+├── nushell
+│   ├── config.nu
+│   ├── env.nu
+│   └── history.txt
 ├── nvim
 │   ├── doc
 │   │   ├── kickstart.txt
@@ -889,6 +893,8 @@
 │   ├── basic.ini
 │   └── Untitled
 ├── qutebrowser
+│   ├── cleanup.aes
+│   ├── cleanup.hash
 │   └── config.py
 ├── repo-tree.md
 ├── repo_tree.md
@@ -1095,7 +1101,6 @@
 │   └── zathurarc
 ├── zsa
 │   └── moonlander
-│       ├── keymapp-latest.tar.gz
 │       ├── ml0-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/ml0-kb-guide.pdf
 │       ├── ml1-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/ml1-kb-guide.pdf
 │       ├── ml2-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/ml2-kb-guide.pdf
@@ -1103,17 +1108,9 @@
 │       ├── ml4-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/ml4-kb-guide.pdf
 │       ├── ml5-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/ml5-kb-guide.pdf
 │       ├── ml7-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/ml7-kb-guide.pdf
-│       ├── moonlander_oxo_qwerty_NZWR6_MrLBY.bin
-│       ├── moonlander_oxo_qwerty_NZWR6_MrLBY.zip
 │       ├── moonlander_oxo_qwerty_NZWR6.url
-│       ├── moonlander_oxo_qwerty_NZWR6_v3qeo.bin
-│       ├── moonlander_oxo_qwerty_NZWR6_v3qeo.zip
-│       ├── zsa_moonlander_oxo_qwerty_NZWR6_JWmlZ.bin
-│       ├── zsa_moonlander_oxo_qwerty_NZWR6_JWmlZ.zip
 │       ├── zsa_moonlander_oxo_qwerty_NZWR6_LwYqe.bin
-│       ├── zsa_moonlander_oxo_qwerty_NZWR6_LwYqe.zip
-│       ├── zsa_moonlander_oxo_qwerty_NZWR6_wVDXd.bin
-│       └── zsa_moonlander_oxo_qwerty_NZWR6_wVDXd.zip
+│       └── zsa_moonlander_oxo_qwerty_NZWR6_LwYqe.zip
 ├── zsh
 │   ├── alia
 │   ├── completions
@@ -1345,5 +1342,5 @@
     │   └── config
     └── xresources_colors
 
-120 directories, 1225 files
+121 directories, 1221 files
 ```

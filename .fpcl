@@ -40,10 +40,12 @@ c nerd-dictation/specific
 c network
 c newsboat
 c notmuch
+nushell
 nvim
 nyxt
 obs
 qutebrowser/config.py
+c qutebrowser/cleanup
 c rsync
 shln
 status
@@ -59,7 +61,6 @@ c w3m/cookie
 c w3m/history
 c w3m/passwd
 waybar
-c wttr
 c yk
 zathura
 zsa
