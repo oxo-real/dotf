@@ -803,22 +803,22 @@ function chpwd ()
     ### synthesized
     right_bar=$(printf $rb1$rb2$rb3$rb4$rb5)
 
-    ## position, alignment and correction parameters
-    ### alacritty
-    local lb_corr=0
-    local rb_corr=-66
-    local lb_length=$(( ${#${(S%%)left_bar//(\%([KF1]|)\{*\}|\%[Bbkf])}} + lb_corr ))
-    local rb_length=$(( ${#${(S%%)right_bar//(\%([KF1]|)\{*\}|\%[Bbkf])}} + rb_corr ))
-    local bar_filler_spaces=$(( COLUMNS - lb_length - rb_length ))
-
-    print -Pr "$left_bar  $right_bar"
+    ## right bar aligned to right edge
+    ### position, alignment and correctional parameters
+    #local lb_corr=0
+    #local rb_corr=-66
+    #local lb_length=$(( ${#${(S%%)left_bar//(\%([KF1]|)\{*\}|\%[Bbkf])}} + lb_corr ))
+    #local rb_length=$(( ${#${(S%%)right_bar//(\%([KF1]|)\{*\}|\%[Bbkf])}} + rb_corr ))
+    #local bar_filler_spaces=$(( COLUMNS - lb_length - rb_length ))
     #print -Pr "$left_bar${(l:$bar_filler_spaces:)}$right_bar"
-
-    ## testing alignment
+    ### testing alignment
     #print $COLUMNS $lb_length $bar_filler_spaces $rb_length
-    ## end testing alignment
+    ### end testing alignment
 
-    # NOTICE presumes ls alias with eza_wrapper.sh
+    ## right bar without right edge algnment
+    print -Pr "$left_bar  $right_bar"
+
+    # NOTICE presume ls alias with eza_wrapper.sh
     ls -A
 
     #eza --all --group-directories-first
@@ -873,11 +873,11 @@ zle -N git-add-commit
 bindkey '^A' git-add-commit             ## C-a
 
 
-function dirstack ()
+function dir-stack ()
 {
-    ## create chronological cd history with unique lines only
+    ## create chronological cd listing from history with unique lines only
 
-    ## sed get only commands from history
+    ## sed extract commands from histfile
     ## grep only cd commands
     ## sed remove lines with cd .(.), cd -, erase ../, cd[space], and trailing slashes
     ### ### marked lines are keeping last occurence of duplicates
@@ -929,26 +929,30 @@ function cd-nav-dirs ()
     ### 3 H --0 $HOME
     ### 4 R --0 $ROOT
 
-    ## change directory; select from dirstack
-    dirstack
+    ## dir names and their fzf_prompts
+    declare -A srch_env_prmt_arr
+    srch_env_prmt_arr[PWD]='C'
+    srch_env_prmt_arr[HOME]='H'
+    srch_env_prmt_arr[ROOT]='R'
 
+    ## dir names and their actual dirs
+    declare -A srch_env_dir_arr
+    srch_env_dir_arr[PWD]=$PWD
+    srch_env_dir_arr[HOME]=$HOME
+    srch_env_dir_arr[ROOT]=$ROOT
+
+    ## generate dir_stack
+    dir-stack
     fzf_prompt='S'
 
-    ## add option qqq-quit-exit-cancel
-    dir_stack=$(printf '%s\n%s' "$dir_stack" 'qqq-quit-exit-cancel')
-
-    ## 1 change directory; select a directory from $dir_stack
     #TODO case select is '~', starts with ~ or contains ~
     dir_stack_select_fzf=$(printf '%s' "$dir_stack" | fzf --prompt "$fzf_prompt ")
 
-    if [[ $dir_stack_select_fzf =~ 'qqq*' ]]; then
+    if [[ -d "$dir_stack_select_fzf" ]]; then
 
-	return 10
-
-    elif [[ -d "$dir_stack_select_fzf" ]]; then
-
-	## dir_select_fzf is an absolute directory
-	## or child of the cwd
+	## dir_select_fzf is a valid:
+	### absolute directory, or
+	### child in cwd
 
 	## insert at cursor position
 	### insert and keep cursor in place
@@ -963,18 +967,15 @@ function cd-nav-dirs ()
 
     elif [[ -n $dir_stack_select_fzf ]]; then
 
-	## dir_select_fzf is no absolute directory
+	## dir_select_fzf is no valid absolute directory
 	## nor from cwd accessible relative directory
-	## test if (relative) dir exist somewhere
+	## test if (relative) dir exist somewhere in the filesystem
 	fd_path=$ROOT
 	fzf_prompt='R'
 	fd_pattern="$dir_stack_select_fzf"
 	fzf_query="$fd_pattern"
 
 	fd_list_dirs=$(fd --type d --hidden --full-path "$fd_pattern" $fd_path)
-
-	## add option qqq-quit-exit-cancel
-	fd_list_dirs=$(printf '%s\n%s' "$fd_list_dirs" 'qqq-quit-exit-cancel')
 
 	dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query")
 
@@ -984,98 +985,57 @@ function cd-nav-dirs ()
 	    BUFFER="cd ${dir_select}"
 	    zle vi-add-eol
 
-	elif [[ ! -d $dir_select || -z $dir_select ]]; then
+	# elif [[ ! -d $dir_select || -z $dir_select ]]; then
 
-	    printf '%s directory not found\n' "$fzf_query"
+	    # printf '%s directory not found\n' "$fzf_query"
 	    # TODO printf '${fg_amber}%s${st_def} directory not found\n' "$fzf_query"
-	    return 100
+	    # return 100
 
 	fi
 
     elif [[ -z $dir_stack_select_fzf ]]; then
 
-	## 2 change directory; select a directory under $PWD
-	## cd-child offers similar functionality directly
-	fd_path=$PWD
-	fzf_prompt='C'
-	fzf_query=$PWD/
+	## choose search environment
+	fzf_prompt='SRCH_ENV'
 
+	## iterate over arr and get all keys
+	for srch_env_dir in "${(@k)srch_env_dir_arr}"; do
+
+	    srch_env_dirs+=($srch_env_dir)
+	    ## DEV TODO clear array
+
+	done
+
+	## one item from srch_env_dirs becomes fd_path_sel
+	## PWD, HOME, ROOT, ...
+	fd_path_sel=$(printf '%s\n' "${srch_env_dirs[@]}" | fzf --prompt "$fzf_prompt ")
+
+	#[[ -z $fd_path_sel ]] && exit 0
+
+	fd_path=${srch_env_dir_arr[$fd_path_sel]}
+	fzf_prompt=${srch_env_prmt_arr[$fd_path_sel]}
+	fzf_query=$fd_path/
+
+	## select a directory under $fd_path
 	fd_list_dirs=$(fd --type d --hidden . $fd_path)
-
-	## add option qqq-quit-exit-cancel
-	fd_list_dirs=$(printf '%s\n%s' "$fd_list_dirs" 'qqq-quit-exit-cancel')
 
 	dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query")
 
-	if [[ $dir_select =~ 'qqq*' ]]; then
+	# if [[ -z "$dir_select" ]]; then
 
-	    return 10
+	    # exit 0
 
-	elif [[ -d $dir_select ]]; then
+	if [[ -d $dir_select ]]; then
 
 	    ## dir_pwd_select is a directory
 	    BUFFER="cd ${dir_select}"
 	    zle vi-add-eol
 
-	elif [[ -z $dir_select ]]; then
-
-	    ## 3 change directory; select a directory under $HOME
-	    fd_path=$HOME
-	    fzf_prompt='H'
-	    fzf_query=$HOME/
-
-	    fd_list_dirs=$(fd --type d --hidden . $fd_path)
-
-	    ## add option qqq-quit-exit-cancel
-	    fd_list_dirs=$(printf '%s\n%s' "$fd_list_dirs" 'qqq-quit-exit-cancel')
-
-	    dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query")
-
-	    if [[ $dir_select =~ 'qqq*' ]]; then
-
-		return 10
-
-	    elif [[ -d $dir_select ]]; then
-
-		## dir_home_select is a directory
-		BUFFER="cd $dir_select"
-		zle vi-add-eol
-
-	    else
-
-		## 4 change directory; select a directory under $ROOT
-		fd_path=$ROOT
-		fzf_prompt='R'
-		fzf_query=$ROOT
-
-		fd_list_dirs=$(fd --type d --hidden . $fd_path)
-
-		## add option qqq-quit-exit-cancel
-		fd_list_dirs=$(printf '%s\n%s' "$fd_list_dirs" 'qqq-quit-exit-cancel')
-
-		dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query")
-
-		if [[ $dir_select =~ 'qqq*' ]]; then
-
-		    return 10
-
-		elif [[ -d $dir_select ]]; then
-
-		    ## dir_home_select is a directory
-		    BUFFER="cd $dir_select"
-		    zle vi-add-eol
-
-		else
-
-		    return 10
-
-		fi
-
-	    fi
-
 	fi
 
     fi
+
+    unset srch_env_dirs
 
     zle -K viins
 }
@@ -1157,8 +1117,8 @@ function insert-item-inline ()
     zle kill-region
     fzf_query="$CUTBUFFER"
 
-    ## dirstack instead of fd_path (below)
-    dirstack
+    ## dir-stack instead of fd_path (below)
+    dir-stack
     fzf_prompt='S'
 
     ## add option qqq-quit-exit-cancel
