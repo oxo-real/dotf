@@ -1,6 +1,5 @@
 #! /usr/bin/env sh
 
-
 # pwd, statistics and ls when cwd changes
 function chpwd ()
 {
@@ -12,7 +11,7 @@ function chpwd ()
     else
 
 	# no write permission directory color #ffbf00
-	local left_bar="%F{#000000}%K{#ffbf00}%B %~ %b%k%f"
+	local left_bar="%F{#ffffff}%B %~ %b%f"
 
     fi
 
@@ -55,22 +54,24 @@ function chpwd ()
     ### synthesized
     right_bar=$(printf $rb1$rb2$rb3$rb4$rb5)
 
-    ## position, alignment and correction parameters
-    ### alacritty
-    local lb_corr=0
-    local rb_corr=-66
-    local lb_length=$(( ${#${(S%%)left_bar//(\%([KF1]|)\{*\}|\%[Bbkf])}} + lb_corr ))
-    local rb_length=$(( ${#${(S%%)right_bar//(\%([KF1]|)\{*\}|\%[Bbkf])}} + rb_corr ))
-    local bar_filler_spaces=$(( COLUMNS - lb_length - rb_length ))
-
-    print -Pr "$left_bar  $right_bar"
+    ## right bar aligned to right edge
+    ### position, alignment and correctional parameters
+    #local lb_corr=0
+    #local rb_corr=-66
+    #local lb_length=$(( ${#${(S%%)left_bar//(\%([KF1]|)\{*\}|\%[Bbkf])}} + lb_corr ))
+    #local rb_length=$(( ${#${(S%%)right_bar//(\%([KF1]|)\{*\}|\%[Bbkf])}} + rb_corr ))
+    #local bar_filler_spaces=$(( COLUMNS - lb_length - rb_length ))
     #print -Pr "$left_bar${(l:$bar_filler_spaces:)}$right_bar"
-
-    ## testing alignment
+    ### testing alignment
     #print $COLUMNS $lb_length $bar_filler_spaces $rb_length
-    ## end testing alignment
+    ### end testing alignment
 
-    # NOTICE presumes ls alias with eza_wrapper.sh
+    ## right bar without right edge algnment
+    print -Pr "     $right_bar"
+    #print -Pr "$left_bar"
+    #print -Pr "$left_bar  $right_bar"
+
+    # NOTICE presume ls alias with eza_wrapper.sh
     ls -A
 
     #eza --all --group-directories-first

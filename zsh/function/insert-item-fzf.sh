@@ -71,5 +71,3 @@ function insert-item-fzf ()
 
     unset CUTBUFFER
 }
-
-

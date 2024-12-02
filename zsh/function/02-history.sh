@@ -1,10 +1,11 @@
 #! /usr/bin/env sh
 
 
+# history settings
+
 hist_cmd_offset=100000
 
-
-# history shell options
+## history shell options
 ## see man zshoptions (history)
 
 ## save timestamp and duration

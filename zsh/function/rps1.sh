@@ -1,5 +1,7 @@
 #! /usr/bin/env sh
 
+strlen_sh="/home/oxo/.config/zsh/function/strlen.sh"
+
 
 ## right side prompt (RPS1)
 ## shows running time without breaking menus (like fzf or zsh completion)
@@ -20,6 +22,7 @@ function calc-epoch ()
 function calc-rps1 ()
 {
     calc-epoch
+    source $strlen_sh
 
     weekday=$(date +'%u')
     day_num=$(date +'%d')
@@ -127,11 +130,10 @@ function TRAPALRM ()
 }
 
 
+## right side prompt (RPS1)
 ## TMOUT triggers the TRAPALRM
 ## RPS1 refresh rate (seconds)
 TMOUT=3
 
-## initial activation
+## RPS1 initial activation
 rp-redisplay
-
-

@@ -1122,33 +1122,36 @@
 │   │   └── _passr
 │   ├── etc_zsh_zshenv
 │   ├── function
-│   │   ├── bindkey.sh
+│   │   ├── 01-sourcing.sh
+│   │   ├── 02-history.sh
 │   │   ├── cd-funcs.sh
 │   │   ├── chpwd.sh
 │   │   ├── cursor.sh
 │   │   ├── decorations.sh
-│   │   ├── dirstack.sh
+│   │   ├── dir-stack.sh
 │   │   ├── foreground.sh
 │   │   ├── fzf-config.sh
 │   │   ├── git.sh
-│   │   ├── history.sh
 │   │   ├── insert-date-time.sh
 │   │   ├── insert-item-fzf.sh
 │   │   ├── insert-item-inline.sh
+│   │   ├── keys.sh
 │   │   ├── precmd.sh
 │   │   ├── preexec.sh
 │   │   ├── ps1.sh
+│   │   ├── ps4.sh
 │   │   ├── rps1.sh
-│   │   ├── rps4.sh
+│   │   ├── shell-params.sh
 │   │   ├── strlen.sh
 │   │   ├── toggle-sh-x.sh
-│   │   └── toggle-sudo.sh
-│   ├── prompt
-│   │   └── two-line-prompt.zsh
+│   │   ├── toggle-sudo.sh
+│   │   └── zz-catalog.sh
 │   ├── zsh-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/zsh-kb-guide.pdf
 │   └── zzz_deprecated
 │       ├── 20240924_174623_1727192783-.zshrc
 │       ├── git-prompt.sh
+│       ├── prompt
+│       │   └── two-line-prompt.zsh
 │       ├── zshold
 │       └── zshrcold
 └── zzz_deprecated
@@ -1343,5 +1346,5 @@
     │   └── config
     └── xresources_colors
 
-121 directories, 1222 files
+121 directories, 1225 files
 ```
