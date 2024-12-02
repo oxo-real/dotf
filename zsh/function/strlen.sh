@@ -1,5 +1,9 @@
 #! /usr/bin/env sh
 
+# --------------------------------------------------------------------
+# strlen.sh
+
+
 function strlen ()
 {
     # calculate string length
@@ -69,4 +73,3 @@ it finds the length of the string.
 
     echo $x
 }
-

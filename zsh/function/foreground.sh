@@ -1,5 +1,8 @@
 #! /usr/bin/env sh
 
+# --------------------------------------------------------------------
+# foreground.sh
+
 
 function foreground ()
 {

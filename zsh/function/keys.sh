@@ -1,6 +1,9 @@
 #! /usr/bin/env sh
 
-#
+# --------------------------------------------------------------------
+# keys.sh
+
+
 # fix the workings of important keys
 
 ## get terminal escape sequence (SIGTERM) string via `cat` and

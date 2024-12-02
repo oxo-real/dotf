@@ -1,5 +1,8 @@
 #! /usr/bin/env sh
 
+# --------------------------------------------------------------------
+# ps1.sh
+
 
 # prompt
 
@@ -16,4 +19,3 @@ setopt PROMPT_SUBST
 [[ $(host) != "$HOSTNAME" ]] && \
     PS1="%(?..%F{#ff6c60}%?%f)%(1j.%F{#4aa5fd}%K{#333333}%B%j%b%k%f.)%F{#000000}%K{#cccccc}%n@%m%k%f%(!.%F{#ffbf00}%B#%b%f.%%) " || \
     PS1="%(?..%F{#ff6c60}%?%f)%(1j.%F{#4aa5fd}%K{#333333}%B%j%b%k%f.)%(!.%F{#ffffff}%B#%b%f.%%) "
-

@@ -1,5 +1,8 @@
 #! /usr/bin/env sh
 
+# --------------------------------------------------------------------
+# decorations.sh
+
 
 function decorations ()
 {
@@ -38,4 +41,3 @@ base16-config
 
     ## set base16_shell colorscheme
     base16_irblack
-

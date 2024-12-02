@@ -1,5 +1,8 @@
 #! /usr/bin/env sh
 
+# --------------------------------------------------------------------
+# fzf-config.sh
+
 
 function fzf-config ()
 {
@@ -83,4 +86,3 @@ FZF_FTW
 )"
 #--prompt ' Global History > '
 #--header 'select [RET] remove [C-d]'
-

@@ -1,5 +1,9 @@
 #! /usr/bin/env sh
 
+# --------------------------------------------------------------------
+# cursor.sh
+
+
 
 function def-cursor ()
 {
@@ -97,4 +101,3 @@ function zle-line-finish ()
     set-cursor
     zle reset-prompt
 }
-

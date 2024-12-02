@@ -1,5 +1,8 @@
 #! /usr/bin/env sh
 
+# --------------------------------------------------------------------
+# shell-params.sh
+
 
 # shell parameters
 autoload -U colors; colors

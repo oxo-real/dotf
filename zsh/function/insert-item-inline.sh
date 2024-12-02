@@ -1,5 +1,8 @@
 #! /usr/bin/env sh
 
+# --------------------------------------------------------------------
+# insert-item-inline.sh
+
 
 function insert-item-inline ()
 {

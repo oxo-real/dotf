@@ -1,5 +1,9 @@
 #! /usr/bin/env sh
 
+# --------------------------------------------------------------------
+# rps1.sh
+
+
 strlen_sh="/home/oxo/.config/zsh/function/strlen.sh"
 
 

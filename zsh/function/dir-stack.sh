@@ -1,5 +1,8 @@
 #! /usr/bin/env sh
 
+# --------------------------------------------------------------------
+# dir-stack.sh
+
 
 function dir-stack ()
 {
@@ -45,4 +48,3 @@ function dir-stack ()
 		    #uniq --skip-fields 1 --unique | \
 		    #uniq\
 }
-

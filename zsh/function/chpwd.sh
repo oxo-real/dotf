@@ -1,5 +1,9 @@
 #! /usr/bin/env sh
 
+# --------------------------------------------------------------------
+# chpwd.sh
+
+
 # pwd, statistics and ls when cwd changes
 function chpwd ()
 {
