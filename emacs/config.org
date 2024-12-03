@@ -19,6 +19,7 @@ config.org
 emacs configuration
 copyright (c) 2020 - 2024  |  oxo
 
+----------------------------------------------------------------------
 GNU GPLv3 GENERAL PUBLIC LICENSE
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -35,7 +36,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 https://www.gnu.org/licenses/gpl-3.0.txt
 
 @oxo@qoto.org
-
+======================================================================
 
 # dependencies
   n/a
@@ -1004,7 +1005,7 @@ contacts
 #+begin_src emacs-lisp
 
   (use-package org-capture
-    :ensure t
+    :ensure nil
 
     :after org
 
@@ -1451,7 +1452,7 @@ better (inline) (un)comment
 
   ;; 4 'alt /'
   (use-package evil-nerd-commenter
-    :ensute t
+    :ensure t
     :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 
   ;; 1 'g c (evil normal mode)'
@@ -1623,7 +1624,7 @@ Put backup and autosave files neatly away
 #+begin_src emacs-lisp
 
   (use-package dired
-    :ensure t
+    :ensure nil
 
     :commands (dired dired-jump)
 

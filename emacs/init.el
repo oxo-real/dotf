@@ -769,7 +769,7 @@
     'font-lock-warning-face))
 
 (use-package org-capture
-  :ensure t
+  :ensure nil
 
   :after org
 
@@ -1047,7 +1047,7 @@
 
 ;; 4 'alt /'
 (use-package evil-nerd-commenter
-  :ensute t
+  :ensure t
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 
 ;; 1 'g c (evil normal mode)'
@@ -1134,7 +1134,7 @@
       kept-old-versions 5)   ;; and how many of the old
 
 (use-package dired
-  :ensure t
+  :ensure nil
 
   :commands (dired dired-jump)
 
