@@ -1,18 +1,24 @@
-;; Prevent lightning when emacs starts
-(add-to-list 'default-frame-alist
-             '(background-color . "#000000"))
+;; ;; Prevent lightning when emacs starts
+;; (add-to-list 'default-frame-alist
+;;              '(background-color . "#000000"))
 
-;; The default is 800 kilobytes.  Measured in bytes.
-(setq gc-cons-threshold (* 50 1000 1000))
+;; ;; The default is 800 kilobytes.  Measured in bytes.
+;; (setq gc-cons-threshold (* 50 1000 1000))
 
-;; Profile emacs startup
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (message "Startup %s. %d garbage collections."
-                     (format "%.2f seconds"
-                             (float-time
-                              (time-subtract after-init-time before-init-time)))
-                     gcs-done)))
+;; ;; Profile emacs startup
+;; (add-hook 'emacs-startup-hook
+;;           (lambda ()
+;;             (message "Startup %s. %d garbage collections."
+;;                      (format "%.2f seconds"
+;;                              (float-time
+;;                               (time-subtract after-init-time before-init-time)))
+;;                      gcs-done)))
+
+(general-create-definer oxo/leader-keys
+  :states '(normal insert visual emacs)
+  :keymaps 'override
+  :prefix "SPC" ;; set leader
+  :global-prefix "M-SPC") ;; access leader in insert mode
 
 ;;(server-mode)
 
@@ -38,13 +44,6 @@
 
 (require 'use-package)
 (setq use-package-always-ensure t)
-
-;; set up 'SPC' as the global leader key
-(general-create-definer oxo/leader-keys
-  :states '(normal insert visual emacs)
-  :keymaps 'override
-  :prefix "SPC" ;; set leader
-  :global-prefix "M-SPC") ;; access leader in insert mode
 
 (use-package vertico
   :ensure t
@@ -628,7 +627,11 @@
   (add-hook 'org-agenda-mode-hook (lambda ()
                                     (setq org-agenda-files
                                           (directory-files-recursively "~/.local/share/c/org/agenda/" "\\`[^.].*\\.org\\'"))))
-;;
+(setq org-tag-alist
+      '(;; locations
+        (@home . ?h)
+        (@work . ?w)
+        ))
   ;;;; recurrint
   ;;(defun oxo/recurrint (recurrences interval m d y)
   ;;"For use in emacs diary. Cyclic item with limited number of recurrences.
@@ -658,7 +661,7 @@
 (setq org-todo-keywords
         (quote ((sequence "NEXT(1/!)" "TODO(2/!)" "WAIT(4@/!)" "SDMB(5/!)" "|" "CLDR(3/!)" "CNLX(c@/!)" "DONE(d@/!)" ))))
         ;;(quote ((sequence "NEXT(1/!)" "TODO(2/!)" "CLDR(3/!)" "WAIT(4@/!)" "SDMB(5/!)" "|" "CNLX(c@/!)" "DONE(d@/!)" ))))
-;; (sequence "QUOTE" "ORDER" "PAID" "INVOICE" "SHIPPED" "DELIVERED"))))
+;; (sequence "QUOTE" "ORDER" "INVOICE" "PAID" "SHIPPED" "DELIVERED"))))
 
 ;; action colors
 (setq org-todo-keyword-faces
@@ -802,6 +805,7 @@
 (defun oxo/org-babel-tangle-auto-rewrite ()
   (when (string-equal (buffer-file-name)
                       (expand-file-name "~/.config/emacs/config.org"))
+    ;;                  (expand-file-name (or "~/.config/emacs/config.org" "~/.config/emacs/early-init.org")))
     ;; tangle without confirmation
     ;; let: dynamic scoping for security
     (let ((org-confirm-babel-evaluate nil))
@@ -813,31 +817,31 @@
 (setq custom-file (locate-user-emacs-file "~/.config/emacs/custom.el"))
 (load custom-file 'noerror 'nomessage)
 
-;;no splash screen and startup message in echo area
-(setq inhibit-startup-message t)
-(setq inhibit-startup-echo-area-message (lambda ()
-                                          (user-login-name)))
-;;(setq server-client-instructions nil)
+;; ;;no splash screen and startup message in echo area
+;; (setq inhibit-startup-message t)
+;; (setq inhibit-startup-echo-area-message (lambda ()
+;;                                           (user-login-name)))
+;; ;;(setq server-client-instructions nil)
 
-;; clear default screen clutter
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-(tooltip-mode -1)
-(set-fringe-mode 0)
+;; ;; clear default screen clutter
+;; (menu-bar-mode -1)
+;; (scroll-bar-mode -1)
+;; (tool-bar-mode -1)
+;; (tooltip-mode -1)
+;; (set-fringe-mode 0)
 
-;; UTF-8 as default
-(set-default-coding-systems 'utf-8)
+;; ;; UTF-8 as default
+;; (set-default-coding-systems 'utf-8)
 
-(setq visible-bell nil)
+;; (setq visible-bell nil)
 
-(setq ring-bell-function
-      (lambda ()
-        (let ((orig-fg (face-foreground 'mode-line)))
-          (set-face-foreground 'mode-line "red")
-          (run-with-idle-timer 0.3 nil
-                               (lambda (fg) (set-face-foreground 'mode-line fg))
-                               orig-fg))))
+;; (setq ring-bell-function
+;;       (lambda ()
+;;         (let ((orig-fg (face-foreground 'mode-line)))
+;;           (set-face-foreground 'mode-line "red")
+;;           (run-with-idle-timer 0.3 nil
+;;                                (lambda (fg) (set-face-foreground 'mode-line fg))
+;;                                orig-fg))))
 
 (defun oxo/custom-mode-line ()
    ;; column number in modeline
@@ -881,22 +885,23 @@
   :ensure t)
 
 ;; relative line numbers
-(setq display-line-numbers-type 'relative)
-(setq display-line-numbers-minor-tick '5)
-(setq display-line-numbers-major-tick '10)
-(global-display-line-numbers-mode)
+  (setq display-line-numbers-type 'relative)
+  (setq display-line-numbers-minor-tick '5)
+  (setq display-line-numbers-major-tick '10)
+;;  (setq line-number-major-tick)
+  (global-display-line-numbers-mode)
 
-;; disable line numbers for some modes
-(dolist (mode '(term-mode-hook
-                shell-mode-hook
-                eshell-mode-hook))
-  (add-hook mode (lambda ()
-                   (display-line-numbers-mode 0))))
+  ;; disable line numbers for some modes
+  (dolist (mode '(term-mode-hook
+                  shell-mode-hook
+                  eshell-mode-hook))
+    (add-hook mode (lambda ()
+                     (display-line-numbers-mode 0))))
 
-;; TODO absolute line numbers for evil-insert-state
-;;(add-hook 'evil-insert-state-entry-hook 'menu-bar--display-line-numbers-mode 'absolute)
-;;(add-hook 'evil-insert-state-exit-hook 'menu-bar--display-line-numbers-mode 'relative)
-;;(menu-bar--display-line-numbers-mode 'relative)
+  ;; TODO absolute line numbers for evil-insert-state
+  ;;(add-hook 'evil-insert-state-entry-hook 'menu-bar--display-line-numbers-mode 'absolute)
+  ;;(add-hook 'evil-insert-state-exit-hook 'menu-bar--display-line-numbers-mode 'relative)
+  ;;(menu-bar--display-line-numbers-mode 'relative)
 
 ;;  (add-hook 'window-setup-hook #'(lambda ()
 ;;                                   (set-cursor-color "#ffffb6")))
@@ -961,10 +966,10 @@
 ;;(setq tab-bar-format '(tab-bar-format-global)
 ;;  tab-bar-mode t))
 
-(use-package base16-theme
-  :ensure t
-  :config
-  (load-theme 'base16-default-dark t))
+;; (use-package base16-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'base16-default-dark t))
 
 ;; first set the custom variables
 (setq modus-themes-mode-line '(borderless))

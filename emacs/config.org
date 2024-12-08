@@ -50,28 +50,41 @@ https://www.gnu.org/licenses/gpl-3.0.txt
 # '
 
 
-* startup performance
+* ;;startup performance
 
 Make startup faster by reducing the frequency of garbage collection.
 Use a hook to measure Emacs startup time.
 
 #+begin_src emacs-lisp
 
-  ;; Prevent lightning when emacs starts
-  (add-to-list 'default-frame-alist
-               '(background-color . "#000000"))
+  ;; ;; Prevent lightning when emacs starts
+  ;; (add-to-list 'default-frame-alist
+  ;;              '(background-color . "#000000"))
 
-  ;; The default is 800 kilobytes.  Measured in bytes.
-  (setq gc-cons-threshold (* 50 1000 1000))
+  ;; ;; The default is 800 kilobytes.  Measured in bytes.
+  ;; (setq gc-cons-threshold (* 50 1000 1000))
 
-  ;; Profile emacs startup
-  (add-hook 'emacs-startup-hook
-            (lambda ()
-              (message "Startup %s. %d garbage collections."
-                       (format "%.2f seconds"
-                               (float-time
-                                (time-subtract after-init-time before-init-time)))
-                       gcs-done)))
+  ;; ;; Profile emacs startup
+  ;; (add-hook 'emacs-startup-hook
+  ;;           (lambda ()
+  ;;             (message "Startup %s. %d garbage collections."
+  ;;                      (format "%.2f seconds"
+  ;;                              (float-time
+  ;;                               (time-subtract after-init-time before-init-time)))
+  ;;                      gcs-done)))
+
+#+end_src
+
+* space as oxo leaderkey
+set up 'SPC' as the global leader key
+
+#+begin_src emacs-lisp
+
+  (general-create-definer oxo/leader-keys
+    :states '(normal insert visual emacs)
+    :keymaps 'override
+    :prefix "SPC" ;; set leader
+    :global-prefix "M-SPC") ;; access leader in insert mode
 
 #+end_src
 
@@ -108,18 +121,6 @@ Use a hook to measure Emacs startup time.
 
   (require 'use-package)
   (setq use-package-always-ensure t)
-
-#+end_src
-
-* space as oxo leaderkey
-#+begin_src emacs-lisp
-
-  ;; set up 'SPC' as the global leader key
-  (general-create-definer oxo/leader-keys
-    :states '(normal insert visual emacs)
-    :keymaps 'override
-    :prefix "SPC" ;; set leader
-    :global-prefix "M-SPC") ;; access leader in insert mode
 
 #+end_src
 
@@ -804,34 +805,38 @@ note taking tool
 *** org agenda
 #+begin_src emacs-lisp
 
-  (require 'org-agenda)
+              (require 'org-agenda)
 
-  (custom-set-variables
-   '(org-agenda-window-setup 'current-window)
-   '(org-agenda-span 'week)
-   '(org-agenda-start-with-log-mode t)
-   '(org-agenda-include-diary t)
-   '(org-deadline-warning-days 0))
+              (custom-set-variables
+               '(org-agenda-window-setup 'current-window)
+               '(org-agenda-span 'week)
+               '(org-agenda-start-with-log-mode t)
+               '(org-agenda-include-diary t)
+               '(org-deadline-warning-days 0))
 
-  (setq org-agenda-time-grid (quote ((daily today require-timed)
-                                     (0000 0600 1200 1800)
-                                     " ....." "-----")))
+              (setq org-agenda-time-grid (quote ((daily today require-timed)
+                                                 (0000 0600 1200 1800)
+                                                 " ....." "-----")))
 
-  ;; recursively add .org files from agenda directory
-  (add-hook 'org-agenda-mode-hook (lambda ()
-                                    (setq org-agenda-files
-                                          (directory-files-recursively "~/.local/share/c/org/agenda/" "\\`[^.].*\\.org\\'"))))
-;;
-  ;;;; recurrint
-  ;;(defun oxo/recurrint (recurrences interval m d y)
-  ;;"For use in emacs diary. Cyclic item with limited number of recurrences.
-  ;;Occurs every INTERVAL days, starting on YYYY-MM-DD, for a total of
-  ;;RECURRENCES occasions."
-    ;;(let ((startdate (calendar-absolute-from-gregorian (list m d y)))
-          ;;(today (calendar-absolute-from-gregorian date)))
-      ;;(and (not (minusp (- today startdate)))
-           ;;(zerop (% (- today startdate) interval))
-           ;;(< (floor (- today startdate) interval) recurrences))))
+              ;; recursively add .org files from agenda directory
+              (add-hook 'org-agenda-mode-hook (lambda ()
+                                                (setq org-agenda-files
+                                                      (directory-files-recursively "~/.local/share/c/org/agenda/" "\\`[^.].*\\.org\\'"))))
+            (setq org-tag-alist
+                  '(;; locations
+                    (@home . ?h)
+                    (@work . ?w)
+                    ))
+              ;;;; recurrint
+              ;;(defun oxo/recurrint (recurrences interval m d y)
+              ;;"For use in emacs diary. Cyclic item with limited number of recurrences.
+              ;;Occurs every INTERVAL days, starting on YYYY-MM-DD, for a total of
+              ;;RECURRENCES occasions."
+                ;;(let ((startdate (calendar-absolute-from-gregorian (list m d y)))
+                      ;;(today (calendar-absolute-from-gregorian date)))
+                  ;;(and (not (minusp (- today startdate)))
+                       ;;(zerop (% (- today startdate) interval))
+                       ;;(< (floor (- today startdate) interval) recurrences))))
 
 #+end_src
 
@@ -866,7 +871,7 @@ note taking tool
   (setq org-todo-keywords
           (quote ((sequence "NEXT(1/!)" "TODO(2/!)" "WAIT(4@/!)" "SDMB(5/!)" "|" "CLDR(3/!)" "CNLX(c@/!)" "DONE(d@/!)" ))))
           ;;(quote ((sequence "NEXT(1/!)" "TODO(2/!)" "CLDR(3/!)" "WAIT(4@/!)" "SDMB(5/!)" "|" "CNLX(c@/!)" "DONE(d@/!)" ))))
-  ;; (sequence "QUOTE" "ORDER" "PAID" "INVOICE" "SHIPPED" "DELIVERED"))))
+  ;; (sequence "QUOTE" "ORDER" "INVOICE" "PAID" "SHIPPED" "DELIVERED"))))
 
   ;; action colors
   (setq org-todo-keyword-faces
@@ -979,14 +984,14 @@ log into drawer
 #+end_src
 
 *** org calendar
-Calendar week starts on Mondays, instead of default Sundays.
+calendar week starts on Mondays, instead of default Sundays.
 #+begin_src emacs-lisp
 
   (setq calendar-week-start-day 1)
 
 #+end_src
 
-Show ISO weeknumers in calendar.
+show ISO weeknumers in calendar.
 #+begin_src emacs-lisp
 
   (setq calendar-intermonth-text
@@ -1063,6 +1068,7 @@ rewrites init.el autoatically after config.org is saved
   (defun oxo/org-babel-tangle-auto-rewrite ()
     (when (string-equal (buffer-file-name)
                         (expand-file-name "~/.config/emacs/config.org"))
+      ;;                  (expand-file-name (or "~/.config/emacs/config.org" "~/.config/emacs/early-init.org")))
       ;; tangle without confirmation
       ;; let: dynamic scoping for security
       (let ((org-confirm-babel-evaluate nil))
@@ -1086,38 +1092,40 @@ this changes the location to a separate file and loads from there
 
 * visuals
 ** startup
+to early-init.el
 #+begin_src emacs-lisp
 
-  ;;no splash screen and startup message in echo area
-  (setq inhibit-startup-message t)
-  (setq inhibit-startup-echo-area-message (lambda ()
-                                            (user-login-name)))
-  ;;(setq server-client-instructions nil)
+  ;; ;;no splash screen and startup message in echo area
+  ;; (setq inhibit-startup-message t)
+  ;; (setq inhibit-startup-echo-area-message (lambda ()
+  ;;                                           (user-login-name)))
+  ;; ;;(setq server-client-instructions nil)
 
-  ;; clear default screen clutter
-  (menu-bar-mode -1)
-  (scroll-bar-mode -1)
-  (tool-bar-mode -1)
-  (tooltip-mode -1)
-  (set-fringe-mode 0)
+  ;; ;; clear default screen clutter
+  ;; (menu-bar-mode -1)
+  ;; (scroll-bar-mode -1)
+  ;; (tool-bar-mode -1)
+  ;; (tooltip-mode -1)
+  ;; (set-fringe-mode 0)
 
-  ;; UTF-8 as default
-  (set-default-coding-systems 'utf-8)
+  ;; ;; UTF-8 as default
+  ;; (set-default-coding-systems 'utf-8)
 
 #+end_src
 
 ** visual bell
+to early-init.el
 #+begin_src emacs-lisp
 
-  (setq visible-bell nil)
+  ;; (setq visible-bell nil)
 
-  (setq ring-bell-function
-        (lambda ()
-          (let ((orig-fg (face-foreground 'mode-line)))
-            (set-face-foreground 'mode-line "red")
-            (run-with-idle-timer 0.3 nil
-                                 (lambda (fg) (set-face-foreground 'mode-line fg))
-                                 orig-fg))))
+  ;; (setq ring-bell-function
+  ;;       (lambda ()
+  ;;         (let ((orig-fg (face-foreground 'mode-line)))
+  ;;           (set-face-foreground 'mode-line "red")
+  ;;           (run-with-idle-timer 0.3 nil
+  ;;                                (lambda (fg) (set-face-foreground 'mode-line fg))
+  ;;                                orig-fg))))
 
 #+end_src
 
@@ -1180,6 +1188,7 @@ CAUTION! may interfere with package doom-modeline
   (setq display-line-numbers-type 'relative)
   (setq display-line-numbers-minor-tick '5)
   (setq display-line-numbers-major-tick '10)
+;;  (setq line-number-major-tick)
   (global-display-line-numbers-mode)
 
   ;; disable line numbers for some modes
@@ -1310,10 +1319,10 @@ for temporary instance eval:
 (load-theme 'base16-irblack t)
 #+begin_src emacs-lisp
 
-  (use-package base16-theme
-    :ensure t
-    :config
-    (load-theme 'base16-default-dark t))
+  ;; (use-package base16-theme
+  ;;   :ensure t
+  ;;   :config
+  ;;   (load-theme 'base16-default-dark t))
 
 #+end_src
 
