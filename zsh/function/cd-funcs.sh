@@ -24,7 +24,6 @@ function cd-nav-dirs ()
     dir-stack
     fzf_prompt='S'
 
-    #TODO case select is '~', starts with ~ or contains ~
     dir_stack_select_fzf=$(printf '%s' "$dir_stack" | fzf --prompt "$fzf_prompt ")
 
     if [[ -d "$dir_stack_select_fzf" ]]; then
@@ -44,6 +43,7 @@ function cd-nav-dirs ()
 	BUFFER="cd $dir_stack_select_fzf"
 	zle vi-add-eol
 
+    #elif [[ ! -d $dir_stack_select_fzf ]]; then
     elif [[ -n $dir_stack_select_fzf ]]; then
 
 	## dir_select_fzf is no valid absolute directory
@@ -53,6 +53,8 @@ function cd-nav-dirs ()
 	fzf_prompt='R'
 	fd_pattern="$dir_stack_select_fzf"
 	fzf_query="$fd_pattern"
+
+	printf "  acquiring ${(k)srch_env_dir_arr[(r)$fd_path]} data  [ C-c > abort ]\r"
 
 	fd_list_dirs=$(fd --type d --hidden --full-path "$fd_pattern" $fd_path)
 
@@ -72,16 +74,24 @@ function cd-nav-dirs ()
 
 	fi
 
+    #else
     elif [[ -z $dir_stack_select_fzf ]]; then
 
 	## choose search environment
 	fzf_prompt='SRCH_ENV'
 
-	## iterate over arr and get all keys
+	## add cancel option
+	srch_env_dir_arr[CANCEL]='CANCEL'
+
+	## iterate over associated arr and get all keys
 	for srch_env_dir in "${(@k)srch_env_dir_arr}"; do
 
-	    srch_env_dirs+=($srch_env_dir)
-	    ## DEV TODO clear array
+	    ## make (non-acc) array
+	    srch_env_naa+=($srch_env_dir)
+
+	    ## sort array
+	    IFS=$'\n' srch_env_dirs=($(sort <<< "${srch_env_naa[*]}"))
+	    unset IFS
 
 	done
 
@@ -89,7 +99,7 @@ function cd-nav-dirs ()
 	## PWD, HOME, ROOT, ...
 	fd_path_sel=$(printf '%s\n' "${srch_env_dirs[@]}" | fzf --prompt "$fzf_prompt ")
 
-	#[[ -z $fd_path_sel ]] && exit 0
+	[[ -z $fd_path_sel || $fd_path_sel == 'CANCEL' ]] && return
 
 	fd_path=${srch_env_dir_arr[$fd_path_sel]}
 	fzf_prompt=${srch_env_prmt_arr[$fd_path_sel]}
@@ -114,7 +124,7 @@ function cd-nav-dirs ()
 
     fi
 
-    unset srch_env_dirs
+    unset srch_env_dir_arr
 
     zle -K viins
 }
