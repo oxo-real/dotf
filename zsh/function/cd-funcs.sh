@@ -8,6 +8,13 @@ function cd-nav-dirs ()
 {
     # cd navigate directories with fzf
 
+    unset srch_env_prmt_arr
+    unset srch_env_dir_arr
+    unset srch_env_naa
+    unset fzf_output
+    unset fd_path
+    unset fzf_prompt
+
     ## dir names and their fzf_prompts
     declare -A srch_env_prmt_arr
     srch_env_prmt_arr[PWD]='C'
@@ -66,12 +73,6 @@ function cd-nav-dirs ()
 	    BUFFER="cd ${dir_select}"
 	    zle vi-add-eol
 
-	# elif [[ ! -d $dir_select || -z $dir_select ]]; then
-
-	    # printf '%s directory not found\n' "$fzf_query"
-	    # TODO printf '${fg_amber}%s${st_def} directory not found\n' "$fzf_query"
-	    # return 100
-
 	fi
 
     #else
@@ -110,10 +111,6 @@ function cd-nav-dirs ()
 
 	dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query")
 
-	# if [[ -z "$dir_select" ]]; then
-
-	    # exit 0
-
 	if [[ -d $dir_select ]]; then
 
 	    ## dir_pwd_select is a directory
@@ -123,8 +120,6 @@ function cd-nav-dirs ()
 	fi
 
     fi
-
-    unset srch_env_dir_arr
 
     zle -K viins
 }
@@ -142,7 +137,11 @@ function cd-child ()
     fzf_prompt='C'
     fd_path=$PWD
 
-    insert-item-fzf $fd_path $fzf_prompt
+    if [[ $(fd --max-depth 1 --type directory . $PWD | wc -l) -gt 0 ]]; then
+
+	insert-item-fzf $fd_path $fzf_prompt
+
+    fi
 
     ## reset cd_function
     cd_function=''
