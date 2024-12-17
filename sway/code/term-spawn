@@ -16,7 +16,7 @@
 term_spawn
 spawn a new terminal window
 (c) 2019 - 2024  |  oxo
-
+----------------------------------------------------------------------
 GNU GPLv3 GENERAL PUBLIC LICENSE
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -33,53 +33,73 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 https://www.gnu.org/licenses/gpl-3.0.txt
 
 @oxo@qoto.org
+======================================================================
 
 
 # dependencies
   jq, alacritty
 
 # usage
-  % term-spawn $directory [float [w $con_width h $con_height]]
+  % term-spawn $directory [float [w $con_width h $con_height] [x $x_coor y $y_coor]]
 
 # examples
-  % term-spawn $HOME float w 300 h 300
+  % term-spawn $HOME float w 300 h 300 x 200 y 200
 
 # '
 
 
-args="$@"
+target_path=$1
+shift
+args=$@
 
 
-initialize()
+function sourcing ()
+{
+    csc="$XDG_CONFIG_HOME/sway/code"
+}
+
+
+function initialize ()
 {
     #terminal_cmd=${TERMINAL:-'foot'}
     terminal_cmd=${TERMINAL:-'alacritty'}
 }
 
 
-process_args()
+function process_args ()
 {
-    # while $1 true; do
-    target_path=$1
-    [[ $# -gt 1 ]] && shift target_con_float=$1 && shift && target_con_dims="$@"
+    while [ $# -gt 0 ]; do
+	## args is not empty
+
+	case "$1" in
+
+	    float )
+		target_con_float="$1"
+		shift
+		;;
+
+	    * )
+		[ -n $target_con_float ] && target_con_dims="$@"
+		return
+		;;
+
+	esac
+
+    done
 }
 
 
-get_curr_con_data()
+function get_curr_con_data ()
 {
-    ## check container type, width and height
-    curr_con_type=$(swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.focused?) | .type')
-    curr_con_width=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.focused?) | .rect.width')
-    curr_con_height=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.focused?) | .rect.height')
-    #curr_con_width=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.focused == true) | .rect.width')
-    #curr_con_height=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.focused == true) | .rect.height')
+    sh $csc/get-focus-data debug
+    # sh $csc/get-focus-data
 }
 
 
-split_auto()
+function split_auto ()
 {
     ## set the split direction to the longest side
-    if [[ $curr_con_width -gt $curr_con_height ]]; then
+    if [[ $container_width -gt $container_height ]]; then
 
 	split_dir='splith'
 
@@ -94,7 +114,7 @@ split_auto()
 }
 
 
-process_target_path()
+function process_target_path ()
 {
     case $target_path in
 
@@ -122,6 +142,12 @@ process_target_path()
 
 		    focused_pwd="$(readlink "/proc/$focused_ppid/cwd")"
 
+		else
+
+		    dir-stack
+		    focused_pwd="$(head -n 1 <<< "$dir_stack")"
+		    [[ -d "$focused_pwd" ]] || focused_pwd="$HOME"
+
 		fi
 
 	    else
@@ -143,7 +169,7 @@ process_target_path()
 }
 
 
-process_dim_args()
+function process_dim_args ()
 {
     while [[ "$1" ]]; do
 
@@ -159,6 +185,16 @@ process_dim_args()
 		target_con_height=$1
 		;;
 
+	    'x')
+		shift
+		target_con_xcoor=$1
+		;;
+
+	    'y')
+		shift
+		target_con_ycoor=$1
+		;;
+
 	esac
 
 	shift
@@ -167,13 +203,13 @@ process_dim_args()
 }
 
 
-resize_float()
+function resize_float ()
 {
-    target_con_width=${target_con_width:-800}
-    target_con_height=${target_con_height:-600}
+    # target_con_width=${target_con_width:-800}
+    # target_con_height=${target_con_height:-600}
 
-    #[[ -n $target_con_width ]] || target_con_width=800
-    #[[ -n $target_con_height ]] || target_con_height=600
+    # [[ -n $target_con_width ]] || target_con_width=800
+    # [[ -n $target_con_height ]] || target_con_height=600
 
     ## TODO DEV not working because no focus
     swaymsg resize set width $target_con_width
@@ -181,7 +217,13 @@ resize_float()
 }
 
 
-spawn_float()
+function move_float ()
+{
+    swaymsg move position $target_con_xcoor $target_con_ycoor
+}
+
+
+function spawn_float ()
 {
     ## spawn terminal
     ## NOTICE --no-startup-id to prevent
@@ -189,18 +231,30 @@ spawn_float()
     #swaymsg exec --no-startup-id $($terminal_cmd --working-directory="$focused_pwd" --app-id="term_float") &
     #swaymsg exec --no-startup-id $($terminal_cmd --working-directory="$focused_pwd" --class="term_float") &
     swaymsg exec "$terminal_cmd --working-directory="$focused_pwd" --class='term_float'"
+    sleep 0.2
 
     if [[ -n "$target_con_dims" ]]; then
 
     	process_dim_args $target_con_dims
     	#TODO fix this
 	#resize_float
+	#TODO DEV focus spawned container
+	float_id_max=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.type=="floating_con") | .id' | sort --numeric-sort | tail -n 1)
+	swaymsg [con_id="$float_id_max"] focus
+	get_curr_con_data
+	resize_float
+
+    fi
+
+    if [[ -n "$target_con_xcoor" && -n "$target_con_ycoor" ]]; then
+
+	move_float
 
     fi
 }
 
 
-spawn_tile()
+function spawn_tile ()
 {
     split_auto
 
@@ -210,11 +264,15 @@ spawn_tile()
 }
 
 
-spawn_terminal()
+function spawn_terminal ()
 {
     if [[ "$target_con_float" == 'float' ]]; then
 
 	spawn_float "$target_con_dims"
+
+	#TODO DEV focus spawned container
+	# get_curr_con_data
+	# resize_float
 
     else
 
@@ -224,10 +282,11 @@ spawn_terminal()
 }
 
 
-main()
+function main ()
 {
+    sourcing
     initialize
-    process_args "$args"
+    process_args $args
     get_curr_con_data
     process_target_path
     spawn_terminal

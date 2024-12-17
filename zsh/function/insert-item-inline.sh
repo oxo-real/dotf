@@ -51,8 +51,6 @@ function insert-item-inline ()
 
     elif [[ -z $fzf_output ]]; then
 
-	# unset dir_stack
-
 	## choose search environment
 	fzf_prompt='SRCH_ENV'
 
@@ -83,18 +81,8 @@ function insert-item-inline ()
 
      	insert-item-fzf $fd_path $fzf_prompt $fzf_query
 
-	# if [[ -n $fzf_output ]]; then
-
-	    zle reset-prompt
-	    return 0
-
-	# elif [[ -z $fzf_output ]]; then
-
-	    # unset fzf_output
-	    # unset fd_path
-	    # unset fzf_prompt
-
-	# fi
+	zle reset-prompt
+	return 0
 
     fi
 }

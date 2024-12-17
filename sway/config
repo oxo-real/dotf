@@ -794,9 +794,9 @@ bindsym $mod+Return		exec --no-startup-id $csc/term-spawn &
 ### cwd $PWD
 bindsym $mod+Shift+Return	exec --no-startup-id $csc/term-spawn pwd &
 ### cwd float $HOME
-bindsym $mod+Mod1+Return	exec --no-startup-id $csc/term-spawn $HOME float &
+bindsym Mod1+Return		exec --no-startup-id $csc/term-spawn $HOME float w 800 h 600 &
 ### cwd $PWD
-bindsym $mod+Mod1+Shift+Return	exec --no-startup-id $csc/term-spawn pwd float &
+bindsym Mod1+Shift+Return	exec --no-startup-id $csc/term-spawn pwd float w 800 h 600 &
 
 
 ## fzf_run

@@ -4,6 +4,8 @@
 # sway-output container origo O(0.0) NW
 # dotool monitor origo O(0.0) NW
 
+# usage: get-focus-data [debug]
+
 args=$@
 
 monitor_data ()
@@ -152,11 +154,22 @@ pointer_data ()
 
 debug_data ()
 {
+    ## print debug data
     case "$args" in
 
 	*debug*)
 	    printf 'monitor_width %s\n' "$monitor_width"
 	    printf 'monitor_height %s\n' "$monitor_height"
+
+	    printf 'container_id %s\n' "$container_id"
+	    printf 'container_pid %s\n' "$container_pid"
+	    printf 'container_type %s\n' "$container_type"
+	    printf 'container_name %s\n' "$container_name"
+	    printf 'container_x %s\n' "$container_x"
+	    printf 'container_y %s\n' "$container_y"
+	    printf 'container_width %s\n' "$container_width"
+	    printf 'container_height %s\n' "$container_height"
+	    printf 'container_deco_width %s\n' "$container_deco_width"
 	    ;;
 
     esac
