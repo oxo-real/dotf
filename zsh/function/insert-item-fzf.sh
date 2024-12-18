@@ -17,6 +17,7 @@ function insert-item-fzf ()
 
 	1 )
 	    ## cd-*-functions enter here (i.e. cd-child)
+	    ## in this block fzf has no multi selection
 	    fd_list_dirs=$(fd --type d --hidden . $fd_path)
 
 	    printf '\r'
@@ -26,6 +27,7 @@ function insert-item-fzf ()
 	    ;;
 
 	* )
+	    ## in this block fzf has multi selection
 	    if [[ -n $dir_stack ]]; then
 
 		fd_list_items=$dir_stack
