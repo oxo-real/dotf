@@ -40,10 +40,10 @@ https://www.gnu.org/licenses/gpl-3.0.txt
   jq, alacritty
 
 # usage
-  % term-spawn $directory [float [w $con_width h $con_height] [x $x_coor y $y_coor]]
+  % term-spawn $directory [float [h $con_height w $con_width] [x $x_coor y $y_coor]]
 
 # examples
-  % term-spawn $HOME float w 300 h 300 x 200 y 200
+  % term-spawn $HOME float h 300 w 300 x 200 y 200
 
 # '
 
@@ -61,8 +61,13 @@ function sourcing ()
 
 function initialize ()
 {
+    unset target_con_float
+
     #terminal_cmd=${TERMINAL:-'foot'}
     terminal_cmd=${TERMINAL:-'alacritty'}
+
+    target_con_float_height_def=600
+    target_con_float_width_def=800
 }
 
 
@@ -91,8 +96,7 @@ function process_args ()
 
 function get_curr_con_data ()
 {
-    sh $csc/get-focus-data debug
-    # sh $csc/get-focus-data
+    source $csc/get-focus-data
 }
 
 
@@ -175,14 +179,14 @@ function process_dim_args ()
 
 	case "$1" in
 
-	    'w')
-		shift
-		target_con_width=$1
-		;;
-
 	    'h')
 		shift
 		target_con_height=$1
+		;;
+
+	    'w')
+		shift
+		target_con_width=$1
 		;;
 
 	    'x')
@@ -205,15 +209,13 @@ function process_dim_args ()
 
 function resize_float ()
 {
-    # target_con_width=${target_con_width:-800}
-    # target_con_height=${target_con_height:-600}
+    [[ -n $target_con_height ]] || \
+	target_con_height=$target_con_float_height_def
+    [[ -n $target_con_width ]] || \
+	target_con_width=$target_con_float_width_def
 
-    # [[ -n $target_con_width ]] || target_con_width=800
-    # [[ -n $target_con_height ]] || target_con_height=600
-
-    ## TODO DEV not working because no focus
-    swaymsg resize set width $target_con_width
     swaymsg resize set height $target_con_height
+    swaymsg resize set width $target_con_width
 }
 
 
@@ -231,14 +233,12 @@ function spawn_float ()
     #swaymsg exec --no-startup-id $($terminal_cmd --working-directory="$focused_pwd" --app-id="term_float") &
     #swaymsg exec --no-startup-id $($terminal_cmd --working-directory="$focused_pwd" --class="term_float") &
     swaymsg exec "$terminal_cmd --working-directory="$focused_pwd" --class='term_float'"
+
     sleep 0.2
 
     if [[ -n "$target_con_dims" ]]; then
 
     	process_dim_args $target_con_dims
-    	#TODO fix this
-	#resize_float
-	#TODO DEV focus spawned container
 	float_id_max=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.type=="floating_con") | .id' | sort --numeric-sort | tail -n 1)
 	swaymsg [con_id="$float_id_max"] focus
 	get_curr_con_data
@@ -260,7 +260,6 @@ function spawn_tile ()
 
     ## spawn terminal
     swaymsg exec --no-startup-id $($terminal_cmd --working-directory="$focused_pwd") &
-    #swaymsg exec $($terminal_cmd --working-directory="$focused_pwd") &
 }
 
 
@@ -269,10 +268,6 @@ function spawn_terminal ()
     if [[ "$target_con_float" == 'float' ]]; then
 
 	spawn_float "$target_con_dims"
-
-	#TODO DEV focus spawned container
-	# get_curr_con_data
-	# resize_float
 
     else
 

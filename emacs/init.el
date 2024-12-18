@@ -1,3 +1,19 @@
+;; ;; Prevent lightning when emacs starts
+;; (add-to-list 'default-frame-alist
+;;              '(background-color . "#000000"))
+
+;; ;; The default is 800 kilobytes.  Measured in bytes.
+;; (setq gc-cons-threshold (* 50 1000 1000))
+
+;; ;; Profile emacs startup
+;; (add-hook 'emacs-startup-hook
+;;           (lambda ()
+;;             (message "Startup %s. %d garbage collections."
+;;                      (format "%.2f seconds"
+;;                              (float-time
+;;                               (time-subtract after-init-time before-init-time)))
+;;                      gcs-done)))
+
 (general-create-definer oxo/leader-keys
   :states '(normal insert visual emacs)
   :keymaps 'override
@@ -117,12 +133,6 @@
   ;; override evil-normal-state-map C-. (for embark)
   ;;(("C-." . embark-act)))
 
-(use-package evil-surround
-  :ensure t
-
-  :config
-  (global-evil-surround-mode 1))
-
 (use-package general
   :ensure t
 
@@ -130,7 +140,7 @@
   (general-evil-setup t)
 
   (general-create-definer oxo/leader-key-def
-                          :keymaps "(normal insert visual emacs)
+                          :keymaps '(normal insert visual emacs)
                           :prefix "SPC"
                           :global-prefix "C-SPC")
 

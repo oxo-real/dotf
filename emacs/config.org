@@ -263,7 +263,7 @@ tpope vim surround functionality;
     (general-evil-setup t)
 
     (general-create-definer oxo/leader-key-def
-                            :keymaps "(normal insert visual emacs)
+                            :keymaps '(normal insert visual emacs)
                             :prefix "SPC"
                             :global-prefix "C-SPC")
 
