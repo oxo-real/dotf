@@ -17,13 +17,13 @@ function cd-nav-dirs ()
 
     ## dir names and their fzf_prompts
     declare -A srch_env_prmt_arr
-    srch_env_prmt_arr[PWD]='C'
+    srch_env_prmt_arr[CWD]='C'
     srch_env_prmt_arr[HOME]='H'
     srch_env_prmt_arr[ROOT]='R'
 
     ## dir names and their actual dirs
     declare -A srch_env_dir_arr
-    srch_env_dir_arr[PWD]=$PWD
+    srch_env_dir_arr[CWD]=$PWD
     srch_env_dir_arr[HOME]=$HOME
     srch_env_dir_arr[ROOT]=$ROOT
 
@@ -33,7 +33,7 @@ function cd-nav-dirs ()
 
     dir_stack_select_fzf=$(printf '%s' "$dir_stack" | fzf --prompt "$fzf_prompt ")
 
-    if [[ -d "$dir_stack_select_fzf" ]]; then
+    if [[ -d $dir_stack_select_fzf ]]; then
 
 	## dir_select_fzf is a valid:
 	### absolute directory, or
@@ -50,7 +50,6 @@ function cd-nav-dirs ()
 	BUFFER="cd $dir_stack_select_fzf"
 	zle vi-add-eol
 
-    #elif [[ ! -d $dir_stack_select_fzf ]]; then
     elif [[ -n $dir_stack_select_fzf ]]; then
 
 	## dir_select_fzf is no valid absolute directory
@@ -75,14 +74,13 @@ function cd-nav-dirs ()
 
 	fi
 
-    #else
     elif [[ -z $dir_stack_select_fzf ]]; then
 
 	## choose search environment
 	fzf_prompt='SRCH_ENV'
 
 	## add cancel option
-	srch_env_dir_arr[CANCEL]='CANCEL'
+	srch_env_dir_arr[ZQXIT]='ZQXIT'
 
 	## iterate over associated arr and get all keys
 	for srch_env_dir in "${(@k)srch_env_dir_arr}"; do
@@ -98,15 +96,15 @@ function cd-nav-dirs ()
 
 	## one item from srch_env_dirs becomes fd_path_sel
 	## PWD, HOME, ROOT, ...
-	fd_path_sel=$(printf '%s\n' "${srch_env_dirs[@]}" | fzf --prompt "$fzf_prompt ")
+	fd_path_sel=$(printf '%s\n' "${srch_env_dirs[@]}" | fzf --no-sort --prompt "$fzf_prompt ")
 
-	if [[ -z $fd_path_sel || $fd_path_sel == 'CANCEL' ]]; then
+	if [[ -z $fd_path_sel || $fd_path_sel == 'ZQXIT' ]]; then
 
-	    return
+	    zle reset-prompt
 
 	elif [[ $fd_path_sel == 'PWD' ]]; then
 
-	    cd-child
+	    cd-child-joint
 
 	else
 
@@ -141,40 +139,90 @@ zle -N cd-nav-dirs
 function cd-child ()
 {
     ## search and select directories from cwd and deeper
+    ## for drill down; apply for max-level=1
+
+    ## clear command line
     zle kill-line
 
     ## set variables
     cd_function=1
     fzf_prompt='C'
     fd_path=$PWD
+    fd_options='--max-depth=1'
+
+    ## number of depth 1 subdirs
+    fd_path_no_sub_dirs=$(fd --type directory --follow --max-depth 1 . $fd_path | wc -l)
 
     ## directory types; root, bodies and leaves
-    if [[ $(fd --max-depth 1 --type directory . $PWD | wc -l) -gt 0 ]]; then
-
-	## dir is a body (contains subdirs)
-	insert-item-fzf $fd_path $fzf_prompt
-
-    else
+    if [[ $fd_path_no_sub_dirs -eq 0 ]]; then
 
 	## dir is a leaf (contains no subdirs)
 	printf "${fg_amber}@leaf${st_def}"
 	sleep 0.5
 	zle reset-prompt
 
+    elif [[ $fd_path_no_sub_dirs -ge 1 ]]; then
+
+	## dir is a body (contains subdirs)
+	insert-item-fzf $fd_path $fd_options $fzf_prompt
+
+	## place and execute 'cd'
+	[[ -n $fzf_output ]] && BUFFER="cd $BUFFER" && zle accept-line
+
     fi
 
     ## reset cd_function
     cd_function=''
-
-    ## place and execute 'cd'
-    [[ -n $fzf_output ]] && BUFFER="cd $BUFFER" && zle accept-line
 }
 
 zle -N cd-child
 
 
+function cd-child-joint ()
+{
+    ## search and select directories from cwd and deeper
+    ## for drill down; no maximum level
+
+    ## clear command line
+    zle kill-line
+
+    ## set variables
+    cd_function=1
+    fzf_prompt='C'
+    fd_path=$PWD
+    fd_options='--'
+
+    ## number of subdirs
+    fd_path_no_sub_dirs=$(fd --type directory --follow . $fd_path | wc -l)
+
+    ## directory types; root, bodies and leaves
+    if [[ $fd_path_no_sub_dirs -eq 0 ]]; then
+
+	## dir is a leaf (contains no subdirs)
+	printf "${fg_amber}@leaf${st_def}"
+	sleep 0.5
+	zle reset-prompt
+
+    elif [[ $fd_path_no_sub_dirs -ge 1 ]]; then
+
+	## dir is a body (contains subdirs)
+	insert-item-fzf $fd_path $fd_options $fzf_prompt
+
+	## place and execute 'cd'
+	[[ -n $fzf_output ]] && BUFFER="cd $BUFFER" && zle accept-line
+
+    fi
+
+    ## reset cd_function
+    cd_function=''
+}
+
+zle -N cd-child-joint
+
+
 function cd-up ()
 {
+    ## directory types; root, bodies and leaves
     if [ "$(echo $PWD)" = "/" ]; then
 
 	## dir is the root (/)
@@ -184,6 +232,7 @@ function cd-up ()
 
     else
 
+	## dir is not the root (/)
 	## go to parent directory
 	BUFFER="cd .."
 	zle accept-line
@@ -196,8 +245,13 @@ zle -N cd-up
 
 function cd-yazi ()
 {
-    :
-    #TODO DEV instead of cd-lf
+    #TODO DEV
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+	cd -- "$cwd"
+    fi
+    rm -rf -- "$tmp"
 }
 
 

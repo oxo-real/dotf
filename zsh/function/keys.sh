@@ -56,6 +56,7 @@ bindkey '^@' insert-date-time           ## C-2
 bindkey '^E' insert-epoch               ## C-e
 bindkey '^A' git-add-commit             ## C-a
 bindkey '^j' cd-child                   ## C-j
+bindkey '^y' cd-child-joint             ## C-y
 bindkey '^k' cd-up                      ## C-k
 bindkey '^l' cd-lf                      ## C-l
 bindkey '^f' insert-item-inline         ## C-f

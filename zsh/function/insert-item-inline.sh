@@ -17,13 +17,13 @@ function insert-item-inline ()
 
     ## dir names and their fzf_prompts
     declare -A srch_env_prmt_arr
-    srch_env_prmt_arr[PWD]='C'
+    srch_env_prmt_arr[CWD]='C'
     srch_env_prmt_arr[HOME]='H'
     srch_env_prmt_arr[ROOT]='R'
 
     ## dir names and their actual dirs
     declare -A srch_env_dir_arr
-    srch_env_dir_arr[PWD]=$PWD
+    srch_env_dir_arr[CWD]=$PWD
     srch_env_dir_arr[HOME]=$HOME
     srch_env_dir_arr[ROOT]=$ROOT
 
@@ -55,7 +55,7 @@ function insert-item-inline ()
 	fzf_prompt='SRCH_ENV'
 
 	## add quit option
-	srch_env_dir_arr[CANCEL]='CANCEL'
+	srch_env_dir_arr[ZQXIT]='ZQXIT'
 
 	## iterate over associated arr and get all keys
 	for srch_env_dir in "${(@k)srch_env_dir_arr}"; do
@@ -63,26 +63,34 @@ function insert-item-inline ()
 	    ## make (non-acc) array
 	    srch_env_naa+=($srch_env_dir)
 
-	    ## sort array
-	    IFS=$'\n' srch_env_dirs=($(sort <<< "${srch_env_naa[*]}"))
-	    unset IFS
-
 	done
+
+	## sort array
+	IFS=$'\n' srch_env_dirs=($(sort <<< "${srch_env_naa[*]}"))
+	unset IFS
 
 	## one item from srch_env_dirs becomes fd_path_sel
 	## PWD, HOME, ROOT, ...
 	fd_path_sel=$(printf '%s\n' "${srch_env_dirs[@]}" | fzf --prompt "$fzf_prompt ")
 
-	[[ -z $fd_path_sel || $fd_path_sel == 'CANCEL' ]] && return
+	if [[ -z $fd_path_sel || $fd_path_sel == 'ZQXIT' ]]; then
 
-	fd_path=${srch_env_dir_arr[$fd_path_sel]}
-	fzf_prompt=${srch_env_prmt_arr[$fd_path_sel]}
-	#fzf_query=$fd_path/
+	    zle reset-prompt
 
-     	insert-item-fzf $fd_path $fzf_prompt $fzf_query
+	else
 
-	zle reset-prompt
-	return 0
+	    fd_path=${srch_env_dir_arr[$fd_path_sel]}
+	    fd_options=''
+	    fzf_prompt=${srch_env_prmt_arr[$fd_path_sel]}
+	    #fzf_query=$fd_path/
+
+     	    insert-item-fzf $fd_path $fd_options $fzf_prompt $fzf_query
+     	    #TODO insert-item-fzf $fd_path $fd_options $fzf_prompt $fzf_query
+
+	    zle reset-prompt
+	    return 0
+
+	fi
 
     fi
 }

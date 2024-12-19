@@ -9,21 +9,40 @@ function insert-item-fzf ()
     ## fzf insert file- or directory-paths on command line
 
     fd_path="$1"
-    fzf_prompt="$2"
-    fzf_query="$3"
+    fd_options="$2"
+    fzf_prompt="$3"
+    fzf_query="$4"
 
     # fzf query fd search
     case $cd_function in
 
 	1 )
-	    ## cd-*-functions enter here (i.e. cd-child)
-	    ## in this block fzf has no multi selection
-	    fd_list_dirs=$(fd --type d --hidden . $fd_path)
+	    if [[ $fd_path_no_sub_dirs -eq 1 ]]; then
 
-	    printf '\r'
-	    dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query")
+		## only one subdir
+		fzf_output="$(fd --type directory --follow --max-depth 1 . $fd_path)"
 
-	    fzf_output=$dir_select
+	    else
+
+		## remove fd_options if sent value was '--'
+		[[ $fd_options == '--' ]] && fd_options=''
+
+		## cd-*-functions enter here (i.e. cd-child)
+		## in this block fzf has no multi selection
+		#fd_list_dirs=$(fd --type directory --follow --hidden . $fd_path)
+		fd_list_dirs=$(fd --type directory --follow --hidden $fd_options . $fd_path)
+
+		printf '\r'
+		dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query")
+
+		#TODO press C-j again for joint search (from witin fzf)
+		#dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query" --bind 'ctrl-j:execute:cd-child-joint <(echo {})')
+		#dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query" --bind 'ctrl-j:execute:(zle -F cd-child-joint)')
+		#dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query" --bind 'ctrl-j:execute:(zle cd-child-joint)')
+
+		fzf_output=$dir_select
+
+	    fi
 	    ;;
 
 	* )
@@ -39,25 +58,6 @@ function insert-item-fzf ()
 		#TODO printf '${fg_blue}%s %s${st_def} .. retrieving file data' "$fzf_prompt" "$fd_path"
 
 		fd_list_items=$(fd --hidden . $fd_path)
-
-	    fi
-
-	    ## add qqq-quit-exit-cancel as option
-	    fd_list_items=$(printf '%s\n%s' "$fd_list_items" 'qqq-quit-exit-cancel')
-
-	    ## erase line
-	    tput el1
-	    #printf '\r'
-
-	    ## tr converts multiple fzf entries to one line
-	    ## sed remove trailing space
-	    fzf_output=$(printf '%s' "$fd_list_items" | fzf -m --prompt="$fzf_prompt " --query="$fzf_query" | \
-			      tr '\n' ' ' | \
-			            sed 's/[ \t]$//')
-
-	    if [[ $fzf_output =~ 'qqq*' ]]; then
-
-		return 10
 
 	    fi
 	    ;;
