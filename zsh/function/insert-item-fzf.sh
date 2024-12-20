@@ -32,13 +32,7 @@ function insert-item-fzf ()
 		fd_list_dirs=$(fd --type directory --follow --hidden $fd_options . $fd_path)
 
 		printf '\r'
-		#dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query")
 		dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query" --bind ctrl-j:abort)
-
-		#TODO press C-j again for joint search (from witin fzf)
-		#dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query" --bind 'ctrl-j:execute:cd-child-joint <(echo {})')
-		#dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query" --bind 'ctrl-j:execute:(zle -F cd-child-joint)')
-		#dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query" --bind 'ctrl-j:execute:(zle cd-child-joint)')
 
 		fzf_output=$dir_select
 
