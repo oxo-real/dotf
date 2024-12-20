@@ -85,7 +85,6 @@ function insert-item-inline ()
 	    #fzf_query=$fd_path/
 
      	    insert-item-fzf $fd_path $fd_options $fzf_prompt $fzf_query
-     	    #TODO insert-item-fzf $fd_path $fd_options $fzf_prompt $fzf_query
 
 	    zle reset-prompt
 	    return 0

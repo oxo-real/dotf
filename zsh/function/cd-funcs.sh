@@ -138,8 +138,9 @@ zle -N cd-nav-dirs
 
 function cd-child ()
 {
-    ## search and select directories from cwd and deeper
+    ## search and select directories from cwd
     ## for drill down; apply for max-level=1
+    ## press C-j again for no maximum level (cd-child-joint)
 
     ## clear command line
     zle kill-line
@@ -167,12 +168,21 @@ function cd-child ()
 	insert-item-fzf $fd_path $fd_options $fzf_prompt
 
 	## place and execute 'cd'
-	[[ -n $fzf_output ]] && BUFFER="cd $BUFFER" && zle accept-line
+	if [[ -z $fzf_output ]]; then
+
+	    ## empty output (i.e. C-j)
+	    cd-child-joint
+
+	elif [[ -n $fzf_output ]]; then
+
+	    BUFFER="cd $BUFFER" && zle accept-line
+
+	    ## reset cd_function
+	    cd_function=''
+
+	fi
 
     fi
-
-    ## reset cd_function
-    cd_function=''
 }
 
 zle -N cd-child

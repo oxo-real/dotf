@@ -29,11 +29,11 @@ function insert-item-fzf ()
 
 		## cd-*-functions enter here (i.e. cd-child)
 		## in this block fzf has no multi selection
-		#fd_list_dirs=$(fd --type directory --follow --hidden . $fd_path)
 		fd_list_dirs=$(fd --type directory --follow --hidden $fd_options . $fd_path)
 
 		printf '\r'
-		dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query")
+		#dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query")
+		dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query" --bind ctrl-j:abort)
 
 		#TODO press C-j again for joint search (from witin fzf)
 		#dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query" --bind 'ctrl-j:execute:cd-child-joint <(echo {})')
