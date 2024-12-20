@@ -49,7 +49,6 @@ function insert-item-fzf ()
 
 		## this can take a while, so we give some user feedback
 		printf '%s %s .. retrieving file data' "$fzf_prompt" "$fd_path"
-		#TODO printf '${fg_blue}%s %s${st_def} .. retrieving file data' "$fzf_prompt" "$fd_path"
 
 		fd_list_items=$(fd --hidden . $fd_path)
 
@@ -58,15 +57,14 @@ function insert-item-fzf ()
 
     esac
 
+    ## selection to buffer
     [[ -n "$fzf_output" ]] && \
     	CUTBUFFER="$fzf_output" && zle vi-replace-selection
     [[ -z "$fzf_output" ]] && \
     	CUTBUFFER="$fzf_query" && zle vi-put-before
 
-    # replace selection
+    ## replace selection
     zle put-replace-selection
-    #zle vi-put-before
-    #zle put-replace-selection
 
     unset CUTBUFFER
 }
