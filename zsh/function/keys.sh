@@ -58,7 +58,7 @@ bindkey '^A' git-add-commit             ## C-a
 bindkey '^j' cd-child                   ## C-j
 bindkey '^y' cd-child-joint             ## C-y
 bindkey '^k' cd-up                      ## C-k
-bindkey '^l' cd-lf                      ## C-l
+bindkey '^l' cd-yazi                    ## C-l
 bindkey '^f' insert-item-inline         ## C-f
 bindkey '^Z' foreground                 ## C-z
 

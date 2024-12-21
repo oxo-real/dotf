@@ -36,10 +36,12 @@ function insert-item-inline ()
 
     ## dir-stack instead of fd_path (below)
     dir-stack
+
+    fd_options='--'
     fzf_prompt='S'
 
     ## offer directories in reach
-    insert-item-fzf $dir_stack $fzf_prompt $fzf_query
+    insert-item-fzf $dir_stack $fd_options $fzf_prompt $fzf_query
 
     unset dir_stack
     unset fzf_prompt
@@ -57,7 +59,7 @@ function insert-item-inline ()
 	## add quit option
 	srch_env_dir_arr[ZQXIT]='ZQXIT'
 
-	## iterate over associated arr and get all keys
+	## iterate over associated array (zsh) and get all keys
 	for srch_env_dir in "${(@k)srch_env_dir_arr}"; do
 
 	    ## make (non-acc) array
@@ -80,7 +82,7 @@ function insert-item-inline ()
 	else
 
 	    fd_path=${srch_env_dir_arr[$fd_path_sel]}
-	    fd_options=''
+	    fd_options='--'
 	    fzf_prompt=${srch_env_prmt_arr[$fd_path_sel]}
 	    #fzf_query=$fd_path/
 

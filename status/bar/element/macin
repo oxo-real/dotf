@@ -1,26 +1,42 @@
-#!/bin/sh
+#! /usr/bin/env sh
 
 if [[ -n $(ip route show) ]]; then
 
-	i=$(ip route get 9.9.9.9 | awk '{print $5}')
+    iprg=$(ip route get 9.9.9.9)
 
-	## internal mac
+    if [[ -n $(grep 'via' <<< "$iprg") ]]; then
 
-	case $i in
+	i=$(awk '{print $5}' <<< "$iprg")
 
-		tun0 | proton0)
-			i_link=$(ip -oneline link | grep -v -i 'state down' | grep -v proton0)
-			mac_full=$(echo "${i_link#*link/ether }" | awk '{print $1}')
-			;;
+    else
 
-		*)
-			mac_full=$(cat /sys/class/net/$i/address | cut -c 13-)
-			;;
-	esac
+	i=$(awk '{print $3}' <<< "$iprg")
 
+    fi
 
-	mac_in=$(echo $mac_full | tail --bytes 6)
+    ## internal mac
+    case $i in
 
-	printf '%s\n' "$mac_in"
+	tun0 | proton0 )
+	    ## openvpn tunnel
+	    i_link=$(ip -oneline link | grep -v -i 'state down' | grep -v proton0)
+	    mac_full=$(echo "${i_link#*link/ether }" | awk '{print $1}')
+	    ;;
+
+	wg* )
+	    ## wireguard tunnel
+	    #TODO DEV
+	    mac_full=':wg:'
+	    ;;
+
+	* )
+	    mac_full=$(cat /sys/class/net/$i/address | cut -c 13-)
+	    ;;
+
+    esac
+
+    mac_in=$(echo $mac_full | tail --bytes 6)
+
+    printf '%s\n' "$mac_in"
 
 fi

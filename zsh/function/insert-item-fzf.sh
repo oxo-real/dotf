@@ -17,21 +17,22 @@ function insert-item-fzf ()
     case $cd_function in
 
 	1 )
+	    ## cd-*-functions enter here (i.e. cd-child)
+
 	    if [[ $fd_path_no_sub_dirs -eq 1 ]]; then
 
-		## only one subdir
+		## cwd has only one subdir
 		fzf_output="$(fd --type directory --follow --max-depth 1 . $fd_path)"
 
 	    else
 
-		## remove fd_options if sent value was '--'
+		## if value is '--'; reset fd_options
 		[[ $fd_options == '--' ]] && fd_options=''
 
-		## cd-*-functions enter here (i.e. cd-child)
-		## in this block fzf has no multi selection
 		fd_list_dirs=$(fd --type directory --follow --hidden $fd_options . $fd_path)
 
-		printf '\r'
+		## in this block fzf has no multi selection
+		## :abort for cd-child to enter cd-child-joint (pressing C-j twice)
 		dir_select=$(printf '%s' "$fd_list_dirs" | fzf --prompt "$fzf_prompt " --query "$fzf_query" --bind ctrl-j:abort)
 
 		fzf_output=$dir_select
@@ -53,6 +54,14 @@ function insert-item-fzf ()
 		fd_list_items=$(fd --hidden . $fd_path)
 
 	    fi
+
+	    ## in this block fzf has multi selection
+	    ## tr converts multiple fzf entries to one line
+	    ## sed remove trailing space
+	    fzf_output=$(printf '%s' "$fd_list_items" | \
+			     fzf -m --prompt="$fzf_prompt " --query="$fzf_query" | \
+			     tr '\n' ' ' | \
+			     sed 's/[ \t]$//')
 	    ;;
 
     esac

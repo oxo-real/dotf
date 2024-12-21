@@ -255,14 +255,24 @@ zle -N cd-up
 
 function cd-yazi ()
 {
-    #TODO DEV
     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+
     yazi "$@" --cwd-file="$tmp"
+
     if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-	cd -- "$cwd"
+
+	BUFFER="cd $cwd"
+	zle accept-line
+
+	## cursor is block, change to line again
+	zle reset-prompt
+
     fi
-    rm -rf -- "$tmp"
+
+    rm -f "$tmp"
 }
+
+zle -N cd-yazi
 
 
 function cd-lf ()
