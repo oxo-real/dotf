@@ -12,37 +12,37 @@ function def-cursor ()
 
     case $1 in
 
-        reset)
+        reset )
 	    # to default
 	    style=0
 	    ;;
 
-	block_blink)
+	block_blink )
 	    # default
 	    style=1
 	    ;;
 
-	block_steady)
+	block_steady )
 	    style=2
 	    ;;
 
-	underline_blink)
+	underline_blink )
 	    style=3
 	    ;;
 
-	underline_steady)
+	underline_steady )
 	    style=4
 	    ;;
 
-	vertical-line_blink)
+	vertical-line_blink )
 	    style=5
 	    ;;
 
-	vertical-line_steady)
+	vertical-line_steady )
 	    style=6
 	    ;;
 
-	*)
+	* )
 	    style=0
 	    ;;
 
@@ -58,19 +58,19 @@ function set-cursor ()
     ## set cursor styles
     case $KEYMAP in
 
-        main | viins)
+        main | viins )
 	    def-cursor vertical-line_blink
 	    ;;
 
-        vicmd)
+        vicmd )
 	    def-cursor block_blink
 	    ;;
 
-        visual)
+        visual )
 	    def-cursor block_steady
 	    ;;
 
-	*)
+	* )
 	    def-cursor underline_blink
 	    ;;
 

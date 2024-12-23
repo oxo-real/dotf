@@ -730,7 +730,8 @@ c.content.javascript.alert = True
 ## is always allowed.
 ## Type: Bool
 ## The content.javascript.can_access_clipboard setting got renamed to content.javascript.clipboard and now understands three different values rather than being a boolean: none (formerly false), access (formerly true) and access-paste (additionally allows pasting content, needed for websites like Photopea or GitHub Codespaces).
-c.content.javascript.clipboard = 'none'
+c.content.javascript.clipboard = 'ask'
+#v3.4.0 (2024-12-14)c.content.javascript.clipboard = 'none'
 #c.content.javascript.can_access_clipboard = False
 
 ## Allow JavaScript to close tabs.

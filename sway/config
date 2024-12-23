@@ -479,7 +479,7 @@ bar
 	   focused_workspace		  #000020   #000020   #999999
 	   active_workspace		  #00000095 #77777795 #000000
 	   inactive_workspace		  #00000095 #00000095 #555555
-	   urgent_workspace		  #ff73fd95 #ff73fd95 #ffffd3
+	   urgent_workspace		  #00000095 #ffbf0095 #ffffd3
     }
 }
 

@@ -29,6 +29,7 @@ function insert-item-fzf ()
 		## if value is '--'; reset fd_options
 		[[ $fd_options == '--' ]] && fd_options=''
 
+		## all directories in fd_path
 		fd_list_dirs=$(fd --type directory --follow --hidden $fd_options . $fd_path)
 
 		## in this block fzf has no multi selection
@@ -51,6 +52,7 @@ function insert-item-fzf ()
 		## this can take a while, so we give some user feedback
 		printf '%s %s .. retrieving file data' "$fzf_prompt" "$fd_path"
 
+		## all files and directories in fd_path
 		fd_list_items=$(fd --hidden . $fd_path)
 
 	    fi

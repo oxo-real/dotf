@@ -262,10 +262,8 @@ function cd-yazi ()
     if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
 
 	BUFFER="cd $cwd"
-	zle accept-line
-
-	## cursor is block, change to line again
-	zle reset-prompt
+	#zle accept-line
+	zle-line-init
 
     fi
 

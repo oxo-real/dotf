@@ -14,7 +14,7 @@ function dir-stack ()
 		    sed "s|^~|$HOME|" | \
 		    nl --number-format ln | \
 		    sort --key 1,1 --numeric-sort --reverse | \
-		    sed "1i $OLDPWD" | \
+		    sed "1i 0 $OLDPWD" | \
 		    awk '!seen[$2]++ {print $1, $2}' | \
 		    awk '!($1="")' | \
 		    sed --regexp-extended 's/^[[:space:]]+//' | \
