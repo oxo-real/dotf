@@ -177,7 +177,7 @@ put ()
 {
     [[ -z $(cat $clst_file) ]] && notify-send "clst: no list items" && exit
 
-    put_exec=$(cat $clst_file | fzf -m --prompt='put to wl-copy ')
+    put_exec=$(cat $clst_file | fzf -m --no-sort --prompt=' cpbd << clst ')
 
     printf '%s' "$put_exec" | wl-copy
 
@@ -195,7 +195,7 @@ delete_item ()
 {
     clst_lines_0=$(cat $clst_file | wc -l)
 
-    delete_item_exec=$(cat $clst_file | fzf -m --prompt='select to delete from clst ')
+    delete_item_exec=$(cat $clst_file | fzf -m --no-sort --prompt='  - delete ')
 
     while IFS= read -r line; do
 
