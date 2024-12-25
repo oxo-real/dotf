@@ -1,11 +1,22 @@
-#!/bin/sh
+#! /usr/bin/env sh
 
+## clst file
+clst_lines=$(wc -l $XDG_CACHE_HOME/clst | awk '{print $1}')
+
+if [[ $clst_lines -gt 0 ]]; then
+
+    clst=$clst_lines
+
+fi
+
+## bluetooth
 bt_status=$(systemctl status bluetooth | grep active | awk '{print $2}')
 
 if [ "$bt_status" = 'active' ]; then
 
-    bt_block=$(printf '%s\n' 'B')
+    bt='B'
+    #bt_block=$(printf '%s\n' 'B')
 
 fi
 
-echo $bt_block
+echo "${clst} ${bt}"
