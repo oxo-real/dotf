@@ -1,0 +1,236 @@
+#! /usr/bin/env sh
+
+###       _     _
+###   ___| |___| |_
+###  / __| / __| __|
+### | (__| \__ \ |_
+###  \___|_|___/\__|
+###
+###
+###  # # # # # #
+###       #
+###  # # # # # #
+###
+
+: '
+clst
+manage clipboard list
+copyright (c) 2020 - 2024  |  oxo
+----------------------------------------------------------------------
+GNU GPLv3 GENERAL PUBLIC LICENSE
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+https://www.gnu.org/licenses/gpl-3.0.txt
+
+@oxo@qoto.org
+======================================================================
+
+# dependencies
+
+fzf, wl-copy
+
+# usage
+
+first copy (populate wayland clipboard), then:
+add clipboard to clst:
+1. select items
+2. wl-copy	C-S-c
+3. clst_add	C-p a RET
+
+put clst to clipboard:
+1. clst_put	C-p p RET
+2. fzf select	RET
+3. wl-paste	C-S-v
+
+delete clst items:
+1. clst_remove	C-p d RET
+2. fzf select	RET
+
+remove clst:
+1. clst_remove	C-p r RET
+
+# keybinding C-p
+defined in sway config
+
+# from terminal
+1. select items
+2. wl-copy	C-S-c
+3. sh fzf-cpbd
+
+# '
+
+
+clst_file="$XDG_CACHE_HOME/clst"
+clst_perms=''
+
+validate_clst_file ()
+{
+    if [[ -f "$clst_file" ]]; then
+
+	clst_perms=$(stat --format %a "$clst_file")
+
+    fi
+
+    if [[ $clst_perms -ne 600 ]]; then
+
+	touch $clst_file
+	chmod 600 $clst_file
+
+    fi
+}
+
+
+choose_option ()
+{
+    option=$(printf '%s\n%s\n%s\n%s' 'add >>' '    << put' '     - delete' '    -- remove' | fzf --info hidden --prompt ' cpbd :: clst ')
+
+    case $option in
+
+	*add* )
+	    add
+	    ;;
+
+	*put* )
+	    put
+	    ;;
+
+	*delete* )
+	    delete_item
+	    ;;
+
+	*remove* )
+	    remove_list
+	    ;;
+
+    esac
+}
+
+
+remove_empty_lines ()
+{
+    sed -i '/^[[:space:]]*$/d' $clst_file
+}
+
+
+remove_duplicates ()
+{
+    sort -u $clst_file > ${clst_file}_1
+    update_clst_file
+    validate_clst_file
+}
+
+
+update_clst_file ()
+{
+    mv -f ${clst_file}_1 $clst_file
+}
+
+
+## add current clipboard item to clst_file (clipboard list)
+add ()
+{
+    clst_lines_0=$(cat $clst_file | wc -l)
+
+    ## sed remove any leading spaces
+    cp_item=$(wl-paste | sed 's/^[[:space:]]*//')
+
+    # do not add empty lines
+    case $cp_item in
+
+	'\n')
+	    exit
+	    ;;
+
+	*)
+	    printf '%s\n' "$cp_item" >> $clst_file
+	    ;;
+
+    esac
+
+    unset cp_item
+    unset lines_add
+
+    remove_empty_lines
+    remove_duplicates
+
+    clst_lines_1=$(cat $clst_file | wc -l)
+
+    lines_add=$(( clst_lines_1 - clst_lines_0 ))
+
+    [[ $lines_add -eq 1 ]] && notify-send "$lines_add line added to clst [$clst_lines_1]"
+    [[ $lines_add -gt 1 ]] && notify-send "$lines_add lines added to clst [$clst_lines_1]"
+}
+
+
+## put items from clst to clipboard
+put ()
+{
+    [[ -z $(cat $clst_file) ]] && notify-send "clst: no list items" && exit
+
+    put_exec=$(cat $clst_file | fzf -m --prompt='put to wl-copy ')
+
+    printf '%s' "$put_exec" | wl-copy
+
+    [[ -n $put_exec ]] && lines_put=$(wl-paste | wc -l)
+
+    [[ $lines_put -gt 0 ]] && notify-send "clst: $lines_put lines put to wl-copy"
+
+    unset put_exec
+    unset lines_put
+}
+
+
+## remove selected item(s) from clst
+delete_item ()
+{
+    clst_lines_0=$(cat $clst_file | wc -l)
+
+    delete_item_exec=$(cat $clst_file | fzf -m --prompt='select to delete from clst ')
+
+    while IFS= read -r line; do
+
+	grep --invert-match --line-regexp "$line" $clst_file > ${clst_file}_1
+
+	update_clst_file
+
+    done <<< "$delete_item_exec"
+
+    clst_lines_1=$(cat $clst_file | wc -l)
+
+    lines_deleted=$(( -1 * (clst_lines_1 - clst_lines_0) ))
+
+    [[ $lines_deleted -eq 1 ]] && notify-send "$lines_deleted line deleted from clst [$clst_lines_1]"
+    [[ $lines_deleted -gt 1 ]] && notify-send "$lines_deleted lines deleted from clst [$clst_lines_1]"
+
+    unset delete_item_exec
+    unset lines_deleted
+}
+
+
+## remove all item(s) from clst
+remove_list ()
+{
+    rm $clst_file
+
+    notify-send "removed clst"
+}
+
+
+main ()
+{
+    validate_clst_file
+    choose_option
+    exit 0
+}
+
+main

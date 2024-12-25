@@ -324,6 +324,7 @@ fi
 
 
 ## cli browsing
+alias qb='qutebrowser'
 alias sr="sr -browser=$BROWSERCLI"
 alias surfraw="surfraw -browser=$BROWSER"
 

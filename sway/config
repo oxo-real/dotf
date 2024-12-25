@@ -913,11 +913,11 @@ for_window [title="Floating Window - Show Me The Key"]
 
 ## fzf_cpbd
 ### foot
-#bindsym Control+Shift+y	exec $term --app-id="float_spicules" \
+#bindsym Control+p		exec $term --app-id="float_spicules" \
 #	 			sh -c $csc/fzf-cpbd
 ### alacritty
-bindsym Control+Shift+y		exec --no-startup-id $term --class="float_spicules" \
-	 			-e $csc/fzf-cpbd
+bindsym Control+p		exec --no-startup-id $term --class="float_spicules" \
+				-e $csc/fzf-clst
 
 
 #----------------------------------------------------------------
