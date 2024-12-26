@@ -139,7 +139,9 @@ update_clst_file ()
 ## add current clipboard item to clst_file (clipboard list)
 add ()
 {
-    clst_lines_0=$(cat $clst_file | wc -l)
+    ## wc -l $file    also prints filename
+    ## wc -l < $file  only prints no of lines
+    clst_lines_0=$(wc -l < $clst_file)
 
     ## sed remove any leading spaces
     cp_item=$(wl-paste | sed 's/^[[:space:]]*//')
@@ -163,12 +165,11 @@ add ()
     remove_empty_lines
     remove_duplicates
 
-    clst_lines_1=$(cat $clst_file | wc -l)
+    clst_lines_1=$(wc -l < $clst_file)
 
     lines_add=$(( clst_lines_1 - clst_lines_0 ))
 
-    [[ $lines_add -eq 1 ]] && notify-send "$lines_add line added to clst [$clst_lines_1]"
-    [[ $lines_add -gt 1 ]] && notify-send "$lines_add lines added to clst [$clst_lines_1]"
+    notify-send -- "+$lines_add [$clst_lines_1] clst"
 }
 
 
@@ -177,13 +178,13 @@ put ()
 {
     [[ -z $(cat $clst_file) ]] && notify-send "clst: no list items" && exit
 
-    put_exec=$(cat $clst_file | fzf -m --no-sort --prompt=' cpbd << clst ')
+    put_exec=$(cat $clst_file | fzf --multi --no-sort --prompt=' wl-copy ')
 
     printf '%s' "$put_exec" | wl-copy
 
     [[ -n $put_exec ]] && lines_put=$(wl-paste | wc -l)
 
-    [[ $lines_put -gt 0 ]] && notify-send "clst: $lines_put lines put to wl-copy"
+    notify-send -- "$lines_put wl-copy"
 
     unset put_exec
     unset lines_put
@@ -193,9 +194,9 @@ put ()
 ## remove selected item(s) from clst
 delete_item ()
 {
-    clst_lines_0=$(cat $clst_file | wc -l)
+    clst_lines_0=$(wc -l < $clst_file)
 
-    delete_item_exec=$(cat $clst_file | fzf -m --no-sort --prompt='  - delete ')
+    delete_item_exec=$(cat $clst_file | fzf -m --no-sort --prompt=' delete ')
 
     while IFS= read -r line; do
 
@@ -205,12 +206,11 @@ delete_item ()
 
     done <<< "$delete_item_exec"
 
-    clst_lines_1=$(cat $clst_file | wc -l)
+    clst_lines_1=$(wc -l < $clst_file)
 
     lines_deleted=$(( -1 * (clst_lines_1 - clst_lines_0) ))
 
-    [[ $lines_deleted -eq 1 ]] && notify-send "$lines_deleted line deleted from clst [$clst_lines_1]"
-    [[ $lines_deleted -gt 1 ]] && notify-send "$lines_deleted lines deleted from clst [$clst_lines_1]"
+    notify-send -- "-$lines_deleted [$clst_lines_1] clst"
 
     unset delete_item_exec
     unset lines_deleted

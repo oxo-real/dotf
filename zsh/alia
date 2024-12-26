@@ -364,6 +364,7 @@ else
 
 fi
 
+alias fd='fd --color always'
 alias dir='dir --color=auto'
 alias vdir='vdir --color=auto'
 

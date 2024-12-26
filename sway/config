@@ -477,7 +477,7 @@ bar
 	   focused_statusline	#777777
 	   focused_separator	#ffffff
 	   focused_workspace		  #000020   #000020   #999999
-	   active_workspace		  #00000095 #77777795 #000000
+	   active_workspace		  #00000095 #99999995 #000000
 	   inactive_workspace		  #00000095 #00000095 #555555
 	   urgent_workspace		  #00000095 #ffbf0095 #ffffd3
     }
@@ -910,7 +910,6 @@ for_window [title="Floating Window - Show Me The Key"]
 # NO automatic migration (security feature!)
 # TODO bindsym Control+Shift+o	secure copy (wl-copy -o)
 
-
 ## fzf_cpbd
 ### foot
 #bindsym Control+p		exec $term --app-id="float_spicules" \
@@ -918,6 +917,9 @@ for_window [title="Floating Window - Show Me The Key"]
 ### alacritty
 bindsym Control+p		exec --no-startup-id $term --class="float_spicules" \
 				-e $csc/fzf-clst
+## secure copy
+#bindsym Shift+Control+p		exec wl-copy -o -n && exec notify-send 'secure copy is in DEV'
+#bindsym Shift+Control+0		exec echo -n '' | wl-copy && notify-send 'clipboard cleared'
 
 
 #----------------------------------------------------------------
@@ -1042,10 +1044,6 @@ bindsym $mod+Mod1+c		exec grim -g "$(slurp -p)" -t ppm - | \
 				convert - -format '%[pixel:p{0,0}]' txt:- | \
 				wl-copy -n && \
 				notify-send 'color data copy'
-
-## secure copy
-#bindsym Shift+Control+y	wl-copy -o -n && exec notify-send 'secure copy is in DEV'
-bindsym Shift+Control+0		exec echo -n '' | wl-copy && notify-send 'clipboard cleared'
 
 ## current date_time copy
 bindsym Control+Grave		exec date +'%Y%m%dT%H%M%SE%s' | wl-copy -n && notify-send 'date_time_epoch copied'

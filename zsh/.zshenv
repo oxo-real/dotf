@@ -174,7 +174,7 @@ export ASCII=$(for (( i=32; i<127; i++ )) do; printf "\\$(printf %03o "$i")"; do
 # fzf
 
 ## fzf default options
-export FZF_DEFAULT_OPTS='--cycle --layout reverse --tiebreak length,begin,index --info inline:'∑=' --height ~25% --bind esc:cancel,ctrl-c:abort --scrollbar '' --no-unicode --color dark,fg:#999999,hl:#ffffff,hl+:#ffffff,bg+:#333333,info:#96cbfe,prompt:#96cbfe,pointer:#ffffd3,query:#999999,marker:#a8ff60,separator:#111111,spinner:#000000'
+export FZF_DEFAULT_OPTS='--ansi --cycle --layout reverse --tiebreak length,begin,index --info inline:'∑=' --height ~25% --bind esc:cancel,ctrl-c:abort --scrollbar '' --no-unicode --color dark,fg:#999999,hl:#ffffff,hl+:#ffffff,bg+:#333333,info:#96cbfe,prompt:#96cbfe,pointer:#ffffd3,query:#999999,marker:#a8ff60,separator:#111111,spinner:#000000'
 ## fzf completion trigger (default **)
 export FZF_COMPLETION_TRIGGER='~~'
 

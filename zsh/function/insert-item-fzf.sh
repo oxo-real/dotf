@@ -22,7 +22,7 @@ function insert-item-fzf ()
 	    if [[ $fd_path_no_sub_dirs -eq 1 ]]; then
 
 		## cwd has only one subdir
-		fzf_output="$(fd --type directory --follow --max-depth 1 . $fd_path)"
+		fzf_output="$(fd --color never --type directory --follow --max-depth 1 . $fd_path)"
 
 	    else
 
@@ -61,7 +61,7 @@ function insert-item-fzf ()
 	    ## tr converts multiple fzf entries to one line
 	    ## sed remove trailing space
 	    fzf_output=$(printf '%s' "$fd_list_items" | \
-			     fzf -m --prompt="$fzf_prompt " --query="$fzf_query" | \
+			     fzf --multi --ansi --prompt="$fzf_prompt " --query="$fzf_query" | \
 			     tr '\n' ' ' | \
 			     sed 's/[ \t]$//')
 	    ;;

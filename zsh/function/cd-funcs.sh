@@ -96,7 +96,7 @@ function cd-nav-dirs ()
 
 	## one item from srch_env_dirs becomes fd_path_sel
 	## PWD, HOME, ROOT, ...
-	fd_path_sel=$(printf '%s\n' "${srch_env_dirs[@]}" | fzf --no-sort --prompt "$fzf_prompt ")
+	fd_path_sel=$(printf '%s\n' "${srch_env_dirs[@]}" | fzf --prompt "$fzf_prompt ")
 
 	if [[ -z $fd_path_sel || $fd_path_sel == 'ZQXIT' ]]; then
 

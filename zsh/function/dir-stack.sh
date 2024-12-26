@@ -50,5 +50,6 @@ function dir-stack ()
     done <<< "$hist_cd"
 
     ## directoriies in reach (dir)stack
-    dir_stack=$(printf '%s\n' "${dirs_in_reach_arr[@]}")
+    dir_stack=$(printf "${fg_blue}${st_bold}%s${st_def}\n" "${dirs_in_reach_arr[@]}")
+    #dir_stack=$(printf '%s\n' "${dirs_in_reach_arr[@]}")
 }
