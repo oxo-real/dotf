@@ -1,16 +1,15 @@
 #! /usr/bin/env sh
 
 code_dir="$XDG_CONFIG_HOME/status/bar/element"
-#code_dir="$XDG_CONFIG_HOME/code/waybar"
 
-info_tool='ipex macex interface macin ipin vrx vtx rnd_pool_alert bt temp cpu mem vol brightness batt weather time'
+info_tool='ipex macex interface macin ipin vrx vtx mem bt temp cpu vol brightness batt weather time'
 
 tput civis
 
 for i in $info_tool; do
 
-    info=$(sh $code_dir/$i)
-    #printf "DEV $code_dir/$i\n"; exit 255
+    ## sed to remove any i3blocks color coding
+    info=$(sh $code_dir/$i | sed 's/^#[0-9]\{6\}//')
 
     : '
     ## DEV if no info
@@ -24,22 +23,22 @@ for i in $info_tool; do
     # '
 
     ## special formatting
-    ## managing symbols, grouping and spaces
+    ## managing symbols, grouping. spaces & EOL's
     case $i in
 
 	temp)
-	    printf '%sC' "$info"
-	    ;;
-
-	brightness)
-	    printf '%s%%' "$info"
-	    ;;
-
-	vol | audio_source | batt_perc | time)
 	    printf '%s' "$info"
 	    ;;
 
-	*)
+	brightness )
+	    printf '%s%%' "$info"
+	    ;;
+
+	vol | audio_source | batt_perc | time )
+	    printf '%s' "$info"
+	    ;;
+
+	* )
 	    printf '%s' "$info "
 	    ;;
 

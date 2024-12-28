@@ -1,10 +1,7 @@
-loc="$(\cat $XDG_CONFIG_HOME/wttr/default-city.txt)"
-#loc="${WTTR_LOC}"
-weather=$(curl -s "wttr.in/'"$loc"'?format=%c%t" | tr -d '[:blank:]+°C')
+#! /usr/bin/env sh
+
+loc="$(\cat $XDG_CONFIG_HOME/weather/default-city.txt)"
+
+weather=$(curl -s "wttr.in/'"$loc"'?format=1" | tr -d '[:blank:]+°C')
+
 echo "$weather"
-#echo $(curl -s "wttr.in/'"$WTTR_LOC"'?format=%c%t" | tr -d '[:blank:]+°C')
-#data=$(curl -s "wttr.in/'"$WTTR_LOC"'?format-%c%t")
-#data_tr=$(echo "$data" | tr -d '[:blank:]+°C')
-#echo "$data_tr"
-#echo $(curl -s "wttr.in/"$WTTR_LOC"?format=%c%t" | tr -d '[:blank:]°C')
-#echo $(curl -s "wttr.in/$WTTR_LOC?format=%c%t" | tr -d '[:blank:]\t\r\n°C')
