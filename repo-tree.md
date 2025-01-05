@@ -1066,6 +1066,9 @@
 ├── taskwarrior.tar.hash
 ├── tmux
 │   └── tmux.conf
+├── tofi
+│   ├── config
+│   └── default-config
 ├── tty
 │   ├── 1694673229_sttyrc
 │   ├── 1694673596_sttyrc
@@ -1346,5 +1349,5 @@
     │   └── config
     └── xresources_colors
 
-121 directories, 1225 files
+122 directories, 1227 files
 ```

@@ -54,6 +54,7 @@ sway
 c sway/hw/machine_list
 c taskwarrior
 tmux
+tofi
 tty
 c ublock_origin
 urlscan

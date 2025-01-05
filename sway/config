@@ -804,9 +804,13 @@ bindsym Mod1+Shift+Return	exec --no-startup-id $csc/term-spawn pwd float w 800 h
 #bindsym $mod+d			exec $term --app-id="float_fzf_run" \
 #				sh -c $csc/fzf-run
 ### alacritty
-bindsym $mod+d			exec --no-startup-id $term --class="float_fzf_run" \
-				--config-file $XDG_CONFIG_HOME/alacritty/bg_blue.toml \
-				-e $csc/fzf-run
+# bindsym $mod+d		exec --no-startup-id $term --class="float_fzf_run" \
+				# --config-file $XDG_CONFIG_HOME/alacritty/bg_blue.toml \
+				# -e $csc/fzf-run
+
+## tofi-run
+set $menu			tofi-run | xargs swaymsg exec --
+bindsym $mod+d 			exec $menu
 
 ## fzf_spicules			(search cmd_catalog)
 ### foot

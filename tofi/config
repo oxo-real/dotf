@@ -1,0 +1,24 @@
+# oxo tofi config
+anchor = top
+horizontal = true
+width = 100%
+height = 20
+font-size = 11
+font = "Source Code Pro"
+#font = monospace
+prompt-text = "run: "
+outline-width = 0
+border-width = 0
+background-color = #000000FF
+min-input-width = 120
+result-spacing = 15
+padding-top = 0
+padding-bottom = 0
+padding-left = 0
+padding-right = 0
+fuzzy-match = true
+text-color = #777777FF
+prompt-color = #00FF00FF
+input-color = #777777FF
+#selection-color = #00ff00FF
+selection-color = #F92672FF
