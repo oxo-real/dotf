@@ -268,6 +268,8 @@ function cd-yazi ()
     fi
 
     rm -f "$tmp"
+    #TODO DEV: cursor shape is block
+    zle reset-prompt
 }
 
 zle -N cd-yazi
