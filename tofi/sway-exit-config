@@ -16,13 +16,13 @@ padding-left = 0
 padding-right = 0
 result-spacing = 15
 
-background-color = #000033FF
+background-color = #660000FF
 font-size = 11
 font = "Source Code Pro"
-text-color = #777777FF
+text-color = #000000FF
 
 prompt-color = #B5B3AAFF
-prompt-text = "run: "
+prompt-text = "qxt: "
 
 input-color = #777777FF
 

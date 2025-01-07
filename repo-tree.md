@@ -1010,6 +1010,7 @@
 │   │   ├── split_auto
 │   │   ├── term_font_size
 │   │   ├── term-spawn
+│   │   ├── tofi-sway-exit
 │   │   └── zzz_deprecated
 │   │       └── get-parameters
 │   ├── config
@@ -1068,7 +1069,8 @@
 │   └── tmux.conf
 ├── tofi
 │   ├── config
-│   └── default-config
+│   ├── default-config
+│   └── sway-exit-config
 ├── tty
 │   ├── 1694673229_sttyrc
 │   ├── 1694673596_sttyrc
@@ -1349,5 +1351,5 @@
     │   └── config
     └── xresources_colors
 
-122 directories, 1227 files
+122 directories, 1229 files
 ```

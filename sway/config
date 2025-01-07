@@ -935,9 +935,11 @@ bindsym Control+p		exec --no-startup-id $term --class="float_spicules" \
 #bindsym $mod+Shift+x		exec $term --app-id="float_exit" \
 #				sh -c $csc/fzf-sway-exit
 ### alacritty
-bindsym $mod+Shift+x		exec --no-startup-id $term --class="float_exit" \
-				--config-file $XDG_CONFIG_HOME/alacritty/bg_red.toml \
-				-e $csc/fzf-sway-exit
+#bindsym $mod+Shift+x		exec --no-startup-id $term --class="float_exit" \
+#				--config-file $XDG_CONFIG_HOME/alacritty/bg_red.toml \
+#				-e $csc/fzf-sway-exit
+
+bindsym $mod+Shift+x 		exec sh $csc/tofi-sway-exit
 
 ## swaylock			(Zzz)
 ## configuration: sway/code/lock
