@@ -34,8 +34,8 @@ function insert-item-inline ()
     zle kill-region
     fzf_query="$CUTBUFFER"
 
-    ## dir-stack instead of fd_path (below)
-    dir-stack
+    ## dirstack instead of fd_path (below)
+    dirstack
 
     fd_options='--'
     fzf_prompt='S'

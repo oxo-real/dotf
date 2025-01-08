@@ -3,13 +3,18 @@
 # --------------------------------------------------------------------
 # dir-stack.sh
 
+: '
+# NOTICE
+dir-stack script > dirstack function > dir_stack variable
+# '
 
-function dir-stack ()
+function dirstack ()
 {
     ## hist_cd: chronological list of unique directories from history
+		    #grep --binary-files text '^cd ' | \
     hist_cd=$(\
 		sed --regexp-extended 's/^:[[:space:]][[:digit:]]{10}:[[:digit:]]+;//' $HISTFILE | \
-		    grep '^cd ' | \
+		    grep '^cd ' 2>/dev/null | \
 		    sed --regexp-extended -e '/cd [\.]{1,2}$/d' -e '/cd -/d' -e 's|\.\./||' -e 's|^cd ||' -e 's|/$||' | \
 		    sed "s|^~|$HOME|" | \
 		    nl --number-format ln | \
@@ -18,13 +23,13 @@ function dir-stack ()
 		    awk '!seen[$2]++ {print $1, $2}' | \
 		    awk '!($1="")' | \
 		    sed --regexp-extended 's/^[[:space:]]+//' | \
-		    grep --invert-match --line-regexp $(basename $PWD) | \
-		    grep --invert-match --line-regexp $PWD | \
+		    grep --binary-files text --invert-match --line-regexp $(basename $PWD) | \
+		    grep --binary-files text --invert-match --line-regexp $PWD | \
 		    sed '/^\s*$/d'\
 	   )
 
     ## sed extract commands from histfile
-    ## grep only cd commands
+    ## grep only cd commands; occasional binary data error message suppressed
     ## sed remove lines with cd .(.), cd -, erase ../, cd[space], and trailing slashes
     ## sed replace ~ with $HOME
     ## nl add linenumbers (for chronological order)

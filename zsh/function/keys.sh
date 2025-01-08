@@ -55,13 +55,13 @@ bindkey '^o' clear-screen               ## C-o
 bindkey '^@' insert-date-time           ## C-2
 bindkey '^E' insert-epoch               ## C-e
 bindkey '^A' git-add-commit             ## C-a
+bindkey '^h' cd-nav-dirs                ## C-h
 bindkey '^j' cd-child                   ## C-j
 bindkey '^k' cd-up                      ## C-k
 bindkey '^l' cd-yazi                    ## C-l
 bindkey '^f' insert-item-inline         ## C-f
 bindkey '^Z' foreground                 ## C-z
 
-bindkey -M viins '^h' cd-nav-dirs       ## C-h
 
 bindkey -M vicmd 's' toggle-sudo        ## [vicmd] s
 bindkey -M vicmd 'q' toggle-sh-x        ## [vicmd] q

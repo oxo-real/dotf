@@ -28,7 +28,7 @@ function cd-nav-dirs ()
     srch_env_dir_arr[ROOT]=$ROOT
 
     ## generate dir_stack
-    dir-stack
+    dirstack
     fzf_prompt='S'
 
     dir_stack_select_fzf=$(printf '%s' "$dir_stack" | fzf --prompt "$fzf_prompt ")
