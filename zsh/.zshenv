@@ -218,7 +218,7 @@ export READNULLCMD='read0cmd'
 
 export BEEP="$XDG_DATA_HOME/a/media/audio/sound/airbus/da.ogg"
 export MUSICDIR="$XDG_DATA_HOME/a/media/audio/music"
-
+export RES_MPV=360
 
 # colors
 
