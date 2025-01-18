@@ -22,7 +22,8 @@ function insert-item-fzf ()
 	    if [[ $fd_path_no_sub_dirs -eq 1 ]]; then
 
 		## cwd has only one subdir
-		fzf_output="$(fd --color never --type directory --follow --max-depth 1 . $fd_path)"
+		#fzf_output="$(fd --color never $fd_options . $fd_path)"
+		fzf_output="$(fd --color never --type directory --hidden --follow --max-depth 1 . $fd_path)"
 
 	    else
 
@@ -30,7 +31,7 @@ function insert-item-fzf ()
 		[[ $fd_options == '--' ]] && fd_options=''
 
 		## all directories in fd_path
-		fd_list_dirs=$(fd --type directory --follow --hidden $fd_options . $fd_path)
+		fd_list_dirs=$(fd --type directory --hidden --follow $fd_options . $fd_path)
 
 		## in this block fzf has no multi selection
 		## :abort for cd-child to enter cd-child-joint (pressing C-j twice)

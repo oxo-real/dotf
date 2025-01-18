@@ -1,6 +1,11 @@
 
 # zsh completion
 
+## man zshcompsys
+
+## zstyle pattern template
+## :completion:<function>:<completer>:<command>:<argument>:<tag>
+
 ## initialize completion
 ### load compinit
 ### U TODO

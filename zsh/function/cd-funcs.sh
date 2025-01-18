@@ -148,11 +148,16 @@ function cd-child ()
     ## set variables
     cd_function=1
     fzf_prompt='C'
-    fd_path=$PWD
+    fd_path='.'
     fd_options='--max-depth=1'
+    #TODO resolve fd error when sending multiple fd_options
+    #fd_options='--max-depth 1 --type directory --hidden --follow'  ## fd error
+    #fd_path=$PWD  ## fd error
+    #fd_options='--max-depth 1'  ## fd error
 
     ## number of depth 1 subdirs
-    fd_path_no_sub_dirs=$(fd --type directory --hidden --follow --max-depth 1 . $fd_path | wc -l)
+    #fd_path_no_sub_dirs=$(fd "$fd_options" . $fd_path | wc -l)  ## fd error
+    fd_path_no_sub_dirs=$(fd --type directory --hidden --follow $fd_options . $fd_path | wc -l)
 
     ## directory types; root, bodies and leaves
     if [[ $fd_path_no_sub_dirs -eq 0 ]]; then
