@@ -1125,6 +1125,7 @@
 │   │   ├── _lf
 │   │   ├── _mountr
 │   │   └── _passr
+│   ├── etc_zsh_zshenv
 │   ├── function
 │   │   ├── 01-sourcing.sh
 │   │   ├── 02-history.sh
@@ -1350,5 +1351,5 @@
     │   └── config
     └── xresources_colors
 
-122 directories, 1228 files
+122 directories, 1229 files
 ```

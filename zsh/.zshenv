@@ -47,6 +47,12 @@ https://www.gnu.org/licenses/gpl-3.0.txt
 # '
 
 
+# sourcing
+
+## ZDOTDIR environment variable is sourced via etc_zsh_zshenv
+## c c/git/note/linux/terminal/shell/zsh/etc_zsh_zshenv
+
+
 # host
 
 export HOSTNAME="$(head -n 1 /etc/hostname)"
@@ -204,7 +210,6 @@ export TEMPDIR="$XDG_CACHE_HOME/temp"
 export TESTDIR="$XDG_CACHE_HOME/test"
 export TMPDIR="$XDG_CACHE_HOME/temp"  # for mktemp
 export TRASHDIR="$XDG_CACHE_HOME/trash"
-export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
 ## qt5 fix
 #export QT_QPA_PLATFORMTHEME='qt5ct'
