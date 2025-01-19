@@ -1124,7 +1124,13 @@
 │   │   ├── DEF_trash
 │   │   ├── _lf
 │   │   ├── _mountr
-│   │   └── _passr
+│   │   ├── _passr
+│   │   └── src
+│   │       ├── _glances
+│   │       ├── _hledger
+│   │       ├── _openssl
+│   │       ├── _rfkill
+│   │       └── url
 │   ├── etc_zsh_zshenv
 │   ├── function
 │   │   ├── 01-sourcing.sh
@@ -1351,5 +1357,5 @@
     │   └── config
     └── xresources_colors
 
-122 directories, 1229 files
+123 directories, 1234 files
 ```
