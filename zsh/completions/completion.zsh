@@ -17,7 +17,7 @@
 autoload -Uz compinit
 
 ## initialize compinit
-### -i ignores insecure files and directories
+### -i ignore locations not belonging to root or $USER
 compinit -i
 ### for completion .*-files are matched without explicitly specifying the dot
 _comp_options+=(globdots)

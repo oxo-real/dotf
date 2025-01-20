@@ -79,24 +79,38 @@ export HISTSIZE=1000000
 
 # path environment
 
-### Zsh ties the PATH variable to a path array.
+### Zsh ties the PATH environment variable to a path array.
 ### https://zsh.sourceforge.io/Guide/zshguide02.html#l24
-
-## retent redundancy; don't add to $path if it's there already
-## -U will work both also on colon-separated arrays, like $PATH
-typeset -U path PATH
 
 ## main path
 ### start from scratch
-path=( /usr/bin /usr/local/bin /usr/local/sbin )
+path=(
+    /usr/bin
+    /usr/local/bin
+    /usr/local/sbin
+    $HOME/.config/shln
+)
 
-## add oxo custom shell symlinks
-path+=( "$HOME/.config/shln" )
+## retent redundancy; don't add duplicates to $path
+## -U will work both also on colon-separated arrays, like $PATH
+typeset -U path
+
+## expanding the path array into a space-separated list of
+## unique existing directories
+path=($^path(N-/))
+
+## global scope (environment variable)
+export PATH
 
 
 # fpath environment
-## search path for function definitions
-fpath=( $fpath $HOME/.config/zsh/completions )
+
+### fpath is the search path for function definitions
+
+## add specific directories to fpath
+fpath+=(
+    $HOME/.config/zsh/completions
+)
 
 
 # sway environment

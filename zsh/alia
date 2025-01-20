@@ -353,16 +353,18 @@ function mvr()
 
 
 ## eza for ls
-if command -v eza > /dev/null; then
+#if command -v eza > /dev/null; then
+#
+#    alias ls="echo; $XDG_CONFIG_HOME/eza/eza_wrapper.sh"
+#
+#else
+#
+#    alias ls="echo; ls --color=auto"
+#    #alias ls="echo; command ls $LS_OPTIONS"
+#
+#fi
 
-    alias ls="echo; $XDG_CONFIG_HOME/eza/eza_wrapper.sh"
-
-else
-
-    alias ls="echo; ls --color=auto"
-    #alias ls="echo; command ls $LS_OPTIONS"
-
-fi
+alias ls="echo; ls --color=auto"
 
 alias fd='fd --color always'
 alias dir='dir --color=auto'

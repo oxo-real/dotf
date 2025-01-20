@@ -1,7 +1,8 @@
-#!/usr/bin/env bash
+#! /usr/bin/env sh
 
-music_play=$(\
-	fd . $MUSICDIR | fzf | xargs mpv &\
-)
+music_play=$(fd . $MUSICDIR | fzf)
 
-swaymsg -t command exec $music_play
+swaymsg floating disable
+swaymsg opacity set 1.0
+
+mpv --audio-display=no --video=no $music_play
