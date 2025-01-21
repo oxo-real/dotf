@@ -1115,6 +1115,8 @@
 │       ├── ml5-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/ml5-kb-guide.pdf
 │       ├── ml7-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/ml7-kb-guide.pdf
 │       ├── moonlander_oxo_qwerty_NZWR6.url
+│       ├── zsa_moonlander_oxo_qwerty_NZWR6_9DxdZL.bin
+│       ├── zsa_moonlander_oxo_qwerty_NZWR6_9DxdZL.zip
 │       ├── zsa_moonlander_oxo_qwerty_NZWR6_LwYqe.bin
 │       └── zsa_moonlander_oxo_qwerty_NZWR6_LwYqe.zip
 ├── zsh
@@ -1357,5 +1359,5 @@
     │   └── config
     └── xresources_colors
 
-123 directories, 1234 files
+123 directories, 1236 files
 ```

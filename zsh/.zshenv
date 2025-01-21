@@ -112,6 +112,10 @@ fpath+=(
     $HOME/.config/zsh/completions
 )
 
+fpath=($^fpath(N-/))
+
+export FPATH
+
 
 # sway environment
 
