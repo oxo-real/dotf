@@ -1,4 +1,4 @@
-#files: 1009	version: 5.9
+#files: 1012	version: 5.9
 
 _comps=(
 '-' '_precommand'
@@ -1020,7 +1020,6 @@ _comps=(
 'parec' '_pulseaudio'
 'parecord' '_pulseaudio'
 'pass' '_pass'
-'passr' '_passr'
 'passwd' '_users'
 'paste' '_paste'
 'pasuspender' '_pulseaudio'
@@ -2079,7 +2078,7 @@ autoload -Uz _afew _alacritty _android _arch-audit _archlinux-java \
             _zattr _zcalc _zcalc_line _zcompile _zed \
             _zftp _zle _zmodload _zmv _zparseopts \
             _zpty _zsh-mime-handler _zsocket _zstyle _ztodo \
-            _lf _passr
+            _lf _lf
 autoload -Uz +X _call_program
 
 typeset -gUa _comp_assocs
