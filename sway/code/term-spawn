@@ -40,16 +40,14 @@ https://www.gnu.org/licenses/gpl-3.0.txt
   jq, alacritty
 
 # usage
-  % term-spawn $directory [float [h $con_height w $con_width] [x $x_coor y $y_coor]]
+  % term-spawn $directory [[float] [h $con_height w $con_width] [x $x_coor y $y_coor]]
 
-# examples
+# example
   % term-spawn $HOME float h 300 w 300 x 200 y 200
 
 # '
 
 
-# target_path=$1
-# shift
 args=$@
 
 
@@ -66,6 +64,7 @@ function initialize ()
     #terminal_cmd=${TERMINAL:-'foot'}
     terminal_cmd=${TERMINAL:-'alacritty'}
 
+    ## default dimensions
     target_con_float_height_def=600
     target_con_float_width_def=800
 }
@@ -86,6 +85,7 @@ function process_args ()
 	    h )
 		## set con_height
 		shift
+		target_con_float='float'
 		target_con_height="$1"
 		shift
 		;;
@@ -93,6 +93,7 @@ function process_args ()
 	    w )
 		## set con_width
 		shift
+		target_con_float='float'
 		target_con_width="$1"
 		shift
 		;;
@@ -100,6 +101,7 @@ function process_args ()
 	    x )
 		## set x coordinate
 		shift
+		target_con_float='float'
 		target_con_xcoor="$1"
 		shift
 		;;
@@ -107,6 +109,7 @@ function process_args ()
 	    y )
 		## set y coordinate
 		shift
+		target_con_float='float'
 		target_con_ycoor="$1"
 		shift
 		;;
@@ -116,11 +119,6 @@ function process_args ()
 
 		    target_path="$1"
 		    shift
-
-		#else
-
-		#    [ -n $target_con_float ] && target_con_dims="$@"
-		#    break
 
 		fi
 		;;
@@ -208,40 +206,6 @@ function process_target_path ()
 
     esac
 }
-
-
-# function process_dim_args ()
-# {
-#     while [[ "$1" ]]; do
-
-# 	case "$1" in
-
-# 	    'h')
-# 		shift
-# 		target_con_height=$1
-# 		;;
-
-# 	    'w')
-# 		shift
-# 		target_con_width=$1
-# 		;;
-
-# 	    'x')
-# 		shift
-# 		target_con_xcoor=$1
-# 		;;
-
-# 	    'y')
-# 		shift
-# 		target_con_ycoor=$1
-# 		;;
-
-# 	esac
-
-# 	shift
-
-#     done
-# }
 
 
 function resize_float ()
