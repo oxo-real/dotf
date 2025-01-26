@@ -991,12 +991,14 @@
 │   │   ├── con-type-toggle
 │   │   ├── con-v-fill
 │   │   ├── dimr
+│   │   ├── dtx
 │   │   ├── fzf-clst
 │   │   ├── fzf-run
 │   │   ├── fzf-spicules
 │   │   ├── fzf-sway-exit
 │   │   ├── fzf-sway-focus
 │   │   ├── fzf_sway_move
+│   │   ├── fzf_timestamp
 │   │   ├── get-focus-data -> /home/oxo/.config/status/bar/element/get-focus-data
 │   │   ├── kill_float_inv
 │   │   ├── layout-ntfy-send
@@ -1145,10 +1147,10 @@
 │   │   ├── foreground.sh
 │   │   ├── fzf-config.sh
 │   │   ├── git.sh
-│   │   ├── insert-date-time.sh
 │   │   ├── insert-item-fzf.sh
 │   │   ├── insert-item-inline.sh
 │   │   ├── keys.sh
+│   │   ├── modules.sh
 │   │   ├── precmd.sh
 │   │   ├── preexec.sh
 │   │   ├── ps1.sh
@@ -1158,7 +1160,9 @@
 │   │   ├── strlen.sh
 │   │   ├── toggle-sh-x.sh
 │   │   ├── toggle-sudo.sh
-│   │   └── zz-catalog.sh
+│   │   ├── zz-catalog.sh
+│   │   └── zzz_unused
+│   │       └── insert-date-time.sh
 │   ├── zsh-kb-guide.pdf -> /home/oxo/c/git/note/application/keybinding/guide/zsh-kb-guide.pdf
 │   └── zzz_deprecated
 │       ├── 20240924_174623_1727192783-.zshrc
@@ -1359,5 +1363,5 @@
     │   └── config
     └── xresources_colors
 
-123 directories, 1236 files
+124 directories, 1239 files
 ```

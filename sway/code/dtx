@@ -1,0 +1,6 @@
+#! /usr/bin/env sh
+
+## for sway/config bindsym Control+Grave
+## sway seems not to be able to exec zsh functions
+
+printf '%s_%X\n' "$(date $DT)" "$(date +'%s')"

@@ -193,13 +193,14 @@ export GTK_USE_PORTAL=0
 ## ascii string
 export ASCII=$(for (( i=32; i<127; i++ )) do; printf "\\$(printf %03o "$i")"; done)
 
-## strftime format presets
+## strftime format presets (i.e. use with date; date $DTE)
 export DT=+'%Y%m%d_%H%M%S'
 export DTE=+'%Y%m%d_%H%M%S_%s'
 export DTZWE=+'%Y%m%d_%H%M%S%z_%Z_%V_%s'
 
 ## permanently disable pwgn (vault)
 #export PWGN_OFF=1
+
 
 # fzf
 

@@ -57,7 +57,7 @@ https://www.gnu.org/licenses/gpl-3.0.txt
 alias sudo='sudo '
 
 
-function sudo()
+function sudo ()
 {
     ## sudo -k cannot be aliased
     ## therefore solution below
@@ -75,7 +75,7 @@ function sudo()
 }
 
 
-function host()
+function host ()
 {
     command cat /etc/hostname
 }
@@ -102,7 +102,7 @@ alias bat='bat --style plain "$@"'
 ## command to assume if a single input redirection is specified with no command
 ## see zshenv for related READNULLCMD setting
 ## '< $file' behaviour
-function read0cmd()
+function read0cmd ()
 {
     cat
     #less
@@ -308,7 +308,7 @@ alias figlet="figlet -d $XDG_CONFIG_HOME/figlet"
 ## generate qr code from clipboard
 if command -v qrinv > /dev/null 2>&1; then
 
-   function qr()
+   function qr ()
    {
        # usage: qr $(wl-paste)
        #        echo hello | qr
@@ -340,13 +340,13 @@ alias mkdir='mkdir --parents --verbose'
 
 
 ## rsync for copy and move (better for large files)
-function cpr()
+function cpr ()
 {
     rsync --archive --partial --verbose --info=progress2,stats2 --human-readable --modify-window=1 "$@"
 }
 
 
-function mvr()
+function mvr ()
 {
     rsync --archive --partial --verbose --info=progress2,stats2 --human-readable --modify-window=1 --remove-source-files "$@"
 }
@@ -388,7 +388,7 @@ alias play='pw-play'
 #alias beep="paplay $BEEP"
 
 
-function say()
+function say ()
 {
     # usage: say sdate
     #        sdate | say
@@ -401,6 +401,19 @@ function say()
 # time
 
 alias now='date +%s'
+
+function nwx ()
+{
+    ## 20250125_052505
+    printf '%X\n' "$(date +'%s')"
+}
+
+function dtx ()
+{
+    ## 20250125_082604_6794920C
+    printf '%s_%X\n' "$(date $DT)" "$(date +'%s')"
+}
+
 ## (for say)
 alias sdate="date +'%A %d %B %Y'"
 alias sweek="echo week $(date +%V)"

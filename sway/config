@@ -1023,23 +1023,27 @@ bindsym Shift+Control+Mod1+x	exec mic-switch toggle Webcam C310
 #----------------------------------------------------------------
 
 # https://wiki.archlinux.org/index.php/Sway#Screen_capture
+#TODO DEV some nicer way than wl-clipboard for date generation
 
 ## current output
-bindsym $mod+p			exec grim -o $(swaymsg -t get_outputs \
+bindsym $mod+p			exec $csc/dtx | wl-copy -n; exec grim -o $(swaymsg -t get_outputs \
 				| jq -r '.[] | select (.focused) | .name') \
-				$XDG_DATA_HOME/a/media/images/scr_cap/`date "+%Y%m%dT%H%M%S"`.png && \
+				$XDG_DATA_HOME/a/media/images/scr_cap/$(wl-paste).png && \
 				notify-send 'scr_cap curr output'
+				#$XDG_DATA_HOME/a/media/images/scr_cap/`date "+%Y%m%dT%H%M%S"`.png && \
 
 ## all outputs
-bindsym $mod+Mod1+p		exec grim \
-				$XDG_DATA_HOME/a/media/images/scr_cap/`date "+%Y%m%dT%H%M%S"`.png  && \
+bindsym $mod+Mod1+p		exec $csc/dtx | wl-copy -n; exec grim \
+				$XDG_DATA_HOME/a/media/images/scr_cap/$(wl-paste).png && \
 				notify-send 'scr_cap all outputs'
+				#$XDG_DATA_HOME/a/media/images/scr_cap/`date "+%Y%m%dT%H%M%S"`.png && \
 
 ## selective rectangle
 ### to file
-bindsym --release $mod+Shift+p	exec grim -g "$(slurp)" \
-				$XDG_DATA_HOME/a/media/images/scr_cap/`date "+%Y%m%dT%H%M%S"`.png && \
+bindsym --release $mod+Shift+p	exec $csc/dtx | wl-copy -n; exec grim -g "$(slurp)" \
+				$XDG_DATA_HOME/a/media/images/scr_cap/$(wl-paste).png && \
 				notify-send 'scr_cap sel rectangle'
+				#$XDG_DATA_HOME/a/media/images/scr_cap/`date "+%Y%m%dT%H%M%S"`.png && \
 ### to clipboard
 bindsym $mod+Control+p		exec grim -g "$(slurp)" | wl-copy && \
 				notify-send 'scr_cap sel copy'
@@ -1052,8 +1056,11 @@ bindsym $mod+Mod1+c		exec grim -g "$(slurp -p)" -t ppm - | \
 				notify-send 'color data copy'
 
 ## current date_time copy
-bindsym Control+Grave		exec date $DTE | wl-copy -n && notify-send 'date_time_epoch copied'
-#bindsym Control+Grave		exec date +'%Y%m%dT%H%M%SE%s' | wl-copy -n && notify-send 'date_time_epoch copied'
+bindsym Control+Grave		exec --no-startup-id $term --class="float_spicules" \
+				--config-file $XDG_CONFIG_HOME/alacritty/bg_blue.toml \
+				-e $csc/fzf_timestamp
+#bindsym Control+Grave		exec $csc/dtx | wl-copy -n && notify-send 'dtx copied'
+#bindsym Control+Grave		exec date $DTE | wl-copy -n && notify-send 'date_time_epoch copied'
 
 
 #----------------------------------------------------------------
