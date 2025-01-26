@@ -997,20 +997,20 @@
 │   │   ├── fzf-spicules
 │   │   ├── fzf-sway-exit
 │   │   ├── fzf-sway-focus
-│   │   ├── fzf_sway_move
-│   │   ├── fzf_timestamp
+│   │   ├── fzf-sway-move
+│   │   ├── fzf-timestamp
 │   │   ├── get-focus-data -> /home/oxo/.config/status/bar/element/get-focus-data
 │   │   ├── kill_float_inv
 │   │   ├── layout-ntfy-send
 │   │   ├── lock
-│   │   ├── lock_make_bg
-│   │   ├── lock_scr_eff
+│   │   ├── lock-make-bg
+│   │   ├── lock-scr-eff
 │   │   ├── music-play
 │   │   ├── pointer-to
 │   │   ├── screen_onf
 │   │   ├── snap-move-to
 │   │   ├── split_auto
-│   │   ├── term_font_size
+│   │   ├── term-font-size
 │   │   ├── term-spawn
 │   │   ├── tofi-sway-exit
 │   │   └── zzz_deprecated
@@ -1036,7 +1036,7 @@
 │   │   └── sway_hw_sel_process
 │   ├── lock
 │   │   ├── config
-│   │   └── config_bg
+│   │   └── config-bg
 │   ├── sway-kb-guide.pdf -> /home/oxo/.local/share/c/git/note/application/keybinding/guide/sway-kb-guide.pdf
 │   └── zzz_deprecated
 │       └── bar

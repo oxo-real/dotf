@@ -3,8 +3,8 @@
 ## take screenshot, desaturate and displace image
 
 csc="$XDG_CONFIG_HOME/sway/code"
-lock_bg="$XDG_CACHE_HOME/temp/lock_bg.png"
-lock_bg_desat="$XDG_CACHE_HOME/temp/lock_bg_desat.png"
+lock_bg="$XDG_CACHE_HOME/temp/lock-bg.png"
+lock_bg_desat="$XDG_CACHE_HOME/temp/lock-bg-desat.png"
 
 
 # screenshot
@@ -26,4 +26,4 @@ wait
 ## overwrite original screenshot
 image_out="$image_in"
 
-sh $csc/lock_scr_eff -r -s 3.5 -t displace -a 10 -m 1 "$image_in" "$image_out"
+sh $csc/lock-scr-eff -r -s 3.5 -t displace -a 10 -m 1 "$image_in" "$image_out"

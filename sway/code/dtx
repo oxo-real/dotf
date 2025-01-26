@@ -1,6 +1,6 @@
 #! /usr/bin/env sh
 
-## for sway/config bindsym Control+Grave
-## sway seems not to be able to exec zsh functions
+## for sway/config screencapture
+#TODO DEV find a better way to create filenames with timestamps
 
 printf '%s_%X\n' "$(date $DT)" "$(date +'%s')"

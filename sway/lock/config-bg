@@ -1,4 +1,4 @@
-image="$XDG_CACHE_HOME/temp/lock_bg.png"
+image="$XDG_CACHE_HOME/temp/lock-bg.png"
 scaling=fill
 color=000000
 ignore-empty-password

@@ -1058,7 +1058,7 @@ bindsym $mod+Mod1+c		exec grim -g "$(slurp -p)" -t ppm - | \
 ## current date_time copy
 bindsym Control+Grave		exec --no-startup-id $term --class="float_spicules" \
 				--config-file $XDG_CONFIG_HOME/alacritty/bg_blue.toml \
-				-e $csc/fzf_timestamp
+				-e $csc/fzf-timestamp
 #bindsym Control+Grave		exec $csc/dtx | wl-copy -n && notify-send 'dtx copied'
 #bindsym Control+Grave		exec date $DTE | wl-copy -n && notify-send 'date_time_epoch copied'
 
