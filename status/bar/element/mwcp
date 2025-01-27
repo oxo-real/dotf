@@ -9,6 +9,6 @@ if [[ -n $monitor_name ]]; then
 
     [[ $container_pid != 'null' ]] && printf '%s %s ' "$container_pid" "$container_id"
     ## NOTICE eol for i3blocks
-    printf '%s%s\n' "$monitor_name_bar" "$workspace_name_bar"
+    printf '%s%s\n' "$workspace_name_bar" "$monitor_name_bar"
 
 fi
