@@ -25,7 +25,9 @@ for format in "${formats_strftime_arr[@]}"; do
 done
 
 # select a format
-printf "%s\n" "${formatted_ts_arr[@]}" \
+timestamp_selected=$(printf "%s\n" "${formatted_ts_arr[@]}" \
     | fzf --header="select timestamp format:" \
-    | wl-copy -n \
-    && notify-send 'timestamp copied'
+    | wl-copy -n && notify-send 'timestamp copied')
+
+#TODO DEV directly insert when zsh is active
+#LBUFFER+="$timestamp_selected"
