@@ -48,8 +48,11 @@
 
 
 # [GitHub - vivien/i3blocks: A feed generator for text based status bars](https://github.com/vivien/i3blocks)
+# [i3: i3bar input protocol](https://i3wm.org/docs/i3bar-protocol.html)
+# [JeffProd | Create your own i3/sway status bar with some bash and python](https://en.jeffprod.com/blog/2020/create-your-own-i3-sway-status-bar/)
 
 command="$XDG_CONFIG_HOME/status/bar/element/$BLOCK_NAME"
+#command="$XDG_CONFIG_HOME/sway/bar/blocks/$BLOCK_NAME"
 color=#777777
 separator=false
 
@@ -67,9 +70,9 @@ border_right=2
 interval=2
 separator_block_width=12
 
-#[wifi]
-#interval=10
-#separator_block_width=8
+[wifi]
+interval=10
+separator_block_width=8
 
 #[ipex]
 #interval=10
@@ -79,9 +82,9 @@ separator_block_width=12
 #interval=10
 #separator_block_width=8
 
-#[interface]
-#interval=10
-#separator_block_width=8
+[interface]
+interval=10
+separator_block_width=12
 
 #[macin]
 #interval=10
@@ -91,13 +94,13 @@ separator_block_width=12
 #interval=10
 #separator_block_width=8
 
-#[vrx]
-#interval=2
-#separator_block_width=8
+[vrx]
+interval=2
+separator_block_width=8
 
-#[vtx]
-#interval=2
-#separator_block_width=16
+[vtx]
+interval=2
+separator_block_width=16
 
 [mem]
 interval=2
@@ -138,6 +141,7 @@ separator_block_width=8
 #separator_block_width=8
 
 [time]
+click_events=true
 interval=3
 #color=#ffffd3
 separator_block_width=0
@@ -146,3 +150,4 @@ separator_block_width=0
 # interval=1
 # #color=#ffffd3
 # separator_block_width=0
+# #command=cal -m -w -3 $(date -I)
