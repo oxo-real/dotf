@@ -24,10 +24,12 @@ for format in "${formats_strftime_arr[@]}"; do
 
 done
 
-# select a format
+## select a format
 timestamp_selected=$(printf "%s\n" "${formatted_ts_arr[@]}" \
     | fzf --header="select timestamp format:" \
     | wl-copy -n && notify-send 'timestamp copied')
 
+
 #TODO DEV directly insert when zsh is active
 #LBUFFER+="$timestamp_selected"
+#BUFFER="$timestamp_selected" && zle vi-add-eol
