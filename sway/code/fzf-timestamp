@@ -9,11 +9,11 @@ formatted_ts_arr+=$(printf '%s_%X\n' "$(date -d @"$timestamp" $DT)" "$(date -d @
 ## define a list of strftime formats
 ## text oriented formats have a trailing space
 formats_strftime_arr=(
-    "%Y%m%d_%H%M%S.%s"
     "%s.%N"
     "%d/%m/%Y %H:%M "
-    "%A %d %B %Y "
     "%Y-%m-%dT%H:%M:%S%z_%Z "
+    "%A %d %B %Y "
+    "week %V %Y"
 )
 
 for format in "${formats_strftime_arr[@]}"; do

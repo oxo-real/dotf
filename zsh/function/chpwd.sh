@@ -76,7 +76,7 @@ function chpwd ()
     #print -Pr "$left_bar  $right_bar"
 
     # NOTICE presume ls alias with eza_wrapper.sh
-    ls -A
+    ls --almost-all --group-directories-first
 
     #eza --all --group-directories-first
     #ls -A
