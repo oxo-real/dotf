@@ -331,10 +331,20 @@ alias surfraw="surfraw -browser=$BROWSER"
 
 # file operations
 
+## file listing
+alias ls="echo; ls --group-directories-first --color=auto"
+alias fd='fd --color always'
+alias dir='dir --group-directories-first --color=auto'
+alias vdir='vdir --group-directories-first --color=auto'
+
+## extracting information
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
+## file manipulation
 alias cp='cp --archive --interactive --verbose'
-#alias cp='rsync -aAXv --info=ALL --human-readable'
 alias mv='mv --interactive --verbose'
-#alias mv='rsync -aAXv --info=ALL --human-readable && rm -rf $1'
 alias rm='trash'
 alias mkdir='mkdir --parents --verbose'
 
@@ -363,16 +373,6 @@ function mvr ()
 #    #alias ls="echo; command ls $LS_OPTIONS"
 #
 #fi
-
-alias ls="echo; ls --color=auto"
-
-alias fd='fd --color always'
-alias dir='dir --color=auto'
-alias vdir='vdir --color=auto'
-
-alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
 
 
 # audio
@@ -420,6 +420,11 @@ alias sweek="echo week $(date +%V)"
 alias stime='date +%R'
 
 
+# shell
+
+alias ppid='ps -p $$ -o ppid='
+
+
 # application configuration
 
 ## w3m -config is right, not --config as expected
@@ -435,3 +440,4 @@ alias calc='qalc'
 alias myip='curl icanhazip.com'
 alias exip='myip'
 alias pubip='myip'
+alias ping9='ping -D -i 1 -c 3 9.9.9.9'

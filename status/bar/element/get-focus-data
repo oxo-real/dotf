@@ -62,6 +62,7 @@ container_data ()
     IFS=',' read -r -a container_data_arr <<< "$container_focus_data"
 
     ## set container variables
+    ## NOTICE container_pid == ps ppid (ps -p $$ -o ppid=)
     container_id=${container_data_arr[0]}
     container_pid=${container_data_arr[1]}
     container_type=${container_data_arr[2]}
@@ -110,43 +111,43 @@ pointer_data ()
 	# grid_DIRy = (container_y + q * container_height ) / monitor_height
 	grid_Nx=$(echo "$container_x + (0.500 * $container_width) / $monitor_width" | bc)
 	grid_Ny=$(echo "$container_y + (0.165 * $container_height) / $monitor_height" | bc)
-	grid_NEx=$(( container_x + 0.835 * container_width ))
-	grid_NEy=$(( container_y + 0.165 * container_height ))
-	grid_Ex=$(( container_x + 0.835 * container_width ))
-	grid_Ey=$(( container_y + 0.500 * container_height ))
-	grid_SEx=$(( container_x + 0.835 * container_width ))
-	grid_SEy=$(( container_y + 0.835 * container_height ))
-	grid_Sx=$(( container_x + 0.500 * container_width ))
-	grid_Sy=$(( container_y + 0.835 * container_height ))
-	grid_SWx=$(( container_x + 0.165 * container_width ))
-	grid_SWy=$(( container_y + 0.835 * container_height ))
-	grid_Wx=$(( container_x + 0.165 * container_width ))
-	grid_Wy=$(( container_y + 0.500 * container_height ))
-	grid_NWx=$(( container_x + 0.165 * container_width ))
-	grid_NWy=$(( container_y + 0.165 * container_height ))
-	grid_Zx=$(( container_x + 0.500 * container_width ))
-	grid_Zy=$(( container_y + 0.500 * container_height ))
+	grid_NEx=$(echo "$container_x + (0.835 * $container_width) / $monitor_width" | bc)
+	grid_NEy=$(echo "$container_y + (0.165 * $container_height) / $monitor_height" | bc)
+	grid_Ex=$(echo "$container_x + (0.835 * $container_width) / $monitor_width" | bc)
+	grid_Ey=$(echo "$container_y + (0.500 * $container_height) / $monitor_height" | bc)
+	grid_SEx=$(echo "$container_x + (0.835 * $container_width) / $monitor_width" | bc)
+	grid_SEy=$(echo "$container_y + (0.835 * $container_height) / $monitor_height" | bc)
+	grid_Sx=$(echo "$container_x + (0.500 * $container_width) / $monitor_width" | bc)
+	grid_Sy=$(echo "$container_y + (0.835 * $container_height) / $monitor_height" | bc)
+	grid_SWx=$(echo "$container_x + (0.165 * $container_width) / $monitor_width" | bc)
+	grid_SWy=$(echo "$container_y + (0.835 * $container_height) / $monitor_height" | bc)
+	grid_Wx=$(echo "$container_x + (0.165 * $container_width) / $monitor_width" | bc)
+	grid_Wy=$(echo "$container_y + (0.500 * $container_height) / $monitor_height" | bc)
+	grid_NWx=$(echo "$container_x + (0.165 * $container_width) / $monitor_width" | bc)
+	grid_NWy=$(echo "$container_y + (0.165 * $container_height) / $monitor_height" | bc)
+	grid_NWx=$(echo "$container_x + (0.500 * $container_width) / $monitor_width" | bc)
+	grid_NWy=$(echo "$container_y + (0.500 * $container_height) / $monitor_height" | bc)
 
     else
 
-	grid_Nx=$(( 0.500 * container_width ))
-	grid_Ny=$(( 0.165 * container_height ))
-	grid_NEx=$(( 0.835 * container_width ))
-	grid_NEy=$(( 0.165 * container_height ))
-	grid_Ex=$(( 0.835 * container_width ))
-	grid_Ey=$(( 0.500 * container_height ))
-	grid_SEx=$(( 0.835 * container_width ))
-	grid_SEy=$(( 0.835 * container_height ))
-	grid_Sx=$(( 0.500 * container_width ))
-	grid_Sy=$(( 0.835 * container_height ))
-	grid_SWx=$(( 0.165 * container_width ))
-	grid_SWy=$(( 0.835 * container_height ))
-	grid_Wx=$(( 0.165 * container_width ))
-	grid_Wy=$(( 0.500 * container_height ))
-	grid_NWx=$(( 0.165 * container_width ))
-	grid_NWy=$(( 0.165 * container_height ))
-	grid_Zx=$(( 0.500 * container_width ))
-	grid_Zy=$(( 0.500 * container_height ))
+	grid_Nx=$(echo "0.500 * $container_width" | bc)
+	grid_Ny=$(echo "0.165 * $container_height" | bc)
+	grid_NEx=$(echo "0.835 * $container_width" | bc)
+	grid_NEy=$(echo "0.165 * $container_height" | bc)
+	grid_Ex=$(echo "0.835 * $container_width" | bc)
+	grid_Ey=$(echo "0.500 * $container_height" | bc)
+	grid_SEx=$(echo "0.835 * $container_width" | bc)
+	grid_SEy=$(echo "0.835 * $container_height" | bc)
+	grid_Sx=$(echo "0.500 * $container_width" | bc)
+	grid_Sy=$(echo "0.835 * $container_height" | bc)
+	grid_SWx=$(echo "0.165 * $container_width" | bc)
+	grid_SWy=$(echo "0.835 * $container_height" | bc)
+	grid_Wx=$(echo "0.165 * $container_width" | bc)
+	grid_Wy=$(echo "0.500 * $container_height" | bc)
+	grid_NWx=$(echo "0.165 * $container_width" | bc)
+	grid_NWy=$(echo "0.165 * $container_height" | bc)
+	grid_NWx=$(echo "0.500 * $container_width" | bc)
+	grid_NWy=$(echo "0.500 * $container_height" | bc)
 
     fi
 }
@@ -182,7 +183,7 @@ main ()
     workspace_data
     swaybar_data
     container_data
-    #pointer_data
+    pointer_data
     debug_data
 }
 

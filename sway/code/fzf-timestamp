@@ -2,6 +2,10 @@
 
 formatted_ts_arr=()
 timestamp=$(date +%s.%N)
+## get focused container id
+#prev_focus=$(swaymsg -r -t get_seats | jq '.[0].focus')
+#ppid=$(ps -p $$ -o ppid=)
+#printf "DEV$LINENO %s\n" "${ppid}"
 
 ## dtx (hexadecimal epoch)
 formatted_ts_arr+=$(printf '%s_%X\n' "$(date -d @"$timestamp" $DT)" "$(date -d @"$timestamp" +'%s')")
@@ -26,9 +30,28 @@ done
 
 ## select a format
 timestamp_selected=$(printf "%s\n" "${formatted_ts_arr[@]}" \
-    | fzf --header="select timestamp format:" \
-    | wl-copy -n && notify-send 'timestamp copied')
+			 | fzf --header="select timestamp format:")
 
+wl-copy -n <<<$timestamp_selected && notify-send "timestamp copied $(date +'%S')"
+
+#swaymsg focus next child
+#swaymsg focus next parent
+#swaymsg focus prev child
+#swaymsg focus prev parent
+
+# swaymsg kill
+# swaymsg "[con_id=$prev_focus]" focus
+#kill -TERM $ppid
+
+#wl-paste
+
+
+#swaymsg -m -t subscribe '["window"]' | \
+#  jq --unbuffered 'select(.change == "focus").container.id' | \
+#  while read new_focus; do
+#    swaymsg "[con_id=${prev_focus}] mark --add _prev" &>/dev/null
+#    prev_focus=$new_focus
+#  done
 
 #TODO DEV directly insert when zsh is active
 #LBUFFER+="$timestamp_selected"
