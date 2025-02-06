@@ -1,11 +1,12 @@
 #! /usr/bin/env sh
 
+cgnc="$XDG_DATA_HOME/c/git/note/catalog"
 
-sh "$XDG_DATA_HOME/c/git/note/catalog/generate"
+## generate catalog list
+sh "$cgnc/generate"
 
-
-catalog="$XDG_DATA_HOME/c/git/note/catalog/list"
-
+## define catalog source
+catalog="$cgnc/list"
 
 ## NOTICE
 ## sed removes first word and remaining leading spaces

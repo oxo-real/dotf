@@ -420,6 +420,20 @@ alias sweek="echo week $(date +%V)"
 alias stime='date +%R'
 
 
+# operating system
+
+alias osid='c /etc/os-release && echo && hostnamectl'
+
+
+# network
+
+#alias myip='dig myip.opendns.com @resolver1.opendns.com +dnssec +short'
+alias myip='curl icanhazip.com'
+alias exip='myip'
+alias pubip='myip'
+alias ping9='ping -D -i 1 -c 3 9.9.9.9'
+
+
 # shell
 
 alias ppid='ps -p $$ -o ppid='
@@ -432,12 +446,3 @@ alias w3m="w3m -config $XDG_CONFIG_HOME/w3m/config"
 alias fim='fim --no-history'
 alias zathura='zathura --fork'
 alias calc='qalc'
-
-
-# network
-
-#alias myip='dig myip.opendns.com @resolver1.opendns.com +dnssec +short'
-alias myip='curl icanhazip.com'
-alias exip='myip'
-alias pubip='myip'
-alias ping9='ping -D -i 1 -c 3 9.9.9.9'

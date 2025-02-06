@@ -922,6 +922,7 @@
 │   ├── hledger-web -> /opt/hledger/hledger-web
 │   ├── isolatest -> /home/oxo/.local/share/c/git/code/isolatest/isolatest
 │   ├── kill-float -> /home/oxo/.local/share/c/git/code/tool/kill-float
+│   ├── kill-ps -> /home/oxo/.local/share/c/git/code/tool/kill-ps
 │   ├── make-recov -> /home/oxo/.local/share/c/git/code/tool/make-recov
 │   ├── metar -> /home/oxo/.local/share/c/git/code/tool/metar
 │   ├── mic-switch -> /home/oxo/.local/share/c/git/code/tool/mic-switch
@@ -936,7 +937,6 @@
 │   ├── otp95 -> /home/oxo/.local/share/c/git/code/tool/otp95
 │   ├── passexp -> /home/oxo/.local/share/c/git/code/tool/passexp
 │   ├── passr -> /home/oxo/.local/share/c/git/code/tool/passr
-│   ├── proc-kill -> /home/oxo/.local/share/c/git/code/tool/proc-kill
 │   ├── pwgn -> /home/oxo/.local/share/c/git/code/tool/pwgn
 │   ├── qbns -> /home/oxo/.config/qutebrowser/new_session
 │   ├── qrinv -> /home/oxo/c/git/code/tool/qrinv
