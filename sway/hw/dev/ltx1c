@@ -12,13 +12,15 @@ set	$touchscreen		1267:11342:ELAN901C:00_04F3:2C4E
 ### Chimei Innolux Corporation 0x1417 0x00000000
 ### Available modes:		mode 1920x1200 @ 60.003 Hz
 
+## main output
 output eDP-1
 {
        mode		1920x1200
        scale		1.0
-       pos		0 0
        transform	0
 }
+
+## NOTICE main output position is set in config
 
 set    $x_res_main	1920
 set    $y_res_main	1200

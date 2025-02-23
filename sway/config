@@ -210,16 +210,27 @@ output * background	#000000 solid_color
 ## WORKAROUND
 ## when ext is above or left of main (negative x resp y coordinates):
 ## set ext display coordinates to pos 0 0 (instead of the main monitor)
-output HDMI-A-1		pos 0 0
 ## then adjust the main monitor pos to ext display with positive coordinates
+
 ### ext above main
+#output HDMI-A-1		pos 0 0
 #output eDP-1		pos 0 $hdmi_y_res
+
 ### ext left of main
-output eDP-1		pos $hdmi_x_res 0
+#output HDMI-A-1		pos 0 0
+#output eDP-1		pos $hdmi_x_res 0
 
 ### ext right of main
-#output HDMI-A-1		pos $x_res_main	 0
+# output
+# {
+# 	eDP-1		pos 0 0
+# 	HDMI-A-1	pos $x_res_main	 0
+# }
+output eDP-1		pos 0 0
+output HDMI-A-1		pos $x_res_main	 0
+
 ### ext below main
+#output eDP-1		pos 0 0
 #output HDMI-A-1		pos 0 $y_res_main
 
 
