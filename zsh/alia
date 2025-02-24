@@ -199,7 +199,7 @@ function emacs ()
 	    files="$@"
 
 	    ## brackets to prevent jobs running in current shell (new subshell)
-	    (/bin/emacs "$files" > /dev/null 2>&1 &)
+	    (/usr/bin/emacs "$files" > /dev/null 2>&1 &)
 	    ;;
 
 	'' )
@@ -228,6 +228,10 @@ function emacs ()
 
     # tui emacs
     #emacsclient -t "$@"
+
+    ## focus emacs window
+    emacs_con_id=$(swaymsg --pretty --type get_tree | grep "GNU Emacs at $HOST" | awk '{print $1}' | tr -d -c 0-9)
+    swaymsg "[con_id=${emacs_con_id}]" focus
 }
 
 
@@ -271,7 +275,7 @@ function view ()
 	    files="$@"
 
 	    ## brackets to prevent jobs running in current shell (new subshell)
-	    (/bin/emacs --eval "view-file \"$files\")" > /dev/null 2>&1 &)
+	    (/usr/bin/emacs --eval "view-file \"$files\")" > /dev/null 2>&1 &)
 	    ;;
 
 	*)
@@ -284,6 +288,10 @@ function view ()
 	    ;;
 
     esac
+
+    ## focus emacs window
+    emacs_con_id=$(swaymsg --pretty --type get_tree | grep "GNU Emacs at $HOST" | awk '{print $1}' | tr -d -c 0-9)
+    swaymsg "[con_id=${emacs_con_id}]" focus
 }
 
 

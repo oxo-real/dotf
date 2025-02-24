@@ -4,7 +4,7 @@
 # rps1.sh
 
 
-strlen_sh="/home/oxo/.config/zsh/function/strlen.sh"
+strlen_sh="$XDG_CONFIG_HOME/zsh/function/strlen.sh"
 
 
 ## right side prompt (RPS1)
