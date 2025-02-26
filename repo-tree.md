@@ -923,7 +923,7 @@
 │   ├── isolatest -> /home/oxo/.local/share/c/git/code/isolatest/isolatest
 │   ├── kill-float -> /home/oxo/.local/share/c/git/code/tool/kill-float
 │   ├── kill-ps -> /home/oxo/.local/share/c/git/code/tool/kill-ps
-│   ├── make-recov -> /home/oxo/.local/share/c/git/code/tool/make-recov
+│   ├── make-recov -> /home/oxo/.local/share/c/git/code/hajime/make-recov
 │   ├── metar -> /home/oxo/.local/share/c/git/code/tool/metar
 │   ├── mic-switch -> /home/oxo/.local/share/c/git/code/tool/mic-switch
 │   ├── monitor -> /home/oxo/.config/git/monitor
