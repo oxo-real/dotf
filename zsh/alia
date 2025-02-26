@@ -231,7 +231,7 @@ function emacs ()
 
     ## focus emacs window
     emacs_con_id=$(swaymsg --pretty --type get_tree | grep "GNU Emacs at $HOST" | awk '{print $1}' | tr -d -c 0-9)
-    swaymsg "[con_id=${emacs_con_id}]" focus
+    [[ -n $emacs_con_id ]] && swaymsg "[con_id=${emacs_con_id}]" focus
 }
 
 
@@ -291,7 +291,7 @@ function view ()
 
     ## focus emacs window
     emacs_con_id=$(swaymsg --pretty --type get_tree | grep "GNU Emacs at $HOST" | awk '{print $1}' | tr -d -c 0-9)
-    swaymsg "[con_id=${emacs_con_id}]" focus
+    [[ -n $emacs_con_id ]] && swaymsg "[con_id=${emacs_con_id}]" focus
 }
 
 
