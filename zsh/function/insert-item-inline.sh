@@ -67,9 +67,29 @@ function insert-item-inline ()
 
 	done
 
-	## sort array
-	IFS=$'\n' srch_env_dirs=($(sort <<< "${srch_env_naa[*]}"))
+	## HOME always first
+	## of srch_env_naa make first item HOME and
+	## sort the rest of the items in the array
+	tail_env_dirs=()
+	## easier fzf select; need home almost always
+	first_dir='HOME'
+
+	## array (tail_env_dirs) without first_dir
+	for dir in "${srch_env_naa[@]}"; do
+
+	    if [[ "$dir" != "$first_dir" ]]; then
+
+		tail_env_dirs+=("$dir")
+
+	    fi
+
+	done
+
+	## sort tail_env_dirs array
+	IFS=$'\n' tail_env_dirs_sort=($(sort <<< "${tail_env_dirs[@]}"))
 	unset IFS
+
+	srch_env_dirs=("$first_dir" "${tail_env_dirs_sort[@]}")
 
 	## one item from srch_env_dirs becomes fd_path_sel
 	## PWD, HOME, ROOT, ...

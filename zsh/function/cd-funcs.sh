@@ -90,11 +90,11 @@ function cd-nav-dirs ()
 
 	done
 
+	## HOME always first
 	## of srch_env_naa make first item HOME and
 	## sort the rest of the items in the array
 	tail_env_dirs=()
-	## HOME always first
-	## faster fzf select; need home almost always
+	## easier fzf select; need home almost always
 	first_dir='HOME'
 
 	## array (tail_env_dirs) without first_dir
