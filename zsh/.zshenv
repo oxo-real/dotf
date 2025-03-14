@@ -15,7 +15,7 @@
 : '
 .zshenv
 zsh environment variables
-copyright (c) 2019 - 2024  |  oxo
+copyright (c) 2019 - 2025  |  oxo
 
 GNU GPLv3 GENERAL PUBLIC LICENSE
 This program is free software: you can redistribute it and/or modify
@@ -39,7 +39,7 @@ https://www.gnu.org/licenses/gpl-3.0.txt
   n/a
 
 # usage
-  WARNING no commands with output here
+  CAUTION no commands with output here
 
 # examples
   n/a
@@ -61,7 +61,7 @@ export HOSTNAME="$(head -n 1 /etc/hostname)"
 # homes
 
 export HOME="/home/$(logname)"
-export ROOT='/'
+export ROOT=/
 
 
 # hist
@@ -122,15 +122,15 @@ export FPATH
 ## $XKB_DEFAULT_OPTIONS and $XDG_CURRENT_DESKTOP
 ## must be set before sway has been started
 ## for zsa moonlander xkb_options to work
-export XKB_DEFAULT_OPTIONS='compose:ralt,shift:both_capslock'
-export XDG_CURRENT_DESKTOP='sway'
+export XKB_DEFAULT_OPTIONS=compose:ralt,shift:both_capslock
+export XDG_CURRENT_DESKTOP=sway
 export XCURSOR_SIZE=20
 
 
 # xdg environment
 
 ## configuration
-export XDG_CONFIG_DIRS="/etc/xdg"
+export XDG_CONFIG_DIRS=/etc/xdg
 export XDG_CONFIG_HOME="$HOME/.config"
 
 ## data
@@ -164,29 +164,29 @@ export RPS1_TRAP=on
 export PS4=':${BASH_SOURCE[0]:-$0} $(printf '%4d%s' "${LINENO}") ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 
 ## default applications
-export COLORTERM='truecolor'
-export BAT_THEME='base16-256'
-export BROWSER='qutebrowser'
-export BROWSERCLI='w3m'
+export COLORTERM=truecolor
+export BAT_THEME=base16-256
+export BROWSER=qutebrowser
+export BROWSERCLI=w3m
 ## [Environment variables - delta](https://dandavison.github.io/delta/environment-variables.html)
-export DELTA_FEATURES='+side-by-side'
-export EDITOR='emacs'
-export OPENER='xdg-open'
-export LESSHISTFILE='/dev/null'
+export DELTA_FEATURES=+side-by-side
+export EDITOR=emacs
+export OPENER=xdg-open
+export LESSHISTFILE=/dev/null
 export MANLESS='\ \$MAN_PN\ ?L∑%L\ .?pt%pt\%\ .[?lt%lt-?lb%lb]\ ..?e[EOF]\ .'
-#export MANPAGER='less'
+#export MANPAGER=less
 #export MANPAGER="nvim -c 'set ft=man' -"
 #export MANPAGER="sh -c 'col --no-backspaces --spaces | bat --language man --style plain'"
-export MANROFFOPT='-c'
-export PAGER='less'
+export MANROFFOPT=-c
+export PAGER=less
 export GIT_PAGER="$PAGER"
-export READER='zathura'
-export SHELL='zsh'
-export TERM='xterm-256color'
-export TERMINAL='alacritty'
-export TERM_BU='foot'
-export VIDEO='mpv'
-export VISUAL='emacs'
+export READER=zathura
+export SHELL=zsh
+export TERM=xterm-256color
+export TERMINAL=alacritty
+export TERM_BU=foot
+export VIDEO=mpv
+export VISUAL=emacs
 
 export GTK_USE_PORTAL=0
 
@@ -207,13 +207,13 @@ export DTZWE=+'%Y%m%d_%H%M%S%z_%Z_%V_%s'
 ## fzf default options
 export FZF_DEFAULT_OPTS='--ansi --cycle --layout reverse --tiebreak length,begin,index --info inline:'∑=' --height ~25% --bind esc:cancel,ctrl-c:abort --scrollbar '' --no-unicode --color dark,fg:#999999,hl:#ffffff,hl+:#ffffff,bg+:#333333,info:#96cbfe,prompt:#96cbfe,pointer:#ffffd3,query:#999999,marker:#a8ff60,separator:#111111,spinner:#000000'
 ## fzf completion trigger (default **)
-export FZF_COMPLETION_TRIGGER='~~'
+export FZF_COMPLETION_TRIGGER=~~
 
 
 # other signposts to config
 
 export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
-export GPG_AGENT_INFO='1'	# https://wiki.archlinux.org/title/GnuPG#mutt
+export GPG_AGENT_INFO=1  ## https://wiki.archlinux.org/title/GnuPG#mutt
 export GPG_TTY="$(tty)"
 export NOTMUCH_CONFIG="$XDG_CONFIG_HOME/notmuch/notmuch_config"
 #export SYSMAILCAP="$XDG_CONFIG_HOME/neomutt/mailcap"
@@ -223,25 +223,26 @@ export USER_AGENT="$(head -n 1 $XDG_LOGS_HOME/network/user_agent/current)"
 # export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
 
 export APPNDIR="$XDG_CONFIG_HOME/shln"
+export BKMS=/home/oxo/.local/share/c/web/bookmark_urls
 export DNLDDIR="$XDG_DATA_HOME/c/download"
-export ROOTDIR='/'
+export ROOTDIR=/
 export TEMPDIR="$XDG_CACHE_HOME/temp"
 export TESTDIR="$XDG_CACHE_HOME/test"
-export TMPDIR="$XDG_CACHE_HOME/temp"  # for mktemp
+export TMPDIR="$XDG_CACHE_HOME/temp"  ## for mktemp
 export TRASHDIR="$XDG_CACHE_HOME/trash"
 
 ## qt5 fix
-#export QT_QPA_PLATFORMTHEME='qt5ct'
+#export QT_QPA_PLATFORMTHEME=qt5ct
 ## qt6 fix
 ## solve flashing qutebrowser
 ## needed for obs (screencast pipewire
-export QT_QPA_PLATFORMTHEME='qt6ct'
+export QT_QPA_PLATFORMTHEME=qt6ct
 
 ## wayland fix
-export QT_QPA_PLATFORM='wayland'
+export QT_QPA_PLATFORM=wayland
 
 ## lessr
-export READNULLCMD='read0cmd'
+export READNULLCMD=read0cmd
 
 
 # audio and sound
@@ -264,8 +265,8 @@ LS_COLORS+="${defs_oxo}"
 ## eza colors
 ## man 5 eza_colors
 ## reset disables eza built-in color set entirely
-EZA_COLORS='reset:'"$LS_COLORS"
-export EZA_COLORS
+# EZA_COLORS='reset:'"$LS_COLORS"
+# export EZA_COLORS
 
 ## lf colors
 ## [Colors and Icons · gokcehan/lf Wiki · GitHub](https://github.com/gokcehan/lf/wiki/Colors-and-Icons)
