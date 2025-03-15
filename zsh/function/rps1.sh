@@ -89,10 +89,10 @@ elapsed_time_conversion ()
     ## elapsed time
     et=$(( ct - ts ))
 
-    ## below threshold et is printed in seconds
+    ## below threshold et is printed as elapsed time in seconds
     ## above threshold et is printed in '[d] hms' format
     ## dhms_th treshold in seconds
-    dhms_th=300
+    dhms_th=600
 
     ## define dhms (with single digits for if statements)
     d="$(( et/60/60/24 ))"
