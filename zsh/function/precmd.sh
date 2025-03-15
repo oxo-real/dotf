@@ -121,4 +121,6 @@ function precmd ()
     print -Pr "$precmd_left"
 
     unset t0_exec_ns
+    ## for rps1
+    export t1_exec_ns
 }

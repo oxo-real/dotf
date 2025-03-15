@@ -25,6 +25,7 @@ function calc-epoch ()
 ## define what to display in RPS1
 function calc-rps1 ()
 {
+    #TODO below TM_OUT threshold RPS1 shows irrelavant data
     calc-epoch
     source $strlen_sh
 
@@ -34,7 +35,11 @@ function calc-rps1 ()
     #rp='$weekday $day_num%F{#696969}$ep_l $ep_r%f %D{%H%M%S}'
 
     ## only time
-    rp='%D{%H%M%S}'
+    #rp='%D{%H%M%S}'
+
+    ## elapsed time and current time
+    elapsed_time_conversion
+    rp="$et"' %D{%H%M%S}'
 
     ## length exit code in PS1
     if [[ "$exit_code" -gt '0' ]]; then
@@ -71,6 +76,51 @@ function calc-rps1 ()
 
     ## control visability of RPS1
     [[ $RPS1_VIS != 'on' ]] && RPS1=''
+}
+
+
+elapsed_time_conversion ()
+{
+    ## timestamp
+    ### t1_exec_ns exported from precmd
+    ts=$(head -c 10 <<< "$t1_exec_ns")
+    ## current time
+    ct=$(date '+%s')
+    ## elapsed time
+    et=$(( ct - ts ))
+
+    ## below threshold et is printed in seconds
+    ## above threshold et is printed in '[d] hms' format
+    ## dhms_th treshold in seconds
+    dhms_th=300
+
+    ## define dhms (with single digits for if statements)
+    d="$(( et/60/60/24 ))"
+    h="$(( et/60/60%24 ))"
+    m="$(( et/60%60 ))"
+    s="$(( et%60 ))"
+
+    if [[ "$et" -gt "$dhms_th" ]]; then
+	## less than one day passed
+	## less than one hour passed
+	## more than ten minutes passed
+
+	## hms prettified with leading zeros
+	h=$(printf '%02d' "$h")
+	m=$(printf '%02d' "$m")
+	s=$(printf '%02d' "$s")
+	et="$h$m$s"
+
+    elif [[ "$d" -gt 0 ]]; then
+	## more than one day passed
+
+	## hms prettified with leading zeros
+	h=$(printf '%02d' "$h")
+	m=$(printf '%02d' "$m")
+	s=$(printf '%02d' "$s")
+	et="$d $h$m$s"
+
+    fi
 }
 
 
