@@ -349,6 +349,7 @@ alias vdir='vdir --group-directories-first --color=auto'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
+alias rg='rg --sort path --ignore-case --line-number'
 
 ## file manipulation
 alias cp='cp --archive --interactive --verbose'
