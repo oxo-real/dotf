@@ -131,16 +131,16 @@ export XCURSOR_SIZE=20
 
 ## configuration
 export XDG_CONFIG_DIRS=/etc/xdg
-export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CONFIG_HOME="$HOME"/.config
 
 ## data
-export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_DATA_HOME="$HOME"/.local/share
 
 ## logs
-export XDG_LOGS_HOME="$HOME/.logs"
+export XDG_LOGS_HOME="$HOME"/.logs
 
 ## cache
-export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_CACHE_HOME="$HOME"/.cache
 
 
 # z shell environment
@@ -148,7 +148,7 @@ export XDG_CACHE_HOME="$HOME/.cache"
 ## 24 bits colors
 ## easy define hex rgb colors with FHX and BHX
 ## in $cgcsft defined color names are available in zsh
-cgcsft="$XDG_DATA_HOME/c/git/code/source/function/text_appearance"
+cgcsft="$XDG_DATA_HOME"/c/git/code/source/function/text_appearance
 [[ -f "$cgcsft" ]] && source "$cgcsft"
 
 export DEFAULT_VI_MODE=viins
@@ -212,24 +212,24 @@ export FZF_COMPLETION_TRIGGER=~~
 
 # other signposts to config
 
-export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
+export GNUPGHOME="$XDG_CONFIG_HOME"/gnupg
 export GPG_AGENT_INFO=1  ## https://wiki.archlinux.org/title/GnuPG#mutt
 export GPG_TTY="$(tty)"
-export NOTMUCH_CONFIG="$XDG_CONFIG_HOME/notmuch/notmuch_config"
+export NOTMUCH_CONFIG="$XDG_CONFIG_HOME"/notmuch/notmuch_config
 #export SYSMAILCAP="$XDG_CONFIG_HOME/neomutt/mailcap"
 #export TMSU_DB="$XDG_DATA_HOME/c/tag/.tmsu/db"
 export USER_AGENT="$(head -n 1 $XDG_LOGS_HOME/network/user_agent/current)"
 # export VIMINIT="source $XDG_CONFIG_HOME/nvim/init.vim"
 # export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
 
-export APPNDIR="$XDG_CONFIG_HOME/shln"
-export BKMS=/home/oxo/.local/share/c/web/bookmark_urls
-export DNLDDIR="$XDG_DATA_HOME/c/download"
+export APPNDIR="$XDG_CONFIG_HOME"/shln
+export BKMS="$XDG_DATA_HOME"/c/web/bookmark_urls
+export DNLDDIR="$XDG_DATA_HOME"/c/download
 export ROOTDIR=/
-export TEMPDIR="$XDG_CACHE_HOME/temp"
-export TESTDIR="$XDG_CACHE_HOME/test"
-export TMPDIR="$XDG_CACHE_HOME/temp"  ## for mktemp
-export TRASHDIR="$XDG_CACHE_HOME/trash"
+export TEMPDIR="$XDG_CACHE_HOME"/temp
+export TESTDIR="$XDG_CACHE_HOME"/test
+export TMPDIR="$XDG_CACHE_HOME"/temp  ## for mktemp
+export TRASHDIR="$XDG_CACHE_HOME"/trash
 
 ## qt5 fix
 #export QT_QPA_PLATFORMTHEME=qt5ct
@@ -247,8 +247,8 @@ export READNULLCMD=read0cmd
 
 # audio and sound
 
-export BEEP="$XDG_DATA_HOME/a/media/audio/sound/airbus/da.ogg"
-export MUSICDIR="$XDG_DATA_HOME/a/media/audio/music"
+export BEEP="$XDG_DATA_HOME"/a/media/audio/sound/airbus/da.ogg
+export MUSICDIR="$XDG_DATA_HOME"/a/media/audio/music
 export RES_MPV=360
 
 # colors
