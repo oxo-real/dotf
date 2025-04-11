@@ -53,6 +53,7 @@ https://www.gnu.org/licenses/gpl-3.0.txt
 set up 'SPC' as the global leader key
 
 #+begin_src emacs-lisp
+  (use-package general)
 
   (general-create-definer oxo/leader-keys
     :states '(normal insert visual emacs)
