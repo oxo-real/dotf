@@ -8,6 +8,10 @@
 
 ;;(server-mode)
 
+(require 'server)
+(unless (server-running-p)
+  (server-start))
+
 (require 'package)
 
 (setq package-archives '(

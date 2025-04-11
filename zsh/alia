@@ -132,173 +132,74 @@ alias vimdiff='nvim -d'
 
 # emacs
 
-## functions tempo disab for error:
-#Warning: due to a long standing Gtk+ bug
-#http://bugzilla.gnome.org/show_bug.cgi?id=85715
-#Emacs might crash when run in daemon mode and the X11 connection is unexpectedly lost.
-#Using an Emacs configured with --with-x-toolkit=lucid does not have this problem.
-#Starting Emacs daemon.
-#see also:
-#[crash - Starting emacs in daemon mode freezes, emacsclient is not able find a socket - Emacs Stack Exchange](https://emacs.stackexchange.com/questions/14232/starting-emacs-in-daemon-mode-freezes-emacsclient-is-not-able-find-a-socket)
-#[xorg - emacs --daemon crashing after closing emacsclient -c - Unix & Linux Stack Exchange](https://unix.stackexchange.com/questions/56871/emacs-daemon-crashing-after-closing-emacsclient-c)
-
 function emacs-daemon ()
 {
     # if no active daemon, then start service
 
     #daemon_active=$(ls /run/user/1000/emacs >/dev/null 2>&1 | wc -l)
-    emacs_active=$(systemctl status --user emacs.service | \
-                       grep Active: | \
-                       awk '{print $2}')
+    emacs_active=$(systemctl --user status emacs.service \
+                       | grep Active: \
+                       | awk '{print $2}')
 
-    case $emacs_active in
+    case "$emacs_active" in
 
-	failed | inactive)
-	    printf '%s\n' 'starting emacs.service...'
-            systemctl start --user emacs.service
+	failed | inactive )
+
+	    printf 'starting emacs.service ...'
+            systemctl --user start emacs.service
 	    sleep 2
+	    systemctl --user status emacs.service
             ;;
 
     esac
 }
 
 
-function emacs ()
+#[Emacs - ArchWiki](https://wiki.archlinux.org/title/Emacs#Multiplexing_emacs_and_emacsclient)
+function emacs
 {
+    if [[ "$#" -eq 0 ]]; then
+	## $# number of arguments
+
+	## 'emacs' is function, will cause recursion
+	## (... &) frees up cli
+	(setsid /usr/bin/emacs &)
+        return
+
+    fi
+
+    ## all args into array
+    IFS=' ' read -r args <<< "$@"
+
+    for arg in "${args[@]}"; do
+
+	if [[ "$arg" == -* && "$arg" != '-c' && "$arg" != '--' ]]; then
+	    ## the command-line flag is not one of the specified exceptions (-c and --)
+	    ## identify command-line options that should trigger a direct launch of emacs
+
+	    ## (... &) frees up cli
+	    (setsid /usr/bin/emacs "${args[@]}" &)
+            return
+
+	fi
+
+    done
+
     emacs-daemon
 
-    case "$1" in
+    (setsid emacsclient --no-wait --alternate-editor /usr/bin/emacs --reuse-frame "${args[@]}")
 
-	'-t'|'-nw'|'--tty' )
-	    # use current tui
-
-	    ## get file(s)
-	    shift
-	    files="$@"
-
-	    emacsclient --tty --alternate-editor='' "$files"
-	    ;;
-
-	'-n'|'--gui' )
-	    # use new gui frame
-
-	    ## get file(s)
-	    shift
-	    files="$@"
-
-	    ## last ampersand to start a separate process
-	    ## brackets to prevent jobs running in current shell (new subshell)
-	    (emacsclient --alternate-editor='' --create-frame "$files" > /dev/null 2>&1 &)
-	    ;;
-
-	'-nc' | '-dt' )
-	    # start emacs 'desktop', no emacsclient
-
-	    ## get file(s)
-	    shift
-	    files="$@"
-
-	    ## brackets to prevent jobs running in current shell (new subshell)
-	    (/usr/bin/emacs "$files" > /dev/null 2>&1 &)
-	    ;;
-
-	'' )
-	    # use existing gui frame (default)
-
-	    ## last ampersand to start a separate process
-	    ## brackets to prevent jobs running in current shell (new subshell)
-	    (emacsclient --alternate-editor='' --reuse-frame > /dev/null 2>&1 &)
-	    ;;
-
-	* )
-	    # use existing gui frame (default)
-	    files="$@"
-
-	    ## last ampersand to start a separate process
-	    ## brackets to prevent jobs running in current shell (new subshell)
-	    (emacsclient --alternate-editor='' --reuse-frame "$files" > /dev/null 2>&1 &)
-	    ;;
-
-    esac
-
-    # gui emacs
-    ## -c (--create-frame) starts always in new window
-    ## </dev/null no output in current terminal window
-    ## &>/dev/null start in new detached terminal window
-
-    # tui emacs
-    #emacsclient -t "$@"
-
-    ## focus emacs window
-    emacs_con_id=$(swaymsg --pretty --type get_tree | grep "GNU Emacs at $HOST" | awk '{print $1}' | tr -d -c 0-9)
-    [[ -n $emacs_con_id ]] && swaymsg "[con_id=${emacs_con_id}]" focus
-}
-
-
-function view ()
-{
-    # nvim readonly
-    #nvim -R $@
-
-    # emacs readonly
-    emacs-daemon
-
-    case "$1" in
-
-	'-t'|'-nw'|'--tty' )
-	    # use current tui
-
-	    ## get file(s)
-	    shift
-	    files="$@"
-
-	    emacsclient --tty --alternate-editor='' --eval "(view-file \"$files\")"
-	    ;;
-
-	'-n'|'--gui' )
-	    # use new gui frame
-
-	    ## get file(s)
-	    shift
-	    files="$@"
-
-	    ## last ampersand to start a separate process
-	    ## brackets to prevent jobs running in current shell (new subshell)
-	    (emacsclient --alternate-editor='' --create-frame --eval "(view-file \"$files\")" > /dev/null 2>&1 &)
-	    ;;
-
-	'-nc' | '-dt' )
-	    # start emacs 'desktop', no emacsclient
-
-	    ## get file(s)
-	    shift
-	    files="$@"
-
-	    ## brackets to prevent jobs running in current shell (new subshell)
-	    (/usr/bin/emacs --eval "view-file \"$files\")" > /dev/null 2>&1 &)
-	    ;;
-
-	*)
-	    # use existing gui frame (default)
-	    files="$@"
-
-	    ## last ampersand to start a separate process
-	    ## brackets to prevent jobs running in current shell (new subshell)
-	    (emacsclient --alternate-editor='' --reuse-frame  --eval "(view-file \"$files\")" > /dev/null 2>&1 &)
-	    ;;
-
-    esac
-
-    ## focus emacs window
-    emacs_con_id=$(swaymsg --pretty --type get_tree | grep "GNU Emacs at $HOST" | awk '{print $1}' | tr -d -c 0-9)
+    ## focus emacs container
+    emacs_con_id=$(swaymsg --pretty --type get_tree \
+	| grep "GNU Emacs at $HOST" \
+	| awk '{print $1}' \
+	| tr -d -c 0-9)
     [[ -n $emacs_con_id ]] && swaymsg "[con_id=${emacs_con_id}]" focus
 }
 
 
 #alias emacs="emacs $@ &"
 alias em='emacs'
-#alias em='emacs'
-alias ev='view'
 
 
 alias lsblk='lsblk --ascii --tree -o name,uuid,fstype,path,size,fsuse%,fsused,label,mountpoint'

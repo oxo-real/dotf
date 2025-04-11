@@ -66,7 +66,18 @@ set up 'SPC' as the global leader key
 * server mode
 #+begin_src emacs-lisp
 
-;;(server-mode)
+  ;;(server-mode)
+
+#+end_src
+
+* multiplexing emacs and emacsclient
+[Emacs - ArchWiki](https://wiki.archlinux.org/title/Emacs#Multiplexing_emacs_and_emacsclient)
+
+#+begin_src emacs-lisp
+
+  (require 'server)
+  (unless (server-running-p)
+    (server-start))
 
 #+end_src
 
