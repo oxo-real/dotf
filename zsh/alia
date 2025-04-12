@@ -112,7 +112,7 @@ function read0cmd ()
 ## c (see) a file
 ## as < seems not to activate file completion and c is easier to type than <
 ## NOTICE combine with fzf-ins-pwd C-l for current directory
-function c()
+function c ()
 {
     cat
 }
@@ -154,9 +154,10 @@ function emacs_daemon ()
     esac
 }
 
+## [Emacs - ArchWiki](https://wiki.archlinux.org/title/Emacs#Multiplexing_emacs_and_emacsclient)
 
-#[Emacs - ArchWiki](https://wiki.archlinux.org/title/Emacs#Multiplexing_emacs_and_emacsclient)
-function emacs
+## CAUTION beware of recursion emacsclient function and program
+function emacsclient ()
 {
     emacs_daemon
 
@@ -166,13 +167,18 @@ function emacs
 
 	    -nc|--no-client )
 		shift
-
-		## (... &) frees up cli
+		## (... &) frees up issueing cli
 		(setsid /usr/bin/emacs "$@" &)
 		return
 		;;
 
+	    '' )
+		## no (more) args
+		break
+		;;
+
 	    * )
+		## failsafe
 		break
 		;;
 
@@ -180,19 +186,24 @@ function emacs
 
     done
 
-    (emacsclient --reuse-frame "$@" &)
+    ## genaral runmode
+    #emacsclient --reuse-frame "$@"
+    /usr/bin/emacsclient --no-wait --alternate-editor /usr/bin/emacs --reuse-frame "$@"
 
     ## focus emacs container
     emacs_con_id=$(swaymsg --pretty --type get_tree \
 	| grep "GNU Emacs at $HOST" \
 	| awk '{print $1}' \
 	| tr -d -c 0-9)
+
     [[ -n $emacs_con_id ]] && swaymsg "[con_id=${emacs_con_id}]" focus
 }
 
 
-#alias emacs="emacs $@ &"
-alias em='emacs'
+## make emacsclient completions available for em
+## CAUTION beware of recursion emacsclient function and program
+## this way makes emacsclient completions available for alias em
+alias em='emacsclient'
 
 
 alias lsblk='lsblk --ascii --tree -o name,uuid,fstype,path,size,fsuse%,fsused,label,mountpoint'
@@ -207,22 +218,19 @@ alias type='type -a'
 alias figlet="figlet -d $XDG_CONFIG_HOME/figlet"
 
 
-## generate qr code from clipboard
-if command -v qrinv > /dev/null 2>&1; then
-
-   function qr ()
-   {
-       # usage: qr $(wl-paste)
-       #        echo hello | qr
-       args="$@"
-       [[ -z $@ ]] && args="$(</dev/stdin)"
-       ## qrcode inverse colors
-       qrinv "$args"
-       ## qrcode default colors
-       #qrencode --type utf8 "$args"
-   }
-
-fi
+## generate qr code
+function qr ()
+{
+    ## usage: qr $(wl-paste)
+    ##        echo hello | qr
+    args="$@"
+    [[ -z "$args" ]] && args="$(</dev/stdin)"
+    ## qrcode inverse colors; using qrinv
+    [[ $(command -v qrinv > /dev/null 2>&1) ]] \
+	&& qrinv "$args" \
+	    || qrencode --type utf8 "$args"
+	    ## qrcode default colors; using qrencode
+}
 
 
 ## cli browsing
