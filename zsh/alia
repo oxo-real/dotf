@@ -156,10 +156,11 @@ function emacs_daemon ()
 
 ## [Emacs - ArchWiki](https://wiki.archlinux.org/title/Emacs#Multiplexing_emacs_and_emacsclient)
 
-## CAUTION beware of recursion emacsclient function and program
+## CAUTION beware of recursion emacsclient function with program
 function emacsclient ()
 {
-    emacs_daemon
+    ## default frame option
+    option_frame=--reuse-frame
 
     while :; do
 
@@ -167,9 +168,27 @@ function emacsclient ()
 
 	    -nc|--no-client )
 		shift
-		## (... &) frees up issueing cli
+		## (... &) free up issueing cli
 		(setsid /usr/bin/emacs "$@" &)
 		return
+		;;
+
+	    -c|--create-frame )
+		shift
+		## create a new frame
+		option_frame=--create-frame
+		;;
+
+	    -r|--reuse-frame )
+		shift
+		## already default frame option
+		:
+		;;
+
+	    -t|--tty|-nw )
+		shift
+		## prevent conflicting options
+		option_frame=--tty
 		;;
 
 	    '' )
@@ -186,11 +205,13 @@ function emacsclient ()
 
     done
 
-    ## genaral runmode
-    #emacsclient --reuse-frame "$@"
-    /usr/bin/emacsclient --no-wait --alternate-editor /usr/bin/emacs --reuse-frame "$@"
+    emacs_daemon
 
-    ## focus emacs container
+    ## main runmode
+    ## usr/bin/emacsclient avoids recursion with function emacsclient
+    /usr/bin/emacsclient --no-wait --alternate-editor='' "$option_frame" "$@"
+
+    ## sway focus emacs container
     emacs_con_id=$(swaymsg --pretty --type get_tree \
 	| grep "GNU Emacs at $HOST" \
 	| awk '{print $1}' \
@@ -200,9 +221,8 @@ function emacsclient ()
 }
 
 
-## make emacsclient completions available for em
 ## CAUTION beware of recursion emacsclient function and program
-## this way makes emacsclient completions available for alias em
+## this alias makes emacsclient completions available for em
 alias em='emacsclient'
 
 
