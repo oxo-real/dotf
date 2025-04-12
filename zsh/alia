@@ -132,7 +132,7 @@ alias vimdiff='nvim -d'
 
 # emacs
 
-function emacs-daemon ()
+function emacs_daemon ()
 {
     # if no active daemon, then start service
 
@@ -158,36 +158,29 @@ function emacs-daemon ()
 #[Emacs - ArchWiki](https://wiki.archlinux.org/title/Emacs#Multiplexing_emacs_and_emacsclient)
 function emacs
 {
-    if [[ "$#" -eq 0 ]]; then
-	## $# number of arguments
+    emacs_daemon
 
-	## 'emacs' is function, will cause recursion
-	## (... &) frees up cli
-	(setsid /usr/bin/emacs &)
-        return
+    while :; do
 
-    fi
+	case "$1" in
 
-    ## all args into array
-    IFS=' ' read -r args <<< "$@"
+	    -nc|--no-client )
+		shift
 
-    for arg in "${args[@]}"; do
+		## (... &) frees up cli
+		(setsid /usr/bin/emacs "$@" &)
+		return
+		;;
 
-	if [[ "$arg" == -* && "$arg" != '-c' && "$arg" != '--' ]]; then
-	    ## the command-line flag is not one of the specified exceptions (-c and --)
-	    ## identify command-line options that should trigger a direct launch of emacs
+	    * )
+		break
+		;;
 
-	    ## (... &) frees up cli
-	    (setsid /usr/bin/emacs "${args[@]}" &)
-            return
-
-	fi
+	esac
 
     done
 
-    emacs-daemon
-
-    (setsid emacsclient --no-wait --alternate-editor /usr/bin/emacs --reuse-frame "${args[@]}")
+    (emacsclient --reuse-frame "$@" &)
 
     ## focus emacs container
     emacs_con_id=$(swaymsg --pretty --type get_tree \
