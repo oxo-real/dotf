@@ -187,6 +187,7 @@ function emacsclient ()
 
 	    -t|--tty|-nw )
 		shift
+		#TODO run client as tty
 		## prevent conflicting options
 		option_frame=--tty
 		;;
