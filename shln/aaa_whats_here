@@ -1,4 +1,6 @@
-$XDG_CONFIG_HOME/.config/zsh/.zshrc has:
-path+=("$HOME/.config/shln")
+$XDG_CONFIG_HOME/.config/zsh/.zshenv has:
+# path environment
+## main path
+path+=($HOME/.config/shln)
 therefore:
 symlinks here are systemwide executable from a zsh terminal

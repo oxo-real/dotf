@@ -909,6 +909,7 @@
 │   ├── c2b -> /home/oxo/.local/share/c/git/code/tool/c2b
 │   ├── calc-sum -> /home/oxo/.local/share/c/git/code/tool/calc-sum
 │   ├── check-sum -> /home/oxo/.local/share/c/git/code/tool/check-sum
+│   ├── chln -> /home/oxo/.local/share/c/git/code/tool/chln
 │   ├── chua -> /home/oxo/.local/share/c/git/code/tool/chua
 │   ├── cryptr -> /home/oxo/.local/share/c/git/code/tool/cryptr
 │   ├── diffdir -> /home/oxo/.local/share/c/git/code/tool/diffdir
@@ -938,6 +939,7 @@
 │   ├── otp95 -> /home/oxo/.local/share/c/git/code/tool/otp95
 │   ├── passexp -> /home/oxo/.local/share/c/git/code/tool/passexp
 │   ├── passr -> /home/oxo/.local/share/c/git/code/tool/passr
+│   ├── pull-repo-oxo -> /home/oxo/.local/share/c/git/code/tool/pull-repo-oxo
 │   ├── pwgn -> /home/oxo/.local/share/c/git/code/tool/pwgn
 │   ├── qbns -> /home/oxo/.config/qutebrowser/new_session
 │   ├── qrinv -> /home/oxo/c/git/code/tool/qrinv
@@ -1364,5 +1366,5 @@
     │   └── config
     └── xresources_colors
 
-124 directories, 1240 files
+124 directories, 1242 files
 ```
