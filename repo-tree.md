@@ -901,6 +901,7 @@
 ├── repo_tree.md
 ├── rsync.tar.aes
 ├── rsync.tar.hash
+├── sha3-512sums
 ├── shln
 │   ├── aaa_whats_here
 │   ├── askpass -> /home/oxo/.local/share/c/git/code/tool/askpass
@@ -1363,5 +1364,5 @@
     │   └── config
     └── xresources_colors
 
-124 directories, 1239 files
+124 directories, 1240 files
 ```
