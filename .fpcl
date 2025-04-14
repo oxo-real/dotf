@@ -48,7 +48,6 @@ obs
 qutebrowser/config.py
 c qutebrowser/cleanup
 c rsync
-sha3-513sums
 shln
 status
 sway
@@ -69,5 +68,7 @@ zathura
 zsa
 zsh
 zzz_deprecated
+.excl
 .fpcl
 mimeapps.list
+sha3-513sums
