@@ -740,10 +740,11 @@ bindsym $mod+Shift+q		kill
 
 ## split horizontal / vertical toggle
 ## next new container below / aside
-bindsym $mod+backslash		layout toggle split; exec $csc/layout-ntfy-send
+bindsym $mod+Shift+backslash	layout toggle split; exec $csc/layout-ntfy-send
+bindsym $mod+Mod1+backslash	layout toggle split; exec $csc/layout-ntfy-send
 
 ## cycle through all layouts
-bindsym $mod+Shift+backslash	layout toggle splith splitv stacking tabbed; exec $csc/layout-ntfy-send
+bindsym $mod+Control+backslash	layout toggle splith splitv stacking tabbed; exec $csc/layout-ntfy-send
 
 
 
