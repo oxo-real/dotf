@@ -9,7 +9,19 @@ set $touchpad			2:7:SynPS/2_Synaptics_TouchPad
 ## internal output devices
 ### Seiko Epson Corporation 0x3047 0x00000000
 ### maximum performance:	mode 1366x768 @ 60.002 Hz
-output LVDS-1			mode 1366x768 scale 1.0 pos 0 0
+
+## main output
+output LVDS-1
+{
+	mode		1366x768
+	scale  	     	1.0
+	transform    	0
+}
+
+## NOTICE main output position is set in config
+
+set    $x_res_main	1366
+set    $y_res_main  	768
 
 ## external devices
 include $XDG_CONFIG_HOME/sway/dev/ext
