@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-machine_data=$XDG_CONFIG_HOME/sway/hw/machine_list
+machine_data=$XDG_CONFIG_HOME/sway/machine/list
 
 
 get_current_machine_details()
@@ -40,7 +40,7 @@ retrieve_current_machine_name()
 update_sway_symlink()
 {
     rm $XDG_CONFIG_HOME/sway/current
-    ln -s $XDG_CONFIG_HOME/sway/hw/dev/$current_machine_name $XDG_CONFIG_HOME/sway/current
+    ln -s $XDG_CONFIG_HOME/sway/machine/$current_machine_name $XDG_CONFIG_HOME/sway/current
 }
 
 

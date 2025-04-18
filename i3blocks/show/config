@@ -71,27 +71,27 @@ interval=2
 separator_block_width=12
 
 [wifi]
-interval=10
+interval=2
 separator_block_width=8
 
 #[ipex]
-#interval=10
+#interval=2
 #separator_block_width=8
 
 #[macex]
-#interval=10
+#interval=2
 #separator_block_width=8
 
 [interface]
-interval=10
+interval=2
 separator_block_width=12
 
 #[macin]
-#interval=10
+#interval=2
 #separator_block_width=8
 
 #[ipin]
-#interval=10
+#interval=2
 #separator_block_width=8
 
 [vrx]

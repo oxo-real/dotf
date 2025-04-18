@@ -1,8 +1,8 @@
 # sway hardware configuration setup
 
 ## the general sway config is in:		$XDG_CONFIG_HOME/sway/config
-## the external hardware configuration is in:	$XDG_CONFIG_HOME/sway/hw/dev/ext
-## the specific hardware configuration is in:	$XDG_CONFIG_HOME/sway/hw/dev/foo
+## the external hardware configuration is in:	$XDG_CONFIG_HOME/sway/hw/ext
+## the specific hardware configuration is in:	$XDG_CONFIG_HOME/sway/machine/foo
 ## which is called via symlink:			$XDG_CONFIG_HOME/sway/current
 
 
@@ -11,13 +11,14 @@
 after os installation change symlink current ($XDG_CONFIG_HOME/sway/current)
 so that it points to the correct hardware configuration with:
 
-ln -s -f $XDG_CONFIG_HOME/sway/dev/foo $XDG_CONFIG_HOME/sway/current
+ln -s -f $XDG_CONFIG_HOME/sway/machine/foo $XDG_CONFIG_HOME/sway/current
 
 OR
 
-if you have a machine_list use select_current_machine to change the symlink automatically
+if you have a machine/list use select_current_machine to change the symlink automatically
+#TODO test proper workings
 
-a machine list is a space separateed list that contains: product_serial machine_name
+a machine list is a space separated list that contains: product_serial machine_name
 
 
 # detailed explanation
@@ -36,5 +37,5 @@ contains the machine specific hardware for the sway configuration on the current
 
 and
 
-it calls $XDG_CONFIG_HOME/sway/dev/ext
+it calls $XDG_CONFIG_HOME/sway/hw/ext
 for the external hardware configuration

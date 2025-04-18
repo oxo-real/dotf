@@ -1019,19 +1019,10 @@
 │   │   └── zzz_deprecated
 │   │       └── get-parameters
 │   ├── config
-│   ├── current -> /home/oxo/.config/sway/hw/dev/ltx1c
+│   ├── current -> /home/oxo/.config/sway/machine/ltx1c
 │   ├── env
 │   ├── hw
-│   │   ├── dev
-│   │   │   ├── amb
-│   │   │   ├── ambair
-│   │   │   ├── dl3189
-│   │   │   ├── dxps139110
-│   │   │   ├── ext
-│   │   │   ├── ltx1c
-│   │   │   ├── ltx220
-│   │   │   ├── none
-│   │   │   └── tp15
+│   │   ├── ext
 │   │   ├── get_sway_devices
 │   │   ├── machine_list.aes
 │   │   ├── machine_list.hash
@@ -1040,6 +1031,17 @@
 │   ├── lock
 │   │   ├── config
 │   │   └── config-bg
+│   ├── machine
+│   │   ├── amb
+│   │   ├── ambair
+│   │   ├── dl3189
+│   │   ├── dxps139110
+│   │   ├── list.aes
+│   │   ├── list.hash
+│   │   ├── ltx1c
+│   │   ├── ltx220
+│   │   ├── none
+│   │   └── tp15
 │   ├── sway-kb-guide.pdf -> /home/oxo/.local/share/c/git/note/application/keybinding/guide/sway-kb-guide.pdf
 │   └── zzz_deprecated
 │       └── bar
@@ -1366,5 +1368,5 @@
     │   └── config
     └── xresources_colors
 
-124 directories, 1242 files
+124 directories, 1244 files
 ```

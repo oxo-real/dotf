@@ -51,7 +51,7 @@ c rsync
 shln
 status
 sway
-c sway/hw/machine_list
+c sway/machine/list
 c taskwarrior
 tmux
 tofi

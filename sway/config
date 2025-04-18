@@ -198,7 +198,7 @@ output * background	#000000 solid_color
 ## above main		(0 ; -1*$y_res_ext)
 ## right of main	($x_res_main ; 0)
 
-## only pos is set here; mode and scale are defined in: sway/hw/dev/ext
+## only pos is set here; mode and scale are defined in: config/sway/hw/ext
 #output HDMI-A-1		pos -2560 0
 
 ## IMPORTANT NOTICE
