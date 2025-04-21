@@ -45,6 +45,7 @@ c nushell/history.txt
 nvim
 nyxt
 obs
+pipewire
 qutebrowser/config.py
 c qutebrowser/cleanup
 c rsync

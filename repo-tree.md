@@ -893,6 +893,8 @@
 ├── obs
 │   ├── basic.ini
 │   └── Untitled
+├── pipewire
+│   └── pipewire.conf
 ├── qutebrowser
 │   ├── cleanup.aes
 │   ├── cleanup.hash
@@ -1368,5 +1370,5 @@
     │   └── config
     └── xresources_colors
 
-124 directories, 1244 files
+125 directories, 1245 files
 ```
