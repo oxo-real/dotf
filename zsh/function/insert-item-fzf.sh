@@ -58,6 +58,9 @@ function insert-item-fzf ()
 
 	    fi
 
+	    ## erase line
+	    printf "\r"; tput el
+
 	    ## in this block fzf has multi selection
 	    ## tr converts multiple fzf entries to one line
 	    ## sed remove trailing space
