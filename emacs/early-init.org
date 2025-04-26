@@ -1,0 +1,123 @@
+#+title: oxo emacs early-init
+
+#+PROPERTY: header-args :emacs-lisp :tangle ./early-init.el
+
+# ###                  _             _       _ _
+# ###   ___  __ _ _ __| |_   _      (_)_ __ (_) |_
+# ###  / _ \/ _` | '__| | | | |_____| | '_ \| | __|
+# ### |  __/ (_| | |  | | |_| |_____| | | | | | |_
+# ###  \___|\__,_|_|  |_|\__, |     |_|_| |_|_|\__|
+# ###                   |___/
+# ###
+# ###  # # # # # #
+# ###       #
+# ###  # # # # # #
+# ###
+
+: '
+early-init.org
+first config file read on emacs startup
+copyright (c) 2020 - 2024  |  oxo
+----------------------------------------------------------------------
+GNU GPLv3 GENERAL PUBLIC LICENSE
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+https://www.gnu.org/licenses/gpl-3.0.txt
+
+@oxo@qoto.org
+======================================================================
+
+# dependencies
+  n/a
+
+# usage
+  n/a
+
+# examples
+  n/a
+
+# '
+
+* prevent lightning at startup
+#+begin_src emacs-lisp
+
+  (add-to-list 'default-frame-alist
+               '(background-color . "#000000"))
+
+#+end_src
+
+* startup performance
+minimize startup time
+
+** redisplays
+premature redisplays can substantially affect startup time
+and produce ugly flashes of unstyled Emacs
+#+begin_src emacs-lisp
+
+  (setq-default inhibit-redisplay t
+                inhibit-message t)
+  (add-hook 'window-setup-hook
+            (lambda ()
+              (setq-default inhibit-redisplay nil
+                            inhibit-message nil)
+              (redisplay)))
+
+#+end_src
+
+** garbage collection
+Make startup faster by reducing the frequency of garbage collection.
+Use a hook to measure Emacs startup time.
+
+#+begin_src emacs-lisp
+
+  ;; Prevent lightning when emacs starts
+  (add-to-list 'default-frame-alist
+               '(background-color . "#000000"))
+
+  ;; The default is 800 kilobytes.  Measured in bytes.
+  (setq gc-cons-threshold (* 50 1000 1000))
+
+  ;; Profile emacs startup
+  (add-hook 'emacs-startup-hook
+            (lambda ()
+              (message "Startup %s. %d garbage collections."
+                       (format "%.2f seconds"
+                               (float-time
+                                (time-subtract after-init-time before-init-time)))
+                       gcs-done)))
+
+#+end_src
+
+** unwanted clutter
+#+begin_src emacs-lisp
+
+  ;;no splash screen and startup message in echo area
+  (setq inhibit-startup-message t)
+  (setq inhibit-startup-echo-area-message (lambda ()
+                                            (user-login-name)))
+
+  ;;(setq server-client-instructions nil)
+  (setq visible-bell nil)
+  (setq ring-bell-function 'ignore)
+
+  ;; clear default screen clutter
+  (menu-bar-mode -1)
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1)
+  (tooltip-mode -1)
+  (set-fringe-mode 0)
+
+  ;; UTF-8 as default
+  (set-default-coding-systems 'utf-8)
+
+#+end_src
