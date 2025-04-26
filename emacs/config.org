@@ -48,21 +48,6 @@ https://www.gnu.org/licenses/gpl-3.0.txt
 
 # '
 
-
-* space as oxo leaderkey
-set up 'SPC' as the global leader key
-
-#+begin_src emacs-lisp
-  (use-package general)
-
-  (general-create-definer oxo/leader-keys
-    :states '(normal insert visual emacs)
-    :keymaps 'override
-    :prefix "SPC" ;; set leader
-    :global-prefix "M-SPC") ;; access leader in insert mode
-
-#+end_src
-
 * server mode
 #+begin_src emacs-lisp
 
@@ -264,8 +249,10 @@ tpope vim surround functionality;
 
 #+end_src
 
-
 *** general
+**** space as oxo leaderkey
+set up 'SPC' as the global leader key
+
 #+begin_src emacs-lisp
 
   (use-package general
@@ -274,10 +261,11 @@ tpope vim surround functionality;
     :config
     (general-evil-setup t)
 
-    (general-create-definer oxo/leader-key-def
-                            :keymaps '(normal insert visual emacs)
-                            :prefix "SPC"
-                            :global-prefix "C-SPC")
+    (general-create-definer oxo/leader-keys
+                            :states '(normal insert visual emacs)
+                            :keymaps 'override
+                            :prefix "SPC"  ;; set leader
+                            :global-prefix "C-SPC")  ;; access leader in insert mode
 
     (general-create-definer oxo/ctrl-c-keys
                             :prefix "C-c"))

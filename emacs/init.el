@@ -1,11 +1,3 @@
-(use-package general)
-
-(general-create-definer oxo/leader-keys
-  :states '(normal insert visual emacs)
-  :keymaps 'override
-  :prefix "SPC" ;; set leader
-  :global-prefix "M-SPC") ;; access leader in insert mode
-
 ;;(server-mode)
 
 (require 'server)
@@ -135,10 +127,11 @@
   :config
   (general-evil-setup t)
 
-  (general-create-definer oxo/leader-key-def
-                          :keymaps '(normal insert visual emacs)
-                          :prefix "SPC"
-                          :global-prefix "C-SPC")
+  (general-create-definer oxo/leader-keys
+                          :states '(normal insert visual emacs)
+                          :keymaps 'override
+                          :prefix "SPC"  ;; set leader
+                          :global-prefix "C-SPC")  ;; access leader in insert mode
 
   (general-create-definer oxo/ctrl-c-keys
                           :prefix "C-c"))
