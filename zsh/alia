@@ -73,6 +73,8 @@ function sudo ()
 
     esac
 }
+## -f designates function definition instead of variable (-v)
+unset -f sudo
 
 
 function host ()
