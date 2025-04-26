@@ -1,8 +1,16 @@
 #! /usr/bin/env sh
 
 # get data
+## ltx1c
 cpu_temp=$(sensors | grep 'CPU' | awk '{print substr($0, 16, 2)}')
-#cpu_temp=$(sensors | grep 'Tctl' | awk '{print substr($0, 16, 2)}')
+
+[[ "$cpu_temp" -eq 0 ]] && \
+	## ltx220
+	cpu_temp=$(sensors | grep 'Core 0' | awk '{print substr($0, 17, 2)}')
+
+[[ "$cpu_temp" -eq 0 ]] && \
+	## machineID
+	cpu_temp=$(sensors | grep 'Tctl' | awk '{print substr($0, 16, 2)}')
 
 ## color
 var=$cpu_temp  ## inverted values; lower is better
