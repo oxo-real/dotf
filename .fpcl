@@ -7,7 +7,6 @@ emacs/custom.el
 emacs/early-init.el
 emacs/early-init.org
 emacs/init.el
-c emacs/elpa
 eza
 c fd
 figlet

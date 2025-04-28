@@ -169,8 +169,6 @@
 │   ├── custom.el
 │   ├── early-init.el
 │   ├── early-init.org
-│   ├── elpa.tar.aes
-│   ├── elpa.tar.hash
 │   └── init.el
 ├── eza
 │   └── eza_wrapper.sh
@@ -1373,5 +1371,5 @@
     │   └── config
     └── xresources_colors
 
-125 directories, 1248 files
+125 directories, 1246 files
 ```
