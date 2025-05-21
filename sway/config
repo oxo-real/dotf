@@ -276,16 +276,13 @@ swaynag_command		swaynagmode
 #DEV generate error 	remove comment
 
 
-# cursor
-# [https://wiki.archlinux.org/title/Sway#Statusbar](https://wiki.archlinux.org/title/Sway#Change_cursor_theme_and_size)
-# seat seat0 xcursor_theme my_cursor_theme my_cursor_size
-
-
 # font
 # font for window titles and bar
 ## NOTICE changing font size defined in terminal emulator
-set $font		"Source Code Pro 10"
-font			$font
+# set $font		"Source Code Pro 10"
+# set font		JetBrainsMono Nerd Font
+# font			$font
+font		JetBrainsMono Nerd Font
 
 
 # gaps
@@ -375,19 +372,19 @@ bindsym Mod1+Period		exec echo hwheel 1 | dotoolc
 ## ws0 named 'O' (letter) sorts after 9, like the keyboard
 
 ## workspace names
-#set $ws0		    "O"
-set $ws0		    "0"
-set $ws1		    "1"
-set $ws2		    "2"
-set $ws3		    "3"
-set $ws4		    "4"
-set $ws5		    "5"
-set $ws6		    "6"
-set $ws7		    "7"
-set $ws8		    "8"
-set $ws9		    "9"
-set $ws-		    "-"
-set $ws=		    "="
+#set $ws0		    O
+set $ws0		    0
+set $ws1		    1
+set $ws2		    2
+set $ws3		    3
+set $ws4		    4
+set $ws5		    5
+set $ws6		    6
+set $ws7		    7
+set $ws8		    8
+set $ws9		    9
+set $ws-		    -
+set $ws=		    =
 
 ## switch to workspace
 bindsym $mod+1		    workspace $ws1
@@ -458,7 +455,8 @@ bar
 {
     position		    	top
     height			18
-    font			Source Code Pro 11
+    font			JetBrainsMono Nerd Font Regular 11
+    # font			Source Code Pro 11
     swaybar_command		swaybar
     status_command		i3blocks
     wrap_scroll			no

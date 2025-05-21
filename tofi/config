@@ -18,7 +18,7 @@ result-spacing = 15
 
 background-color = #000033FF
 font-size = 11
-font = "Source Code Pro"
+font = "JetBrainsMono Nerd Font"
 text-color = #777777FF
 
 prompt-color = #B5B3AAFF
