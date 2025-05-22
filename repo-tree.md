@@ -895,6 +895,9 @@
 │   ├── basic.ini
 │   └── Untitled
 ├── pipewire
+│   ├── media-session.d
+│   │   ├── with-alsa
+│   │   └── with-pulseaudio
 │   └── pipewire.conf
 ├── qutebrowser
 │   ├── cleanup.aes
@@ -922,6 +925,9 @@
 │   ├── fzf-word -> /home/oxo/.local/share/c/git/code/tool/fzf-word
 │   ├── gacp_all -> /home/oxo/.config/git/gacp_all
 │   ├── get-newest-file -> /home/oxo/.local/share/c/git/code/tool/get-newest-file
+│   ├── gpg-bu-key -> /home/oxo/.local/share/c/git/code/tool/gpg-bu-key
+│   ├── gpg-gen-key -> /home/oxo/.local/share/c/git/code/tool/gpg-gen-key
+│   ├── gpg-pass-vfy -> /home/oxo/.local/share/c/git/code/tool/gpg-pass-vfy
 │   ├── histdel -> /home/oxo/.local/share/c/git/code/tool/histdel
 │   ├── hledger -> /opt/hledger/hledger
 │   ├── hledger-web -> /opt/hledger/hledger-web
@@ -1371,5 +1377,5 @@
     │   └── config
     └── xresources_colors
 
-125 directories, 1246 files
+126 directories, 1251 files
 ```
