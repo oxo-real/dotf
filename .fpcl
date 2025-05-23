@@ -16,7 +16,6 @@ freecad
 fzf
 fzf-tab
 c git
-c gnupg/identity_backup
 c greasemonkey
 i3blocks
 icons/cursors
@@ -30,6 +29,7 @@ lo
 lynx
 mako
 mozilla
+mpd/mpd.conf
 mpv/mpv.conf
 c mpv/watch_later
 msmtp
@@ -49,6 +49,7 @@ obs
 pipewire
 qutebrowser/config.py
 c qutebrowser/cleanup
+rmpc
 c rsync
 shln
 status

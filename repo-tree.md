@@ -823,6 +823,8 @@
 │   └── config
 ├── mimeapps.list
 ├── mozilla
+├── mpd
+│   └── mpd.conf
 ├── mpv
 │   ├── mpv.conf
 │   ├── watch_later.tar.aes
@@ -905,6 +907,8 @@
 │   └── config.py
 ├── repo-tree.md
 ├── repo_tree.md
+├── rmpc
+│   └── config.ron
 ├── rsync.tar.aes
 ├── rsync.tar.hash
 ├── sha3-512sums
@@ -1377,5 +1381,5 @@
     │   └── config
     └── xresources_colors
 
-126 directories, 1251 files
+128 directories, 1253 files
 ```
