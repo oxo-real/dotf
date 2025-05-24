@@ -771,9 +771,9 @@
   :ensure t)
 
 (org-babel-do-load-languages 'org-babel-load-languages
-			       '((emacs-lisp . t)
-				 (python . t)
-				 (perl . t)))
+			     '((emacs-lisp . t)
+			       (python . t)
+			       (perl . t)))
 
 (require 'org-tempo)
 
@@ -929,18 +929,16 @@
 (defun oxo/set-font-faces ()
   ;; default
   (set-face-attribute 'default nil
-                      :font "JetBrainsMono Nerd Font"
-                      :height 102)
-  ;;:font "Source Code Pro"
-
+                      :font "Source Code Pro"
+                      :height 110)
   ;; fixed pitch
   (set-face-attribute 'fixed-pitch nil
-                      :font "JetBrainsMono Nerd Font"
-                      :height 102)
+                      :font "Source Code Pro"
+                      :height 110)
   ;; variable pitch
   (set-face-attribute 'variable-pitch nil
                       :font "Source Code VF"
-                      :height 102
+                      :height 110
                       :weight 'regular))
 
 (if (daemonp)
@@ -1154,10 +1152,10 @@
 
 (add-hook 'write-file-hooks 'delete-trailing-whitespace)
 
-(oxo/leader-keys
+(oxo/leader-key-def
   "t"  '(:ignore t :which-key "toggles")
-  "tt" '(counsel-load-theme :which-key "choose theme")
-  "tw" 'whitespace-mode)
+  "tw" 'whitespace-mode
+  "tt" '(counsel-load-theme :which-key "choose theme"))
 
 (use-package pinentry
   :ensure t)

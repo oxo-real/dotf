@@ -669,7 +669,7 @@ c.content.headers.referer = 'same-domain'
 ## unchanged user agent of QtWebKit/QtWebEngine.  Note that the value
 ## read from JavaScript is always the global value.
 ## Type: FormatString
-c.content.headers.user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.10 Safari/605.1.1'
+c.content.headers.user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.3'
 
 # NOTICE: change ua with chua from tool
 
@@ -991,8 +991,7 @@ c.fonts.debug_console = 'default_size default_family'
 ## empty value, a system-specific monospace default is used.
 ## Type: List of Font, or Font
 ## source code pro light removes the font bold effect
-c.fonts.default_family = ['JetBrainsMono Nerd Font']
-# c.fonts.default_family = ['Source Code Pro Light']
+c.fonts.default_family = ['Source Code Pro Light']
 #c.fonts.default_family = ['Source Code Pro']
 #c.fonts.default_family = ['monospace']
 
@@ -1001,7 +1000,7 @@ c.fonts.default_family = ['JetBrainsMono Nerd Font']
 ## either a float value with a "pt" suffix, or an integer value with a
 ## "px" suffix.
 ## Type: String
-c.fonts.default_size = '14px'
+c.fonts.default_size = '15px'
 
 ## Font used for the downloadbar.
 ## Type: Font
@@ -1009,13 +1008,13 @@ c.fonts.downloads = 'default_size default_family'
 
 ## Font used for the hints.
 ## Type: Font
-c.fonts.hints = 'bold 17px JetBrainsMono Nerd Font'
+c.fonts.hints = 'bold 17px Source Code Pro'
 #c.fonts.hints = 'bold default_size Source Code Pro'
 #c.fonts.hints = 'default_size default_family'
 
 ## Font used in the keyhint widget.
 ## Type: Font
-c.fonts.keyhint = 'bold default_size JetBrainsMono Nerd Font'
+c.fonts.keyhint = 'bold default_size Source Code Pro'
 
 ## Font used for error messages.
 ## Type: Font
@@ -1767,13 +1766,11 @@ config.bind(';i', 'hint images')
 config.bind(';o', 'hint links fill :open {hint-url}')
 config.bind(';r', 'hint --rapid links tab-bg')
 config.bind(';t', 'hint inputs')
-config.bind(';va', 'hint links spawn mpv --start=+00:00 --ytdl-raw-options=format-sort=res:240 --profile=cache_xs --demuxer-cache-wait=no --msg-level=all=v --user-agent=$USER_AGENT --force-window --no-terminal --keep-open=yes --video=no --ytdl {hint-url}')
 config.bind(';v2', 'hint links spawn mpv --start=+00:00 --ytdl-raw-options=format-sort=res:240 --profile=cache_xs --demuxer-cache-wait=no --msg-level=all=v --user-agent=$USER_AGENT --force-window --no-terminal --keep-open=yes --ytdl {hint-url}')
 config.bind(';v3', 'hint links spawn mpv --start=+00:00 --ytdl-raw-options=format-sort=res:360 --profile=cache_xs --demuxer-cache-wait=no --msg-level=all=v --user-agent=$USER_AGENT --force-window --no-terminal --keep-open=yes --ytdl {hint-url}')
 config.bind(';v4', 'hint links spawn mpv --start=+00:00 --ytdl-raw-options=format-sort=res:480 --profile=cache_xs --demuxer-cache-wait=no --msg-level=all=v --user-agent=$USER_AGENT --force-window --no-terminal --keep-open=yes --ytdl {hint-url}')
 config.bind(';v6', 'hint links spawn mpv --ytdl-format="best[filesize<600M]" --force-window --no-terminal --keep-open=yes --ytdl {hint-url}')
 config.bind(';v9', 'hint links spawn mpv --ytdl-format="best[filesize<900M]" --force-window --no-terminal --keep-open=yes --ytdl {hint-url}')
-config.bind(';v=', 'hint links spawn mpv --start=+00:00 --profile=cache_xs --demuxer-cache-wait=no --msg-level=all=v --user-agent=$USER_AGENT --force-window --no-terminal --keep-open=yes --ytdl {hint-url}')
 config.bind(';y', 'hint links yank')
 config.bind('<Alt-1>', 'tab-focus 1')
 config.bind('<Alt-2>', 'tab-focus 2')

@@ -135,7 +135,6 @@ export XDG_CONFIG_HOME="$HOME"/.config
 
 ## data
 export XDG_DATA_HOME="$HOME"/.local/share
-export XDG_MUSIC_DIR="$HOME"/a/media/audio
 
 ## logs
 export XDG_LOGS_HOME="$HOME"/.logs
