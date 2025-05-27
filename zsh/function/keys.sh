@@ -59,6 +59,7 @@ bindkey '^h' cd-nav-dirs                ## C-h
 bindkey '^j' cd-child                   ## C-j
 bindkey '^k' cd-up                      ## C-k
 bindkey '^l' cd-yazi                    ## C-l
+bindkey '^y' abs-rel-path-tgl           ## C-y
 bindkey '^f' insert-item-inline         ## C-f
 bindkey '^Z' foreground                 ## C-z
 

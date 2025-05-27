@@ -135,6 +135,7 @@ export XDG_CONFIG_HOME="$HOME"/.config
 
 ## data
 export XDG_DATA_HOME="$HOME"/.local/share
+export XDG_MUSIC_DIR="$HOME"/a/media/audio
 
 ## logs
 export XDG_LOGS_HOME="$HOME"/.logs
@@ -144,6 +145,9 @@ export XDG_CACHE_HOME="$HOME"/.cache
 
 
 # z shell environment
+
+## current working directory
+export CWD="$(pwd)"
 
 ## 24 bits colors
 ## easy define hex rgb colors with FHX and BHX

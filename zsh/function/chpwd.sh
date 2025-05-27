@@ -7,6 +7,9 @@
 # pwd, statistics and ls when cwd changes
 function chpwd ()
 {
+    ## update $CWD
+    export CWD="$(pwd)"
+
     ## prompt path color
     if [[ -w $PWD ]]; then
 

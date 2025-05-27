@@ -1157,6 +1157,7 @@
 │   ├── function
 │   │   ├── 01-sourcing.sh
 │   │   ├── 02-history.sh
+│   │   ├── abs-rel-path-tgl.sh
 │   │   ├── cd-funcs.sh
 │   │   ├── chpwd.sh
 │   │   ├── cursor.sh
@@ -1381,5 +1382,5 @@
     │   └── config
     └── xresources_colors
 
-128 directories, 1253 files
+128 directories, 1254 files
 ```

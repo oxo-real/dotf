@@ -45,10 +45,10 @@ first copy (populate wayland clipboard), then:
 add clipboard to clst:
 1. select items
 2. wl-copy	C-S-c
-3. clst_add	C-p [a] RET
+3. clst_add	C-p a RET
 
 put clst to clipboard:
-1. clst_put	C-p p RET
+1. clst_put	C-p [p] RET
 2. fzf select	RET
 3. wl-paste	C-S-v
 
@@ -96,7 +96,7 @@ choose_option ()
     ## wc -l < $file  only prints no of lines
     clst_lines_0=$(wc -l < $clst_file)
 
-    option=$(printf '%s\n%s\n%s\n%s' 'add >>' '    << put' '     - delete' '    -- remove' | fzf --info hidden --prompt " cpbd :: clst [${clst_lines_0}] ")
+    option=$(printf '%s\n%s\n%s\n%s' '    << put' '     - delete' '    -- remove' 'add >>' | fzf --info hidden --prompt " cpbd :: clst [${clst_lines_0}] ")
 
     case $option in
 
