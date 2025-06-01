@@ -127,13 +127,13 @@
   :config
   (general-evil-setup t)
 
-  (general-create-definer oxo/leader-keys
+  (general-create-definer oxo/leader-key
                           :states '(normal insert visual emacs)
                           :keymaps 'override
                           :prefix "SPC"  ;; set leader
                           :global-prefix "C-SPC")  ;; access leader in insert mode
 
-  (general-create-definer oxo/ctrl-c-keys
+  (general-create-definer oxo/ctrl-c-key
                           :prefix "C-c"))
 
 (use-package helpful
@@ -708,13 +708,13 @@
 
 (defun oxo/org-present-start ()
   ;; set font configuration
-  (setq-local face-remapping-alist '((default (:height 1.5) fixed-pitch)
-              (header-line (:height 4.0) fixed-pitch)
-              (org-document-title (:height 1.75) org-document-title)
-              (org-code (:height 1.55) org-code)
-              (org-verbatim (:height 1.55) org-verbatim)
-              (org-block (:height 1.25) org-block)
-              (org-block-begin-line (:height 0.7) org-block)))
+  (setq-local face-remapping-alist '((default (:height 105.5) fixed-pitch)
+              (header-line (:height 105.0) fixed-pitch)
+              (org-document-title (:height 105.75) org-document-title)
+              (org-code (:height 105.55) org-code)
+              (org-verbatim (:height 105.55) org-verbatim)
+              (org-block (:height 105.25) org-block)
+              (org-block-begin-line (:height 105.7) org-block)))
   ;; start centering text
   (visual-fill-column-mode 1)
   ;; start wrap lines
@@ -771,9 +771,9 @@
   :ensure t)
 
 (org-babel-do-load-languages 'org-babel-load-languages
-			     '((emacs-lisp . t)
-			       (python . t)
-			       (perl . t)))
+			       '((emacs-lisp . t)
+				 (python . t)
+				 (perl . t)))
 
 (require 'org-tempo)
 
@@ -929,16 +929,16 @@
 (defun oxo/set-font-faces ()
   ;; default
   (set-face-attribute 'default nil
-                      :font "Source Code Pro"
-                      :height 110)
+                      :font "SauceCodePro Nerd Font"
+                      :height 105)
   ;; fixed pitch
   (set-face-attribute 'fixed-pitch nil
-                      :font "Source Code Pro"
-                      :height 110)
+                      :font "SauceCodePro Nerd Font"
+                      :height 105)
   ;; variable pitch
   (set-face-attribute 'variable-pitch nil
-                      :font "Source Code VF"
-                      :height 110
+                      :font "SauceCodePro Nerd Font"
+                      :height 105
                       :weight 'regular))
 
 (if (daemonp)
@@ -1023,7 +1023,7 @@
 
 ;; SPC n a increment
 ;; SPC n x decrement
-(oxo/leader-keys
+(oxo/leader-key
   "n" '(:ignore t :wk "number")
   "n a" '(oxo/increment-number-at-point :wk "increment")
   "n x" '(oxo/decrement-number-at-point :wk "decrement"))
@@ -1050,12 +1050,12 @@
 
 ;; 2 'SPC g c  go comment toggle'
 ;; 3 'SPC t c  toggle comment'
-(oxo/leader-keys
+(oxo/leader-key
   "g" '(:ignore t :wk "go")
   "t c" '(evilnc-comment-or-uncomment-lines :wk "comment")
   "g c" '(evilnc-comment-or-uncomment-lines :wk "comment toggle"))
 
-(oxo/leader-keys
+(oxo/leader-key
   "w" '(:ignore t :wk "window")
   "w d" '(delete-window :wk "remove focused")
   "w w" '(:ignore t :wk "create new")
@@ -1091,7 +1091,7 @@
 ;; (global-set-key (kbd "M-C-k") 'shrink-window)
 ;; (global-set-key (kbd "M-C-l") 'enlarge-window-horizontally)
 
-(oxo/leader-keys
+(oxo/leader-key
   "s" '(:ignore t :wk "search")
   "s ." '(isearch-forward-thing-at-point :wk "thing at point")
   "s j" '(isearch-forward :wk "next")
@@ -1152,7 +1152,7 @@
 
 (add-hook 'write-file-hooks 'delete-trailing-whitespace)
 
-(oxo/leader-key-def
+(oxo/leader-key
   "t"  '(:ignore t :which-key "toggles")
   "tw" 'whitespace-mode
   "tt" '(counsel-load-theme :which-key "choose theme"))

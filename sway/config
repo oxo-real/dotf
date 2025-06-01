@@ -284,7 +284,8 @@ swaynag_command		swaynagmode
 # font
 # font for window titles and bar
 ## NOTICE changing font size defined in terminal emulator
-set $font		"Source Code Pro 10"
+# set $font		"Source Code Pro 10"
+set $font		"SauceCodePro Nerd Font 10.5"
 font			$font
 
 
@@ -458,7 +459,7 @@ bar
 {
     position		    	top
     height			18
-    font			Source Code Pro 11
+    font			$font
     swaybar_command		swaybar
     status_command		i3blocks
     wrap_scroll			no

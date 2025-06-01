@@ -219,6 +219,7 @@ export FZF_COMPLETION_TRIGGER=~~
 export GNUPGHOME="$XDG_CONFIG_HOME"/gnupg
 export GPG_AGENT_INFO=1  ## https://wiki.archlinux.org/title/GnuPG#mutt
 export GPG_TTY="$(tty)"
+export GPG_SIGN=75AD7085
 export NOTMUCH_CONFIG="$XDG_CONFIG_HOME"/notmuch/notmuch_config
 #export SYSMAILCAP="$XDG_CONFIG_HOME/neomutt/mailcap"
 #export TMSU_DB="$XDG_DATA_HOME/c/tag/.tmsu/db"

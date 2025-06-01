@@ -953,9 +953,11 @@
 │   ├── passexp -> /home/oxo/.local/share/c/git/code/tool/passexp
 │   ├── passr -> /home/oxo/.local/share/c/git/code/tool/passr
 │   ├── pull-repo-oxo -> /home/oxo/.local/share/c/git/code/tool/pull-repo-oxo
+│   ├── pwg2 -> /home/oxo/.local/share/c/git/code/tool/pwg2
 │   ├── pwgn -> /home/oxo/.local/share/c/git/code/tool/pwgn
 │   ├── qbns -> /home/oxo/.config/qutebrowser/new_session
 │   ├── qrinv -> /home/oxo/c/git/code/tool/qrinv
+│   ├── set-font -> /home/oxo/.local/share/c/git/code/tool/set-font
 │   ├── shredr -> /home/oxo/c/git/code/tool/shredr
 │   ├── slicer -> /home/oxo/.local/share/c/git/code/tool/slicer
 │   ├── syncr -> /home/oxo/.local/share/c/git/code/tool/syncr
@@ -975,6 +977,7 @@
 │       │   ├── batt
 │       │   ├── brightness
 │       │   ├── bt
+│       │   ├── clst
 │       │   ├── container
 │       │   ├── cpu
 │       │   ├── dev
@@ -1382,5 +1385,5 @@
     │   └── config
     └── xresources_colors
 
-128 directories, 1254 files
+128 directories, 1257 files
 ```
