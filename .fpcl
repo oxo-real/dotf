@@ -1,6 +1,5 @@
 alacritty
 base16-shell
-c blocklist/customize
 c element
 emacs/config.org
 emacs/custom.el
