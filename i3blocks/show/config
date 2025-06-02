@@ -114,6 +114,11 @@ separator_block_width=0
 interval=2
 separator_block_width=8
 
+[clst]
+interval=2
+color=#008080
+separator_block_width=0
+
 [bt]
 interval=2
 color=#96cbfe
