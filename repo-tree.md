@@ -967,6 +967,7 @@
 │   ├── vault -> /home/oxo/.local/share/c/git/code/tool/vault
 │   ├── vim-diff -> /home/oxo/.config/git/vim_diff
 │   ├── vtxt -> /home/oxo/.local/share/c/git/code/tool/vtxt
+│   ├── wlpc -> /home/oxo/.local/share/c/git/code/tool/wlpc
 │   ├── wtime -> /home/oxo/c/git/code/tool/wtime
 │   └── yank-buffer -> /home/oxo/.local/share/c/git/code/tool/yank-buffer
 ├── status
@@ -1385,5 +1386,5 @@
     │   └── config
     └── xresources_colors
 
-128 directories, 1257 files
+128 directories, 1258 files
 ```

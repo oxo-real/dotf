@@ -202,8 +202,8 @@ export DT=+'%Y%m%d_%H%M%S'
 export DTE=+'%Y%m%d_%H%M%S_%s'
 export DTZWE=+'%Y%m%d_%H%M%S%z_%Z_%V_%s'
 
-## permanently disable pwgn (vault)
-#export PWGN_OFF=1
+## permanently disable pwg2 (vault)
+#export PWG2_OFF=1
 
 
 # fzf

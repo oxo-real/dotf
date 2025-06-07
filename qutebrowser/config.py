@@ -1771,6 +1771,7 @@ config.bind(';v3', 'hint links spawn mpv --start=+00:00 --ytdl-raw-options=forma
 config.bind(';v4', 'hint links spawn mpv --start=+00:00 --ytdl-raw-options=format-sort=res:480 --profile=cache_xs --demuxer-cache-wait=no --msg-level=all=v --user-agent=$USER_AGENT --force-window --no-terminal --keep-open=yes --ytdl {hint-url}')
 config.bind(';v6', 'hint links spawn mpv --ytdl-format="best[filesize<600M]" --force-window --no-terminal --keep-open=yes --ytdl {hint-url}')
 config.bind(';v9', 'hint links spawn mpv --ytdl-format="best[filesize<900M]" --force-window --no-terminal --keep-open=yes --ytdl {hint-url}')
+config.bind(';va', 'hint links spawn mpv --video=no --start=+00:00 --profile=cache_xs --demuxer-cache-wait=no --msg-level=all=v --user-agent=$USER_AGENT --force-window --no-terminal --keep-open=yes --ytdl {hint-url}')
 config.bind(';y', 'hint links yank')
 config.bind('<Alt-1>', 'tab-focus 1')
 config.bind('<Alt-2>', 'tab-focus 2')
