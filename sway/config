@@ -213,12 +213,12 @@ output * background	#000000 solid_color
 ## then adjust the main monitor pos to ext display with positive coordinates
 
 ### ext above main
-#output HDMI-A-1		pos 0 0
-#output eDP-1		pos 0 $hdmi_y_res
+output HDMI-A-1		pos 0 0
+output eDP-1		pos 0 $hdmi_y_res
 
 ### ext left of main
-#output HDMI-A-1		pos 0 0
-#output eDP-1		pos $hdmi_x_res 0
+# output HDMI-A-1		pos 0 0
+# output eDP-1		pos $hdmi_x_res 0
 
 ### ext right of main
 # output
@@ -226,12 +226,12 @@ output * background	#000000 solid_color
 # 	eDP-1		pos 0 0
 # 	HDMI-A-1	pos $x_res_main	 0
 # }
-output eDP-1		pos 0 0
-output HDMI-A-1		pos $x_res_main	 0
+# output eDP-1		pos 0 0
+# output HDMI-A-1		pos $x_res_main	 0
 
 ### ext below main
-#output eDP-1		pos 0 0
-#output HDMI-A-1		pos 0 $y_res_main
+# output eDP-1		pos 0 0
+# output HDMI-A-1		pos 0 $y_res_main
 
 
 ## focus on sway launch
@@ -285,7 +285,7 @@ swaynag_command		swaynagmode
 # font for window titles and bar
 ## NOTICE changing font size defined in terminal emulator
 # set $font		"Source Code Pro 10"
-set $font		"SauceCodePro Nerd Font 10.5"
+set $font		"SauceCodePro Nerd Font 12.5"
 font			$font
 
 

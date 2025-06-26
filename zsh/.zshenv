@@ -112,6 +112,8 @@ fpath+=(
     $HOME/.config/zsh/completions
 )
 
+## ^ no duplicates
+## (N-/) include all subdirectories
 fpath=($^fpath(N-/))
 
 export FPATH

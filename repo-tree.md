@@ -1153,6 +1153,7 @@
 │   │   ├── _passr
 │   │   └── src
 │   │       ├── _glances
+│   │       ├── _gpg
 │   │       ├── _hledger
 │   │       ├── _openssl
 │   │       ├── _rfkill
@@ -1386,5 +1387,5 @@
     │   └── config
     └── xresources_colors
 
-128 directories, 1258 files
+128 directories, 1259 files
 ```
