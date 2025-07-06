@@ -225,7 +225,7 @@ export GPG_SIGN=75AD7085
 export NOTMUCH_CONFIG="$XDG_CONFIG_HOME"/notmuch/notmuch_config
 #export SYSMAILCAP="$XDG_CONFIG_HOME/neomutt/mailcap"
 #export TMSU_DB="$XDG_DATA_HOME/c/tag/.tmsu/db"
-export USER_AGENT="$(head -n 1 $XDG_LOGS_HOME/network/user_agent/current)"
+export USER_AGENT="$(head -n 1 $XDG_LOGS_HOME/network/user-agent/current)"
 # export VIMINIT="source $XDG_CONFIG_HOME/nvim/init.vim"
 # export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
 
