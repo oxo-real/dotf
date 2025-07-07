@@ -325,11 +325,12 @@ alias play='pw-play'
 
 function say ()
 {
-    # usage: say sdate
+    # usage: say $(sdate)
     #        sdate | say
     spch="$@"
     [[ -z $@ ]] && spch="$(</dev/stdin)"
-    echo "$spch" | festival --tts
+    # echo "$spch" | festival --tts
+    echo "$spch" | espeak
 }
 
 
@@ -350,9 +351,9 @@ function dtx ()
 }
 
 ## (for say)
-alias sdate="date +'%A %d %B %Y'"
-alias sweek="echo week $(date +%V)"
-alias stime='date +%R'
+alias sdate="echo date: $(date +'%A %d %B %Y')"
+alias sweek="echo week: $(date +%V)"
+alias stime="echo time: $(date +%R)"
 
 
 # operating system
