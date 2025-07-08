@@ -36,9 +36,9 @@ msmtp
 c msmtp/config
 neofetch
 c neomutt
-nerd-dictation
-c nerd-dictation/specific
-c network
+c network/ua
+c network/vpn
+c network/wap
 c newsboat
 c notmuch
 nushell

@@ -852,8 +852,13 @@
 │   │   └── nerd-dictation.cpython-311.pyc
 │   ├── specific.tar.aes
 │   └── specific.tar.hash
-├── network.tar.aes
-├── network.tar.hash
+├── network
+│   ├── ua.tar.aes
+│   ├── ua.tar.hash
+│   ├── vpn.tar.aes
+│   ├── vpn.tar.hash
+│   ├── wap.tar.aes
+│   └── wap.tar.hash
 ├── newsboat.tar.aes
 ├── newsboat.tar.hash
 ├── notmuch.tar.aes
@@ -1387,5 +1392,5 @@
     │   └── config
     └── xresources_colors
 
-128 directories, 1259 files
+129 directories, 1263 files
 ```
