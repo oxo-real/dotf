@@ -172,6 +172,8 @@
 │   └── init.el
 ├── eza
 │   └── eza_wrapper.sh
+├── fastfetch
+│   └── config.jsonc
 ├── fd.tar.aes
 ├── fd.tar.hash
 ├── figlet
@@ -789,8 +791,13 @@
 ├── icons
 │   └── cursors
 │       ├── oxo
-│       │   ├── copilot
-│       │   └── pilot
+│       │   ├── co-all-scroll -> ../source/co-all-scroll
+│       │   ├── co-grab -> ../source/co-grab
+│       │   ├── co-grabbing -> ../source/co-grabbing
+│       │   ├── copilot -> ../source/copilot
+│       │   ├── co-pointer -> ../source/co-pointer
+│       │   ├── pilot -> ../source/pilot
+│       │   └── plus -> ../source/plus
 │       ├── source.tar.aes
 │       └── source.tar.hash
 ├── isync
@@ -938,12 +945,10 @@
 │   ├── gpg-gen-key -> /home/oxo/.local/share/c/git/code/tool/gpg-gen-key
 │   ├── gpg-pass-vfy -> /home/oxo/.local/share/c/git/code/tool/gpg-pass-vfy
 │   ├── histdel -> /home/oxo/.local/share/c/git/code/tool/histdel
-│   ├── hledger -> /opt/hledger/hledger
-│   ├── hledger-web -> /opt/hledger/hledger-web
-│   ├── isolatest -> /home/oxo/.local/share/c/git/code/isolatest/isolatest
+│   ├── isolatest -> /home/oxo/c/git/code/hajime/prep/isolatest
 │   ├── kill-float -> /home/oxo/.local/share/c/git/code/tool/kill-float
 │   ├── kill-ps -> /home/oxo/.local/share/c/git/code/tool/kill-ps
-│   ├── make-recov -> /home/oxo/.local/share/c/git/code/hajime/make-recov
+│   ├── make-recov -> /home/oxo/c/git/code/hajime/prep/make-recov
 │   ├── metar -> /home/oxo/.local/share/c/git/code/tool/metar
 │   ├── mic-switch -> /home/oxo/.local/share/c/git/code/tool/mic-switch
 │   ├── monitor -> /home/oxo/.config/git/monitor
@@ -959,8 +964,6 @@
 │   ├── passr -> /home/oxo/.local/share/c/git/code/tool/passr
 │   ├── pull-repo-oxo -> /home/oxo/.local/share/c/git/code/tool/pull-repo-oxo
 │   ├── pwg2 -> /home/oxo/.local/share/c/git/code/tool/pwg2
-│   ├── pwgn -> /home/oxo/.local/share/c/git/code/tool/pwgn
-│   ├── qbns -> /home/oxo/.config/qutebrowser/new_session
 │   ├── qrinv -> /home/oxo/c/git/code/tool/qrinv
 │   ├── set-font -> /home/oxo/.local/share/c/git/code/tool/set-font
 │   ├── shredr -> /home/oxo/c/git/code/tool/shredr
@@ -1184,6 +1187,7 @@
 │   │   ├── preexec.sh
 │   │   ├── ps1.sh
 │   │   ├── ps4.sh
+│   │   ├── reset-zsh.sh
 │   │   ├── rps1.sh
 │   │   ├── shell-params.sh
 │   │   ├── strlen.sh
@@ -1317,6 +1321,8 @@
     │   ├── vtx
     │   ├── wifi
     │   └── xbrightness
+    ├── neofetch
+    │   └── config.conf
     ├── symlinks
     │   ├── alacritty
     │   ├── backup
@@ -1392,5 +1398,5 @@
     │   └── config
     └── xresources_colors
 
-129 directories, 1263 files
+131 directories, 1267 files
 ```

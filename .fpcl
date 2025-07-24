@@ -8,6 +8,7 @@ emacs/early-init.org
 emacs/init.el
 eza
 c fd
+fastfetch
 figlet
 fonts
 foot
@@ -34,7 +35,6 @@ mpv/mpv.conf
 c mpv/watch_later
 msmtp
 c msmtp/config
-neofetch
 c neomutt
 c network/ua
 c network/vpn

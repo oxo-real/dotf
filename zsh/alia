@@ -359,6 +359,7 @@ alias stime="echo time: $(date +%R)"
 # operating system
 
 alias osid='c /etc/os-release && echo && hostnamectl'
+alias fastfetch='fastfetch --logo small --logo-color-1 blue --logo-color-2 blue'
 
 
 # network
@@ -378,7 +379,7 @@ alias ppid='ps -p $$ -o ppid='
 # application configuration
 
 ## w3m -config is right, not --config as expected
-alias w3m="w3m -config $XDG_CONFIG_HOME/w3m/config"
+alias calc=qalc
 alias fim='fim --no-history'
+alias w3m="w3m -config $XDG_CONFIG_HOME/w3m/config"
 alias zathura='zathura --fork'
-alias calc='qalc'

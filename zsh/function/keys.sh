@@ -35,7 +35,8 @@ zle -N down-line-or-beginning-search
 bindkey '^[[B' down-line-or-beginning-search
 
 ## fOrm-feed (default C-l)
-bindkey '^o' clear-screen               ## C-o
+# bindkey '^o' clear-screen               ## C-o
+bindkey '^o' reset-zsh                   ## C-o
 
 
 # for info on zsh keybindings:
