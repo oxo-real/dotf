@@ -33,7 +33,7 @@ shape = "Beam"
 shape = "Block"
 
 [font]
-size = 12.5
+size = 11.5
 
 [font.bold]
 family = "SauceCodePro Nerd Font"

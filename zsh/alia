@@ -226,7 +226,9 @@ function emacsclient ()
 
 ## CAUTION beware of recursion emacsclient function and program
 ## this alias makes emacsclient completions available for em
-alias em='emacsclient'
+alias em=emacsclient
+## without client in separate process
+alias emacs='emacs &'
 
 
 alias lsblk='lsblk --ascii --tree -o name,uuid,fstype,path,size,fsuse%,fsused,label,mountpoint'

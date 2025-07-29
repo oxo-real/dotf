@@ -285,7 +285,7 @@ swaynag_command		swaynagmode
 # font for window titles and bar
 ## NOTICE changing font size defined in terminal emulator
 # set $font		"Source Code Pro 10"
-set $font		"SauceCodePro Nerd Font 12.5"
+set $font		"SauceCodePro Nerd Font 11.5"
 font			$font
 
 

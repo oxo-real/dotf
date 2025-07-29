@@ -931,13 +931,13 @@ note taking tool
 
   (defun oxo/org-present-start ()
     ;; set font configuration
-    (setq-local face-remapping-alist '((default (:height 125.5) fixed-pitch)
-                (header-line (:height 125.0) fixed-pitch)
-                (org-document-title (:height 125.75) org-document-title)
-                (org-code (:height 125.55) org-code)
-                (org-verbatim (:height 125.55) org-verbatim)
-                (org-block (:height 125.25) org-block)
-                (org-block-begin-line (:height 125.7) org-block)))
+    (setq-local face-remapping-alist '((default (:height 115.5) fixed-pitch)
+                (header-line (:height 115.0) fixed-pitch)
+                (org-document-title (:height 115.75) org-document-title)
+                (org-code (:height 115.55) org-code)
+                (org-verbatim (:height 115.55) org-verbatim)
+                (org-block (:height 115.25) org-block)
+                (org-block-begin-line (:height 115.7) org-block)))
     ;; start centering text
     (visual-fill-column-mode 1)
     ;; start wrap lines
@@ -1276,15 +1276,15 @@ M-x display-fill-column-indicator-mode
     ;; default
     (set-face-attribute 'default nil
                         :font "SauceCodePro Nerd Font"
-                        :height 125)
+                        :height 115)
     ;; fixed pitch
     (set-face-attribute 'fixed-pitch nil
                         :font "SauceCodePro Nerd Font"
-                        :height 125)
+                        :height 115)
     ;; variable pitch
     (set-face-attribute 'variable-pitch nil
                         :font "SauceCodePro Nerd Font"
-                        :height 125
+                        :height 115
                         :weight 'regular))
 
   (if (daemonp)
