@@ -251,6 +251,9 @@ export QT_QPA_PLATFORM=wayland
 ## lessr
 export READNULLCMD=read0cmd
 
+## brave browser
+export ELECTRON_OZONE_PLATFORM_HINT=auto
+
 
 # audio and sound
 

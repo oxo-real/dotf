@@ -1589,8 +1589,8 @@ c.tabs.pinned.shrink = True
 ##   - bottom
 ##   - left
 ##   - right
-c.tabs.position = 'right'
-# c.tabs.position = 'top'
+# c.tabs.position = 'right'
+c.tabs.position = 'top'
 
 ## Which tab to select when the focused tab is removed.
 ## Type: SelectOnRemove
