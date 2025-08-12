@@ -1020,6 +1020,7 @@
 │   │   ├── con-v-fill
 │   │   ├── dimr
 │   │   ├── dtx
+│   │   ├── flash_border
 │   │   ├── fzf-clst
 │   │   ├── fzf-run
 │   │   ├── fzf-spicules
@@ -1398,5 +1399,5 @@
     │   └── config
     └── xresources_colors
 
-131 directories, 1267 files
+131 directories, 1268 files
 ```

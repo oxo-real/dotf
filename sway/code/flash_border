@@ -1,0 +1,14 @@
+#! /usr/bin/env sh
+
+## temporarily show border of focused container
+
+## NOTICE border settings are set in main config
+
+## change the border
+swaymsg border pixel	10
+
+## time
+sleep 0.5
+
+## reset the border
+swaymsg border none

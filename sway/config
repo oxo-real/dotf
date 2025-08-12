@@ -526,14 +526,19 @@ default_border		none
 #default_border 		pixel	1
 ## color
 ### item		border	backgr	text	indictr	child_border
-client.focused		#000000 #000000 #999999 #000000 #00557775
+client.focused		#000000 #000000 #999999 #000000 #ffffb695
 client.focused_inactive	#000000 #000000 #333333 #000000 #000000
 client.unfocused	#000000 #000000 #333333 #000000 #000000
 client.urgent		#000000 #000000 #ff0000 #000000 #ff0000
+## titlebar border
+## container child_border
 
 ## cycle through border styles
 bindsym $mod+Shift+bracketleft	border toggle
 #bindsym $mod+Shift+b	border toggle
+
+## temporarily show actove container border
+bindsym $mod+Shift+bracketright	exec sh $csc/flash_border
 
 
 # start with touchpad disabled
