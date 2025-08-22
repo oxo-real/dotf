@@ -1,4 +1,4 @@
-# oxo tofi config
+# sway exit tofi config
 
 fuzzy-match = true
 
@@ -22,7 +22,7 @@ font = "Source Code Pro"
 text-color = #000000FF
 
 prompt-color = #B5B3AAFF
-prompt-text = "qxt: "
+prompt-text = "qxit: "
 
 input-color = #777777FF
 

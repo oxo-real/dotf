@@ -15,7 +15,7 @@
 : '
 alia
 zsh environment alias and function definitions
-copyright (c) 2019 - 2024  |  oxo
+copyright (c) 2019 - 2025  |  oxo
 
 GNU GPLv3 GENERAL PUBLIC LICENSE
 This program is free software: you can redistribute it and/or modify
@@ -40,8 +40,9 @@ https://www.gnu.org/licenses/gpl-3.0.txt
 
 # usage
   mitigate usage alias or function for command, execute:
-  \[command_alias], or
   command $command_alias
+  OR
+  \$command_alias
 
 # examples
   n/a
@@ -57,24 +58,27 @@ https://www.gnu.org/licenses/gpl-3.0.txt
 alias sudo='sudo '
 
 
-function sudo ()
-{
-    ## sudo -k cannot be aliased
-    ## therefore solution below
-    case "$1" in
+# function sudo ()
+# {
+#     ## invoke doas with sudo
 
-	-k)
-	    doas -L
-	    ;;
+#     ## sudo -k cannot be aliased
+#     ## therefore solution below
+#     case "$1" in
 
-	*)
-	    doas "$@"
-	    ;;
+# 	-k )
+# 	    doas -L
+# 	    ;;
 
-    esac
-}
-## -f designates function definition instead of variable (-v)
-unset -f sudo
+# 	* )
+# 	    doas "$@"
+# 	    ;;
+
+#     esac
+# }
+# ## disable function sudo
+# ## -f designates function definition instead of variable (-v)
+# unset -f sudo
 
 
 function host ()
@@ -82,8 +86,8 @@ function host ()
     command cat /etc/hostname
 }
 
-## always ort env variable list
-alias env='env | sort'
+## always sort printenv variable list
+alias printenv='printenv | sort'
 
 
 # less and less related
@@ -232,6 +236,7 @@ alias emacs='emacs &'
 
 
 alias lsblk='lsblk --ascii --tree -o name,uuid,fstype,path,size,fsuse%,fsused,label,mountpoint'
+alias mount='mount | sort -k 1 | column -t'
 # #alias cal='env TERM=xterm cal'
 alias pwd='pwd && [[ $(command -v wl-copy) ]] && pwd | wl-copy -n'
 alias rmln='unlink'
@@ -268,9 +273,10 @@ alias surfraw="surfraw -browser=$BROWSER"
 # file operations
 
 ## file listing
-alias ls="echo; ls --group-directories-first --color=auto"
-alias fd='fd --color always'
 alias dir='dir --group-directories-first --color=auto'
+alias fd='fd --color always'  ## flat view
+alias ls="echo; ls --group-directories-first --color=auto"
+alias lsfv='fd --strip-cwd-prefix --list-details'  ## flat view with details
 alias vdir='vdir --group-directories-first --color=auto'
 
 ## extracting information
@@ -284,6 +290,7 @@ alias cp='cp --archive --interactive --verbose'
 alias mv='mv --interactive --verbose'
 alias rm='trash'
 alias mkdir='mkdir --parents --verbose'
+alias mktemp="mktemp --tmpdir $DIR_TEMP"
 
 
 ## rsync for copy and move (better for large files)

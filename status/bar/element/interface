@@ -10,6 +10,11 @@ if [[ -n $(ip route show) ]]; then
     ## [Using Look-ahead and Look-behind](https://www.perlmonks.org/?node_id=518444)
     i=$(ip route get $ip | grep --perl-regexp --only-matching --ignore-case --word-regexp '(?<=\bdev )([a-zA-Z0-9-])+')
 
+else
+
+    ## no active interface
+    i=nI
+
 fi
 
 # full text
@@ -21,11 +26,11 @@ echo  ## none
 ## text
 case $i in
 
-    $wg_designator)
+    $wg_designator )
 	echo  ## default
 	;;
 
-    *)
+    * )
 	## white   abnormal operation
 	echo "#ffffff"
 	;;
@@ -35,11 +40,11 @@ esac
 ## background
 case $i in
 
-    $wg_designator)
+    $wg_designator )
 	echo  ## default
 	;;
 
-    *)
+    * )
 	## black   abnormal operation
 	echo "#000000"
 	;;

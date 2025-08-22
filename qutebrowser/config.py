@@ -916,7 +916,7 @@ c.content.xss_auditing = False
 ## Directory to save downloads to. If unset, a sensible OS-specific
 ## default is used.
 ## Type: Directory
-c.downloads.location.directory = '$DNLDDIR'
+c.downloads.location.directory = '$DIR_DNLD'
 #c.downloads.location.directory = '$XDG_DATA_HOME/c/download'
 
 ## Prompt the user for the download location. If set to false,

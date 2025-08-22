@@ -13,9 +13,9 @@
 ###  # # # # # #
 ###
 ###
-### sway exit
+### sway exit via tofi
 ### terminal cli application that offers a fzf sway exit dialogue
-### (c) 2019 - 2024  |  oxo
+### (c) 2019 - 2025  |  oxo
 ###
 ##
 #
@@ -79,35 +79,35 @@ os_poweroff ()
 
 case $exit_option in
 
-    cancel)
+    cancel )
 	exit 0
 	;;
 
-    idle)
+    idle )
 	sway_idle
 	;;
 
-    lock)
+    lock )
 	sway_lock
 	;;
 
-    exit)
+    exit )
 	sway_exit
 	;;
 
-    suspend)
+    suspend )
 	os_suspend
 	;;
 
-    reboot)
+    reboot )
 	os_reboot
 	;;
 
-    poweroff)
+    poweroff )
 	os_poweroff
 	;;
 
-    *)
+    * )
 	exit 111
 	;;
 

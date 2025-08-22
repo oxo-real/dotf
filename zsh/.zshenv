@@ -229,14 +229,20 @@ export USER_AGENT="$(head -n 1 $XDG_LOGS_HOME/network/user-agent/current)"
 # export VIMINIT="source $XDG_CONFIG_HOME/nvim/init.vim"
 # export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
 
-export APPNDIR="$XDG_CONFIG_HOME"/shln
+## bookmark file
 export BKMS="$XDG_DATA_HOME"/c/web/bookmark_urls
-export DNLDDIR="$XDG_DATA_HOME"/c/download
-export ROOTDIR=/
-export TEMPDIR="$XDG_CACHE_HOME"/temp
-export TESTDIR="$XDG_CACHE_HOME"/test
-export TMPDIR="$XDG_CACHE_HOME"/temp  ## for mktemp
-export TRASHDIR="$XDG_CACHE_HOME"/trash
+
+## oxo DIR_s
+export DIR_APPS="$XDG_CONFIG_HOME"/shln
+export DIR_CODE="$XDG_DATA_HOME"/c/git/code
+export DIR_DNLD="$XDG_DATA_HOME"/c/download
+export DIR_DOTF="$XDG_DATA_HOME"/c/git/dotf
+export DIR_NOTE="$XDG_DATA_HOME"/c/git/note
+export DIR_ROOT=/
+export DIR_TEMP="$XDG_CACHE_HOME"/temp
+export DIR_TEST="$XDG_CACHE_HOME"/test
+export DIR_TRASH="$XDG_CACHE_HOME"/trash
+export DIR_MUSIC="$XDG_DATA_HOME"/a/media/audio/music
 
 ## qt5 fix
 #export QT_QPA_PLATFORMTHEME=qt5ct
@@ -258,7 +264,6 @@ export ELECTRON_OZONE_PLATFORM_HINT=auto
 # audio and sound
 
 export BEEP="$XDG_DATA_HOME"/a/media/audio/sound/airbus/da.ogg
-export MUSICDIR="$XDG_DATA_HOME"/a/media/audio/music
 export RES_MPV=360
 
 # colors
