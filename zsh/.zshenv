@@ -200,9 +200,14 @@ export GTK_USE_PORTAL=0
 export ASCII=$(for (( i=32; i<127; i++ )) do; printf "\\$(printf %03o "$i")"; done)
 
 ## strftime format presets (i.e. use with date; date $DTE)
-export DT=+'%Y%m%d_%H%M%S'
-export DTE=+'%Y%m%d_%H%M%S_%s'
-export DTZWE=+'%Y%m%d_%H%M%S%z_%Z_%V_%s'
+export TDATE=+'%Y%m%d'
+export TEPOCH=+'%s'
+export TNANO=+'%N'
+export TTIME=+'%H%M%S'
+export TWEEK=+'%V'
+export TZONE=+'%Z'
+# export DT=+'%Y%m%d_%H%M%S'
+# export DTE=+'%Y%m%d_%H%M%S_%s'
 
 ## permanently disable pwg2 (vault)
 #export PWG2_OFF=1

@@ -236,7 +236,7 @@ alias emacs='emacs &'
 
 
 alias lsblk='lsblk --ascii --tree -o name,uuid,fstype,path,size,fsuse%,fsused,label,mountpoint'
-alias mount='mount | sort -k 1 | column -t'
+alias mountcols='mount | sort -k 1 | column -t'
 # #alias cal='env TERM=xterm cal'
 alias pwd='pwd && [[ $(command -v wl-copy) ]] && pwd | wl-copy -n'
 alias rmln='unlink'
@@ -276,14 +276,15 @@ alias surfraw="surfraw -browser=$BROWSER"
 alias dir='dir --group-directories-first --color=auto'
 alias fd='fd --color always'  ## flat view
 alias ls="echo; ls --group-directories-first --color=auto"
-alias lsfv='fd --strip-cwd-prefix --list-details'  ## flat view with details
+alias lsfv='echo; fd --strip-cwd-prefix --list-details'  ## flat view with details
 alias vdir='vdir --group-directories-first --color=auto'
 
 ## extracting information
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
-alias rg='rg --hidden --sort path --ignore-case --line-number'
+alias rg='rg --hidden --sort path --smart-case'
+# alias rg='rg --hidden --sort path --smart-case --line-number'
 
 ## file manipulation
 alias cp='cp --archive --interactive --verbose'
@@ -296,13 +297,13 @@ alias mktemp="mktemp --tmpdir $DIR_TEMP"
 ## rsync for copy and move (better for large files)
 function cpr ()
 {
-    rsync --archive --partial --verbose --info=progress2,stats2 --human-readable --modify-window=1 "$@"
+    rsync -aAXv --info=progress2,stats2 --partial --human-readable --modify-window=1 "$@"
 }
 
 
 function mvr ()
 {
-    rsync --archive --partial --verbose --info=progress2,stats2 --human-readable --modify-window=1 --remove-source-files "$@"
+    rsync -aAXv --info=progress2,stats2 --partial --human-readable --modify-window=1 --remove-source-files "$@"
 }
 
 
@@ -338,25 +339,96 @@ function say ()
     #        sdate | say
     spch="$@"
     [[ -z $@ ]] && spch="$(</dev/stdin)"
-    # echo "$spch" | festival --tts
     echo "$spch" | espeak
+    # echo "$spch" | festival --tts
 }
 
 
-# time
+# date time epoch functions
 
-alias now='date +%s'
+## epoch decimal
+alias now="date $TEPOCH"
 
-function nwx ()
+## epoch hexadecimal
+alias nowx="printf '%X\n' $(date $TEPOCH)"
+
+function nown ()
 {
-    ## 20250125_052505
-    printf '%X\n' "$(date +'%s')"
+    ## epoch nano decimal
+    ## 1756211992.012016380
+
+    ## #+ remove until first plus sign
+    ## %0.9f 9 decimal floating point
+    local tsen=$(date ${TEPOCH}.${TNANO#+})
+    printf '%0.9f\n' "${tsen}"
 }
 
-function dtx ()
+function nownx ()
 {
-    ## 20250125_082604_6794920C
-    printf '%s_%X\n' "$(date $DT)" "$(date +'%s')"
+    ## epoch nano hexadecimal
+    ## 68AC16C1.2ba33425
+
+    ## #+ remove until first plus sign
+    local tsen=$(date ${TEPOCH}.${TNANO#+})
+    printf '%X.%x\n' "${tsen%.*}" "${tsen#*.}"
+}
+
+## dt prints datetime (default: decimal)
+function dt ()
+{
+    ## date time decimal
+    ## 20250825_100736
+
+    local tse=$(date ${TEPOCH})
+    date --date @${tse} +'%Y%m%d_%H%M%S'
+}
+
+function dte ()
+{
+    ## date time epoch decimal
+    ## 20250825_100736_1756211992
+
+    local tse=$(date ${TEPOCH})
+    local tsd=$(date --date @${tse} +"$TDATE")
+    local tst=$(date --date @${tse} +"$TTIME")
+    printf '%d_%d_%d\n' "${tsd}" "${tst}" "${tse}"
+}
+
+function dtex ()
+{
+    ## date time epoch all hexadecimal
+    ## 126B033C8C87_68AC1907
+
+    local tse=$(date ${TEPOCH})
+    local tsd=$(date --date @${tse} +"$TDATE")
+    local tst=$(date --date @${tse} +"$TTIME")
+    printf '%X_%X_%X\n' "${tsd}" "${tst}" "${tse}"
+}
+
+function dten ()
+{
+    ## date time epoch decimal
+    ## 20250826_171150_1756221110.129674445
+
+    local tsen=$(date ${TEPOCH}.${TNANO#+})
+    local tse=$(date --date @${tsen} +"$TEPOCH")
+    local tsd=$(date --date @${tsen} +"$TDATE")
+    local tst=$(date --date @${tsen} +"$TTIME")
+    local tsn=$(date --date @${tsen} +"$TNANO")
+    printf '%d_%d_%d.%d\n' "${tsd}" "${tst}" "${tse}" "${tsn}"
+}
+
+function dtenx ()
+{
+    ## date time epoch hexadecimal
+    ## 126B033C8C87_68AC1907.2ba33425
+
+    local tsen=$(date ${TEPOCH}.${TNANO#+})
+    local tse=$(date --date @${tsen} +"$TEPOCH")
+    local tsd=$(date --date @${tsen} +"$TDATE")
+    local tst=$(date --date @${tsen} +"$TTIME")
+    local tsn=$(date --date @${tsen} +"$TNANO")
+    printf '%X_%X_%X.%x\n' "${tsd}" "${tst}" "${tse}" "${tsn}"
 }
 
 ## (for say)

@@ -945,6 +945,7 @@
 │   ├── gpg-gen-key -> /home/oxo/.local/share/c/git/code/tool/gpg-gen-key
 │   ├── gpg-pass-vfy -> /home/oxo/.local/share/c/git/code/tool/gpg-pass-vfy
 │   ├── histdel -> /home/oxo/.local/share/c/git/code/tool/histdel
+│   ├── invidious -> /home/oxo/.local/share/c/web/invidious/act-inst.sh
 │   ├── isolatest -> /home/oxo/c/git/code/hajime/prep/isolatest
 │   ├── kill-float -> /home/oxo/.local/share/c/git/code/tool/kill-float
 │   ├── kill-ps -> /home/oxo/.local/share/c/git/code/tool/kill-ps
@@ -1399,5 +1400,5 @@
     │   └── config
     └── xresources_colors
 
-131 directories, 1268 files
+131 directories, 1269 files
 ```

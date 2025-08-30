@@ -13,7 +13,7 @@ if [[ -n $(ip route show) ]]; then
 else
 
     ## no active interface
-    i=nI
+    i=0i
 
 fi
 
