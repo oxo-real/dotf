@@ -201,16 +201,20 @@ export GTK_USE_PORTAL=0
 ## ascii string
 export ASCII=$(for (( i=32; i<127; i++ )) do; printf "\\$(printf %03o "$i")"; done)
 
-## strftime format presets (i.e. date $TDATE)
+## strftime format presets (i.e. date +$TDATE)
 export TDATE='%Y%m%d'
 export TEPOCH='%s'
 export TNANO='%N'
 export TTIME='%H%M%S'
 export TWEEK='%V'
 export TWDAY='%u'
-export TZONE='%Z'
-# export DT=+'%Y%m%d_%H%M%S'
-# export DTE=+'%Y%m%d_%H%M%S_%s'
+export TZNAME='%Z'
+export TZONE='%z'
+
+## weekday names (abbreviated)
+## usage example: cut -d ' ' -f "$TWDAY" <<< "$TWDN1"
+export TWDN1='m t w h f s u'
+export TWDN2='mo tu we th fr sa su'
 
 ## permanently disable pwg2 (vault)
 #export PWG2_OFF=1
