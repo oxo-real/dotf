@@ -148,8 +148,10 @@ export XDG_CACHE_HOME="$HOME"/.cache
 
 # z shell environment
 
-## current working directory
-export CWD="$(pwd)"
+## current working directory (should not be $PWD !!)
+## pwd is the command:  print working directory
+## CWD is the variable: current working directory
+export CWD="$PWD"
 
 ## 24 bits colors
 ## easy define hex rgb colors with FHX and BHX
@@ -199,12 +201,13 @@ export GTK_USE_PORTAL=0
 ## ascii string
 export ASCII=$(for (( i=32; i<127; i++ )) do; printf "\\$(printf %03o "$i")"; done)
 
-## strftime format presets (i.e. use with date; date $DTE)
+## strftime format presets (i.e. date $TDATE)
 export TDATE=+'%Y%m%d'
 export TEPOCH=+'%s'
 export TNANO=+'%N'
 export TTIME=+'%H%M%S'
 export TWEEK=+'%V'
+export TWDAY=+'%u'
 export TZONE=+'%Z'
 # export DT=+'%Y%m%d_%H%M%S'
 # export DTE=+'%Y%m%d_%H%M%S_%s'
@@ -223,6 +226,7 @@ export FZF_COMPLETION_TRIGGER=~~
 
 # other signposts to config
 
+export DIALOGRC="$XDG_CONFIG_HOME"/dialog/dialogrc
 export GNUPGHOME="$XDG_CONFIG_HOME"/gnupg
 export GPG_AGENT_INFO=1  ## https://wiki.archlinux.org/title/GnuPG#mutt
 export GPG_TTY="$(tty)"

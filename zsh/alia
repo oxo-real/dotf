@@ -264,6 +264,19 @@ function qr ()
 }
 
 
+function wh ()
+{
+    printf '%s\n' 'which'
+    which $1
+    # echo
+    printf '%s\n' 'whereis'
+    whereis $1
+    # echo
+    printf '%s\n' 'whatis'
+    whatis $1
+}
+
+
 ## cli browsing
 alias qb='qutebrowser'
 alias sr="sr -browser=$BROWSERCLI"
@@ -402,7 +415,7 @@ function dtex ()
     local tse=$(date ${TEPOCH})
     local tsd=$(date --date @${tse} +"$TDATE")
     local tst=$(date --date @${tse} +"$TTIME")
-    printf '%X_%X_%X\n' "${tsd}" "${tst}" "${tse}"
+    printf '%d_%d_%x\n' "${tsd}" "${tst}" "${tse}"
 }
 
 function dten ()

@@ -643,6 +643,7 @@
 │   ├── fzf-tab.plugin.zsh
 │   ├── fzf-tab.zsh
 │   ├── lib
+│   │   ├── -ftb-build-module
 │   │   ├── -ftb-colorize
 │   │   ├── -ftb-fzf
 │   │   ├── -ftb-generate-complist
@@ -650,6 +651,7 @@
 │   │   ├── -ftb-generate-query
 │   │   ├── ftb-switch-group
 │   │   ├── ftb-tmux-popup
+│   │   ├── -ftb-version
 │   │   └── zsh-ls-colors
 │   │       ├── demo
 │   │       ├── LICENSE
@@ -657,116 +659,10 @@
 │   │       └── README.md
 │   ├── LICENSE
 │   ├── modules
-│   │   ├── aclocal.m4
-│   │   ├── aczsh.m4
-│   │   ├── Config
-│   │   │   ├── aczshoot.m4
-│   │   │   ├── clean.mk
-│   │   │   ├── config.mk
-│   │   │   ├── defs.mk.in
-│   │   │   ├── installfns.sh
-│   │   │   ├── uninstallfns.sh
-│   │   │   └── version.mk
-│   │   ├── config.guess
-│   │   ├── config.h.in
-│   │   ├── config.sub
-│   │   ├── configure
-│   │   ├── configure.ac
-│   │   ├── copy_from_zsh_src.zsh
-│   │   ├── install-sh
-│   │   ├── LICENCE
-│   │   ├── Makefile.in
-│   │   ├── mkinstalldirs
-│   │   ├── patch_cfgac.diff
-│   │   ├── RECOMPILE_REQUEST
-│   │   ├── Src
-│   │   │   ├── aloxaf
-│   │   │   │   ├── fzftab.c
-│   │   │   │   └── fzftab.mdd
-│   │   │   ├── builtin.c
-│   │   │   ├── compat.c
-│   │   │   ├── exec.c
-│   │   │   ├── glob.c
-│   │   │   ├── hashtable.c
-│   │   │   ├── hashtable.h
-│   │   │   ├── init.c
-│   │   │   ├── input.c
-│   │   │   ├── jobs.c
-│   │   │   ├── lex.c
-│   │   │   ├── loop.c
-│   │   │   ├── Makefile.in
-│   │   │   ├── Makemod.in.in
-│   │   │   ├── makepro.awk
-│   │   │   ├── mem.c
-│   │   │   ├── mkbltnmlst.sh
-│   │   │   ├── mkmakemod.sh
-│   │   │   ├── module.c
-│   │   │   ├── options.c
-│   │   │   ├── params.c
-│   │   │   ├── parse.c
-│   │   │   ├── pattern.c
-│   │   │   ├── prompt.c
-│   │   │   ├── prototypes.h
-│   │   │   ├── signals.c
-│   │   │   ├── signals.h
-│   │   │   ├── signames1.awk
-│   │   │   ├── signames2.awk
-│   │   │   ├── string.c
-│   │   │   ├── utils.c
-│   │   │   ├── wcwidth9.h
-│   │   │   ├── zsh.h
-│   │   │   ├── zsh.mdd
-│   │   │   ├── zsh.rc
-│   │   │   ├── zsh_system.h
-│   │   │   └── ztype.h
-│   │   ├── stamp-h.in
-│   │   └── Test
-│   │       ├── A01grammar.ztst
-│   │       ├── A02alias.ztst
-│   │       ├── A03quoting.ztst
-│   │       ├── A04redirect.ztst
-│   │       ├── A05execution.ztst
-│   │       ├── A06assign.ztst
-│   │       ├── A07control.ztst
-│   │       ├── B01cd.ztst
-│   │       ├── B02typeset.ztst
-│   │       ├── B03print.ztst
-│   │       ├── B04read.ztst
-│   │       ├── B05eval.ztst
-│   │       ├── B06fc.ztst
-│   │       ├── B07emulate.ztst
-│   │       ├── B08shift.ztst
-│   │       ├── B09hash.ztst
-│   │       ├── C01arith.ztst
-│   │       ├── C02cond.ztst
-│   │       ├── C03traps.ztst
-│   │       ├── C04funcdef.ztst
-│   │       ├── C05debug.ztst
-│   │       ├── comptest
-│   │       ├── D01prompt.ztst
-│   │       ├── D02glob.ztst
-│   │       ├── D03procsubst.ztst
-│   │       ├── D04parameter.ztst
-│   │       ├── D05array.ztst
-│   │       ├── D06subscript.ztst
-│   │       ├── D07multibyte.ztst
-│   │       ├── D08cmdsubst.ztst
-│   │       ├── D09brace.ztst
-│   │       ├── E01options.ztst
-│   │       ├── E02xtrace.ztst
-│   │       ├── Makefile.in
-│   │       ├── README
-│   │       ├── runtests.zsh
-│   │       ├── V02zregexparse.ztst
-│   │       ├── V03mathfunc.ztst
-│   │       ├── V04features.ztst
-│   │       ├── V05styles.ztst
-│   │       ├── V07pcre.ztst
-│   │       ├── V08zpty.ztst
-│   │       ├── V09datetime.ztst
-│   │       ├── V10private.ztst
-│   │       ├── W01history.ztst
-│   │       └── ztst.zsh
+│   │   └── Src
+│   │       ├── aloxaf
+│   │       ├── fzftab.c
+│   │       └── fzftab.mdd
 │   ├── README.md
 │   └── test
 │       ├── comptest
@@ -1174,7 +1070,7 @@
 │   │   ├── 02-history.sh
 │   │   ├── abs-rel-path-tgl.sh
 │   │   ├── cd-funcs.sh
-│   │   ├── chpwd.sh
+│   │   ├── chwd.sh
 │   │   ├── cursor.sh
 │   │   ├── decorations.sh
 │   │   ├── dir-stack.sh
@@ -1400,5 +1296,5 @@
     │   └── config
     └── xresources_colors
 
-131 directories, 1269 files
+129 directories, 1167 files
 ```
