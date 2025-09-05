@@ -37,6 +37,11 @@ done
 
 # man 3 strffime
 
-time_hms=$(date '+%u%d %H%M%S')
+#TODO via environment variables
+TWDN1='m t w h f s u'
+weekday_name=$(cut -d ' ' -f "$(date +'%u')" <<< $TWDN1)
+day_of_month=$(date '+%d')
+time_hms=$(date '+%H%M%S')
+# time_hms=$(date '+%u%d %H%M%S')
 
-echo $time_hms
+echo "${weekday_name}${day_of_month} ${time_hms}"
