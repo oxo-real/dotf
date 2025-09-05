@@ -202,13 +202,13 @@ export GTK_USE_PORTAL=0
 export ASCII=$(for (( i=32; i<127; i++ )) do; printf "\\$(printf %03o "$i")"; done)
 
 ## strftime format presets (i.e. date $TDATE)
-export TDATE=+'%Y%m%d'
-export TEPOCH=+'%s'
-export TNANO=+'%N'
-export TTIME=+'%H%M%S'
-export TWEEK=+'%V'
-export TWDAY=+'%u'
-export TZONE=+'%Z'
+export TDATE='%Y%m%d'
+export TEPOCH='%s'
+export TNANO='%N'
+export TTIME='%H%M%S'
+export TWEEK='%V'
+export TWDAY='%u'
+export TZONE='%Z'
 # export DT=+'%Y%m%d_%H%M%S'
 # export DTE=+'%Y%m%d_%H%M%S_%s'
 

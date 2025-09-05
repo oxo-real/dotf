@@ -360,10 +360,10 @@ function say ()
 # date time epoch functions
 
 ## epoch decimal
-alias now="date $TEPOCH"
+alias now="date +$TEPOCH"
 
 ## epoch hexadecimal
-alias nowx="printf '%X\n' $(date $TEPOCH)"
+alias nowx="printf '%X\n' $(date +$TEPOCH)"
 
 function nown ()
 {
@@ -372,7 +372,7 @@ function nown ()
 
     ## #+ remove until first plus sign
     ## %0.9f 9 decimal floating point
-    local tsen=$(date ${TEPOCH}.${TNANO#+})
+    local tsen=$(date +${TEPOCH}.${TNANO})
     printf '%0.9f\n' "${tsen}"
 }
 
@@ -382,7 +382,7 @@ function nownx ()
     ## 68AC16C1.2ba33425
 
     ## #+ remove until first plus sign
-    local tsen=$(date ${TEPOCH}.${TNANO#+})
+    local tsen=$(date +${TEPOCH}.${TNANO})
     printf '%X.%x\n' "${tsen%.*}" "${tsen#*.}"
 }
 
@@ -392,7 +392,7 @@ function dt ()
     ## date time decimal
     ## 20250825_100736
 
-    local tse=$(date ${TEPOCH})
+    local tse=$(date +$TEPOCH)
     date --date @${tse} +'%Y%m%d_%H%M%S'
 }
 
@@ -401,9 +401,9 @@ function dte ()
     ## date time epoch decimal
     ## 20250825_100736_1756211992
 
-    local tse=$(date ${TEPOCH})
-    local tsd=$(date --date @${tse} +"$TDATE")
-    local tst=$(date --date @${tse} +"$TTIME")
+    local tse=$(date +$TEPOCH)
+    local tsd=$(date --date @${tse} +$TDATE)
+    local tst=$(date --date @${tse} +$TTIME)
     printf '%d_%d_%d\n' "${tsd}" "${tst}" "${tse}"
 }
 
@@ -412,9 +412,9 @@ function dtex ()
     ## date time epoch all hexadecimal
     ## 126B033C8C87_68AC1907
 
-    local tse=$(date ${TEPOCH})
-    local tsd=$(date --date @${tse} +"$TDATE")
-    local tst=$(date --date @${tse} +"$TTIME")
+    local tse=$(date +$TEPOCH)
+    local tsd=$(date --date @${tse} +$TDATE)
+    local tst=$(date --date @${tse} +$TTIME)
     printf '%d_%d_%x\n' "${tsd}" "${tst}" "${tse}"
 }
 
@@ -423,11 +423,11 @@ function dten ()
     ## date time epoch decimal
     ## 20250826_171150_1756221110.129674445
 
-    local tsen=$(date ${TEPOCH}.${TNANO#+})
-    local tse=$(date --date @${tsen} +"$TEPOCH")
-    local tsd=$(date --date @${tsen} +"$TDATE")
-    local tst=$(date --date @${tsen} +"$TTIME")
-    local tsn=$(date --date @${tsen} +"$TNANO")
+    local tsen=$(date +${TEPOCH}.${TNANO})
+    local tse=$(date --date @${tsen} +$TEPOCH)
+    local tsd=$(date --date @${tsen} +$TDATE)
+    local tst=$(date --date @${tsen} +$TTIME)
+    local tsn=$(date --date @${tsen} +$TNANO)
     printf '%d_%d_%d.%d\n' "${tsd}" "${tst}" "${tse}" "${tsn}"
 }
 
@@ -436,11 +436,11 @@ function dtenx ()
     ## date time epoch hexadecimal
     ## 126B033C8C87_68AC1907.2ba33425
 
-    local tsen=$(date ${TEPOCH}.${TNANO#+})
-    local tse=$(date --date @${tsen} +"$TEPOCH")
-    local tsd=$(date --date @${tsen} +"$TDATE")
-    local tst=$(date --date @${tsen} +"$TTIME")
-    local tsn=$(date --date @${tsen} +"$TNANO")
+    local tsen=$(date +${TEPOCH}.${TNANO})
+    local tse=$(date --date @${tsen} +$TEPOCH)
+    local tsd=$(date --date @${tsen} +$TDATE)
+    local tst=$(date --date @${tsen} +$TTIME)
+    local tsn=$(date --date @${tsen} +$TNANO)
     printf '%X_%X_%X.%x\n' "${tsd}" "${tst}" "${tse}" "${tsn}"
 }
 
